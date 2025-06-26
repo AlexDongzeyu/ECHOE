@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - LightInSilence
+name: Build and deploy Python app to Azure Web App - LightInSilence (v2)
 
 on:
   push:
@@ -47,8 +47,14 @@ jobs:
       
       - name: Install dependencies
         run: |
+          echo "=== Installing dependencies ==="
           python -m pip install --upgrade pip
+          echo "=== About to install from requirements.txt ==="
+          ls -la requirements.txt
+          file requirements.txt
+          echo "=== Installing packages ==="
           python -m pip install -r requirements.txt
+          echo "=== Installation complete ==="
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 

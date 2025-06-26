@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en-CA">
+    <title>{% block title %}Light in Silence - Where Your Words Find Light{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    {% block styles %}{% endblock %}
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --dark-indigo: #1e2e4f;
+            --light-yellow: #f8e2a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background-color: var(--warm-white);
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.3rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+            font-size: 1rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        
+        nav ul li {
+            margin: 0 0.2rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--soft-yellow);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav ul li a.active {
+            color: var(--soft-yellow);
+            background-color: rgba(255, 255, 255, 0.15);
+            font-weight: 700;
+        }
+        
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--warm-white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 8px 0;
+            margin-top: 8px;
+            border: 1px solid rgba(179, 156, 208, 0.2);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Prevent main dropdown link from being clickable */
+        .dropdown > a {
+            pointer-events: none;
+            cursor: default;
+        }
+        
+        /* Re-enable pointer events for dropdown content */
+        .dropdown:hover > a {
+            pointer-events: all;
+            cursor: pointer;
+        }
+        
+        .dropdown-content a {
+            color: var(--deep-indigo) !important;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            background-color: transparent;
+            pointer-events: all;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--soft-yellow) !important;
+            color: var(--deep-indigo) !important;
+        }
+        
+        .dropdown > a::after {
+            content: ' ▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover > a::after {
+            transform: rotate(180deg);
+        }
+        
+        /* Primary Navigation Items - highlighted */
+        .nav-primary {
+            background-color: rgba(244, 208, 111, 0.15);
+            color: var(--soft-yellow) !important;
+            font-weight: 700;
+        }
+        
+        .nav-primary:hover {
+            background-color: rgba(244, 208, 111, 0.25) !important;
+            color: var(--warm-white) !important;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--warm-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--deep-indigo);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                margin-top: 0;
+                gap: 0.2rem;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 0.8rem 1rem;
+                text-align: center;
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: block;
+                background-color: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .dropdown-content a {
+                color: var(--warm-white) !important;
+                padding: 0.6rem 2rem !important;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+            
+            .dropdown-content a:hover {
+                background-color: rgba(255, 255, 255, 0.15) !important;
+            }
+            
+            .dropdown > a::after {
+                display: none;
+            }
+        }
+        
+        .user-status {
+            color: var(--warm-white);
+            background-color: var(--gentle-lavender);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .login-btn, .logout-btn {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo) !important;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+        }
+        
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--warm-white) !important;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content Area */
+        main {
+            min-height: calc(100vh - 140px);
+            padding: 40px 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Page Container */
+        .page-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--soft-yellow);
+            padding-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--deep-indigo);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--gentle-lavender);
+            font-style: italic;
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+        
+        .flash-message {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.3);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            background-color: var(--gentle-lavender);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--deep-indigo);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.2);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background-color: var(--warm-white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--soft-yellow);
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.05);
+        }
+        
+        .content-section h2 {
+            color: var(--deep-indigo);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .content-section h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .content-section p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--soft-yellow);
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--soft-yellow);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: var(--warm-white);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--soft-yellow);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.5rem 1rem;
+                position: relative;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul id="nav-menu">
+                <!-- Primary Actions -->
+                <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
+                <li><a href="{{ url_for('check_letter_reply') }}" class="nav-primary {% if request.endpoint == 'check_letter_reply' %}active{% endif %}">Check Reply</a></li>
+                
+                <!-- Discover Dropdown -->
+                <li class="dropdown">
+                    <a href="#">Discover</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('blog_index') }}">
+                            <i class="fas fa-blog" style="margin-right: 8px;"></i>Blog
+                        </a>
+                        <a href="{{ url_for('events_index') }}">
+                            <i class="fas fa-calendar" style="margin-right: 8px;"></i>Events
+                        </a>
+                        <a href="{{ url_for('resources') }}">
+                            <i class="fas fa-book" style="margin-right: 8px;"></i>Resources
+                        </a>
+                    </div>
+                </li>
+                
+                <!-- About Dropdown -->
+                <li class="dropdown">
+                    <a href="#">About</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('about') }}">
+                            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>Our Mission
+                        </a>
+                        <a href="{{ url_for('contact') }}">
+                            <i class="fas fa-envelope" style="margin-right: 8px;"></i>Contact Us
+                        </a>
+                        <a href="{{ url_for('volunteer_info') }}">
+                            <i class="fas fa-hands-helping" style="margin-right: 8px;"></i>Volunteer
+                        </a>
+                        <a href="{{ url_for('donate') }}">
+                            <i class="fas fa-heart" style="margin-right: 8px;"></i>Donate
+                        </a>
+                    </div>
+                </li>
+
+                <!-- User Area -->
+                {% if current_user.is_authenticated %}
+                    {% if current_user.has_admin_access() %}
+                        <li><a href="{{ url_for('admin_dashboard') }}" class="nav-primary">
+                            <i class="fas fa-shield-alt" style="margin-right: 5px;"></i>Admin Panel
+                        </a></li>
+                    {% endif %}
+                    {% if current_user.is_volunteer or current_user.has_admin_access() %}
+                        <li><a href="{{ url_for('volunteer_dashboard') }}">
+                            <i class="fas fa-tachometer-alt" style="margin-right: 5px;"></i>Volunteer Dashboard
+                        </a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('logout') }}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout
+                    </a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">
+                        <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login
+                    </a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Light in Silence</h3>
+                <p class="tagline">Where Your Words Find Light</p>
+                <p>A compassionate platform providing anonymous support through both digital and physical channels across Canada.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('submit') }}">Share Your Story</a></li>
+                    <li><a href="{{ url_for('check_letter_reply') }}">Check Reply</a></li>
+                    <li><a href="{{ url_for('resources') }}">Mental Health Resources</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="{{ url_for('volunteer_info') }}">Become a Volunteer</a></li>
+                    <li><a href="{{ url_for('donate') }}">Donate</a></li>
+                    <li><a href="{{ url_for('events_index') }}">Community Events</a></li>
+                    <li><a href="{{ url_for('blog_index') }}">Read Our Blog</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="tel:1-833-456-4566"><i class="fas fa-phone"></i> Crisis Line: 1-833-456-4566</a></li>
+                    <li><a href="sms:45645"><i class="fas fa-sms"></i> Text Support: 45645</a></li>
+                    <li><a href="mailto:support@lightinsilence.ca"><i class="fas fa-envelope"></i> support@lightinsilence.ca</a></li>
+                    <li><a href="{{ url_for('privacy') }}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="{{ url_for('terms') }}"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; {{ now.year }} Light in Silence. Made with ❤️ in Canada. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('show');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('nav-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!nav.contains(event.target) || (!toggle.contains(event.target) && !menu.contains(event.target))) {
+                menu.classList.remove('show');
+            }
+        });
+        
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            const menu = document.getElementById('nav-menu');
+            if (window.innerWidth > 768) {
+                menu.classList.remove('show');
+            }
+        });
+    </script>
+    
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-button" id="chatButton">
+            <i class="fas fa-comments chat-icon"></i>
+            <span class="chat-label">Chat Support</span>
+        </button>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3 id="chatTitle">Chat Support</h3>
+                <div class="chat-controls">
+                    <button class="back-btn" id="backBtn" title="Change Mode" style="display: none;">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="minimize-btn" id="minimizeBtn" title="Minimize">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="chat-close" id="chatClose" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-content">
+                        <i class="fas fa-robot welcome-icon"></i>
+                        <h3>Hello! How can I help you today?</h3>
+                        <p>Choose how you'd like to use our chat:</p>
+                        <div class="chat-mode-options">
+                            <button class="mode-btn" id="customerServiceMode">
+                                <i class="fas fa-headset"></i>
+                                <span>Website Help</span>
+                                <small>Navigate our site, find information</small>
+                            </button>
+                            <button class="mode-btn" id="companionMode">
+                                <i class="fas fa-heart"></i>
+                                <span>AI Companion</span>
+                                <small>Emotional support and conversation</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input" id="chatInput" style="display: none;">
+                <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
+                <button id="sendMessage" type="button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light in Silence - Where Your Words Find Light</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --dark-indigo: #1e2e4f;  /* Darker shade for hover states */
+            --light-yellow: #f8e2a0;  /* Lighter shade for hover states */
+            --error-red: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background-color: var(--warm-white);
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--soft-yellow);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        .login-btn {
+            background-color: var(--soft-yellow);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            color: var(--deep-indigo) !important;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+        }
+        
+        .login-btn::after {
+            display: none;
+        }
+        
+        /* User status and logout button styles */
+        .user-status {
+            color: var(--warm-white);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background-color: var(--gentle-lavender);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .logout-btn {
+            background-color: var(--error-red);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            color: var(--warm-white) !important;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        .logout-btn::after {
+            display: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 120px;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--warm-white);
+        }
+        
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-content {
+            max-width: 550px;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            color: var(--deep-indigo);
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--deep-indigo);
+            opacity: 0.9;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--soft-yellow);
+        }
+        
+        .hero .mission {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            color: var(--deep-indigo);
+            line-height: 1.6;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+        }
+        
+        .hero-image {
+            width: 45%;
+            max-width: 500px;
+            z-index: 1;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(42, 61, 102, 0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            text-align: center;
+        }
+        
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .how-it-works h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .step-card {
+            background-color: rgba(250, 250, 250, 0.05);
+            border-radius: 15px;
+            padding: 40px 25px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--soft-yellow);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        .step-icon i {
+            font-size: 35px;
+            color: var(--deep-indigo);
+        }
+        
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .step-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Dual Approach Section */
+        .dual-approach {
+            padding: 80px 0;
+            background-color: var(--warm-white);
+            text-align: center;
+        }
+        
+        .dual-approach h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--deep-indigo);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dual-approach h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--gentle-lavender);
+            border-radius: 2px;
+        }
+        
+        .approach-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+            transition: transform 0.3s ease;
+            text-align: left;
+            border-top: 5px solid var(--deep-indigo);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-icon {
+            color: var(--soft-yellow);
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--deep-indigo);
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            background-color: var(--gentle-lavender);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--deep-indigo);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.2);
+        }
+        
+        /* Social Proof Section */
+        .social-proof {
+            padding: 80px 0;
+            background-color: var(--deep-indigo);
+            background-image: linear-gradient(135deg, var(--deep-indigo) 0%, var(--dark-indigo) 100%);
+            color: var(--warm-white);
+            text-align: center;
+            position: relative;
+        }
+        
+        .social-proof h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            opacity: 0.9;
+        }
+        
+        .testimonials {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .testimonial {
+            background-color: rgba(250, 250, 250, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: left;
+            position: relative;
+            border-left: 4px solid var(--soft-yellow);
+        }
+        
+        .testimonial:after {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.2;
+            color: var(--soft-yellow);
+        }
+        
+        .testimonial p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .testimonial span {
+            display: block;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .cta-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .cta-large {
+            font-size: 1.2rem;
+            padding: 15px 40px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--soft-yellow);
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--soft-yellow);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+        
+        .footer-links a, .social-links a {
+            color: var(--warm-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover, .social-links a:hover {
+            color: var(--soft-yellow);
+            opacity: 1;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--soft-yellow);
+        }
+        
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .social-links a i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover i {
+            transform: scale(1.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(250, 250, 250, 0.1);
+            font-size: 0.9rem;
+            color: rgba(250, 250, 250, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .login-btn {
+                margin-top: 0.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .quote, .hero .mission {
+                font-size: 1.1rem;
+            }
+            
+            .step-card, .card, .testimonial {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                padding: 0;
+            }
+        }
+        
+        /* 添加一个简单的分隔符样式 */
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow));
+            opacity: 0.3;
+            margin: 2rem auto;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 3px;
+        }
+        
+        /* 重新设计过渡区域 */
+        .healing-transition {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            /* 使用更自然的渐变过渡 */
+            background: linear-gradient(
+                180deg,
+                rgba(232, 241, 255, 0.8) 0%,
+                rgba(240, 233, 255, 0.8) 100%
+            );
+        }
+        
+        /* 更新草地效果 */
+        .grass-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(
+                180deg,
+                rgba(168, 216, 157, 0.9) 0%,
+                rgba(127, 176, 114, 0.9) 100%
+            );
+            border-radius: 50% 50% 0 0;
+            transform: scaleX(1.2);
+        }
+        
+        /* 添加更多花朵装饰 */
+        .garden-elements {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* 添加微妙的光晕效果 */
+            background: radial-gradient(
+                circle at 50% 100%,
+                rgba(255, 255, 255, 0.3) 0%,
+                transparent 70%
+            );
+        }
+        
+        /* 前景花朵 */
+        .flowers-front {
+            position: absolute;
+            bottom: 5px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 3;
+        }
+        
+        /* 中间层花朵 */
+        .flowers-middle {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            z-index: 2;
+        }
+        
+        /* 背景花朵 */
+        .flowers-back {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1;
+        }
+        
+        .flower {
+            font-size: 28px;
+            opacity: 0.95;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        /* 不同大小和动画延迟的花朵 */
+        .flower-small { font-size: 22px; }
+        .flower-medium { font-size: 28px; }
+        .flower-large { font-size: 34px; }
+        
+        /* 添加蘑菇和其他植物 */
+        .garden-details {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 2;
+        }
+        
+        .garden-detail {
+            font-size: 22px;
+            opacity: 0.9;
+        }
+        
+        /* 更新猫咪容器 */
+        .cats-container {
+            position: absolute;
+            bottom: 35px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 15%;
+            z-index: 4;
+        }
+        
+        .cat {
+            position: relative;
+            font-size: 40px;
+            opacity: 0.95;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .cat-1 {
+            animation: catNap 8s ease-in-out infinite;
+        }
+        
+        .cat-2 {
+            animation: catStretch 10s ease-in-out infinite;
+        }
+        
+        .cat-3 {
+            animation: catPlay 12s ease-in-out infinite;
+        }
+        
+        .cat-4 {
+            animation: catNap 8s ease-in-out infinite;
+        }
+        
+        /* 猫咪动画 */
+        @keyframes catNap {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) translateY(-5px); }
+        }
+        
+        @keyframes catStretch {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        @keyframes catPlay {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(20px) rotate(10deg); }
+            75% { transform: translateX(-20px) rotate(-10deg); }
+        }
+        
+        /* 花朵摇摆动画 */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-8deg) translateY(0); }
+            50% { transform: rotate(8deg) translateY(-5px); }
+        }
+        
+        /* 添加蝴蝶效果 */
+        .butterflies {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .butterfly {
+            position: absolute;
+            font-size: 22px;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+        
+        @keyframes butterflyPath1 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30vw, -30px) rotate(10deg); }
+            66% { transform: translate(60vw, -15px) rotate(-10deg); }
+            100% { transform: translate(100vw, -25px) rotate(0deg); }
+        }
+        
+        @keyframes butterflyPath2 {
+            0% { transform: translate(100vw, 0) rotate(0deg); }
+            33% { transform: translate(60vw, -25px) rotate(-10deg); }
+            66% { transform: translate(30vw, -15px) rotate(10deg); }
+            100% { transform: translate(0, -20px) rotate(0deg); }
+        }
+        
+        /* 添加光晕效果 */
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 0%,
+                rgba(255, 255, 255, 0.2) 0%,
+                transparent 60%
+            );
+            pointer-events: none;
+        }
+        
+        /* 添加光芒效果 */
+        .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 0%,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.4) 25%,
+                transparent 60%
+            );
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+        
+        /* 添加光晕动画 */
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('submit') }}">Share Your Story</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('volunteer_info') }}">Volunteer</a></li>
+                <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('test') }}">AI Chat</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><span class="user-status">Welcome, {{ current_user.username }}</span></li>
+                    <li><a href="{{ url_for('logout') }}" class="logout-btn">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Light in Silence</h1>
+                    <p class="quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
+                    <p class="mission">A safe, anonymous space to share your thoughts and find support, both online and offline.</p>
+                    <a href="submit.html" class="btn-primary">Share Your Story</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-illustration.svg" alt="Light in Silence Illustration">
+                </div>
+            </div>
+        </section>
+        
+        <div class="healing-transition">
+            <div class="light-rays"></div>
+            <div class="grass-layer"></div>
+            <div class="garden-elements">
+                <!-- 背景花朵层 -->
+                <div class="flowers-back">
+                    <span class="flower flower-small">🌸</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-small">🌷</span>
+                    <span class="flower flower-medium">🌼</span>
+                    <span class="flower flower-small">🌸</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-small">🌺</span>
+                    <span class="flower flower-medium">🌸</span>
+                </div>
+                
+                <!-- 中间花朵层 -->
+                <div class="flowers-middle">
+                    <span class="flower flower-medium">🌻</span>
+                    <span class="flower flower-large">🌺</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌼</span>
+                    <span class="flower flower-large">🌷</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌻</span>
+                </div>
+                
+                <!-- 前景花朵层 -->
+                <div class="flowers-front">
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-large">🌺</span>
+                    <span class="flower flower-medium">🌻</span>
+                    <span class="flower flower-large">🌼</span>
+                    <span class="flower flower-medium">🌸</span>
+                    <span class="flower flower-large">🌷</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌼</span>
+                </div>
+                
+                <!-- 花园装饰元素 -->
+                <div class="garden-details">
+                    <span class="garden-detail">🍄</span>
+                    <span class="garden-detail">🌿</span>
+                    <span class="garden-detail">🍀</span>
+                    <span class="garden-detail">🌱</span>
+                    <span class="garden-detail">🍄</span>
+                    <span class="garden-detail">🌿</span>
+                    <span class="garden-detail">🍀</span>
+                    <span class="garden-detail">🌱</span>
+                    <span class="garden-detail">🍄</span>
+                </div>
+            </div>
+            
+            <!-- 猫咪 -->
+            <div class="cats-container">
+                <span class="cat cat-1">🐱</span>
+                <span class="cat cat-2">😺</span>
+                <span class="cat cat-3">😸</span>
+                <span class="cat cat-4">🐈</span>
+            </div>
+            
+            <!-- 蝴蝶 -->
+            <div class="butterflies">
+                <span class="butterfly" style="top: 30%; left: 10%; animation: butterflyPath1 20s linear infinite;">🦋</span>
+                <span class="butterfly" style="top: 40%; right: 10%; animation: butterflyPath2 18s linear infinite;">🦋</span>
+                <span class="butterfly" style="top: 25%; left: 30%; animation: butterflyPath1 22s linear infinite -5s;">🦋</span>
+                <span class="butterfly" style="top: 45%; right: 30%; animation: butterflyPath2 19s linear infinite -8s;">🦋</span>
+                <span class="butterfly" style="top: 35%; left: 50%; animation: butterflyPath1 21s linear infinite -10s;">🦋</span>
+            </div>
+        </div>
+        
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <h3>Share Your Story</h3>
+                        <p>Write anonymously online or find our physical mailboxes in your community</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-reply"></i>
+                        </div>
+                        <h3>We Respond</h3>
+                        <p>Receive a thoughtful reply from our volunteers or AI companion within 48 hours</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Feel Better</h3>
+                        <p>Release your stress and find peace through shared understanding</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="dual-approach">
+            <div class="container">
+                <h2>Our Unique Approach</h2>
+                <div class="approach-cards">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Online Community</h3>
+                        <p>Submit your thoughts through our secure online platform and receive supportive responses.</p>
+                        <a href="submit.html" class="btn-secondary">Try Online</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Physical Mailboxes</h3>
+                        <p>Find our "tree hole" mailboxes in community centres across Canada to share handwritten letters.</p>
+                        <a href="locations.html" class="btn-secondary">Find Locations</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="social-proof">
+            <div class="container">
+                <h2>Join Our Growing Community</h2>
+                <p class="section-subtitle">Over 200 people have already shared their stories and found support</p>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p>"This helped me feel less alone during a difficult time."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Writing down my feelings and receiving a thoughtful reply gave me tremendous relief."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"I found comfort in knowing someone was listening, even if they didn't know who I was."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                </div>
+                <div class="cta-wrapper">
+                    <a href="submit.html" class="btn-primary cta-large">Start Your Journey Today</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Light in Silence</h3>
+                    <p class="tagline">Where Your Words Find Light</p>
+                    <p>A Canadian non-profit mental health platform combining online and offline support.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="volunteer.html">Become a Volunteer</a></li>
+                        <li><a href="donate.html">Support Our Work</a></li>
+                        <li><a href="test.html">Try AI Chat</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Light in Silence. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

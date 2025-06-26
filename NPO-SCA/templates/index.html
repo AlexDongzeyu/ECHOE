@@ -1,0 +1,714 @@
+{% extends "base.html" %}
+
+{% block title %}Light in Silence - Where Your Words Find Light{% endblock %}
+
+{% block styles %}
+<style>
+    /* Homepage-specific styles */
+    main {
+        padding: 0; /* Remove default padding for homepage */
+    }
+    
+        .hero {
+            padding: 100px 0 120px;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--warm-white);
+        }
+        
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-content {
+            max-width: 550px;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            color: var(--deep-indigo);
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--deep-indigo);
+            opacity: 0.9;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--soft-yellow);
+        }
+        
+        .hero .mission {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            color: var(--deep-indigo);
+            line-height: 1.6;
+        }
+        
+        .hero-image {
+            width: 45%;
+            max-width: 500px;
+            z-index: 1;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(42, 61, 102, 0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    
+    /* Healing Transition Styles */
+    .healing-transition {
+        position: relative;
+        height: 200px;
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(
+            180deg,
+            rgba(232, 241, 255, 0.8) 0%,
+            rgba(240, 233, 255, 0.8) 100%
+        );
+    }
+    
+    .grass-layer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: linear-gradient(
+            180deg,
+            rgba(168, 216, 157, 0.9) 0%,
+            rgba(127, 176, 114, 0.9) 100%
+        );
+        border-radius: 50% 50% 0 0;
+        transform: scaleX(1.2);
+    }
+    
+    .garden-elements {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 255, 255, 0.3) 0%,
+            transparent 70%
+        );
+    }
+    
+    .flowers-front {
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        z-index: 3;
+    }
+    
+    .flowers-middle {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        z-index: 2;
+    }
+    
+    .flowers-back {
+        position: absolute;
+        bottom: 25px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        z-index: 1;
+    }
+    
+    .flower {
+        font-size: 28px;
+        opacity: 0.95;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    
+    .flower-small { font-size: 22px; }
+    .flower-medium { font-size: 28px; }
+    .flower-large { font-size: 34px; }
+    
+    .garden-details {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 5%;
+        z-index: 2;
+    }
+    
+    .garden-detail {
+        font-size: 22px;
+        opacity: 0.9;
+    }
+    
+    .cats-container {
+        position: absolute;
+        bottom: 35px;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 15%;
+        z-index: 4;
+    }
+    
+    .cat {
+        position: relative;
+        font-size: 40px;
+        opacity: 0.95;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    
+    .cat-1 {
+        animation: catNap 8s ease-in-out infinite;
+    }
+    
+    .cat-2 {
+        animation: catStretch 10s ease-in-out infinite;
+    }
+    
+    .cat-3 {
+        animation: catPlay 12s ease-in-out infinite;
+    }
+    
+    .cat-4 {
+        animation: catNap 8s ease-in-out infinite;
+    }
+    
+    @keyframes catNap {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1) translateY(-5px); }
+    }
+    
+    @keyframes catStretch {
+        0%, 100% { transform: rotate(-5deg); }
+        50% { transform: rotate(5deg); }
+    }
+    
+    @keyframes catPlay {
+        0%, 100% { transform: translateX(0) rotate(0); }
+        25% { transform: translateX(20px) rotate(10deg); }
+        75% { transform: translateX(-20px) rotate(-10deg); }
+    }
+    
+    .butterflies {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+    
+    .butterfly {
+        position: absolute;
+        font-size: 22px;
+        opacity: 0.9;
+        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+    }
+    
+    @keyframes butterflyPath1 {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30vw, -30px) rotate(10deg); }
+        66% { transform: translate(60vw, -15px) rotate(-10deg); }
+        100% { transform: translate(100vw, -25px) rotate(0deg); }
+    }
+    
+    @keyframes butterflyPath2 {
+        0% { transform: translate(100vw, 0) rotate(0deg); }
+        33% { transform: translate(60vw, -25px) rotate(-10deg); }
+        66% { transform: translate(30vw, -15px) rotate(10deg); }
+        100% { transform: translate(0, -20px) rotate(0deg); }
+    }
+    
+    .light-rays {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.8) 0%,
+            rgba(255, 255, 255, 0.4) 25%,
+            transparent 60%
+        );
+        animation: glowPulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes glowPulse {
+        0%, 100% {
+            opacity: 0.5;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+    }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            text-align: center;
+        }
+        
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .how-it-works h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .step-card {
+            background-color: rgba(250, 250, 250, 0.05);
+            border-radius: 15px;
+            padding: 40px 25px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--soft-yellow);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        .step-icon i {
+            font-size: 35px;
+            color: var(--deep-indigo);
+        }
+        
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .step-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Dual Approach Section */
+        .dual-approach {
+            padding: 80px 0;
+            background-color: var(--warm-white);
+            text-align: center;
+        }
+        
+        .dual-approach h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--deep-indigo);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dual-approach h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--gentle-lavender);
+            border-radius: 2px;
+        }
+        
+        .approach-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+            transition: transform 0.3s ease;
+            text-align: left;
+            border-top: 5px solid var(--deep-indigo);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-icon {
+            color: var(--soft-yellow);
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--deep-indigo);
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Social Proof Section */
+        .social-proof {
+            padding: 80px 0;
+        background-color: var(--gentle-lavender);
+            color: var(--warm-white);
+            text-align: center;
+        }
+        
+        .social-proof h2 {
+            font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--warm-white);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+        margin-bottom: 50px;
+            opacity: 0.9;
+        }
+        
+        .testimonials {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 50px;
+        }
+        
+        .testimonial {
+        background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        padding: 30px 25px;
+            width: 300px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .testimonial:after {
+        content: '★★★★★';
+        display: block;
+            color: var(--soft-yellow);
+        font-size: 1.2rem;
+        margin-top: 15px;
+        }
+        
+        .testimonial p {
+        font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .testimonial span {
+        font-weight: 600;
+        color: var(--soft-yellow);
+        }
+        
+        .cta-wrapper {
+        text-align: center;
+        }
+        
+        .cta-large {
+        font-size: 1.3rem;
+        padding: 1.2rem 2.5rem;
+    }
+    
+    /* Footer styles for homepage */
+        footer {
+        margin-top: 0; /* Remove top margin for homepage */
+        }
+        
+        .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--soft-yellow);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--soft-yellow);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+        .hero .container {
+                flex-direction: column;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: none;
+            margin-bottom: 2rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .quote, .hero .mission {
+                font-size: 1.1rem;
+            }
+            
+        .hero-image {
+            width: 80%;
+                max-width: 400px;
+            }
+            
+        .step-card, .card, .testimonial {
+            width: 100%;
+            max-width: 400px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Light in Silence</h1>
+                    <p class="quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
+                    <p class="mission">A safe, anonymous space to share your thoughts and find support, both online and offline.</p>
+            <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-illustration.svg" alt="Light in Silence Illustration">
+                </div>
+            </div>
+        </section>
+        
+        <div class="healing-transition">
+            <div class="light-rays"></div>
+            <div class="grass-layer"></div>
+            <div class="garden-elements">
+                <!-- 背景花朵层 -->
+                <div class="flowers-back">
+                    <span class="flower flower-small">🌸</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-small">🌷</span>
+                    <span class="flower flower-medium">🌼</span>
+                    <span class="flower flower-small">🌸</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-small">🌺</span>
+                    <span class="flower flower-medium">🌸</span>
+                </div>
+                
+                <!-- 中间花朵层 -->
+                <div class="flowers-middle">
+                    <span class="flower flower-medium">🌻</span>
+                    <span class="flower flower-large">🌺</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌼</span>
+                    <span class="flower flower-large">🌷</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌻</span>
+                </div>
+                
+                <!-- 前景花朵层 -->
+                <div class="flowers-front">
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌷</span>
+                    <span class="flower flower-large">🌺</span>
+                    <span class="flower flower-medium">🌻</span>
+                    <span class="flower flower-large">🌼</span>
+                    <span class="flower flower-medium">🌸</span>
+                    <span class="flower flower-large">🌷</span>
+                    <span class="flower flower-medium">🌺</span>
+                    <span class="flower flower-large">🌸</span>
+                    <span class="flower flower-medium">🌼</span>
+                </div>
+                
+                <!-- 花园装饰元素 -->
+                <div class="garden-details">
+                    <span class="garden-detail">🍄</span>
+                    <span class="garden-detail">🌿</span>
+                    <span class="garden-detail">🍀</span>
+                    <span class="garden-detail">🌱</span>
+                    <span class="garden-detail">🍄</span>
+                    <span class="garden-detail">🌿</span>
+                    <span class="garden-detail">🍀</span>
+                    <span class="garden-detail">🌱</span>
+                    <span class="garden-detail">🍄</span>
+                </div>
+            </div>
+            
+            <!-- 猫咪 -->
+            <div class="cats-container">
+                <span class="cat cat-1">🐱</span>
+                <span class="cat cat-2">😺</span>
+                <span class="cat cat-3">😸</span>
+                <span class="cat cat-4">🐈</span>
+            </div>
+            
+            <!-- 蝴蝶 -->
+            <div class="butterflies">
+                <span class="butterfly" style="top: 30%; left: 10%; animation: butterflyPath1 20s linear infinite;">🦋</span>
+                <span class="butterfly" style="top: 40%; right: 10%; animation: butterflyPath2 18s linear infinite;">🦋</span>
+                <span class="butterfly" style="top: 25%; left: 30%; animation: butterflyPath1 22s linear infinite -5s;">🦋</span>
+                <span class="butterfly" style="top: 45%; right: 30%; animation: butterflyPath2 19s linear infinite -8s;">🦋</span>
+                <span class="butterfly" style="top: 35%; left: 50%; animation: butterflyPath1 21s linear infinite -10s;">🦋</span>
+            </div>
+        </div>
+        
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <h3>Share Your Story</h3>
+                        <p>Write anonymously online or find our physical mailboxes in your community</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-reply"></i>
+                        </div>
+                        <h3>We Respond</h3>
+                        <p>Receive a thoughtful reply from our volunteers or AI companion within 48 hours</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Feel Better</h3>
+                        <p>Release your stress and find peace through shared understanding</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="dual-approach">
+            <div class="container">
+                <h2>Our Unique Approach</h2>
+                <div class="approach-cards">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Online Community</h3>
+                        <p>Submit your thoughts through our secure online platform and receive supportive responses.</p>
+                <a href="{{ url_for('submit') }}" class="btn-secondary">Try Online</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Physical Mailboxes</h3>
+                        <p>Find our "tree hole" mailboxes in community centres across Canada to share handwritten letters.</p>
+                        <a href="locations.html" class="btn-secondary">Find Locations</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="social-proof">
+            <div class="container">
+                <h2>Join Our Growing Community</h2>
+                <p class="section-subtitle">Over 200 people have already shared their stories and found support</p>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <p>"This helped me feel less alone during a difficult time."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Writing down my feelings and receiving a thoughtful reply gave me tremendous relief."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"I found comfort in knowing someone was listening, even if they didn't know who I was."</p>
+                        <span>— Anonymous</span>
+                    </div>
+                </div>
+                <div class="cta-wrapper">
+            <a href="{{ url_for('submit') }}" class="btn-primary cta-large">Start Your Journey Today</a>
+                </div>
+            </div>
+        </section>
+
+
+
+<script>
+// Include the chat widget
+document.addEventListener('DOMContentLoaded', function() {
+    // Chat widget will be loaded from the base template
+});
+</script>
+{% endblock %} 

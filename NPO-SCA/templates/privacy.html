@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - Light in Silence{% endblock %}
+
+{% block styles %}
+<style>
+    .privacy-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        border-left: 4px solid var(--gentle-lavender);
+    }
+    
+    .privacy-container h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .privacy-container h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--soft-yellow);
+        border-radius: 2px;
+    }
+    
+    .privacy-container h3 {
+        margin: 1.5rem 0 0.5rem;
+        color: var(--deep-indigo);
+    }
+    
+    .privacy-container p, .privacy-container ul {
+        margin-bottom: 1rem;
+        color: var(--deep-indigo);
+    }
+    
+    .privacy-container ul {
+        padding-left: 1.5rem;
+    }
+    
+    .privacy-container li {
+        margin-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="privacy-container">
+    <h2>Privacy Policy</h2>
+    
+    <p>At Light in Silence, we highly value your privacy. Our service is built on the foundation of anonymity and trust.</p>
+    
+    <h3>Our Commitment</h3>
+    <ul>
+        <li>We do not collect, store, or track your name.</li>
+        <li>We do not collect, store, or track your location.</li>
+        <li>We do not collect, store, or track your IP address.</li>
+        <li>We will never sell or share your data.</li>
+    </ul>
+    
+    <h3>Information Collection</h3>
+    <p>We only collect the following information:</p>
+    <ul>
+        <li>The content of letters you choose to share</li>
+        <li>If you choose to provide an anonymous email for replies, we will only use it to respond to your letter</li>
+    </ul>
+    
+    <h3>Data Security</h3>
+    <p>All submitted letters are stored on secure servers, and only authorized volunteers can access the content for the purpose of replying.</p>
+    
+    <h3>Cookies</h3>
+    <p>Our website uses minimal cookies solely to provide basic functionality. These cookies are not used to track you or identify who you are.</p>
+    
+    <h3>Contact Us</h3>
+    <p>If you have any questions about our privacy policy, please contact us through our <a href="{{ url_for('contact') }}">contact page</a>.</p>
+</div>
+{% endblock %} 

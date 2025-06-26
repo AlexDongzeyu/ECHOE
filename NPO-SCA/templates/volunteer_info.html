@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Volunteer With Us - Light in Silence{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <div class="page-header">
+            <h1>Become a Volunteer</h1>
+            <p>Join our mission to bring light to those in silence</p>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-heart" style="color: var(--soft-yellow); margin-right: 10px;"></i>Why Volunteer With Us?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">At Light in Silence, volunteers are the heart of our mission. Your compassionate responses can provide hope, comfort, and connection to someone who needs it most. Every letter you respond to has the potential to transform a life.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 25px;">
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="width: 60px; height: 60px; background: var(--soft-yellow); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <i class="fas fa-hands-helping" style="color: var(--deep-indigo); font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="color: var(--deep-indigo); margin: 0;">Make a Real Impact</h3>
+                    </div>
+                    <p>Your words can be the light someone needs in their darkest moment. Provide hope and support when it matters most.</p>
+                </div>
+                
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--gentle-lavender);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="width: 60px; height: 60px; background: var(--gentle-lavender); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <i class="fas fa-graduation-cap" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="color: var(--deep-indigo); margin: 0;">Learn & Grow</h3>
+                    </div>
+                    <p>Develop empathy, communication skills, and gain valuable experience in mental health support through our comprehensive training.</p>
+                </div>
+                
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="width: 60px; height: 60px; background: var(--soft-yellow); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <i class="fas fa-users" style="color: var(--deep-indigo); font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="color: var(--deep-indigo); margin: 0;">Join a Community</h3>
+                    </div>
+                    <p>Connect with like-minded individuals who share your passion for mental health advocacy and community support.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-clipboard-list" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Volunteer Roles</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-top: 25px;">
+                <div style="background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); padding: 30px; border-radius: 15px; color: white;">
+                    <h3 style="color: white; margin-bottom: 20px;"><i class="fas fa-envelope-open-text" style="margin-right: 10px;"></i>Letter Responder</h3>
+                    <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Read and respond to anonymous letters</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Provide empathetic, supportive responses</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Work with our moderation team</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>5-10 hours per week commitment</li>
+                    </ul>
+                    <p style="font-style: italic; opacity: 0.9; margin: 0;">Perfect for those who love writing and want to provide direct support.</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, var(--soft-yellow), #e6c960); padding: 30px; border-radius: 15px; color: var(--deep-indigo);">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-mailbox" style="margin-right: 10px;"></i>Mailbox Coordinator</h3>
+                    <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--deep-indigo);"></i>Manage physical mailbox locations</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--deep-indigo);"></i>Collect and digitize physical letters</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--deep-indigo);"></i>Coordinate with local communities</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--deep-indigo);"></i>Flexible schedule based on location</li>
+                    </ul>
+                    <p style="font-style: italic; opacity: 0.8; margin: 0;">Ideal for those who enjoy community engagement and logistical coordination.</p>
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-left: 5px solid var(--gentle-lavender);">
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 20px;"><i class="fas fa-users-cog" style="margin-right: 10px;"></i>Community Moderator</h3>
+                    <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--gentle-lavender);"></i>Monitor community chat spaces</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--gentle-lavender);"></i>Ensure safe, supportive environment</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--gentle-lavender);"></i>Facilitate group discussions</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--gentle-lavender);"></i>Evening and weekend hours</li>
+                    </ul>
+                    <p style="font-style: italic; color: var(--gentle-lavender); margin: 0;">Great for those experienced in online community management.</p>
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-left: 5px solid var(--soft-yellow);">
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 20px;"><i class="fas fa-calendar-alt" style="margin-right: 10px;"></i>Event Coordinator</h3>
+                    <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Plan and organize community events</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Coordinate workshops and seminars</li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Manage event logistics and promotion</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 8px; color: var(--soft-yellow);"></i>Project-based commitment</li>
+                    </ul>
+                    <p style="font-style: italic; color: var(--gentle-lavender); margin: 0;">Perfect for organized individuals with event planning experience.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-road" style="color: var(--soft-yellow); margin-right: 10px;"></i>The Volunteer Journey</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 25px;">
+                <div style="text-align: center; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);">
+                    <div style="width: 80px; height: 80px; background: var(--soft-yellow); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="color: var(--deep-indigo); font-size: 2rem; font-weight: bold;">1</span>
+                    </div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Apply</h3>
+                    <p>Complete our online application form and tell us about your interests and availability.</p>
+                </div>
+                
+                <div style="text-align: center; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);">
+                    <div style="width: 80px; height: 80px; background: var(--gentle-lavender); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="color: white; font-size: 2rem; font-weight: bold;">2</span>
+                    </div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Interview</h3>
+                    <p>Have a friendly conversation with our team to discuss your motivation and fit for the role.</p>
+                </div>
+                
+                <div style="text-align: center; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);">
+                    <div style="width: 80px; height: 80px; background: var(--soft-yellow); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="color: var(--deep-indigo); font-size: 2rem; font-weight: bold;">3</span>
+                    </div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Training</h3>
+                    <p>Complete our comprehensive training program covering mental health awareness and response techniques.</p>
+                </div>
+                
+                <div style="text-align: center; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);">
+                    <div style="width: 80px; height: 80px; background: var(--gentle-lavender); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <span style="color: white; font-size: 2rem; font-weight: bold;">4</span>
+                    </div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 15px;">Start Volunteering</h3>
+                    <p>Begin your volunteer journey with ongoing support and guidance from our experienced team.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-user-check" style="color: var(--gentle-lavender); margin-right: 10px;"></i>What We're Looking For</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 25px;">
+                <div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 20px;"><i class="fas fa-heart" style="color: var(--soft-yellow); margin-right: 10px;"></i>Essential Qualities</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Empathy and compassion</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Strong communication skills</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Commitment to confidentiality</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Non-judgmental attitude</li>
+                        <li style="display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Reliable and dependable</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 20px;"><i class="fas fa-graduation-cap" style="color: var(--soft-yellow); margin-right: 10px;"></i>Requirements</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>18 years of age or older</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Canadian resident</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Background check clearance</li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Complete training program</li>
+                        <li style="display: flex; align-items: center;"><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 12px; font-size: 1.1rem;"></i>Minimum 3-month commitment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-book-open" style="color: var(--soft-yellow); margin-right: 10px;"></i>Training & Support</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 25px;">We provide comprehensive training to ensure you feel confident and prepared in your volunteer role.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: var(--gentle-lavender); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <i class="fas fa-brain" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h3 style="color: white; margin-bottom: 10px;">Mental Health Awareness</h3>
+                    <p style="margin: 0; opacity: 0.9;">Understanding mental health conditions, crisis recognition, and appropriate responses.</p>
+                </div>
+                
+                <div style="background: var(--soft-yellow); color: var(--deep-indigo); padding: 20px; border-radius: 10px; text-align: center;">
+                    <i class="fas fa-comments" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 10px;">Communication Skills</h3>
+                    <p style="margin: 0; opacity: 0.8;">Learn effective listening, empathetic responding, and appropriate boundaries.</p>
+                </div>
+                
+                <div style="background: var(--deep-indigo); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <i class="fas fa-shield-alt" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h3 style="color: white; margin-bottom: 10px;">Safety & Ethics</h3>
+                    <p style="margin: 0; opacity: 0.9;">Confidentiality protocols, mandatory reporting, and self-care practices.</p>
+                </div>
+                
+                <div style="background: var(--gentle-lavender); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    <i class="fas fa-hands-helping" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <h3 style="color: white; margin-bottom: 10px;">Ongoing Support</h3>
+                    <p style="margin: 0; opacity: 0.9;">Regular supervision, peer support groups, and continued learning opportunities.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white;">
+            <h2 style="color: white; margin-bottom: 20px;">Ready to Make a Difference?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Join our community of compassionate volunteers and help bring light to those who need it most.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('register') }}" class="btn-primary">Apply to Volunteer</a>
+                <a href="{{ url_for('contact') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white;">Have Questions?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .content-section div[style*="grid"] > div:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+    
+    .content-section ul li {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+</style>
+{% endblock %} 

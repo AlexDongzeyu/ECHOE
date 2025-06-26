@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Light in Silence{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <div class="page-header">
+            <h1>About Light in Silence</h1>
+            <p>Where Your Words Find Light</p>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-heart" style="color: var(--soft-yellow); margin-right: 10px;"></i>Our Mission</h2>
+            <p>Light in Silence is a Canadian non-profit mental health platform dedicated to bridging the gap between online and offline support systems. We believe that every voice deserves to be heard, and every story has the power to heal.</p>
+            <p>Our innovative approach combines traditional letter-writing with modern technology, creating a safe space where individuals can share their experiences, receive compassionate responses, and find the support they need.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-lightbulb" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Our Vision</h2>
+            <p>We envision a world where mental health support is accessible, compassionate, and free from judgment. Through our dual approach of online platforms and physical mailboxes, we're creating multiple pathways to connection and healing.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-users" style="color: var(--soft-yellow); margin-right: 10px;"></i>How We Help</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 25px;">
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
+                    <h3><i class="fas fa-laptop" style="color: var(--deep-indigo); margin-right: 10px;"></i>Online Platform</h3>
+                    <p>Share your story through our secure online platform. Choose from AI-powered responses for immediate support or connect with trained volunteers for personalized care.</p>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--gentle-lavender);">
+                    <h3><i class="fas fa-mailbox" style="color: var(--deep-indigo); margin-right: 10px;"></i>Physical Mailboxes</h3>
+                    <p>For those who prefer traditional communication, our physical mailboxes located throughout Canada provide an offline way to share your thoughts and receive support.</p>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
+                    <h3><i class="fas fa-comments" style="color: var(--deep-indigo); margin-right: 10px;"></i>Community Chat</h3>
+                    <p>Connect with others in our moderated community space, where you can share experiences and support one another in a safe, anonymous environment.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-shield-alt" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Your Privacy & Safety</h2>
+            <p>We take your privacy seriously. All communications are confidential, and you have complete control over how you share your story. Our trained volunteers and AI systems are designed to provide support while maintaining the highest standards of privacy and security.</p>
+            <ul style="margin-top: 20px; padding-left: 30px;">
+                <li style="margin-bottom: 10px; font-size: 1.1rem;">✓ Anonymous communication options</li>
+                <li style="margin-bottom: 10px; font-size: 1.1rem;">✓ Secure, encrypted data storage</li>
+                <li style="margin-bottom: 10px; font-size: 1.1rem;">✓ Trained volunteer support team</li>
+                <li style="margin-bottom: 10px; font-size: 1.1rem;">✓ Crisis intervention protocols</li>
+            </ul>
+        </div>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-maple-leaf" style="color: var(--soft-yellow); margin-right: 10px;"></i>Canadian Focus</h2>
+            <p>As a proudly Canadian organization, we understand the unique challenges faced by Canadians across our diverse provinces and territories. Our resources and support systems are tailored to Canadian healthcare systems, cultural contexts, and community needs.</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white;">
+            <h2 style="color: white; margin-bottom: 20px;">Ready to Share Your Story?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Take the first step towards healing and connection. Your words matter, and we're here to listen.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
+                <a href="{{ url_for('volunteer_info') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white;">Become a Volunteer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .content-section ul li {
+        color: var(--deep-indigo);
+        line-height: 1.6;
+    }
+    
+    .content-section h3 {
+        margin-bottom: 15px;
+    }
+    
+    .content-section div[style*="grid"] > div:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+</style>
+{% endblock %} 

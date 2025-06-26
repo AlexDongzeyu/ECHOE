@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Respond to Letter - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Respond to Letter</h1>
+    
+    <div class="letter-content">
+        <h2>Original Letter</h2>
+        <p><strong>Topic:</strong> {{ letter.topic or 'N/A' }}</p>
+        <p><strong>Submitted:</strong> {{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <hr>
+        <div>
+            {{ letter.content }}
+        </div>
+    </div>
+
+    {% if previous_responses %}
+    <div class="previous-responses">
+        <h2>Previous Responses</h2>
+        {% for response in previous_responses %}
+            <div class="response-item">
+                <p><strong>{{ response.response_type|capitalize }} response on {{ response.created_at.strftime('%Y-%m-%d') }}:</strong></p>
+                <div>{{ response.content }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="response-form">
+        <h2>Your Reply</h2>
+        <form method="POST" action="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.content.label }}<br>
+                {{ form.content(rows=15, cols=80) }}
+                {% for error in form.content.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.response_type.label }}<br>
+                {{ form.response_type() }}
+                {% for error in form.response_type.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.submit(class='btn-primary') }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

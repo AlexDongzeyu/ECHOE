@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Volunteer Dashboard - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Volunteer Dashboard</h1>
+    <h2>Unprocessed Letters</h2>
+    {% if unprocessed_letters %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for letter in unprocessed_letters %}
+                <tr>
+                    <td>{{ letter.topic or 'No Topic' }}</td>
+                    <td>{{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td><a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-primary">Reply</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No new letters to process. Great job!</p>
+    {% endif %}
+
+    <h2>Flagged Letters</h2>
+    {% if flagged_letters %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for letter in flagged_letters %}
+                <tr>
+                    <td>{{ letter.topic or 'No Topic' }}</td>
+                    <td>{{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td><a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-secondary">View & Reply</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No flagged letters.</p>
+    {% endif %}
+</div>
+{% endblock %} 

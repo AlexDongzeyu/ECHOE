@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Our Blog</h1>
+        <p>Mental health tips, success stories, and stress-relief techniques.</p>
+    </div>
+
+    <div class="post-list">
+        {% for post in posts %}
+            <div class="content-section">
+                <h2><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <p><em>by {{ post.author.username }} on {{ post.created_at.strftime('%B %d, %Y') }}</em></p>
+                <p>{{ post.body[:200] }}... <a href="{{ url_for('view_post', post_id=post.id) }}">Read More</a></p>
+            </div>
+        {% else %}
+            <p>No posts yet. Check back soon!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <article class="page-container">
+        <h1>{{ post.title }}</h1>
+        <p><em>by {{ post.author.username }} on {{ post.created_at.strftime('%B %d, %Y') }}</em></p>
+        <hr style="margin: 2rem 0;">
+        <div>
+            {{ post.body | safe }}
+        </div>
+    </article>
+    <a href="{{ url_for('blog_index') }}" style="display: inline-block; margin-top: 2rem;">&larr; Back to Blog</a>
+</div>
+{% endblock %} 

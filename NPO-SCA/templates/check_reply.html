@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Check for Reply - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Check for a Reply</h1>
+    <p>Enter the unique code you received when you submitted your letter.</p>
+    <form method="POST" action="{{ url_for('check_letter_reply') }}">
+        <div>
+            <label for="code">Enter Your Code</label>
+            <input type="text" id="code" name="code" required>
+        </div>
+        <div>
+            <button type="submit" class="btn-primary">Check Reply</button>
+        </div>
+    </form>
+</div>
+{% endblock %} 

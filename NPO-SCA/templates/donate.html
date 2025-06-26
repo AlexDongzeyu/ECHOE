@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Donate - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container page-container" style="max-width: 800px;">
+    <div class="page-header">
+        <h1>Support Our Mission</h1>
+        <p>Your contribution helps us keep the lights on and the support flowing.</p>
+    </div>
+
+    <div class="donate-content">
+        <h2>Why Your Donation Matters</h2>
+        <p>Light in Silence is a non-profit initiative dedicated to providing free, accessible mental health support. To continue our work, we rely on the generosity of people like you. Your donations help cover essential operational costs, including:</p>
+        <ul>
+            <li>Website hosting and maintenance</li>
+            <li>Legal fees and compliance</li>
+            <li>Volunteer training and resources</li>
+            <li>AI moderation tools to ensure safety</li>
+            <li>Community outreach and event hosting</li>
+        </ul>
+        <p>Every contribution, no matter the size, makes a difference and helps us ensure that no one has to suffer in silence.</p>
+    </div>
+
+    <div class="donation-methods" style="text-align: center; margin-top: 3rem;">
+        <h2>How to Donate</h2>
+        <p>Online payment processing is coming soon!</p>
+        <p>For now, if you would like to support our mission, please <a href="{{ url_for('contact') }}">contact us</a> directly to arrange a donation.</p>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Light in Silence{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="max-width: 500px; margin: 0 auto;">
+        <div class="page-container">
+            <div class="page-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your Light in Silence account</p>
+            </div>
+            
+            <form method="POST" style="margin-top: 30px;">
+                <div style="margin-bottom: 25px;">
+                    <label for="email" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--deep-indigo); font-size: 1.1rem;">Email Address</label>
+                    <input type="email" id="email" name="email" required 
+                           style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease;" 
+                           onfocus="this.style.borderColor='var(--soft-yellow)'; this.style.boxShadow='0 0 0 3px rgba(244, 208, 111, 0.1)'" 
+                           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none'"
+                           placeholder="your.email@example.com">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label for="password" style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--deep-indigo); font-size: 1.1rem;">Password</label>
+                    <input type="password" id="password" name="password" required 
+                           style="width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease;" 
+                           onfocus="this.style.borderColor='var(--soft-yellow)'; this.style.boxShadow='0 0 0 3px rgba(244, 208, 111, 0.1)'" 
+                           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none'"
+                           placeholder="Enter your password">
+                </div>
+                
+                <div style="margin-bottom: 30px; display: flex; align-items: center;">
+                    <input type="checkbox" id="remember_me" name="remember_me" style="margin-right: 10px; transform: scale(1.2);">
+                    <label for="remember_me" style="color: var(--deep-indigo); font-size: 1rem;">Remember me for 30 days</label>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 15px; font-size: 1.1rem; margin-bottom: 25px;">
+                    <i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i>Sign In
+                </button>
+            </form>
+            
+            <div style="text-align: center; padding: 25px 0; border-top: 1px solid #e0e0e0;">
+                <p style="color: var(--gentle-lavender); margin-bottom: 15px; font-size: 1rem;">Don't have an account yet?</p>
+                <a href="{{ url_for('register') }}" class="btn-secondary" style="padding: 12px 25px; font-size: 1rem;">
+                    <i class="fas fa-user-plus" style="margin-right: 8px;"></i>Create Account
+                </a>
+            </div>
+        </div>
+        
+        <!-- Volunteer Information Card -->
+        <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 15px; color: white; text-align: center;">
+            <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-hands-helping" style="margin-right: 10px;"></i>Want to Help Others?</h3>
+            <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">Join our volunteer community and make a difference in someone's life by providing compassionate support.</p>
+            <a href="{{ url_for('volunteer_info') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3);">
+                Learn About Volunteering
+            </a>
+        </div>
+        
+        <!-- Support Resources -->
+        <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.05); text-align: center;">
+            <p style="color: var(--deep-indigo); margin-bottom: 15px; font-weight: 600;">Need support right now?</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('submit') }}" style="color: var(--gentle-lavender); text-decoration: none; font-weight: 600; display: flex; align-items: center;">
+                    <i class="fas fa-envelope" style="margin-right: 8px;"></i>Share Your Story
+                </a>
+                <a href="{{ url_for('chat') }}" style="color: var(--gentle-lavender); text-decoration: none; font-weight: 600; display: flex; align-items: center;">
+                    <i class="fas fa-comments" style="margin-right: 8px;"></i>Community Chat
+                </a>
+                <a href="{{ url_for('resources') }}" style="color: var(--gentle-lavender); text-decoration: none; font-weight: 600; display: flex; align-items: center;">
+                    <i class="fas fa-life-ring" style="margin-right: 8px;"></i>Crisis Resources
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Additional styling for form elements */
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+    }
+    
+    input[type="checkbox"]:focus {
+        outline: 2px solid var(--soft-yellow);
+        outline-offset: 2px;
+    }
+    
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .container > div {
+            margin: 10px;
+        }
+        
+        .page-container {
+            padding: 30px 20px;
+        }
+        
+        div[style*="flex-wrap"] {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        div[style*="flex-wrap"] a {
+            margin-bottom: 10px;
+        }
+    }
+</style>
+{% endblock %} 

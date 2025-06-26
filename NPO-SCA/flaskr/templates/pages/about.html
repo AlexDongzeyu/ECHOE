@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}About{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id = "rectangleAbout">
+  <div class="container">
+    <div class="left-pane"><img class = "aboutImg" src = "{{url_for('static', filename='cartoon.png')}}"></div>
+    <div class="right-pane"><p>Hi! I'm Sara Y. </br>In Grade 10</br>Enjoy badminton etc...</p></div>
+  </div>
+</div>
+
+<div id = "rectangleAbout" style = "margin-left: auto; margin-right: 50px;">
+  <p>Try doing this one by yourself</p>
+  
+</div>
+{% endblock %}

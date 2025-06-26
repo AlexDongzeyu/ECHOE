@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Your Response - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Letter and Response</h1>
+
+    <div class="letter-content">
+        <h2>Your Original Letter</h2>
+        <p><strong>Submitted:</strong> {{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <hr>
+        <div>
+            {{ letter.content }}
+        </div>
+    </div>
+
+    <div class="responses">
+        <h2>Replies</h2>
+        {% if responses %}
+            {% for response in responses %}
+                <div class="response-item">
+                    <p><strong>A volunteer responded on {{ response.created_at.strftime('%Y-%m-%d') }}:</strong></p>
+                    <div>{{ response.content }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Your letter is with our volunteers. Please check back soon.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('check_letter_reply') }}" class="btn-secondary">Check another code</a>
+</div>
+{% endblock %} 

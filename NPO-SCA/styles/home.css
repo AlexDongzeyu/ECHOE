@@ -1,0 +1,441 @@
+/* 添加全局容器样式 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 修改英雄区样式 */
+.hero {
+  background-color: var(--color-background);
+  padding: 100px 0 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-content {
+  max-width: 550px;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  color: var(--color-primary);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero .quote {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  opacity: 0.9;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.hero .mission {
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.hero-image {
+  width: 45%;
+  max-width: 500px;
+  z-index: 1;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 5px 15px rgba(42, 61, 102, 0.15));
+  animation: float 6s ease-in-out infinite;
+}
+
+.wave-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-image: url('/images/wave-divider.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 工作原理部分 */
+.how-it-works {
+  padding: 80px 0;
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  position: relative;
+  display: inline-block;
+}
+
+.how-it-works h2:after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.step-card {
+  background-color: rgba(250, 250, 250, 0.05);
+  border-radius: 15px;
+  padding: 40px 25px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid var(--color-accent);
+}
+
+.step-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+}
+
+.step-icon i {
+  font-size: 35px;
+  color: var(--color-primary);
+}
+
+.step-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.step-card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* 双重方法部分 */
+.dual-approach {
+  padding: 80px 0;
+  background-color: var(--color-background);
+  text-align: center;
+}
+
+.dual-approach h2 {
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  color: var(--color-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.dual-approach h2:after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--color-secondary);
+  border-radius: 2px;
+}
+
+.approach-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  width: 350px;
+  box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+  transition: transform 0.3s ease;
+  text-align: left;
+  border-top: 5px solid var(--color-primary);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-icon {
+  color: var(--color-accent);
+  font-size: 40px;
+  margin-bottom: 25px;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--color-primary);
+}
+
+.card p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* 社区证明部分 */
+.social-proof {
+  padding: 80px 0;
+  background-color: var(--color-primary);
+  background-image: linear-gradient(to bottom, var(--color-primary), var(--hover-primary));
+  color: var(--text-light);
+  text-align: center;
+  position: relative;
+}
+
+.social-proof h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 50px;
+  opacity: 0.9;
+}
+
+.testimonials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.testimonial {
+  background-color: rgba(250, 250, 250, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: left;
+  position: relative;
+  border-left: 4px solid var(--color-accent);
+}
+
+.testimonial:after {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 60px;
+  opacity: 0.2;
+  color: var(--color-accent);
+}
+
+.testimonial p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.testimonial span {
+  display: block;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.cta-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.cta-large {
+  font-size: 1.2rem;
+  padding: 15px 40px;
+  border-radius: 30px;
+  display: inline-block;
+}
+
+/* 页脚样式 */
+footer {
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  padding: 60px 0 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section {
+  max-width: 300px;
+}
+
+.footer-section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-section h3:after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+.tagline {
+  font-style: italic;
+  margin-bottom: 15px;
+  color: var(--color-accent);
+}
+
+.footer-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a, .social-links a {
+  color: var(--text-light);
+  opacity: 0.8;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-links a:hover, .social-links a:hover {
+  opacity: 1;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-links a i {
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+
+.social-links a:hover i {
+  transform: scale(1.2);
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(250, 250, 250, 0.1);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* 动画 */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* 响应式设计 */
+@media (max-width: 1100px) {
+  .hero .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-content {
+    max-width: 700px;
+    margin-bottom: 40px;
+  }
+  
+  .hero-image {
+    width: 70%;
+    max-width: 400px;
+  }
+  
+  .hero .quote {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .steps {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero .quote, .hero .mission {
+    font-size: 1.1rem;
+  }
+  
+  .step-card, .card, .testimonial {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .footer-section {
+    max-width: 100%;
+  }
+} 

@@ -1,0 +1,116 @@
+.active {
+  text-decoration: underline;
+}
+
+nav {
+  background: black;
+  display:inline-block;
+  height:80px;
+  width:100%;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display:inline-block;
+  overflow: hidden;
+}
+
+li
+{
+  display:inline-block;
+  font-size: 30px;
+}
+
+nav .nav-right ul{
+  display: inline-block;
+  text-align: center;
+  margin-top:20px;
+}
+nav .nav-right ul li a{
+  color:white;
+  text-decoration:none;
+  margin-right:20px;
+}
+.nav-left {
+  float: left;
+}
+
+.nav-right {
+  float: right;
+}
+
+.nav-left img{
+  width:70px;
+  height:70px;
+  border-radius: 50%;
+  margin-top:4px;
+  margin-left: 10px;
+}
+
+.center{
+  margin: auto;
+  width: 50%;
+}
+
+#rectangle{
+  opacity: 0.5;
+  margin: auto;
+  margin-top: 5%;
+  width: 800px;
+  height: 400px;
+  background: white;
+  border-radius: 50%; /* Rounded corners, change to 50% for a circle if needed */
+  display: flex; /* Using flexbox to center content */
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+}
+
+#rectangleAbout {
+  opacity: 0.7;
+  /* margin: auto; */
+  margin-top: 10px;
+  margin-bottom:40px;
+  margin-left:50px;
+  width: 600px;
+  height: 250px;
+  background: white;
+  border-radius: 2px; /* Rounded corners, change to 50% for a circle if needed */
+  justify-content: left; /* Centers horizontally */
+  align-items: top; /* Centers vertically */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional for some shadow effect */
+}
+
+.quote{
+  opacity: 1;
+  font-size: 24px; /* Adjust as needed */
+  font-weight: bold;
+  text-align: center; /* Center the text inside the quote div */
+  margin-top: -0.5em;
+}
+
+.container {
+  display: flex; /* Use flexbox for the layout */
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Set height as desired */
+}
+
+.left-pane {
+  width: 40%; /* Left pane takes 40% of the container's width */
+  background-color: lightblue;
+  padding: 20px;
+  box-sizing: border-box; /* Includes padding in the width */
+}
+
+.right-pane {
+  width: 60%; /* Right pane takes 60% of the container's width */
+  padding: 20px;
+  box-sizing: border-box; /* Includes padding in the width */
+}
+
+.aboutImg{
+  height:200px;
+  width:200px;
+  border-radius: 50%;
+}

@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+
+{% block title %}Share Your Story - Light in Silence{% endblock %}
+
+{% block styles %}
+<style>
+        /* Main Content */
+        main {
+            padding: 2rem 1rem 4rem;
+            background-color: var(--warm-white);
+        min-height: calc(100vh - 140px); /* Adjusted for base template */
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+        }
+        
+        /* Form Container */
+        .form-container {
+            max-width: 700px;
+            margin: 1rem auto 3rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow), var(--gentle-lavender));
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--deep-indigo);
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .form-container h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .form-quote {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 2rem;
+            color: var(--deep-indigo);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .form-intro {
+            text-align: center;
+        margin-bottom: 2rem;
+            color: var(--deep-indigo);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        }
+        
+        /* Submission Options */
+        .submission-options {
+            display: flex;
+        justify-content: center;
+            margin-bottom: 2rem;
+        background-color: var(--warm-white);
+        border-radius: 10px;
+        padding: 5px;
+        border: 2px solid var(--gentle-lavender);
+        }
+        
+        .submission-option {
+            flex: 1;
+            text-align: center;
+        padding: 0.8rem 1rem;
+            cursor: pointer;
+        border-radius: 8px;
+            transition: all 0.3s ease;
+        font-weight: 600;
+            color: var(--deep-indigo);
+        }
+        
+        .submission-option.active {
+        background-color: var(--soft-yellow);
+        color: var(--deep-indigo);
+        transform: scale(1.02);
+    }
+    
+    .submission-option:hover {
+        background-color: var(--light-yellow);
+        }
+        
+        /* Form Sections */
+    .submission-forms {
+        margin-bottom: 2rem;
+    }
+    
+        .form-section {
+            display: none;
+        animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+    /* Form Groups */
+        .form-group {
+        margin-bottom: 1.5rem;
+        }
+        
+    .form-group label {
+            display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+            color: var(--deep-indigo);
+        font-size: 1rem;
+        }
+        
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+            width: 100%;
+        padding: 0.8rem 1rem;
+        border: 2px solid var(--gentle-lavender);
+        border-radius: 10px;
+            font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+            background-color: var(--warm-white);
+        }
+        
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+            outline: none;
+            border-color: var(--soft-yellow);
+            box-shadow: 0 0 0 3px rgba(244, 208, 111, 0.2);
+        transform: translateY(-2px);
+        }
+        
+    .form-group textarea {
+        min-height: 150px;
+            resize: vertical;
+        }
+        
+    /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--light-yellow);
+        transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+        }
+        
+    /* Location Items */
+    .mailbox-locations {
+        margin-top: 2rem;
+    }
+    
+    .location-item {
+        background-color: var(--warm-white);
+        border-left: 4px solid var(--gentle-lavender);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(42, 61, 102, 0.05);
+        transition: transform 0.3s ease;
+    }
+    
+    .location-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(42, 61, 102, 0.1);
+    }
+    
+    .location-item h4 {
+        color: var(--deep-indigo);
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+    
+    .location-item p {
+        margin-bottom: 0.3rem;
+        color: var(--deep-indigo);
+        opacity: 0.8;
+    }
+    
+    .note {
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: rgba(179, 156, 208, 0.1);
+        border-radius: 10px;
+        font-style: italic;
+    }
+    
+    .note a {
+        color: var(--deep-indigo);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px dotted var(--deep-indigo);
+    }
+    
+    .note a:hover {
+        color: var(--gentle-lavender);
+        }
+        
+        /* AI Assistance Section */
+        .ai-assistance {
+            background-color: rgba(179, 156, 208, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        border: 2px solid rgba(179, 156, 208, 0.3);
+        }
+        
+    .ai-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        display: block;
+        }
+        
+        .ai-link {
+            color: var(--deep-indigo);
+        cursor: pointer;
+        font-weight: 600;
+            text-decoration: underline;
+        transition: color 0.3s ease;
+        }
+        
+        .ai-link:hover {
+            color: var(--gentle-lavender);
+        }
+        
+        /* Privacy Note */
+        .privacy-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--deep-indigo);
+        opacity: 0.8;
+        font-style: italic;
+        padding: 1rem;
+        background-color: rgba(244, 208, 111, 0.1);
+        border-radius: 10px;
+        }
+        
+        .privacy-note a {
+            color: var(--deep-indigo);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px dotted var(--deep-indigo);
+        }
+        
+        .privacy-note a:hover {
+            color: var(--gentle-lavender);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 1.8rem 1.2rem;
+                margin: 1rem;
+            }
+            
+        .submission-options {
+                flex-direction: column;
+            }
+            
+        .submission-option {
+            margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+        <div class="form-container">
+            <h2>Share Your Story</h2>
+            <p class="form-quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
+            <p class="form-intro">No names, no judgement — just a safe space to express yourself and find support. We'll respond within 48 hours.</p>
+            
+            <div class="submission-options">
+                <div class="submission-option active" id="online-option">Online Submission</div>
+                <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
+            </div>
+            
+            <div class="submission-forms">
+                <div class="form-section active" id="online-form">
+            <form method="POST" action="{{ url_for('submit') }}">
+                {{ form.hidden_tag() }}
+                
+                        <div class="form-group">
+                    {{ form.topic.label(class="form-label") }}
+                    {{ form.topic(class="form-control") }}
+                        </div>
+                        
+                        <div class="form-group">
+                    {{ form.content.label(class="form-label") }}
+                    {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or concerns here...") }}
+                        </div>
+                        
+                        <div class="form-group">
+                    {{ form.reply_method.label(class="form-label") }}
+                    {{ form.reply_method(class="form-control", id="reply-method") }}
+                        </div>
+                        
+                        <div class="form-group" id="email-container" style="display: none;">
+                    {{ form.anonymous_email.label(class="form-label") }}
+                    {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't collect any personal information)") }}
+                        </div>
+                        
+                {{ form.submit(class="submit-btn") }}
+                    </form>
+                </div>
+                
+                <div class="form-section" id="offline-locations">
+                    <h3>Find Our Physical Mailboxes</h3>
+                    <p>You can write a letter by hand and drop it in one of our tree hole mailboxes located across Canada:</p>
+                    
+                    <div class="mailbox-locations">
+                {% for mailbox in mailboxes %}
+                        <div class="location-item">
+                    <h4>{{ mailbox.name }}</h4>
+                    <p>{{ mailbox.address }}, {{ mailbox.city }}, {{ mailbox.province }}</p>
+                    {% if mailbox.description %}
+                    <p>{{ mailbox.description }}</p>
+                    {% endif %}
+                    {% if mailbox.operating_hours %}
+                    <p><strong>Hours:</strong> {{ mailbox.operating_hours }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                        
+                <p class="note">More locations coming soon! If you'd like to host a mailbox at your community centre, <a href="{{ url_for('contact') }}">please contact us</a>.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-assistance">
+                <span class="ai-icon">💬</span>
+         <p>Need immediate support? <span class="ai-link" id="open-chat">Chat with our AI companion</span> or <a href="{{ url_for('chat') }}">try our full AI chat page</a>.</p>
+        </div>
+    
+    <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read our <a href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
+            </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Show/hide email input based on reply method
+        document.getElementById('reply-method').addEventListener('change', function() {
+            const emailContainer = document.getElementById('email-container');
+            if (this.value === 'anonymous-email') {
+                emailContainer.style.display = 'block';
+            } else {
+                emailContainer.style.display = 'none';
+            }
+        });
+        
+        // Toggle between online and offline options
+        document.getElementById('online-option').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('offline-option').classList.remove('active');
+            
+            document.getElementById('online-form').classList.add('active');
+            document.getElementById('offline-locations').classList.remove('active');
+        });
+        
+        document.getElementById('offline-option').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('online-option').classList.remove('active');
+            
+            document.getElementById('offline-locations').classList.add('active');
+            document.getElementById('online-form').classList.remove('active');
+        });
+        
+    // AI Chat link
+    document.getElementById('open-chat').addEventListener('click', function() {
+        window.location.href = '{{ url_for("chat") }}';
+        });
+    </script>
+{% endblock %} 

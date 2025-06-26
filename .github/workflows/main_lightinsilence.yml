@@ -65,4 +65,4 @@ jobs:
         with:
           app-name: 'LightInSilence'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7C1408D1BE6F400A9C6239C6711A9EDA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9D262E8DDA3A4E0792399E8E888F195C }}

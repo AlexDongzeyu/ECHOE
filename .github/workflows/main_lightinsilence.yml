@@ -26,13 +26,23 @@ jobs:
 
       - name: Debug - List files
         run: |
+          echo "=== Current working directory ==="
           pwd
+          echo "=== Files in root directory ==="
           ls -la
-          echo "Contents of requirements.txt:"
-          cat requirements.txt
-          echo "Python version:"
+          echo "=== Check if requirements.txt exists ==="
+          if [ -f "requirements.txt" ]; then
+            echo "✅ requirements.txt found!"
+            echo "File size: $(wc -c < requirements.txt) bytes"
+            echo "=== Contents of requirements.txt ==="
+            cat requirements.txt
+            echo "=== End of requirements.txt ==="
+          else
+            echo "❌ requirements.txt NOT found!"
+            exit 1
+          fi
+          echo "=== Python and pip versions ==="
           python --version
-          echo "Pip version:"
           pip --version
       
       - name: Install dependencies

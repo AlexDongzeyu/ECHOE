@@ -1,0 +1,27 @@
+name = "light-in-silence"
+compatibility_date = "2024-01-15"
+main = "src/index.ts"
+
+[env.production]
+name = "light-in-silence"
+
+[env.staging]
+name = "light-in-silence-staging"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "light-in-silence-db"
+database_id = ""
+
+[vars]
+ENVIRONMENT = "production"
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
+
+[[routes]]
+pattern = "*/*"
+zone_id = "" 

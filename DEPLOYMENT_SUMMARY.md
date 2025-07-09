@@ -1,8 +1,24 @@
-# 🎉 Light in Silence - Cloudflare Workers Migration Complete!
+# 🎉 Light in Silence - Cloudflare Workers Migration Project
+
+## 📋 Project Overview
+
+This repository now contains **BOTH versions** of the Light in Silence mental health platform:
+
+### 🐍 **Original Flask Application** (Preserved)
+- **Location**: `/NPO-SCA/` directory
+- **Status**: ✅ **Original working version - PRESERVED**
+- **Technology**: Python Flask + SQLite
+- **Purpose**: Current production version
+
+### ⚡ **Cloudflare Workers Version** (New Migration)
+- **Location**: `/src/` directory  
+- **Status**: ✅ **Complete migration ready for deployment**
+- **Technology**: TypeScript + Hono + D1 Database
+- **Purpose**: Modern edge computing version
 
 ## ✅ What We've Accomplished
 
-I've successfully migrated your Flask-based Light in Silence mental health platform to **Cloudflare Workers** with a modern, scalable architecture. Here's what was built:
+I've successfully created a **complete migration** of your Flask-based Light in Silence platform to **Cloudflare Workers** while **preserving all original files**. Here's what was built:
 
 ### 🏗️ Core Infrastructure
 - **Cloudflare Workers**: Serverless backend with global edge distribution

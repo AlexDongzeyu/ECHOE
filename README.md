@@ -1,6 +1,57 @@
-# Light in Silence - Cloudflare Workers Edition
+# Light in Silence - Mental Health Support Platform
 
-A mental health support platform rebuilt for Cloudflare Workers with D1 database, featuring letter submission, AI-powered responses, and volunteer management.
+A mental health support platform providing anonymous letter submission, AI-powered responses, and volunteer management.
+
+## 🏗️ Project Structure
+
+This repository contains **TWO versions** of the Light in Silence platform:
+
+### 1. **Original Flask Application** (Production)
+- **Location**: `/NPO-SCA/` directory and root Flask files
+- **Technology**: Python Flask with SQLite database
+- **Status**: Original working version
+- **Main file**: `NPO-SCA/app.py`
+
+### 2. **Cloudflare Workers Version** (Migration)
+- **Location**: `/src/` directory
+- **Technology**: TypeScript with Hono framework and D1 database
+- **Status**: Complete rewrite for edge computing
+- **Main file**: `src/index.ts`
+
+## 🚀 Quick Start
+
+### Running the Original Flask App
+```bash
+cd NPO-SCA
+pip install -r requirements.txt
+python app.py
+```
+
+### Running the Cloudflare Workers Version
+```bash
+npm install
+npm run dev
+```
+
+## 📁 Directory Structure
+
+```
+Light in Silence/
+├── NPO-SCA/                    # Original Flask Application
+│   ├── app.py                  # Main Flask app
+│   ├── models.py               # Database models
+│   ├── templates/              # HTML templates
+│   ├── static/                 # CSS, JS, images
+│   └── instance/               # SQLite database
+├── src/                        # Cloudflare Workers Version
+│   ├── index.ts                # Main Workers entry
+│   ├── routes/                 # API routes
+│   ├── services/               # Business logic
+│   └── types/                  # TypeScript definitions
+├── migrations/                 # D1 database schema
+├── public/                     # Frontend assets
+└── .github/workflows/          # CI/CD pipelines
+```
 
 ## 🌟 Features
 

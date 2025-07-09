@@ -1,4 +1,4 @@
-# Python
+# Python (Flask Application)
 __pycache__/
 *.py[cod]
 *$py.class
@@ -32,6 +32,21 @@ env/
 .env
 .venv
 
+# Node.js (Cloudflare Workers)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+*.tgz
+*.tar.gz
+
+# Cloudflare Workers
+.wrangler/
+dist/
+worker/
+
 # IDE
 .vscode/
 .idea/
@@ -56,4 +71,7 @@ instance/
 .env.production
 
 # Azure
-.azure/ 
+.azure/
+
+# Development files
+.cursor/ 

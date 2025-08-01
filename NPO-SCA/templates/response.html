@@ -2,33 +2,394 @@
 
 {% block title %}Your Response - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+    .response-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .response-header {
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .response-header h1 {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    
+    .response-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0;
+    }
+    
+    .letter-section {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        margin-bottom: 40px;
+        border-left: 4px solid var(--soft-yellow);
+    }
+    
+    .letter-section h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .letter-meta {
+        background: var(--warm-white);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: var(--gentle-lavender);
+        font-weight: 600;
+    }
+    
+    .letter-content {
+        color: var(--deep-indigo);
+        line-height: 1.8;
+        font-size: 1.1rem;
+        background: var(--warm-white);
+        padding: 25px;
+        border-radius: 15px;
+        border-left: 3px solid var(--soft-yellow);
+        white-space: pre-wrap;
+    }
+    
+    .responses-section {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        margin-bottom: 40px;
+        border-left: 4px solid var(--gentle-lavender);
+    }
+    
+    .responses-section h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .response-item {
+        background: var(--warm-white);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border-left: 4px solid var(--gentle-lavender);
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+    
+    .response-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+    }
+    
+    .response-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .response-meta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        color: var(--gentle-lavender);
+        font-weight: 600;
+    }
+    
+    .response-type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gentle-lavender);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    .response-content {
+        color: var(--deep-indigo);
+        line-height: 1.8;
+        font-size: 1.1rem;
+        white-space: pre-wrap;
+    }
+    
+    .no-responses {
+        text-align: center;
+        padding: 50px 30px;
+        background: var(--warm-white);
+        border-radius: 15px;
+        border: 2px dashed var(--gentle-lavender);
+    }
+    
+    .no-responses i {
+        font-size: 3rem;
+        color: var(--gentle-lavender);
+        margin-bottom: 20px;
+        opacity: 0.7;
+    }
+    
+    .no-responses h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+    
+    .no-responses p {
+        color: var(--gentle-lavender);
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+    
+    .waiting-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+    
+    .action-btn {
+        padding: 15px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+    }
+    
+    .action-btn.primary {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+    }
+    
+    .action-btn.secondary {
+        background: rgba(42, 61, 102, 0.1);
+        color: var(--deep-indigo);
+        border: 2px solid var(--gentle-lavender);
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-3px);
+    }
+    
+    .action-btn.primary:hover {
+        background: #e6c960;
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+        color: var(--deep-indigo);
+    }
+    
+    .action-btn.secondary:hover {
+        background: var(--gentle-lavender);
+        color: white;
+    }
+    
+    /* Animation for new responses */
+    @keyframes newResponse {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .response-item {
+        animation: newResponse 0.5s ease-out;
+    }
+    
+    @media (max-width: 768px) {
+        .response-container {
+            margin: 20px;
+        }
+        
+        .response-header {
+            padding: 30px 25px;
+        }
+        
+        .response-header h1 {
+            font-size: 2rem;
+        }
+        
+        .letter-section,
+        .responses-section {
+            padding: 30px 25px;
+        }
+        
+        .response-item {
+            padding: 25px 20px;
+        }
+        
+        .letter-meta,
+        .response-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1>Your Letter and Response</h1>
+    <div class="page-container">
+        <div class="response-container">
+            <div class="response-header">
+                <h1><i class="fas fa-envelope-open-text" style="margin-right: 15px;"></i>Your Letter & Responses</h1>
+                <p>Here's your original letter and any responses you've received from our caring volunteer community</p>
+            </div>
 
-    <div class="letter-content">
-        <h2>Your Original Letter</h2>
-        <p><strong>Submitted:</strong> {{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
-        <hr>
-        <div>
-            {{ letter.content }}
+            <!-- Original Letter Section -->
+            <div class="letter-section">
+                <h2>
+                    <i class="fas fa-edit"></i>
+                    Your Original Letter
+                </h2>
+                
+                <div class="letter-meta">
+                    <span><i class="fas fa-calendar"></i> Submitted: {{ letter.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                    {% if letter.topic %}
+                    <span><i class="fas fa-tag"></i> Topic: {{ letter.topic|title }}</span>
+                    {% endif %}
+                    <span><i class="fas fa-key"></i> Code: {{ letter.unique_id[:8] }}...</span>
+                </div>
+                
+                <div class="letter-content">{{ letter.content }}</div>
+            </div>
+
+            <!-- Responses Section -->
+            <div class="responses-section">
+                <h2>
+                    <i class="fas fa-comments"></i>
+                    Community Responses
+                    {% if responses %}
+                        <span style="background: var(--soft-yellow); color: var(--deep-indigo); padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; margin-left: 10px;">
+                            {{ responses|length }} response{{ 's' if responses|length != 1 else '' }}
+                        </span>
+                    {% endif %}
+                </h2>
+                
+                {% if responses %}
+                    {% for response in responses %}
+                        <div class="response-item">
+                            <div class="response-meta">
+                                <span><i class="fas fa-user-heart"></i> A volunteer responded on {{ response.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                                {% if response.response_type %}
+                                    <div class="response-type-badge">
+                                        {% if response.response_type == 'ai' %}
+                                            <i class="fas fa-robot"></i> AI Response
+                                        {% elif response.response_type == 'human' %}
+                                            <i class="fas fa-user"></i> Human Response
+                                        {% elif response.response_type == 'hybrid' %}
+                                            <i class="fas fa-users"></i> Collaborative Response
+                                        {% else %}
+                                            <i class="fas fa-heart"></i> Volunteer Response
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="response-content">{{ response.content }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-responses">
+                        <i class="fas fa-hourglass-half"></i>
+                        <h3>Your Letter is Being Reviewed</h3>
+                        <p>Our compassionate volunteers are carefully reading your letter and crafting a thoughtful response. This typically takes 24-48 hours.</p>
+                        
+                        <div class="waiting-indicator">
+                            <i class="fas fa-heart"></i>
+                            Response in progress...
+                        </div>
+                        
+                        <p style="font-size: 0.95rem; font-style: italic; margin-top: 20px;">
+                            You'll receive a caring, personalized response soon. Please check back later.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{{ url_for('check_letter_reply') }}" class="action-btn primary">
+                    <i class="fas fa-search"></i> Check Another Code
+                </a>
+                <a href="{{ url_for('submit') }}" class="action-btn secondary">
+                    <i class="fas fa-pen"></i> Write New Letter
+                </a>
+                <a href="{{ url_for('chat') }}" class="action-btn secondary">
+                    <i class="fas fa-comments"></i> AI Chat Support
+                </a>
+                <a href="{{ url_for('resources') }}" class="action-btn secondary">
+                    <i class="fas fa-life-ring"></i> Crisis Resources
+                </a>
+            </div>
+        </div>
+        
+        <!-- Support Resources -->
+        <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #dc3545, #c82333); border-radius: 20px; color: white; text-align: center;">
+            <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>Need Immediate Support?</h3>
+            <p style="margin-bottom: 20px; opacity: 0.9;">If you're in crisis or need someone to talk to right now:</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Crisis Line: 1-833-456-4566</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Text: 45645</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Emergency: 911</strong>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="responses">
-        <h2>Replies</h2>
-        {% if responses %}
-            {% for response in responses %}
-                <div class="response-item">
-                    <p><strong>A volunteer responded on {{ response.created_at.strftime('%Y-%m-%d') }}:</strong></p>
-                    <div>{{ response.content }}</div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>Your letter is with our volunteers. Please check back soon.</p>
-        {% endif %}
-    </div>
-
-    <a href="{{ url_for('check_letter_reply') }}" class="btn-secondary">Check another code</a>
 </div>
 {% endblock %} 

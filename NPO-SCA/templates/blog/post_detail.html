@@ -2,16 +2,273 @@
 
 {% block title %}{{ post.title }} - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+    .post-header {
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .post-header h1 {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+    
+    .post-meta {
+        color: white;
+        opacity: 0.9;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+    }
+    
+    .post-meta i {
+        margin-right: 8px;
+        color: var(--soft-yellow);
+    }
+    
+    .post-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        margin-bottom: 40px;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        color: var(--deep-indigo);
+    }
+    
+    .post-content h2,
+    .post-content h3,
+    .post-content h4 {
+        color: var(--deep-indigo);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .post-content h2 {
+        font-size: 1.8rem;
+        border-bottom: 2px solid var(--soft-yellow);
+        padding-bottom: 10px;
+    }
+    
+    .post-content h3 {
+        font-size: 1.5rem;
+        color: var(--gentle-lavender);
+    }
+    
+    .post-content p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .post-content blockquote {
+        background: var(--warm-white);
+        border-left: 4px solid var(--soft-yellow);
+        padding: 20px 30px;
+        margin: 30px 0;
+        border-radius: 10px;
+        font-style: italic;
+        font-size: 1.2rem;
+        color: var(--deep-indigo);
+    }
+    
+    .post-content ul,
+    .post-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 30px;
+    }
+    
+    .post-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--gentle-lavender);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 15px 25px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+    }
+    
+    .back-link:hover {
+        color: var(--deep-indigo);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(42, 61, 102, 0.15);
+    }
+    
+    .support-section {
+        background: linear-gradient(135deg, var(--soft-yellow), #e6c960);
+        color: var(--deep-indigo);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 40px;
+    }
+    
+    .support-section h3 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+    }
+    
+    .support-section p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    
+    /* Reading progress indicator */
+    .reading-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: var(--soft-yellow);
+        z-index: 1000;
+        transition: width 0.1s ease;
+    }
+    
+    /* Share buttons */
+    .share-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    
+    .share-btn {
+        padding: 12px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .share-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        .post-header {
+            padding: 30px 20px;
+        }
+        
+        .post-header h1 {
+            font-size: 2rem;
+        }
+        
+        .post-content {
+            padding: 25px 20px;
+        }
+        
+        .post-meta {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
+<div class="reading-progress" id="reading-progress"></div>
+
 <div class="container">
-    <article class="page-container">
-        <h1>{{ post.title }}</h1>
-        <p><em>by {{ post.author.username }} on {{ post.created_at.strftime('%B %d, %Y') }}</em></p>
-        <hr style="margin: 2rem 0;">
-        <div>
-            {{ post.body | safe }}
+    <div class="page-container">
+        <a href="{{ url_for('blog_index') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+        
+        <div class="post-header">
+            <h1>{{ post.title }}</h1>
+            <div class="post-meta">
+                <span><i class="fas fa-user"></i>by {{ post.author.username }}</span>
+                <span><i class="fas fa-calendar"></i>{{ post.created_at.strftime('%B %d, %Y') }}</span>
+                <span><i class="fas fa-clock"></i>{{ post.created_at.strftime('%I:%M %p') }}</span>
+            </div>
         </div>
-    </article>
-    <a href="{{ url_for('blog_index') }}" style="display: inline-block; margin-top: 2rem;">&larr; Back to Blog</a>
+        
+        <article class="post-content">
+            {{ post.body | safe }}
+        </article>
+        
+        <!-- Support Section -->
+        <div class="support-section">
+            <h3><i class="fas fa-heart" style="margin-right: 10px;"></i>Feeling Inspired?</h3>
+            <p>If this post resonated with you, remember that you're not alone in your journey. Support is always available.</p>
+            <div class="share-buttons">
+                <a href="{{ url_for('submit') }}" class="share-btn btn-primary" style="background: var(--deep-indigo); color: white;">
+                    <i class="fas fa-pen"></i> Share Your Story
+                </a>
+                <a href="{{ url_for('chat') }}" class="share-btn btn-secondary" style="background: rgba(42, 61, 102, 0.1); color: var(--deep-indigo); border: 2px solid var(--deep-indigo);">
+                    <i class="fas fa-comments"></i> Join Community Chat
+                </a>
+                <a href="{{ url_for('resources') }}" class="share-btn btn-secondary" style="background: rgba(42, 61, 102, 0.1); color: var(--deep-indigo); border: 2px solid var(--deep-indigo);">
+                    <i class="fas fa-life-ring"></i> Get Resources
+                </a>
+            </div>
+        </div>
+        
+        <!-- Crisis Resources -->
+        <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #dc3545, #c82333); border-radius: 15px; color: white; text-align: center;">
+            <h4 style="color: white; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>Need Immediate Support?</h4>
+            <p style="margin-bottom: 20px; opacity: 0.9;">If you're in crisis or need someone to talk to right now:</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Crisis Line: 1-833-456-4566</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Text: 45645</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Emergency: 911</strong>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+// Reading progress indicator
+window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = scrollTop / docHeight * 100;
+    
+    document.getElementById('reading-progress').style.width = scrollPercent + '%';
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
 {% endblock %} 

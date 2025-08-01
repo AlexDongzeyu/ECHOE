@@ -2,18 +2,418 @@
 
 {% block title %}Confirmation - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+    .confirmation-container {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .success-header {
+        background: linear-gradient(135deg, var(--soft-yellow), #e6c960);
+        color: var(--deep-indigo);
+        padding: 50px 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .success-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="2" fill="%232A3D66" opacity="0.1"/></svg>');
+        animation: float 15s linear infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateX(-100px) translateY(-100px); }
+        100% { transform: translateX(100px) translateY(100px); }
+    }
+    
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--deep-indigo);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--soft-yellow);
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 2;
+        animation: successPulse 2s infinite;
+    }
+    
+    @keyframes successPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(42, 61, 102, 0.3); }
+    }
+    
+    .success-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .success-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin: 0;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .code-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        margin-bottom: 30px;
+        border-top: 4px solid var(--gentle-lavender);
+    }
+    
+    .code-card h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .code-display {
+        background: var(--warm-white);
+        border: 3px solid var(--gentle-lavender);
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        position: relative;
+    }
+    
+    .code-value {
+        font-family: 'Courier New', monospace;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--deep-indigo);
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        word-break: break-all;
+        user-select: all;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .code-value:hover {
+        background: rgba(244, 208, 111, 0.1);
+        border-radius: 8px;
+        padding: 5px;
+    }
+    
+    .copy-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--gentle-lavender);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+    
+    .copy-button:hover {
+        background: var(--deep-indigo);
+        transform: translateY(-2px);
+    }
+    
+    .important-notice {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin: 25px 0;
+        text-align: center;
+    }
+    
+    .important-notice strong {
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .what-next {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.08);
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    
+    .what-next h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .next-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .next-steps li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: var(--deep-indigo);
+        line-height: 1.6;
+    }
+    
+    .step-number {
+        width: 24px;
+        height: 24px;
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+    
+    .action-btn {
+        padding: 15px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+    }
+    
+    .action-btn.primary {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+    }
+    
+    .action-btn.secondary {
+        background: rgba(42, 61, 102, 0.1);
+        color: var(--deep-indigo);
+        border: 2px solid var(--gentle-lavender);
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-3px);
+    }
+    
+    .action-btn.primary:hover {
+        background: #e6c960;
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+        color: var(--deep-indigo);
+    }
+    
+    .action-btn.secondary:hover {
+        background: var(--gentle-lavender);
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .confirmation-container {
+            margin: 20px;
+        }
+        
+        .success-header {
+            padding: 35px 25px;
+        }
+        
+        .success-header h1 {
+            font-size: 2rem;
+        }
+        
+        .code-card {
+            padding: 30px 25px;
+        }
+        
+        .code-value {
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1>Thank You!</h1>
-    <p>Your letter has been submitted successfully.</p>
-    
-    <div class="confirmation-code">
-        <h2>Your Unique Reply Code:</h2>
-        <p class="code">{{ letter.unique_id }}</p>
-        <p><strong>Important:</strong> This is your unique code. Please save it. You will need it to check for your reply. This code will not be shown again.</p>
+    <div class="page-container">
+        <div class="confirmation-container">
+            <div class="success-header">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h1>Thank You!</h1>
+                <p>Your letter has been submitted successfully and is now in the caring hands of our volunteer community.</p>
+            </div>
+            
+            <div class="code-card">
+                <h2>
+                    <i class="fas fa-key"></i>
+                    Your Unique Reply Code
+                </h2>
+                
+                <div class="code-display">
+                    <div class="code-value" id="letter-code" onclick="copyCode()">{{ letter.unique_id }}</div>
+                    <button class="copy-button" onclick="copyCode()" id="copy-btn">
+                        <i class="fas fa-copy"></i>
+                        Copy Code
+                    </button>
+                </div>
+                
+                <div class="important-notice">
+                    <strong><i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>Important!</strong>
+                    This is your unique code. Please save it somewhere safe. You will need it to check for your reply. This code will not be shown again.
+                </div>
+            </div>
+            
+            <div class="what-next">
+                <h3>
+                    <i class="fas fa-route"></i>
+                    What Happens Next?
+                </h3>
+                <ol class="next-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Our volunteers will carefully read your letter and craft a thoughtful, compassionate response</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>You'll typically receive a response within 24-48 hours</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Use your unique code to check for replies on our website</div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div>If needed, you can continue the conversation or access additional resources</div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('index') }}" class="action-btn primary">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <a href="{{ url_for('check_letter_reply') }}" class="action-btn secondary">
+                    <i class="fas fa-search"></i> Check for Reply
+                </a>
+                <a href="{{ url_for('resources') }}" class="action-btn secondary">
+                    <i class="fas fa-life-ring"></i> Crisis Resources
+                </a>
+            </div>
+        </div>
+        
+        <!-- Support Resources -->
+        <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white; text-align: center;">
+            <h3 style="color: white; margin-bottom: 20px;"><i class="fas fa-heart" style="margin-right: 10px;"></i>Need Immediate Support?</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">While waiting for your response, remember that help is always available:</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Crisis Line: 1-833-456-4566</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Text: 45645</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Emergency: 911</strong>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <p>You can use this code to check for a reply on our website in a few days.</p>
-    <a href="{{ url_for('index') }}" class="btn-primary">Back to Home</a>
 </div>
+
+<script>
+function copyCode() {
+    const codeElement = document.getElementById('letter-code');
+    const copyBtn = document.getElementById('copy-btn');
+    const code = codeElement.textContent;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(code).then(function() {
+        // Update button text
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.style.background = '#4caf50';
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
+            copyBtn.style.background = 'var(--gentle-lavender)';
+        }, 2000);
+    }).catch(function() {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.style.background = '#4caf50';
+        
+        setTimeout(function() {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
+            copyBtn.style.background = 'var(--gentle-lavender)';
+        }, 2000);
+    });
+}
+
+// Auto-select code when clicked
+document.getElementById('letter-code').addEventListener('click', function() {
+    const range = document.createRange();
+    range.selectNodeContents(this);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+});
+</script>
 {% endblock %} 

@@ -2,23 +2,188 @@
 
 {% block title %}Blog - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+    .post-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 4px solid var(--soft-yellow);
+    }
+    
+    .post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(42, 61, 102, 0.15);
+    }
+    
+    .post-card h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    
+    .post-card h2 a {
+        color: var(--deep-indigo);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .post-card h2 a:hover {
+        color: var(--gentle-lavender);
+    }
+    
+    .post-meta {
+        color: var(--gentle-lavender);
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .post-meta i {
+        margin-right: 5px;
+    }
+    
+    .post-excerpt {
+        color: var(--deep-indigo);
+        line-height: 1.7;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+    
+    .read-more {
+        color: var(--gentle-lavender);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border-bottom: 2px solid transparent;
+    }
+    
+    .read-more:hover {
+        color: var(--deep-indigo);
+        border-bottom-color: var(--soft-yellow);
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 80px 40px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        color: var(--gentle-lavender);
+        margin-bottom: 20px;
+        opacity: 0.7;
+    }
+    
+    .empty-state h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+    
+    .empty-state p {
+        color: var(--gentle-lavender);
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    
+    /* Blog intro section */
+    .blog-intro {
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .blog-intro h2 {
+        color: white;
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+    }
+    
+    .blog-intro p {
+        opacity: 0.9;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <div class="page-header">
-        <h1>Our Blog</h1>
-        <p>Mental health tips, success stories, and stress-relief techniques.</p>
-    </div>
+    <div class="page-container">
+        <div class="page-header">
+            <h1><i class="fas fa-blog" style="color: var(--soft-yellow); margin-right: 15px;"></i>Our Blog</h1>
+            <p>Mental health insights, success stories, and wellness tips to support your journey</p>
+        </div>
 
-    <div class="post-list">
-        {% for post in posts %}
-            <div class="content-section">
-                <h2><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
-                <p><em>by {{ post.author.username }} on {{ post.created_at.strftime('%B %d, %Y') }}</em></p>
-                <p>{{ post.body[:200] }}... <a href="{{ url_for('view_post', post_id=post.id) }}">Read More</a></p>
+        <div class="blog-intro">
+            <h2><i class="fas fa-heart" style="margin-right: 10px;"></i>Stories of Hope & Healing</h2>
+            <p>Discover inspiring stories, practical mental health tips, and evidence-based strategies for wellness. Our blog is a space where hope meets healing, and every story matters.</p>
+        </div>
+
+        <div class="post-list">
+            {% for post in posts %}
+                <article class="post-card">
+                    <h2><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    
+                    <div class="post-meta">
+                        <span><i class="fas fa-user"></i>by {{ post.author.username }}</span>
+                        <span><i class="fas fa-calendar"></i>{{ post.created_at.strftime('%B %d, %Y') }}</span>
+                        <span><i class="fas fa-clock"></i>{{ post.created_at.strftime('%I:%M %p') }}</span>
+                    </div>
+                    
+                    <div class="post-excerpt">
+                        {{ post.body[:300] }}{% if post.body|length > 300 %}...{% endif %}
+                    </div>
+                    
+                    <a href="{{ url_for('view_post', post_id=post.id) }}" class="read-more">
+                        Read Full Story <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Coming Soon!</h3>
+                    <p>We're working on bringing you inspiring stories and valuable mental health content. Check back soon for our first posts!</p>
+                    <a href="{{ url_for('submit') }}" class="btn-primary">
+                        <i class="fas fa-pen"></i> Share Your Story
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Call to Action -->
+        {% if posts %}
+        <div style="text-align: center; margin-top: 50px; padding: 40px; background: linear-gradient(135deg, var(--soft-yellow), #e6c960); border-radius: 20px; color: var(--deep-indigo);">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-lightbulb" style="margin-right: 10px;"></i>Inspired to Share?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your story could be the light someone else needs to find their way. Join our community and make a difference.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('submit') }}" class="btn-primary" style="background: var(--deep-indigo); color: white;">
+                    <i class="fas fa-pen"></i> Share Your Story
+                </a>
+                <a href="{{ url_for('volunteer_info') }}" class="btn-secondary" style="background: rgba(42, 61, 102, 0.1); color: var(--deep-indigo); border: 2px solid var(--deep-indigo);">
+                    <i class="fas fa-hands-helping"></i> Become a Volunteer
+                </a>
             </div>
-        {% else %}
-            <p>No posts yet. Check back soon!</p>
-        {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %} 

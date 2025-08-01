@@ -2,28 +2,377 @@
 
 {% block title %}{{ event.title }} - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+    .event-header {
+        background: linear-gradient(135deg, var(--soft-yellow), #e6c960);
+        color: var(--deep-indigo);
+        padding: 50px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .event-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="2" fill="%232A3D66" opacity="0.1"/></svg>');
+        animation: float 20s linear infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateX(-100px) translateY(-100px); }
+        100% { transform: translateX(100px) translateY(100px); }
+    }
+    
+    .event-header h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.2;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .event-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--deep-indigo);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .event-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .detail-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .detail-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .detail-card h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .detail-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--gentle-lavender);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .detail-content {
+        color: var(--deep-indigo);
+        line-height: 1.7;
+        font-size: 1.1rem;
+    }
+    
+    .event-objective {
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .event-objective h2 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
+    
+    .event-objective p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        opacity: 0.95;
+    }
+    
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--gentle-lavender);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 15px 25px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+    }
+    
+    .back-link:hover {
+        color: var(--deep-indigo);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(42, 61, 102, 0.15);
+    }
+    
+    .register-section {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        text-align: center;
+        margin-top: 40px;
+        border-top: 4px solid var(--soft-yellow);
+    }
+    
+    .register-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 30px;
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+        margin-top: 20px;
+    }
+    
+    .register-btn:hover {
+        background: #e6c960;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+        color: var(--deep-indigo);
+    }
+    
+    .event-structure {
+        background: var(--warm-white);
+        padding: 30px;
+        border-radius: 15px;
+        border-left: 4px solid var(--gentle-lavender);
+        margin: 30px 0;
+    }
+    
+    .event-structure h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .event-structure p {
+        color: var(--deep-indigo);
+        line-height: 1.6;
+        white-space: pre-line;
+    }
+    
+    /* Timeline-style structure if needed */
+    .event-timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+    
+    .event-timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gentle-lavender);
+    }
+    
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(42, 61, 102, 0.05);
+    }
+    
+    .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -22px;
+        top: 20px;
+        width: 12px;
+        height: 12px;
+        background: var(--soft-yellow);
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 0 2px var(--gentle-lavender);
+    }
+    
+    @media (max-width: 768px) {
+        .event-header {
+            padding: 30px 20px;
+        }
+        
+        .event-header h1 {
+            font-size: 2.2rem;
+        }
+        
+        .event-details-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .detail-card {
+            padding: 25px 20px;
+        }
+        
+        .event-objective {
+            padding: 30px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="page-container">
-        <h1>{{ event.title }}</h1>
-        <hr style="margin: 1.5rem 0;">
+        <a href="{{ url_for('events_index') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Events
+        </a>
         
-        <h3>Objective</h3>
-        <p>{{ event.objective }}</p>
-
-        <h3>Date & Time</h3>
-        <p>{{ event.event_date.strftime('%A, %B %d, %Y at %I:%M %p') }}</p>
-
-        <h3>Location</h3>
-        <p>{{ event.location }}</p>
-
-        <h3>Event Structure</h3>
-        <p>{{ event.structure }}</p>
-
-        {% if event.registration_link %}
-            <a href="{{ event.registration_link }}" class="btn-primary" style="margin-top: 2rem; display: inline-block;">Register Now</a>
+        <div class="event-header">
+            <div class="event-status">
+                <i class="fas fa-calendar-check"></i>
+                Upcoming Event
+            </div>
+            <h1>{{ event.title }}</h1>
+        </div>
+        
+        {% if event.objective %}
+        <div class="event-objective">
+            <h2><i class="fas fa-bullseye" style="margin-right: 15px;"></i>Event Objective</h2>
+            <p>{{ event.objective }}</p>
+        </div>
         {% endif %}
+        
+        <div class="event-details-grid">
+            <div class="detail-card">
+                <h3>
+                    <div class="detail-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    Date & Time
+                </h3>
+                <div class="detail-content">
+                    <p><strong>{{ event.event_date.strftime('%A, %B %d, %Y') }}</strong></p>
+                    <p style="color: var(--gentle-lavender); font-size: 1rem; margin-top: 5px;">
+                        {{ event.event_date.strftime('%I:%M %p') }}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <h3>
+                    <div class="detail-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    Location
+                </h3>
+                <div class="detail-content">
+                    <p>{{ event.location }}</p>
+                </div>
+            </div>
+        </div>
+        
+        {% if event.structure %}
+        <div class="detail-card">
+            <h3>
+                <div class="detail-icon">
+                    <i class="fas fa-list-ul"></i>
+                </div>
+                Event Structure & Agenda
+            </h3>
+            <div class="event-structure">
+                <p>{{ event.structure }}</p>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if event.registration_link %}
+        <div class="register-section">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 15px; font-size: 1.8rem;">
+                <i class="fas fa-ticket-alt" style="color: var(--soft-yellow); margin-right: 10px;"></i>
+                Ready to Join Us?
+            </h3>
+            <p style="color: var(--gentle-lavender); font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6;">
+                Secure your spot at this meaningful event. Registration helps us prepare the best experience for everyone.
+            </p>
+            <a href="{{ event.registration_link }}" target="_blank" class="register-btn">
+                <i class="fas fa-external-link-alt"></i>
+                Register Now - It's Free
+            </a>
+            <p style="font-size: 0.9rem; color: var(--gentle-lavender); margin-top: 15px; font-style: italic;">
+                Opens in a new window
+            </p>
+        </div>
+        {% else %}
+        <div class="register-section">
+            <h3 style="color: var(--deep-indigo); margin-bottom: 15px; font-size: 1.8rem;">
+                <i class="fas fa-info-circle" style="color: var(--gentle-lavender); margin-right: 10px;"></i>
+                Want to Attend?
+            </h3>
+            <p style="color: var(--gentle-lavender); font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6;">
+                Registration details will be available soon. Contact us to express your interest or get notified when registration opens.
+            </p>
+            <a href="{{ url_for('contact') }}" class="register-btn">
+                <i class="fas fa-envelope"></i>
+                Contact Us for Details
+            </a>
+        </div>
+        {% endif %}
+        
+        <!-- Support Section -->
+        <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white; text-align: center;">
+            <h3 style="color: white; margin-bottom: 20px;"><i class="fas fa-users" style="margin-right: 10px;"></i>Join Our Community</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9; line-height: 1.6;">
+                Events are just one way to connect. Explore more ways to engage with our supportive community.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('submit') }}" class="btn-primary" style="background: var(--soft-yellow); color: var(--deep-indigo); padding: 12px 20px;">
+                    <i class="fas fa-pen"></i> Share Your Story
+                </a>
+                <a href="{{ url_for('chat') }}" class="btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3); padding: 12px 20px;">
+                    <i class="fas fa-comments"></i> Community Chat
+                </a>
+                <a href="{{ url_for('volunteer_info') }}" class="btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3); padding: 12px 20px;">
+                    <i class="fas fa-hands-helping"></i> Volunteer
+                </a>
+            </div>
+        </div>
     </div>
-    <a href="{{ url_for('events_index') }}" style="display: inline-block; margin-top: 2rem;">&larr; Back to Events</a>
 </div>
 {% endblock %} 

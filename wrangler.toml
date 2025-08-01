@@ -11,7 +11,7 @@ name = "light-in-silence-staging"
 [[d1_databases]]
 binding = "DB"
 database_name = "light-in-silence-db"
-database_id = ""
+database_id = "f85dc072-ff8a-4842-9faf-63eb241a4a13"
 
 [vars]
 ENVIRONMENT = "production"

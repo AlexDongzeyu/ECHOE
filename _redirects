@@ -1,24 +1,52 @@
 # Cloudflare Pages redirects for Light in Silence
-# Handle SPA routing - serve index.html for specific routes only
+# Route all Flask app functionality to NPO-SCA directory
 
-# Redirect root domain to index.html
-/ /index.html 200
+# Main Flask app routes - these should serve the actual Flask application
+/submit /NPO-SCA/submit 200
+/login /NPO-SCA/login 200
+/register /NPO-SCA/register 200
+/logout /NPO-SCA/logout 200
+/about /NPO-SCA/about 200
+/contact /NPO-SCA/contact 200
+/resources /NPO-SCA/resources 200
+/privacy /NPO-SCA/privacy 200
+/terms /NPO-SCA/terms 200
+/donate /NPO-SCA/donate 200
+/chat /NPO-SCA/chat 200
+/check-reply /NPO-SCA/check-reply 200
 
-# Handle specific routes that should serve the main page
-/about /index.html 200
-/submit /index.html 200
-/contact /index.html 200
-/resources /index.html 200
-/check-reply /index.html 200
-/login /index.html 200
+# Letter and response system
+/confirmation/* /NPO-SCA/confirmation/:splat 200
+/response/* /NPO-SCA/response/:splat 200
 
-# Handle admin and volunteer routes
-/admin/* /index.html 200
-/volunteer/* /index.html 200
+# Blog system
+/blog /NPO-SCA/blog 200
+/blog/* /NPO-SCA/blog/:splat 200
 
-# Serve static assets normally (no redirect)
-/static/* /static/:splat 200
+# Events system
+/events /NPO-SCA/events 200
+/events/* /NPO-SCA/events/:splat 200
+
+# Volunteer system
+/volunteer/* /NPO-SCA/volunteer/:splat 200
+/volunteer-info /NPO-SCA/volunteer-info 200
+
+# Admin system
+/admin /NPO-SCA/admin 200
+/admin/* /NPO-SCA/admin/:splat 200
+
+# API routes
+/api/* /NPO-SCA/api/:splat 200
+
+# Static assets from Flask app
 /NPO-SCA/static/* /NPO-SCA/static/:splat 200
 
-# Handle API routes if needed
-/api/* /index.html 200 
+# Health check and other utilities
+/health-check /NPO-SCA/health-check 200
+/test /NPO-SCA/test 200
+/test-submit /NPO-SCA/test-submit 200
+/voice-settings /NPO-SCA/voice-settings 200
+/save-chat /NPO-SCA/save-chat 200
+
+# Root stays as static homepage
+/ /index.html 200 

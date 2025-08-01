@@ -1,11 +1,41 @@
 # Cloudflare Pages redirects for Light in Silence
-# Make Flask application the PRIMARY website
+# Serve the original beautiful Flask application as the main website
 
-# Flask app should be the main website - redirect root to Flask
-/ /NPO-SCA/ 200
+# Root serves the new homepage that preserves original design
+/ /index.html 200
 
-# All main routes should go directly to Flask app
-/* /NPO-SCA/:splat 200
+# All Flask app routes go to NPO-SCA directory (preserves original functionality)
+/submit /NPO-SCA/submit 200
+/login /NPO-SCA/login 200
+/register /NPO-SCA/register 200
+/logout /NPO-SCA/logout 200
+/about /NPO-SCA/about 200
+/contact /NPO-SCA/contact 200
+/resources /NPO-SCA/resources 200
+/privacy /NPO-SCA/privacy 200
+/terms /NPO-SCA/terms 200
+/donate /NPO-SCA/donate 200
+/chat /NPO-SCA/chat 200
+/check-reply /NPO-SCA/check-reply 200
+/confirmation/* /NPO-SCA/confirmation/:splat 200
+/response/* /NPO-SCA/response/:splat 200
+/blog /NPO-SCA/blog 200
+/blog/* /NPO-SCA/blog/:splat 200
+/events /NPO-SCA/events 200
+/events/* /NPO-SCA/events/:splat 200
+/volunteer/* /NPO-SCA/volunteer/:splat 200
+/volunteer-info /NPO-SCA/volunteer-info 200
+/admin /NPO-SCA/admin 200
+/admin/* /NPO-SCA/admin/:splat 200
+/api/* /NPO-SCA/api/:splat 200
 
 # Static assets for Flask app
-/static/* /NPO-SCA/static/:splat 200 
+/NPO-SCA/static/* /NPO-SCA/static/:splat 200
+/static/* /NPO-SCA/static/:splat 200
+
+# Health check and utilities
+/health-check /NPO-SCA/health-check 200
+/test /NPO-SCA/test 200
+/test-submit /NPO-SCA/test-submit 200
+/voice-settings /NPO-SCA/voice-settings 200
+/save-chat /NPO-SCA/save-chat 200 

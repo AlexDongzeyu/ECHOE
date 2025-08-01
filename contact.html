@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Light in Silence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --light-yellow: #f8e2a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background-color: var(--warm-white);
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.3rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover { transform: scale(1.05); }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: rgba(244, 208, 111, 0.2);
+        }
+        
+        .login-btn {
+            background-color: var(--soft-yellow);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            color: var(--deep-indigo) !important;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 2rem 1rem 4rem;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--deep-indigo);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--gentle-lavender);
+            font-style: italic;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow), var(--gentle-lavender));
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .contact-info h2 {
+            color: var(--deep-indigo);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--warm-white);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-3px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--gentle-lavender);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .contact-details h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-details p {
+            color: var(--gentle-lavender);
+            margin-bottom: 0.25rem;
+        }
+        
+        .contact-details a {
+            color: var(--deep-indigo);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-details a:hover {
+            color: var(--gentle-lavender);
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--soft-yellow), var(--gentle-lavender), var(--soft-yellow));
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .contact-form h2 {
+            color: var(--deep-indigo);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--deep-indigo);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gentle-lavender);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--soft-yellow);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+        }
+        
+        .office-hours {
+            background: linear-gradient(135deg, var(--deep-indigo), var(--gentle-lavender));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .office-hours h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .emergency-section {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .emergency-section h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+        
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .emergency-contact {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .emergency-contact strong {
+            color: var(--deep-indigo);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+            color: #388e3c;
+        }
+        
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-info,
+            .contact-form {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .emergency-contacts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="submit.html">Share Your Story</a></li>
+                <li><a href="check-reply.html">Check Reply</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>Contact Us</h1>
+                <p>We're here to listen and help connect you with support</p>
+            </div>
+            
+            <div class="emergency-section">
+                <h3><i class="fas fa-exclamation-triangle"></i> In Crisis? Get Immediate Help</h3>
+                <p>If you're having thoughts of self-harm, are in immediate danger, or need urgent support:</p>
+                <div class="emergency-contacts">
+                    <div class="emergency-contact">
+                        <strong>Canada Crisis Line</strong>
+                        <p>1-833-456-4566</p>
+                        <p><small>24/7 free support</small></p>
+                    </div>
+                    <div class="emergency-contact">
+                        <strong>Text Support</strong>
+                        <p>45645</p>
+                        <p><small>Free text crisis support</small></p>
+                    </div>
+                    <div class="emergency-contact">
+                        <strong>Emergency Services</strong>
+                        <p>911</p>
+                        <p><small>Immediate emergency help</small></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Us</h3>
+                            <p>General inquiries and support</p>
+                            <a href="mailto:contact@lightinsilence.org">contact@lightinsilence.org</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Volunteer Inquiries</h3>
+                            <p>Join our team of trained volunteers</p>
+                            <a href="mailto:volunteer@lightinsilence.org">volunteer@lightinsilence.org</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Partnerships & Media</h3>
+                            <p>Collaboration and press inquiries</p>
+                            <a href="mailto:partnerships@lightinsilence.org">partnerships@lightinsilence.org</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Based in Canada</h3>
+                            <p>Serving communities nationwide</p>
+                            <p>Ontario, Canada</p>
+                        </div>
+                    </div>
+                    
+                    <div class="office-hours">
+                        <h3><i class="fas fa-clock"></i> Response Times</h3>
+                        <p><strong>Email responses:</strong> Within 24-48 hours</p>
+                        <p><strong>Letter responses:</strong> Within 48 hours</p>
+                        <p><strong>Crisis support:</strong> Use emergency numbers above</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i> Thank you for your message! We'll get back to you within 24-48 hours.
+                    </div>
+                    
+                    <form onsubmit="submitContactForm(event)">
+                        <div class="form-group">
+                            <label for="name">Name (Optional)</label>
+                            <input type="text" id="name" name="name" placeholder="Your name or 'Anonymous'">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Choose a subject...</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="volunteer">Volunteer Application</option>
+                                <option value="partnership">Partnership/Collaboration</option>
+                                <option value="media">Media/Press Inquiry</option>
+                                <option value="feedback">Website Feedback</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us how we can help you, or share your thoughts about Light in Silence..." minlength="10" maxlength="2000"></textarea>
+                            <small style="color: var(--gentle-lavender);">Character count: <span id="charCount">0</span>/2000</small>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div style="background-color: white; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1); text-align: center; margin-top: 3rem;">
+                <h2 style="color: var(--deep-indigo); margin-bottom: 1rem;">Prefer to Share Anonymously?</h2>
+                <p style="margin-bottom: 2rem; color: var(--gentle-lavender);">
+                    If you'd rather share your thoughts or concerns anonymously, consider using our letter submission system instead.
+                </p>
+                <a href="submit.html" style="background-color: var(--gentle-lavender); color: white; padding: 1rem 2rem; border-radius: 30px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; display: inline-block;">
+                    <i class="fas fa-envelope"></i> Submit Anonymous Letter
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p>&copy; 2025 Light in Silence. All rights reserved. | Where Your Words Find Light</p>
+            <p style="margin-top: 0.5rem;">
+                A Canadian non-profit organization dedicated to mental health support through community connection.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Character counter
+        const messageTextarea = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        
+        messageTextarea.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 1800) {
+                charCount.style.color = 'var(--error-red, #f44336)';
+            } else {
+                charCount.style.color = 'var(--gentle-lavender)';
+            }
+        });
+        
+        // Form submission
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name') || 'Anonymous';
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message').trim();
+            
+            // Basic validation
+            if (!email || !subject || message.length < 10) {
+                alert('Please fill in all required fields with at least 10 characters in your message.');
+                return;
+            }
+            
+            // Simulate sending email (in real app, this would go to a server)
+            const contactData = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Store in localStorage for demo purposes
+            const existingContacts = JSON.parse(localStorage.getItem('lightInSilenceContacts') || '[]');
+            existingContacts.push(contactData);
+            localStorage.setItem('lightInSilenceContacts', JSON.stringify(existingContacts));
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form
+            event.target.reset();
+            charCount.textContent = '0';
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            console.log('Contact form submitted:', contactData);
+        }
+        
+        // Auto-resize textarea
+        messageTextarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+        
+        // Add animation effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.contact-info, .contact-form');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html> 

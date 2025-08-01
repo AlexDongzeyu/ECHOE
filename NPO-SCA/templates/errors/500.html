@@ -1,11 +1,312 @@
 {% extends "base.html" %}
 
-{% block title %}Internal Server Error - {{ super() }}{% endblock %}
+{% block title %}Server Error - Light in Silence{% endblock %}
+
+{% block styles %}
+<style>
+    .error-container {
+        text-align: center;
+        padding: 100px 20px;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .error-code {
+        font-size: 8rem;
+        font-weight: 900;
+        color: #f44336;
+        margin-bottom: 20px;
+        text-shadow: 0 10px 30px rgba(244, 67, 54, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .error-title {
+        font-size: 2.5rem;
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    
+    .error-message {
+        font-size: 1.2rem;
+        color: var(--gentle-lavender);
+        margin-bottom: 40px;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    
+    .error-actions {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+    
+    .error-btn {
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .primary-btn {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+    }
+    
+    .primary-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+        color: var(--deep-indigo);
+    }
+    
+    .secondary-btn {
+        background: transparent;
+        color: var(--deep-indigo);
+        border: 2px solid var(--gentle-lavender);
+    }
+    
+    .secondary-btn:hover {
+        background: var(--gentle-lavender);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .error-details {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        max-width: 800px;
+        text-align: left;
+    }
+    
+    .error-details h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .detail-item {
+        padding: 20px;
+        background: var(--warm-white);
+        border-radius: 15px;
+        border-left: 4px solid var(--soft-yellow);
+    }
+    
+    .detail-title {
+        font-weight: 600;
+        color: var(--deep-indigo);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .detail-content {
+        color: var(--gentle-lavender);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .contact-support {
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--soft-yellow));
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    
+    .contact-support h4 {
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .contact-support p {
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+    
+    .support-btn {
+        background: white;
+        color: var(--deep-indigo);
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .support-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        color: var(--deep-indigo);
+    }
+    
+    @media (max-width: 768px) {
+        .error-code {
+            font-size: 6rem;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+        }
+        
+        .error-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .error-details {
+            margin: 20px;
+            padding: 30px 20px;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container" style="text-align: center; padding: 4rem 1rem;">
-    <h1>500 - Internal Server Error</h1>
-    <p>Sorry, something went wrong on our end. We are working to fix it.</p>
-    <p>Please try again later or return to the <a href="{{ url_for('index') }}">homepage</a>.</p>
+<div class="error-container">
+    <div class="error-code">500</div>
+    <h1 class="error-title">Server Error</h1>
+    <p class="error-message">
+        Something went wrong on our end. We're working to fix this issue as quickly as possible. 
+        Please try again in a few moments, or contact our support team if the problem persists.
+    </p>
+    
+    <div class="error-actions">
+        <a href="{{ url_for('index') }}" class="error-btn primary-btn">
+            <i class="fas fa-home"></i>
+            Go Home
+        </a>
+        <a href="javascript:location.reload()" class="error-btn secondary-btn">
+            <i class="fas fa-redo"></i>
+            Try Again
+        </a>
+    </div>
+    
+    <div class="error-details">
+        <h3>
+            <i class="fas fa-info-circle"></i>
+            What Happened?
+        </h3>
+        <p style="color: var(--gentle-lavender); margin-bottom: 20px;">
+            A server error occurred while processing your request. This could be due to a temporary issue 
+            with our systems, maintenance work, or an unexpected problem that our team needs to investigate.
+        </p>
+        
+        <div class="details-grid">
+            <div class="detail-item">
+                <div class="detail-title">
+                    <i class="fas fa-clock"></i>
+                    What You Can Do
+                </div>
+                <div class="detail-content">
+                    Wait a few minutes and try refreshing the page. The issue may resolve itself automatically.
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-title">
+                    <i class="fas fa-tools"></i>
+                    Our Response
+                </div>
+                <div class="detail-content">
+                    Our technical team has been automatically notified and is working to resolve this issue.
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Your Data
+                </div>
+                <div class="detail-content">
+                    Your information is safe. This error doesn't affect the security or privacy of your data.
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-title">
+                    <i class="fas fa-heart"></i>
+                    Need Support?
+                </div>
+                <div class="detail-content">
+                    If you need immediate mental health support, please use our crisis resources below.
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-support">
+            <h4><i class="fas fa-life-ring"></i> Need Immediate Help?</h4>
+            <p>If this is a mental health emergency, please contact crisis services immediately:</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="tel:1-833-456-4566" class="support-btn">
+                    <i class="fas fa-phone"></i>
+                    Crisis Line: 1-833-456-4566
+                </a>
+                <a href="tel:911" class="support-btn">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency: 911
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-refresh attempt after 30 seconds
+    let autoRefreshTimer = setTimeout(function() {
+        if (confirm('Would you like to try loading the page again automatically?')) {
+            location.reload();
+        }
+    }, 30000);
+    
+    // Cancel auto-refresh if user navigates away
+    window.addEventListener('beforeunload', function() {
+        clearTimeout(autoRefreshTimer);
+    });
+    
+    // Add interaction to detail items
+    const detailItems = document.querySelectorAll('.detail-item');
+    detailItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+});
+</script>
 {% endblock %} 

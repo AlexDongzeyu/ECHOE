@@ -1,11 +1,241 @@
 {% extends "base.html" %}
 
-{% block title %}Page Not Found - {{ super() }}{% endblock %}
+{% block title %}Page Not Found - Light in Silence{% endblock %}
+
+{% block styles %}
+<style>
+    .error-container {
+        text-align: center;
+        padding: 100px 20px;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .error-code {
+        font-size: 8rem;
+        font-weight: 900;
+        color: var(--soft-yellow);
+        margin-bottom: 20px;
+        text-shadow: 0 10px 30px rgba(244, 208, 111, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .error-title {
+        font-size: 2.5rem;
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    
+    .error-message {
+        font-size: 1.2rem;
+        color: var(--gentle-lavender);
+        margin-bottom: 40px;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    
+    .error-actions {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .error-btn {
+        padding: 15px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .primary-btn {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+    }
+    
+    .primary-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+        color: var(--deep-indigo);
+    }
+    
+    .secondary-btn {
+        background: transparent;
+        color: var(--deep-indigo);
+        border: 2px solid var(--gentle-lavender);
+    }
+    
+    .secondary-btn:hover {
+        background: var(--gentle-lavender);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .helpful-links {
+        margin-top: 60px;
+        padding: 40px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        max-width: 800px;
+    }
+    
+    .helpful-links h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+    
+    .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .link-item {
+        padding: 20px;
+        background: var(--warm-white);
+        border-radius: 15px;
+        text-decoration: none;
+        color: var(--deep-indigo);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .link-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+        color: var(--deep-indigo);
+    }
+    
+    .link-icon {
+        font-size: 2rem;
+        color: var(--soft-yellow);
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .error-code {
+            font-size: 6rem;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+        }
+        
+        .error-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .helpful-links {
+            margin: 40px 20px;
+            padding: 30px 20px;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container" style="text-align: center; padding: 4rem 1rem;">
-    <h1>404 - Page Not Found</h1>
-    <p>Sorry, the page you are looking for does not exist.</p>
-    <p>You can always go back to the <a href="{{ url_for('index') }}">homepage</a>.</p>
+<div class="error-container">
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-message">
+        We couldn't find the page you're looking for. It might have been moved, deleted, 
+        or you may have entered the wrong URL. Don't worry - let's help you get back on track.
+    </p>
+    
+    <div class="error-actions">
+        <a href="{{ url_for('index') }}" class="error-btn primary-btn">
+            <i class="fas fa-home"></i>
+            Go Home
+        </a>
+        <a href="javascript:history.back()" class="error-btn secondary-btn">
+            <i class="fas fa-arrow-left"></i>
+            Go Back
+        </a>
+    </div>
+    
+    <div class="helpful-links">
+        <h3><i class="fas fa-compass"></i> Popular Pages</h3>
+        <div class="links-grid">
+            <a href="{{ url_for('submit') }}" class="link-item">
+                <div class="link-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div style="font-weight: 600;">Share Your Story</div>
+                <div style="font-size: 0.9rem; color: var(--gentle-lavender);">Write a letter</div>
+            </a>
+            
+            <a href="{{ url_for('check_letter_reply') }}" class="link-item">
+                <div class="link-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div style="font-weight: 600;">Check Reply</div>
+                <div style="font-size: 0.9rem; color: var(--gentle-lavender);">Find your response</div>
+            </a>
+            
+            <a href="{{ url_for('resources') }}" class="link-item">
+                <div class="link-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div style="font-weight: 600;">Mental Health Resources</div>
+                <div style="font-size: 0.9rem; color: var(--gentle-lavender);">Crisis support</div>
+            </a>
+            
+            <a href="{{ url_for('about') }}" class="link-item">
+                <div class="link-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div style="font-weight: 600;">About Us</div>
+                <div style="font-size: 0.9rem; color: var(--gentle-lavender);">Our mission</div>
+            </a>
+        </div>
+    </div>
 </div>
+
+<script>
+// Add some interaction
+document.addEventListener('DOMContentLoaded', function() {
+    // Add hover effects to link items
+    const linkItems = document.querySelectorAll('.link-item');
+    
+    linkItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('.link-icon i');
+            icon.style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.link-icon i');
+            icon.style.transform = 'scale(1) rotate(0deg)';
+        });
+    });
+    
+    // Auto-focus on primary action after a short delay
+    setTimeout(() => {
+        const primaryBtn = document.querySelector('.primary-btn');
+        if (primaryBtn) {
+            primaryBtn.style.boxShadow = '0 0 20px rgba(244, 208, 111, 0.6)';
+            setTimeout(() => {
+                primaryBtn.style.boxShadow = '0 5px 15px rgba(244, 208, 111, 0.4)';
+            }, 1000);
+        }
+    }, 500);
+});
+</script>
 {% endblock %} 

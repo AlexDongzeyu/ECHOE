@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+
+{% block title %}Content Moderation - Light in Silence{% endblock %}
+
+{% block styles %}
+<style>
+    .admin-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .admin-header {
+        background: linear-gradient(135deg, var(--deep-indigo), var(--dark-indigo));
+        border-radius: 25px;
+        padding: 50px 40px;
+        margin-bottom: 40px;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .admin-header h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .content-section {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .filter-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .filter-tab {
+        padding: 12px 25px;
+        border: 2px solid var(--gentle-lavender);
+        border-radius: 25px;
+        background: white;
+        color: var(--deep-indigo);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+    
+    .filter-tab.active, .filter-tab:hover {
+        background: var(--soft-yellow);
+        border-color: var(--soft-yellow);
+    }
+    
+    .content-list {
+        space-y: 20px;
+    }
+    
+    .content-item {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        border-left: 4px solid var(--gentle-lavender);
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .content-item.flagged {
+        border-left-color: #f44336;
+    }
+    
+    .content-item.reviewed {
+        border-left-color: #4caf50;
+    }
+    
+    .content-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .action-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .approve-btn {
+        background: #4caf50;
+        color: white;
+    }
+    
+    .flag-btn {
+        background: #f44336;
+        color: white;
+    }
+    
+    .review-btn {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1>
+            <i class="fas fa-shield-alt"></i>
+            Content Moderation
+        </h1>
+        <p>Review and moderate user-submitted content</p>
+    </div>
+    
+    <!-- Statistics Overview -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-file-alt stat-icon" style="font-size: 2.5rem; color: var(--deep-indigo); margin-bottom: 15px;"></i>
+            <div style="font-size: 2rem; font-weight: bold; color: var(--deep-indigo);" id="totalContent">{{ total_letters or 0 }}</div>
+            <div style="color: var(--gentle-lavender); font-weight: 600;">Total Letters</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-flag stat-icon" style="font-size: 2.5rem; color: #f44336; margin-bottom: 15px;"></i>
+            <div style="font-size: 2rem; font-weight: bold; color: var(--deep-indigo);" id="flaggedContent">{{ flagged_letters|length or 0 }}</div>
+            <div style="color: var(--gentle-lavender); font-weight: 600;">Flagged Content</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-clock stat-icon" style="font-size: 2.5rem; color: var(--soft-yellow); margin-bottom: 15px;"></i>
+            <div style="font-size: 2rem; font-weight: bold; color: var(--deep-indigo);" id="pendingReview">{{ unprocessed_letters|length or 0 }}</div>
+            <div style="color: var(--gentle-lavender); font-weight: 600;">Pending Review</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-check-circle stat-icon" style="font-size: 2.5rem; color: #4caf50; margin-bottom: 15px;"></i>
+            <div style="font-size: 2rem; font-weight: bold; color: var(--deep-indigo);" id="approvedContent">{{ processed_letters|length or 0 }}</div>
+            <div style="color: var(--gentle-lavender); font-weight: 600;">Processed</div>
+        </div>
+    </div>
+    
+    <!-- Filter Tabs -->
+    <div class="content-section">
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">
+                <i class="fas fa-list"></i> All Content
+            </div>
+            <div class="filter-tab" data-filter="flagged">
+                <i class="fas fa-flag"></i> Flagged
+            </div>
+            <div class="filter-tab" data-filter="pending">
+                <i class="fas fa-clock"></i> Pending Review
+            </div>
+            <div class="filter-tab" data-filter="approved">
+                <i class="fas fa-check"></i> Approved
+            </div>
+        </div>
+        
+        <!-- Content List -->
+        <div class="content-list" id="contentList">
+            {% for letter in letters %}
+            <div class="content-item {% if letter.is_flagged %}flagged{% elif letter.is_processed %}reviewed{% endif %}" 
+                 data-status="{% if letter.is_flagged %}flagged{% elif letter.is_processed %}approved{% else %}pending{% endif %}">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div>
+                        <h4 style="color: var(--deep-indigo); margin-bottom: 5px;">
+                            {% if letter.topic %}{{ letter.topic|title }}{% else %}General{% endif %}
+                        </h4>
+                        <p style="color: var(--gentle-lavender); font-size: 0.9rem;">
+                            <i class="fas fa-calendar"></i> {{ letter.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+                            | <i class="fas fa-tag"></i> {{ letter.unique_id[:8] }}
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        {% if letter.is_flagged %}
+                            <span style="background: #f44336; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">
+                                <i class="fas fa-flag"></i> Flagged
+                            </span>
+                        {% elif letter.is_processed %}
+                            <span style="background: #4caf50; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">
+                                <i class="fas fa-check"></i> Processed
+                            </span>
+                        {% else %}
+                            <span style="background: var(--soft-yellow); color: var(--deep-indigo); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">
+                                <i class="fas fa-clock"></i> Pending
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div style="background: var(--warm-white); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                    <p style="color: var(--deep-indigo); line-height: 1.6;">
+                        {{ letter.content[:300] }}{% if letter.content|length > 300 %}...{% endif %}
+                    </p>
+                </div>
+                
+                <div class="content-actions">
+                    {% if not letter.is_processed %}
+                        <form method="POST" action="{{ url_for('admin_approve_letter', letter_id=letter.unique_id) }}" style="display: inline;">
+                            <button type="submit" class="action-btn approve-btn">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    {% if not letter.is_flagged %}
+                        <form method="POST" action="{{ url_for('admin_flag_letter', letter_id=letter.unique_id) }}" style="display: inline;">
+                            <button type="submit" class="action-btn flag-btn">
+                                <i class="fas fa-flag"></i> Flag
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    <a href="{{ url_for('view_letter_detail', letter_id=letter.unique_id) }}" class="action-btn review-btn">
+                        <i class="fas fa-eye"></i> Review
+                    </a>
+                    
+                    <form method="POST" action="{{ url_for('admin_delete_letter', letter_id=letter.unique_id) }}" 
+                          style="display: inline;" 
+                          onsubmit="return confirm('Are you sure you want to delete this letter? This action cannot be undone.')">
+                        <button type="submit" class="action-btn" style="background: #f44336; color: white;">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            
+            {% if not letters %}
+            <div style="text-align: center; padding: 50px; color: var(--gentle-lavender);">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h3>No content to moderate</h3>
+                <p>All content has been reviewed or there are no submissions yet.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+// Filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const contentItems = document.querySelectorAll('.content-item');
+    
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Update active tab
+            filterTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            
+            // Filter content items
+            contentItems.forEach(item => {
+                if (filter === 'all' || item.dataset.status === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Auto-refresh stats every 30 seconds
+    setInterval(function() {
+        // You can implement AJAX refresh here if needed
+    }, 30000);
+});
+</script>
+{% endblock %}

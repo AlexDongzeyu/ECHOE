@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Story - Light in Silence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --dark-indigo: #1e2e4f;
+            --light-yellow: #f8e2a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background-color: var(--warm-white);
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+            min-height: 100vh;
+        }
+        
+        /* Header - Same as index */
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.3rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: rgba(244, 208, 111, 0.2);
+        }
+        
+        .login-btn {
+            background-color: var(--soft-yellow);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            color: var(--deep-indigo) !important;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 2rem 1rem 4rem;
+            background-color: var(--warm-white);
+            min-height: calc(100vh - 140px);
+        }
+        
+        /* Form Container */
+        .form-container {
+            max-width: 700px;
+            margin: 1rem auto 3rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow), var(--gentle-lavender));
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--deep-indigo);
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .form-container h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .form-quote {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 2rem;
+            color: var(--deep-indigo);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .form-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--deep-indigo);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Submission Options */
+        .submission-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background-color: var(--warm-white);
+            border-radius: 10px;
+            padding: 5px;
+            border: 2px solid var(--gentle-lavender);
+        }
+        
+        .submission-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--deep-indigo);
+        }
+        
+        .submission-option.active {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+        }
+        
+        .submission-option:hover {
+            background-color: var(--light-yellow);
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--deep-indigo);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--gentle-lavender);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--soft-yellow);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Reply Method Section */
+        .reply-methods {
+            background-color: var(--warm-white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--gentle-lavender);
+        }
+        
+        .reply-methods h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .reply-option {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .reply-option:hover {
+            background-color: rgba(244, 208, 111, 0.1);
+        }
+        
+        .reply-option input[type="radio"] {
+            margin-right: 0.8rem;
+            width: auto;
+        }
+        
+        .reply-option label {
+            margin-bottom: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .email-field {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .email-field.show {
+            display: block;
+        }
+        
+        /* Privacy Notice */
+        .privacy-notice {
+            background-color: rgba(179, 156, 208, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--gentle-lavender);
+        }
+        
+        .privacy-notice h4 {
+            color: var(--deep-indigo);
+            margin-bottom: 0.5rem;
+        }
+        
+        .privacy-notice p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Crisis Resources */
+        .crisis-resources {
+            background-color: rgba(244, 208, 111, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--soft-yellow);
+        }
+        
+        .crisis-resources h4 {
+            color: var(--deep-indigo);
+            margin-bottom: 0.5rem;
+        }
+        
+        .crisis-resources p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .crisis-resources strong {
+            color: var(--deep-indigo);
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .form-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .submission-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="submit.html" class="active">Share Your Story</a></li>
+                <li><a href="check-reply.html">Check Reply</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="login.html" class="login-btn">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="form-container">
+            <h2>Share Your Story</h2>
+            <p class="form-quote">"Your voice matters. Your story has the power to heal."</p>
+            <p class="form-intro">
+                Welcome to a safe space where you can share your thoughts, feelings, and experiences anonymously. 
+                Whether you're going through a difficult time or simply need someone to listen, we're here for you.
+            </p>
+            
+            <div class="submission-options">
+                <div class="submission-option active" onclick="selectSubmissionType('online')">
+                    <i class="fas fa-laptop"></i> Online Submission
+                </div>
+                <div class="submission-option" onclick="selectSubmissionType('physical')">
+                    <i class="fas fa-envelope"></i> Physical Mailbox Info
+                </div>
+            </div>
+            
+            <form id="letterForm" onsubmit="submitLetter(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="topic">Topic (Optional)</label>
+                        <select id="topic" name="topic">
+                            <option value="">Choose a topic...</option>
+                            <option value="academic">Academic Pressure</option>
+                            <option value="work">Work Stress</option>
+                            <option value="relationships">Relationships</option>
+                            <option value="mental">Mental Health</option>
+                            <option value="future">Future Anxiety</option>
+                            <option value="family">Family Issues</option>
+                            <option value="identity">Identity & Self</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">Your Letter *</label>
+                    <textarea id="content" name="content" required 
+                              placeholder="Share what's on your mind. Remember, this is a safe space where you can express yourself freely. There's no judgment here, only understanding and support."
+                              minlength="10" maxlength="5000"></textarea>
+                    <small style="color: var(--gentle-lavender);">Character count: <span id="charCount">0</span>/5000</small>
+                </div>
+                
+                <div class="reply-methods">
+                    <h3>How would you like to receive a reply? (Optional)</h3>
+                    
+                    <div class="reply-option">
+                        <input type="radio" id="reply-website" name="reply_method" value="website" checked>
+                        <label for="reply-website">
+                            <strong>Check on website</strong><br>
+                            <small>You'll receive a unique code to check for replies on our website</small>
+                        </label>
+                    </div>
+                    
+                    <div class="reply-option">
+                        <input type="radio" id="reply-email" name="reply_method" value="anonymous-email">
+                        <label for="reply-email">
+                            <strong>Anonymous email</strong><br>
+                            <small>Receive a reply via email (your identity remains protected)</small>
+                        </label>
+                    </div>
+                    
+                    <div class="reply-option">
+                        <input type="radio" id="reply-ai" name="reply_method" value="ai">
+                        <label for="reply-ai">
+                            <strong>AI-generated immediate response</strong><br>
+                            <small>Get an instant supportive response from our AI, plus human follow-up</small>
+                        </label>
+                    </div>
+                    
+                    <div class="reply-option">
+                        <input type="radio" id="reply-none" name="reply_method" value="none">
+                        <label for="reply-none">
+                            <strong>No reply needed</strong><br>
+                            <small>Sometimes just sharing is enough</small>
+                        </label>
+                    </div>
+                    
+                    <div class="email-field" id="emailField">
+                        <div class="form-group">
+                            <label for="anonymous_email">Anonymous Email Address</label>
+                            <input type="email" id="anonymous_email" name="anonymous_email" 
+                                   placeholder="your-anonymous-email@example.com">
+                            <small style="color: var(--gentle-lavender);">
+                                This email will only be used to send you a reply. We never store or share personal information.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="privacy-notice">
+                    <h4><i class="fas fa-shield-alt"></i> Your Privacy & Safety</h4>
+                    <p>
+                        • All submissions are completely anonymous<br>
+                        • We never collect personal information unless you provide an email<br>
+                        • All content is reviewed by trained volunteers<br>
+                        • If you're in immediate danger, please contact emergency services: <strong>911</strong>
+                    </p>
+                </div>
+                
+                <div class="crisis-resources">
+                    <h4><i class="fas fa-exclamation-triangle"></i> In Crisis? Get Immediate Help</h4>
+                    <p>
+                        If you're having thoughts of self-harm or suicide:<br>
+                        <strong>Canada Crisis Line:</strong> 1-833-456-4566<br>
+                        <strong>Text Support:</strong> 45645<br>
+                        <strong>Emergency:</strong> 911
+                    </p>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Your Letter
+                </button>
+            </form>
+        </div>
+        
+        <div id="physicalInfo" style="display: none;">
+            <div class="form-container">
+                <h2>Physical Mailboxes</h2>
+                <p class="form-intro">
+                    Our "tree hole" mailboxes are located in community centers across Canada. 
+                    You can write a handwritten letter and drop it in one of these secure locations.
+                </p>
+                
+                <div style="background-color: var(--warm-white); padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 1rem;">
+                        <i class="fas fa-map-marker-alt"></i> Coming Soon: Physical Locations
+                    </h3>
+                    <p>We're currently setting up physical mailbox locations across Canada. Check back soon for updates!</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: var(--deep-indigo);">How it works:</h4>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Write your letter by hand</li>
+                            <li>Fold it and place it in the secure mailbox</li>
+                            <li>Include your preferred reply method (if any)</li>
+                            <li>A volunteer will collect and respond within 48 hours</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button onclick="selectSubmissionType('online')" class="submit-btn" style="width: auto; margin-top: 1rem;">
+                        <i class="fas fa-laptop"></i> Submit Online Instead
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p>&copy; 2025 Light in Silence. All rights reserved. | Where Your Words Find Light</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="privacy.html" style="color: var(--soft-yellow); text-decoration: none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: var(--soft-yellow); text-decoration: none;">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Character counter
+        const contentTextarea = document.getElementById('content');
+        const charCount = document.getElementById('charCount');
+        
+        contentTextarea.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 4500) {
+                charCount.style.color = 'var(--error-red, #f44336)';
+            } else {
+                charCount.style.color = 'var(--gentle-lavender)';
+            }
+        });
+        
+        // Reply method handling
+        const replyMethods = document.querySelectorAll('input[name="reply_method"]');
+        const emailField = document.getElementById('emailField');
+        
+        replyMethods.forEach(method => {
+            method.addEventListener('change', function() {
+                if (this.value === 'anonymous-email') {
+                    emailField.classList.add('show');
+                    document.getElementById('anonymous_email').required = true;
+                } else {
+                    emailField.classList.remove('show');
+                    document.getElementById('anonymous_email').required = false;
+                }
+            });
+        });
+        
+        // Submission type selection
+        function selectSubmissionType(type) {
+            const options = document.querySelectorAll('.submission-option');
+            const onlineForm = document.getElementById('letterForm').parentElement;
+            const physicalInfo = document.getElementById('physicalInfo');
+            
+            options.forEach(option => option.classList.remove('active'));
+            
+            if (type === 'online') {
+                options[0].classList.add('active');
+                onlineForm.style.display = 'block';
+                physicalInfo.style.display = 'none';
+            } else {
+                options[1].classList.add('active');
+                onlineForm.style.display = 'none';
+                physicalInfo.style.display = 'block';
+            }
+        }
+        
+        // Form submission
+        function submitLetter(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const content = formData.get('content').trim();
+            
+            if (content.length < 10) {
+                alert('Please write at least 10 characters in your letter.');
+                return;
+            }
+            
+            // Simulate content moderation
+            const flaggedWords = ['suicide', 'kill myself', 'end my life', 'hurt myself', 'self-harm'];
+            const isFlagged = flaggedWords.some(word => content.toLowerCase().includes(word));
+            
+            if (isFlagged) {
+                const proceed = confirm(
+                    "I notice your message mentions something concerning. " +
+                    "If you're in crisis, please consider calling the Canada Crisis Line at 1-833-456-4566 " +
+                    "or texting 45645 for immediate support. " +
+                    "Would you still like to submit your letter for additional support?"
+                );
+                if (!proceed) return;
+            }
+            
+            // Generate unique ID for the letter
+            const letterId = 'LIS-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+            
+            // Store letter data (in a real app, this would go to a server)
+            const letterData = {
+                id: letterId,
+                topic: formData.get('topic'),
+                content: content,
+                reply_method: formData.get('reply_method'),
+                anonymous_email: formData.get('anonymous_email'),
+                timestamp: new Date().toISOString(),
+                status: 'submitted'
+            };
+            
+            // Store in localStorage for demo purposes
+            const existingLetters = JSON.parse(localStorage.getItem('lightInSilenceLetters') || '[]');
+            existingLetters.push(letterData);
+            localStorage.setItem('lightInSilenceLetters', JSON.stringify(existingLetters));
+            
+            // Redirect to confirmation page
+            localStorage.setItem('currentLetter', JSON.stringify(letterData));
+            window.location.href = 'confirmation.html';
+        }
+        
+        // Auto-resize textarea
+        contentTextarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+        
+        // Add animation effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const formContainer = document.querySelector('.form-container');
+            formContainer.style.opacity = '0';
+            formContainer.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                formContainer.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                formContainer.style.opacity = '1';
+                formContainer.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en-CA">
+    <title>Light in Silence - Where Your Words Find Light</title>
+    <meta name="description" content="A Canadian mental health platform providing anonymous support through both digital and physical channels. Share your story and find healing.">
+    <meta name="keywords" content="mental health, support, anonymous, Canada, healing, wellness">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Light in Silence - Where Your Words Find Light">
+    <meta property="og:description" content="A Canadian mental health platform providing anonymous support through both digital and physical channels.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lightinsilence.org">
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --dark-indigo: #1e2e4f;
+            --light-yellow: #f8e2a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background: linear-gradient(135deg, var(--warm-white), rgba(179, 156, 208, 0.1));
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.5rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover { transform: scale(1.05); }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(244, 208, 111, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 120px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--warm-white), rgba(179, 156, 208, 0.05));
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+        
+        .hero-content {
+            flex: 1;
+            max-width: 550px;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            color: var(--deep-indigo);
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--deep-indigo);
+            opacity: 0.9;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--soft-yellow);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .hero .mission {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            color: var(--deep-indigo);
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .btn-primary {
+            background-color: var(--soft-yellow);
+            color: var(--deep-indigo);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(244, 208, 111, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 208, 111, 0.5);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--deep-indigo);
+            border: 2px solid var(--gentle-lavender);
+            padding: 13px 28px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gentle-lavender);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .hero-image {
+            flex: 1;
+            max-width: 500px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .hero-visual {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--gentle-lavender), var(--soft-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(42, 61, 102, 0.15);
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        .hero-visual i {
+            font-size: 6rem;
+            color: white;
+            z-index: 2;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--deep-indigo);
+            color: white;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .features h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background-color: rgba(250, 250, 250, 0.05);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--soft-yellow);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        .feature-icon i {
+            font-size: 35px;
+            color: var(--deep-indigo);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Call to Action */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--gentle-lavender), var(--soft-yellow));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta .btn-primary {
+            background-color: white;
+            color: var(--deep-indigo);
+            font-size: 1.2rem;
+            padding: 15px 40px;
+        }
+        
+        .cta .btn-primary:hover {
+            background-color: var(--warm-white);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--soft-yellow);
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--warm-white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--soft-yellow);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(250, 250, 250, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .hero-content {
+                max-width: 700px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .quote, .hero .mission {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .hero-visual {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .hero-visual i {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gentle-lavender);
+            border-top: 4px solid var(--soft-yellow);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Light in Silence</h1>
+                    <p class="quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
+                    <p class="mission">
+                        A Canadian mental health platform providing anonymous support through both digital and physical channels. 
+                        Your words matter, your story has power, and you are not alone.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#share-story" class="btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Share Your Story
+                        </a>
+                        <a href="#check-reply" class="btn-secondary">
+                            <i class="fas fa-search"></i>
+                            Check Reply
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-visual">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3>Share Anonymously</h3>
+                        <p>Write your thoughts, feelings, or struggles completely anonymously. No personal information required.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart-pulse"></i>
+                        </div>
+                        <h3>Get Support</h3>
+                        <p>Receive compassionate responses from trained volunteers or AI-powered support within 24-48 hours.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-heart"></i>
+                        </div>
+                        <h3>Stay Safe</h3>
+                        <p>Our platform includes crisis detection and immediate resources for those in urgent need of help.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Begin Your Healing Journey?</h2>
+                <p>Join thousands of Canadians who have found support, understanding, and hope through Light in Silence.</p>
+                <a href="#get-started" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Get Started Now
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Light in Silence</h3>
+                    <p style="margin-bottom: 15px; color: var(--soft-yellow); font-style: italic;">Where Your Words Find Light</p>
+                    <p>A Canadian non-profit mental health platform dedicated to providing anonymous, accessible support for all.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#share-story">Share Your Story</a></li>
+                        <li><a href="#check-reply">Check Reply</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#volunteer">Volunteer</a></li>
+                        <li><a href="#donate">Donate</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#resources">Mental Health Resources</a></li>
+                        <li><a href="#crisis">Crisis Support</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section" id="resources">
+                    <h3>Crisis Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:1-833-456-4566"><i class="fas fa-phone"></i> Crisis Line: 1-833-456-4566</a></li>
+                        <li><a href="tel:911"><i class="fas fa-exclamation-triangle"></i> Emergency: 911</a></li>
+                        <li><a href="sms:45645"><i class="fas fa-sms"></i> Text Support: 45645</a></li>
+                        <li><a href="mailto:support@lightinsilence.org"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Light in Silence. All rights reserved. | Mental health support platform for Canadians.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Loading Modal -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <h3>Loading...</h3>
+        <p>Preparing your secure experience...</p>
+    </div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Handle action buttons
+            const shareButton = document.querySelector('a[href="#share-story"]');
+            const checkButton = document.querySelector('a[href="#check-reply"]');
+            const getStartedButton = document.querySelector('a[href="#get-started"]');
+            
+            if (shareButton) {
+                shareButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showComingSoon('Share Your Story');
+                });
+            }
+            
+            if (checkButton) {
+                checkButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showComingSoon('Check Reply');
+                });
+            }
+            
+            if (getStartedButton) {
+                getStartedButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showComingSoon('Get Started');
+                });
+            }
+            
+            // Add animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+        
+        function showComingSoon(feature) {
+            const loading = document.getElementById('loading');
+            loading.innerHTML = `
+                <div style="max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                    <div style="text-align: center;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--gentle-lavender), var(--soft-yellow)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; animation: pulse 2s ease-in-out infinite;">
+                            <i class="fas fa-rocket" style="font-size: 35px; color: white;"></i>
+                        </div>
+                        <h2 style="color: var(--deep-indigo); margin-bottom: 15px;">${feature} Coming Soon!</h2>
+                        <p style="color: var(--gentle-lavender); margin-bottom: 25px; line-height: 1.6;">
+                            We're working hard to bring you the full Light in Silence experience. Our platform will launch soon with complete mental health support features.
+                        </p>
+                        <div style="background: var(--warm-white); padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+                            <h4 style="color: var(--deep-indigo); margin-bottom: 10px;">
+                                <i class="fas fa-heart" style="color: var(--soft-yellow); margin-right: 8px;"></i>
+                                Need Support Right Now?
+                            </h4>
+                            <p style="color: var(--gentle-lavender); font-size: 0.9rem; margin-bottom: 15px;">If you're in crisis, please reach out immediately:</p>
+                            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                                <a href="tel:1-833-456-4566" style="background: var(--soft-yellow); color: var(--deep-indigo); padding: 8px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                                    <i class="fas fa-phone"></i> Crisis Line
+                                </a>
+                                <a href="tel:911" style="background: #f44336; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                                    <i class="fas fa-exclamation-triangle"></i> Emergency
+                                </a>
+                            </div>
+                        </div>
+                        <button onclick="closeModal()" style="background: var(--soft-yellow); color: var(--deep-indigo); border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            loading.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const loading = document.getElementById('loading');
+            loading.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('loading').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Add some easter egg interactions
+        let clickCount = 0;
+        document.querySelector('.hero-visual').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                this.style.animation = 'float 1s ease-in-out infinite';
+                setTimeout(() => {
+                    this.style.animation = 'float 6s ease-in-out infinite';
+                    clickCount = 0;
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html> 

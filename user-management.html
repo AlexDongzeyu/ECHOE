@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Light in Silence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --deep-indigo: #2A3D66;
+            --soft-yellow: #F4D06F;
+            --warm-white: #FAFAFA;
+            --gentle-lavender: #B39CD0;
+            --light-yellow: #f8e2a0;
+            --dark-indigo: #1e2a47;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: var(--deep-indigo);
+            background: linear-gradient(135deg, var(--warm-white), rgba(179, 156, 208, 0.1));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: var(--deep-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.3rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--warm-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover { transform: scale(1.05); }
+        
+        .logo-img {
+            height: 32px;
+            width: 32px;
+            margin-right: 10px;
+            background-color: var(--soft-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-indigo);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(244, 208, 111, 0.2);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--deep-indigo), var(--dark-indigo));
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .admin-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .admin-tabs {
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            padding: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+            overflow-x: auto;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 18px 25px;
+            background: transparent;
+            border: none;
+            border-radius: 15px;
+            color: var(--deep-indigo);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            min-width: 160px;
+        }
+        
+        .nav-tab:hover:not(.active) {
+            background: var(--gentle-lavender);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .nav-tab.active {
+            background: var(--deep-indigo);
+            color: white;
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.3);
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.08);
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input input:focus {
+            border-color: var(--gentle-lavender);
+            box-shadow: 0 0 0 3px rgba(179, 156, 208, 0.1);
+        }
+
+        .search-input i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gentle-lavender);
+            font-size: 1.2rem;
+        }
+
+        .users-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.08);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--soft-yellow);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--deep-indigo);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: var(--gentle-lavender);
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+
+        .users-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .user-card {
+            background: #fafafa;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8e8;
+        }
+
+        .user-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(42, 61, 102, 0.15);
+            border-color: var(--gentle-lavender);
+        }
+
+        .user-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gentle-lavender);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .user-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--deep-indigo);
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .user-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid;
+        }
+
+        .badge.ultimate-admin {
+            background: #fff3e0;
+            color: #f57c00;
+            border-color: #ff9800;
+        }
+
+        .badge.admin {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            border-color: #9c27b0;
+        }
+
+        .badge.user {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-color: #2196f3;
+        }
+
+        .badge.volunteer {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-color: #4caf50;
+        }
+
+        .badge.non-volunteer {
+            background: #f5f5f5;
+            color: #666;
+            border-color: #ddd;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            background: transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+
+        .btn.promote {
+            border-color: #4caf50;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .btn.demote {
+            border-color: #ff9800;
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .btn.ultimate {
+            border-color: #9c27b0;
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .btn.volunteer {
+            border-color: #4caf50;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .btn.revoke {
+            border-color: #ff5722;
+            background: #ffebee;
+            color: #d84315;
+        }
+
+        .btn.delete {
+            border-color: #f44336;
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .btn.disabled {
+            border-color: #ddd;
+            background: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        footer {
+            background-color: var(--deep-indigo);
+            color: var(--warm-white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 0.8rem 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .admin-header h1 {
+                font-size: 2.5rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .admin-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span>Light in Silence</span>
+            </a>
+            
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin-dashboard.html">Admin</a></li>
+                <li><a href="volunteer-dashboard.html">Volunteer</a></li>
+                <li><a href="submit.html">Share Your Story</a></li>
+                <li><a href="check-reply.html">Check Reply</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <!-- Header -->
+            <div class="admin-header">
+                <h1>
+                    <i class="fas fa-users"></i>
+                    User Management
+                </h1>
+                <p>Manage user accounts, roles, and volunteer permissions</p>
+                <span class="user-role-badge" id="userRole">Ultimate Administrator</span>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <div class="admin-tabs">
+                <a href="admin-dashboard.html" class="nav-tab">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="user-management.html" class="nav-tab active">
+                    <i class="fas fa-users"></i>
+                    <span>Manage Users</span>
+                </a>
+                
+                <a href="content-moderation.html" class="nav-tab">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Content</span>
+                </a>
+                
+                <a href="volunteer-dashboard.html" class="nav-tab">
+                    <i class="fas fa-heart"></i>
+                    <span>Volunteer</span>
+                </a>
+                
+                <a href="index.html" class="nav-tab">
+                    <i class="fas fa-home"></i>
+                    <span>Website</span>
+                </a>
+            </div>
+            
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-input">
+                    <input type="text" id="userSearch" placeholder="Search users by name, email, role, or volunteer status...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <!-- Users Section -->
+            <div class="users-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-users"></i>
+                        System Users
+                    </div>
+                    <div class="section-stats">
+                        <span><i class="fas fa-user"></i> <span id="totalUsers">0</span> Total Users</span>
+                        <span><i class="fas fa-shield-alt"></i> <span id="totalAdmins">0</span> Admins</span>
+                        <span><i class="fas fa-heart"></i> <span id="totalVolunteers">0</span> Volunteers</span>
+                    </div>
+                </div>
+                
+                <div class="users-grid" id="usersGrid">
+                    <!-- Users will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p>&copy; 2025 Light in Silence. All rights reserved. | Where Your Words Find Light</p>
+            <p style="margin-top: 0.5rem;">
+                Ultimate Administrator access for user management and platform oversight.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Confirm Action</h3>
+            <p id="modalMessage">Are you sure you want to proceed?</p>
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn" id="confirmButton" onclick="confirmAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo users data
+        let demoUsers = [
+            {
+                id: 1,
+                username: 'admin_user',
+                email: 'admin@lightinsilence.org',
+                role: 'ULTIMATE_ADMIN',
+                is_volunteer: true,
+                created_at: '2024-12-01'
+            },
+            {
+                id: 2,
+                username: 'demo_admin',
+                email: 'admin@demo.com',
+                role: 'ULTIMATE_ADMIN',
+                is_volunteer: true,
+                created_at: '2024-12-15'
+            },
+            {
+                id: 3,
+                username: 'volunteer_sarah',
+                email: 'sarah@volunteer.com',
+                role: 'USER',
+                is_volunteer: true,
+                created_at: '2024-12-20'
+            },
+            {
+                id: 4,
+                username: 'volunteer_mike',
+                email: 'mike@volunteer.com',
+                role: 'ADMIN',
+                is_volunteer: true,
+                created_at: '2024-12-25'
+            },
+            {
+                id: 5,
+                username: 'user_jessica',
+                email: 'jessica@user.com',
+                role: 'USER',
+                is_volunteer: false,
+                created_at: '2025-01-02'
+            },
+            {
+                id: 6,
+                username: 'user_alex',
+                email: 'alex@user.com',
+                role: 'USER',
+                is_volunteer: false,
+                created_at: '2025-01-05'
+            }
+        ];
+
+        let currentUser = null;
+        let pendingAction = null;
+
+        // Check authentication and role access
+        function checkAuth() {
+            const userSession = localStorage.getItem('lightInSilenceUser');
+            if (!userSession) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const session = JSON.parse(userSession);
+                
+                // Only allow ultimate admins (specific accounts)
+                if (session.userType !== 'admin' || 
+                    (session.email !== 'admin@lightinsilence.org' && session.email !== 'admin@demo.com')) {
+                    alert('Access denied. Ultimate Administrator privileges required.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                currentUser = session;
+                
+            } catch (e) {
+                localStorage.removeItem('lightInSilenceUser');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Load and display users
+        function loadUsers() {
+            const usersGrid = document.getElementById('usersGrid');
+            
+            // Update statistics
+            document.getElementById('totalUsers').textContent = demoUsers.length;
+            document.getElementById('totalAdmins').textContent = demoUsers.filter(u => u.role === 'ADMIN' || u.role === 'ULTIMATE_ADMIN').length;
+            document.getElementById('totalVolunteers').textContent = demoUsers.filter(u => u.is_volunteer).length;
+
+            // Render users
+            usersGrid.innerHTML = demoUsers.map(user => createUserCard(user)).join('');
+        }
+
+        // Create user card HTML
+        function createUserCard(user) {
+            const isCurrentUser = currentUser && currentUser.email === user.email;
+            const isProtected = user.role === 'ULTIMATE_ADMIN' && !isCurrentUser;
+            
+            return `
+                <div class="user-card" data-user-search="${user.username.toLowerCase()} ${user.email.toLowerCase()} ${user.role.toLowerCase()} ${user.is_volunteer ? 'volunteer' : 'non-volunteer'}">
+                    <div class="user-header">
+                        <div class="user-avatar">
+                            ${user.username.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="user-info">
+                            <h4>${user.username}</h4>
+                            <div class="user-email">${user.email}</div>
+                            <div class="user-badges">
+                                <span class="badge ${user.role.toLowerCase().replace('_', '-')}">
+                                    <i class="fas ${user.role === 'ULTIMATE_ADMIN' ? 'fa-crown' : user.role === 'ADMIN' ? 'fa-shield-alt' : 'fa-user'}"></i>
+                                    ${user.role.replace('_', ' ')}
+                                </span>
+                                <span class="badge ${user.is_volunteer ? 'volunteer' : 'non-volunteer'}">
+                                    <i class="fas ${user.is_volunteer ? 'fa-heart' : 'fa-user-times'}"></i>
+                                    ${user.is_volunteer ? 'Volunteer' : 'Non-Volunteer'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-actions">
+                        ${isCurrentUser ? `
+                            <button class="btn disabled">
+                                <i class="fas fa-user-check"></i>
+                                Your Account
+                            </button>
+                        ` : isProtected ? `
+                            <button class="btn disabled">
+                                <i class="fas fa-shield-alt"></i>
+                                Protected Account
+                            </button>
+                        ` : `
+                            ${getRoleActions(user)}
+                            ${getVolunteerActions(user)}
+                            <button class="btn delete" onclick="deleteUser(${user.id}, '${user.username}')">
+                                <i class="fas fa-trash"></i>
+                                Delete User
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get role management actions
+        function getRoleActions(user) {
+            if (user.role === 'USER') {
+                return `
+                    <button class="btn promote" onclick="promoteUser(${user.id}, '${user.username}')">
+                        <i class="fas fa-arrow-up"></i>
+                        Promote to Admin
+                    </button>
+                    <button class="btn ultimate" onclick="makeUltimateAdmin(${user.id}, '${user.username}')">
+                        <i class="fas fa-crown"></i>
+                        Make Ultimate Admin
+                    </button>
+                `;
+            } else if (user.role === 'ADMIN') {
+                return `
+                    <button class="btn demote" onclick="demoteUser(${user.id}, '${user.username}')">
+                        <i class="fas fa-arrow-down"></i>
+                        Demote to User
+                    </button>
+                    <button class="btn ultimate" onclick="makeUltimateAdmin(${user.id}, '${user.username}')">
+                        <i class="fas fa-crown"></i>
+                        Make Ultimate Admin
+                    </button>
+                `;
+            }
+            return '';
+        }
+
+        // Get volunteer management actions
+        function getVolunteerActions(user) {
+            if (user.is_volunteer) {
+                return `
+                    <button class="btn revoke" onclick="revokeVolunteer(${user.id}, '${user.username}')">
+                        <i class="fas fa-heart-broken"></i>
+                        Revoke Volunteer
+                    </button>
+                `;
+            } else {
+                return `
+                    <button class="btn volunteer" onclick="grantVolunteer(${user.id}, '${user.username}')">
+                        <i class="fas fa-heart"></i>
+                        Grant Volunteer
+                    </button>
+                `;
+            }
+        }
+
+        // User management functions
+        function promoteUser(userId, username) {
+            showModal(
+                'Promote User',
+                `Promote ${username} to Administrator?`,
+                () => {
+                    const user = demoUsers.find(u => u.id === userId);
+                    if (user) {
+                        user.role = 'ADMIN';
+                        loadUsers();
+                        showNotification(`${username} has been promoted to Administrator.`);
+                    }
+                }
+            );
+        }
+
+        function demoteUser(userId, username) {
+            showModal(
+                'Demote User',
+                `Demote ${username} to regular User?`,
+                () => {
+                    const user = demoUsers.find(u => u.id === userId);
+                    if (user) {
+                        user.role = 'USER';
+                        loadUsers();
+                        showNotification(`${username} has been demoted to regular User.`);
+                    }
+                }
+            );
+        }
+
+        function makeUltimateAdmin(userId, username) {
+            showModal(
+                'Promote to Ultimate Admin',
+                `Promote ${username} to Ultimate Administrator? This grants full system access.`,
+                () => {
+                    const user = demoUsers.find(u => u.id === userId);
+                    if (user) {
+                        user.role = 'ULTIMATE_ADMIN';
+                        user.is_volunteer = true; // Ultimate admins can do everything
+                        loadUsers();
+                        showNotification(`${username} has been promoted to Ultimate Administrator.`);
+                    }
+                }
+            );
+        }
+
+        function grantVolunteer(userId, username) {
+            showModal(
+                'Grant Volunteer Access',
+                `Grant volunteer privileges to ${username}?`,
+                () => {
+                    const user = demoUsers.find(u => u.id === userId);
+                    if (user) {
+                        user.is_volunteer = true;
+                        loadUsers();
+                        showNotification(`${username} has been granted volunteer privileges.`);
+                    }
+                }
+            );
+        }
+
+        function revokeVolunteer(userId, username) {
+            showModal(
+                'Revoke Volunteer Access',
+                `Revoke volunteer privileges from ${username}?`,
+                () => {
+                    const user = demoUsers.find(u => u.id === userId);
+                    if (user) {
+                        user.is_volunteer = false;
+                        loadUsers();
+                        showNotification(`Volunteer privileges revoked from ${username}.`);
+                    }
+                }
+            );
+        }
+
+        function deleteUser(userId, username) {
+            showModal(
+                'Delete User',
+                `Permanently delete user ${username}? This action cannot be undone.`,
+                () => {
+                    demoUsers = demoUsers.filter(u => u.id !== userId);
+                    loadUsers();
+                    showNotification(`User ${username} has been deleted.`);
+                }
+            );
+        }
+
+        // Modal functions
+        function showModal(title, message, action) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            pendingAction = action;
+            document.getElementById('confirmModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+            pendingAction = null;
+        }
+
+        function confirmAction() {
+            if (pendingAction) {
+                pendingAction();
+                closeModal();
+            }
+        }
+
+        // Search functionality
+        document.getElementById('userSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const userCards = document.querySelectorAll('.user-card');
+            
+            userCards.forEach(card => {
+                const searchData = card.getAttribute('data-user-search');
+                if (searchData.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--soft-yellow);
+                color: var(--deep-indigo);
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('lightInSilenceUser');
+            window.location.href = 'login.html';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadUsers();
+        });
+    </script>
+</body>
+</html> 

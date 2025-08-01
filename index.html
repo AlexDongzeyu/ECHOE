@@ -81,6 +81,23 @@
             font-size: 1rem;
         }
         
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--warm-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .mobile-menu-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
@@ -90,6 +107,7 @@
         
         nav ul li {
             margin: 0 0.2rem;
+            position: relative;
         }
         
         nav ul li a {
@@ -114,6 +132,108 @@
             font-weight: 700;
         }
         
+        /* Primary Navigation Styles */
+        .nav-primary {
+            font-weight: 700 !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+        
+        .nav-primary:hover, .nav-primary.active {
+            background-color: var(--soft-yellow) !important;
+            color: var(--deep-indigo) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 208, 111, 0.3);
+        }
+        
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(42, 61, 102, 0.2);
+            padding: 20px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .dropdown-content a {
+            display: block;
+            color: var(--deep-indigo) !important;
+            padding: 12px 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .dropdown-content a:hover {
+            background: var(--soft-yellow) !important;
+            color: var(--deep-indigo) !important;
+            padding-left: 35px;
+        }
+        
+        /* Authentication Buttons */
+        .login-btn, .logout-btn {
+            background: var(--soft-yellow) !important;
+            color: var(--deep-indigo) !important;
+            font-weight: 700 !important;
+            border: 2px solid var(--soft-yellow) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover, .logout-btn:hover {
+            background: transparent !important;
+            color: var(--soft-yellow) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 208, 111, 0.3);
+        }
+        
+        .logout-btn {
+            background: #f44336 !important;
+            border-color: #f44336 !important;
+            color: white !important;
+        }
+        
+        .logout-btn:hover {
+            background: transparent !important;
+            color: #f44336 !important;
+            border-color: #f44336 !important;
+        }
+        
         /* Loading Indicator */
         .loading {
             display: flex;
@@ -131,6 +251,232 @@
         /* Main App Container */
         #app {
             min-height: calc(100vh - 80px);
+        }
+        
+        /* Page Headers */
+        .page-header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            color: var(--deep-indigo);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            color: var(--gentle-lavender);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        /* Form Containers */
+        .form-container, .auth-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .auth-form, .letter-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+            border-top: 4px solid var(--soft-yellow);
+        }
+        
+        .auth-form h1 {
+            color: var(--deep-indigo);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .auth-form p {
+            color: var(--gentle-lavender);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--deep-indigo);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--warm-white);
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--soft-yellow);
+            box-shadow: 0 0 0 3px rgba(244, 208, 111, 0.1);
+            background: white;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .char-count {
+            text-align: right;
+            color: var(--gentle-lavender);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .submit-btn, .cancel-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+        
+        .submit-btn {
+            background: var(--soft-yellow);
+            color: var(--deep-indigo);
+            flex: 1;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+        }
+        
+        .cancel-btn {
+            background: transparent;
+            color: var(--gentle-lavender);
+            border: 2px solid var(--gentle-lavender);
+        }
+        
+        .cancel-btn:hover {
+            background: var(--gentle-lavender);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Auth Links */
+        .auth-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e1e8ed;
+        }
+        
+        .auth-links p {
+            color: var(--gentle-lavender);
+            margin: 0;
+        }
+        
+        .auth-links a {
+            color: var(--deep-indigo);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .auth-links a:hover {
+            color: var(--soft-yellow);
+        }
+        
+        /* Page-specific styles */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .resource-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+            border-left: 4px solid var(--soft-yellow);
+        }
+        
+        .resource-card h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .resource-card p {
+            color: var(--gentle-lavender);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .volunteer-benefits {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);
+            margin: 30px 0;
+        }
+        
+        .volunteer-benefits h3 {
+            color: var(--deep-indigo);
+            margin-bottom: 20px;
+        }
+        
+        .volunteer-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .volunteer-benefits li {
+            color: var(--gentle-lavender);
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .volunteer-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--soft-yellow);
+            font-weight: bold;
+        }
+        
+        .volunteer-benefits li:last-child {
+            border-bottom: none;
         }
         
         .hero {
@@ -517,6 +863,79 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--deep-indigo);
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 10px 30px rgba(42, 61, 102, 0.3);
+            }
+            
+            nav ul.active {
+                max-height: 500px;
+                padding: 20px 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            nav ul li a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 15px 20px;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            /* Mobile Dropdown */
+            .dropdown-content {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.05);
+                margin: 0;
+                border-radius: 0;
+                opacity: 1;
+                visibility: visible;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-content {
+                max-height: 200px;
+            }
+            
+            .dropdown-toggle::after {
+                content: '+';
+                font-size: 1rem;
+            }
+            
+            .dropdown.active .dropdown-toggle::after {
+                content: '−';
+                transform: none;
+            }
+            
+            .dropdown-content a {
+                padding: 10px 40px;
+                font-size: 0.9rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
         }
     </style>
 </head>
@@ -526,21 +945,74 @@
         <nav>
             <a href="#" class="logo" onclick="app.navigate('/')">
                 <div class="logo-img">
-                    <i class="fas fa-lightbulb"></i>
+                    <i class="fas fa-heart"></i>
                 </div>
-                Light in Silence
+                <span>Light in Silence</span>
             </a>
             
-            <ul>
-                <li><a href="#" onclick="app.navigate('/')" class="active">Home</a></li>
-                <li><a href="#" onclick="app.navigate('/submit')">Submit</a></li>
-                <li><a href="#" onclick="app.navigate('/about')">About</a></li>
-                <li><a href="#" onclick="app.navigate('/blog')">Blog</a></li>
-                <li><a href="#" onclick="app.navigate('/events')">Events</a></li>
-                <li><a href="#" onclick="app.navigate('/resources')">Resources</a></li>
-                <li><a href="#" onclick="app.navigate('/contact')">Contact</a></li>
-                <li><a href="#" onclick="app.navigate('/login')">Login</a></li>
-                <li><a href="#" onclick="app.navigate('/register')">Register</a></li>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul id="nav-menu">
+                <!-- Primary Actions -->
+                <li><a href="#" onclick="app.navigate('/')" class="nav-primary active">Home</a></li>
+                <li><a href="#" onclick="app.navigate('/submit')" class="nav-primary">Share Your Story</a></li>
+                <li><a href="#" onclick="app.navigate('/check-reply')" class="nav-primary">Check Reply</a></li>
+                
+                <!-- Discover Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Discover</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="app.navigate('/blog')">
+                            <i class="fas fa-blog" style="margin-right: 8px;"></i>Blog
+                        </a>
+                        <a href="#" onclick="app.navigate('/events')">
+                            <i class="fas fa-calendar" style="margin-right: 8px;"></i>Events
+                        </a>
+                        <a href="#" onclick="app.navigate('/resources')">
+                            <i class="fas fa-book" style="margin-right: 8px;"></i>Resources
+                        </a>
+                    </div>
+                </li>
+                
+                <!-- About Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">About</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="app.navigate('/about')">
+                            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>About Us
+                        </a>
+                        <a href="#" onclick="app.navigate('/contact')">
+                            <i class="fas fa-envelope" style="margin-right: 8px;"></i>Contact
+                        </a>
+                        <a href="#" onclick="app.navigate('/volunteer-info')">
+                            <i class="fas fa-hands-helping" style="margin-right: 8px;"></i>Volunteer Info
+                        </a>
+                    </div>
+                </li>
+
+                <!-- User Area - will be updated by JavaScript -->
+                <li id="admin-link" style="display: none;">
+                    <a href="#" onclick="app.navigate('/admin')" class="nav-primary">
+                        <i class="fas fa-shield-alt" style="margin-right: 5px;"></i>Admin Panel
+                    </a>
+                </li>
+                <li id="volunteer-link" style="display: none;">
+                    <a href="#" onclick="app.navigate('/volunteer')">
+                        <i class="fas fa-tachometer-alt" style="margin-right: 5px;"></i>Volunteer Dashboard
+                    </a>
+                </li>
+                <li id="logout-link" style="display: none;">
+                    <a href="#" onclick="app.logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout
+                    </a>
+                </li>
+                <li id="login-link">
+                    <a href="#" onclick="app.navigate('/login')" class="login-btn">
+                        <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -559,6 +1031,104 @@
     <!-- Load the SPA -->
     <script src="/static/js/app.js"></script>
     <script>
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+        
+        // Dropdown functionality for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const navMenu = document.getElementById('nav-menu');
+                const mobileToggle = document.querySelector('.mobile-menu-toggle');
+                
+                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+                }
+            });
+        });
+        
+        // Update navigation state based on authentication
+        function updateNavigationState(user) {
+            const adminLink = document.getElementById('admin-link');
+            const volunteerLink = document.getElementById('volunteer-link');
+            const logoutLink = document.getElementById('logout-link');
+            const loginLink = document.getElementById('login-link');
+            
+            if (user) {
+                // User is authenticated
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'block';
+                
+                // Show admin panel if user has admin access
+                if (user.role === 'ADMIN' || user.role === 'ULTIMATE_ADMIN' || user.is_admin) {
+                    adminLink.style.display = 'block';
+                } else {
+                    adminLink.style.display = 'none';
+                }
+                
+                // Show volunteer dashboard if user is volunteer or admin
+                if (user.is_volunteer || user.role === 'ADMIN' || user.role === 'ULTIMATE_ADMIN' || user.is_admin) {
+                    volunteerLink.style.display = 'block';
+                } else {
+                    volunteerLink.style.display = 'none';
+                }
+            } else {
+                // User is not authenticated
+                loginLink.style.display = 'block';
+                logoutLink.style.display = 'none';
+                adminLink.style.display = 'none';
+                volunteerLink.style.display = 'none';
+            }
+        }
+        
+        // Update active navigation item
+        function updateActiveNavigation(path) {
+            // Remove active class from all nav items
+            const navItems = document.querySelectorAll('nav ul li a');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to current page
+            const pathMap = {
+                '/': 'Home',
+                '/submit': 'Share Your Story',
+                '/check-reply': 'Check Reply',
+                '/blog': 'Blog',
+                '/events': 'Events', 
+                '/resources': 'Resources',
+                '/about': 'About Us',
+                '/contact': 'Contact',
+                '/volunteer-info': 'Volunteer Info'
+            };
+            
+            const currentPage = pathMap[path];
+            if (currentPage) {
+                const activeItem = Array.from(navItems).find(item => 
+                    item.textContent.trim() === currentPage || 
+                    item.textContent.includes(currentPage)
+                );
+                if (activeItem) {
+                    activeItem.classList.add('active');
+                }
+            }
+        }
+
         // Initialize the application
         let app;
         

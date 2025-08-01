@@ -13,6 +13,11 @@ class LightInSilenceApp {
             await this.verifyToken();
         }
         
+        // Update navigation state based on authentication
+        if (typeof updateNavigationState === 'function') {
+            updateNavigationState(this.currentUser);
+        }
+        
         this.setupRouting();
         this.loadPage();
         this.setupEventListeners();
@@ -31,6 +36,10 @@ class LightInSilenceApp {
             const data = await response.json();
             if (data.valid) {
                 this.currentUser = data.user;
+                // Update navigation after verifying user
+                if (typeof updateNavigationState === 'function') {
+                    updateNavigationState(this.currentUser);
+                }
             } else {
                 this.logout();
             }
@@ -56,11 +65,27 @@ class LightInSilenceApp {
     navigate(path) {
         history.pushState(null, '', path);
         this.loadPage();
+        
+        // Update active navigation
+        if (typeof updateActiveNavigation === 'function') {
+            updateActiveNavigation(path);
+        }
+        
+        // Close mobile menu if open
+        const navMenu = document.getElementById('nav-menu');
+        if (navMenu) {
+            navMenu.classList.remove('active');
+        }
     }
 
     loadPage() {
         const path = window.location.pathname;
         const app = document.getElementById('app');
+        
+        // Update active navigation
+        if (typeof updateActiveNavigation === 'function') {
+            updateActiveNavigation(path);
+        }
         
         // Route handling
         if (path === '/' || path === '/index.html') {
@@ -84,6 +109,14 @@ class LightInSilenceApp {
             this.renderAboutPage(app);
         } else if (path === '/contact') {
             this.renderContactPage(app);
+        } else if (path === '/blog') {
+            this.renderBlogPage(app);
+        } else if (path === '/events') {
+            this.renderEventsPage(app);
+        } else if (path === '/resources') {
+            this.renderResourcesPage(app);
+        } else if (path === '/volunteer-info') {
+            this.renderVolunteerInfoPage(app);
         } else {
             this.render404(app);
         }
@@ -91,28 +124,7 @@ class LightInSilenceApp {
 
     renderHomePage(container) {
         container.innerHTML = `
-            <div class="home-page">
-                <header>
-                    <nav class="navbar">
-                        <div class="nav-brand">
-                            <h1>Light in Silence</h1>
-                        </div>
-                        <div class="nav-links">
-                            <a href="/submit" data-route="/submit">Submit Letter</a>
-                            <a href="/check-reply" data-route="/check-reply">Check Reply</a>
-                            <a href="/about" data-route="/about">About</a>
-                            <a href="/contact" data-route="/contact">Contact</a>
-                            ${this.currentUser ? `
-                                <a href="/volunteer" data-route="/volunteer">Dashboard</a>
-                                <button onclick="app.logout()">Logout</button>
-                            ` : `
-                                <a href="/login" data-route="/login">Login</a>
-                                <a href="/register" data-route="/register">Register</a>
-                            `}
-                        </div>
-                    </nav>
-                </header>
-                
+            <div class="home-page">                
                 <main class="hero">
                     <div class="hero-content">
                         <h1>You Are Not Alone</h1>
@@ -154,13 +166,13 @@ class LightInSilenceApp {
 
     renderSubmitPage(container) {
         container.innerHTML = `
-            <div class="submit-page">
-                <header class="simple-header">
-                    <a href="/" data-route="/" class="back-link">← Back to Home</a>
-                    <h1>Submit Your Letter</h1>
-                </header>
-                
+            <div class="submit-page">               
                 <main class="form-container">
+                    <div class="page-header">
+                        <h1>Submit Your Letter</h1>
+                        <p>Share your thoughts in a safe, anonymous space</p>
+                    </div>
+                    
                     <form id="letterForm" class="letter-form">
                         <div class="form-group">
                             <label for="topic">Topic (Optional)</label>
@@ -199,7 +211,10 @@ class LightInSilenceApp {
                                 placeholder="your.email@example.com">
                         </div>
                         
-                        <button type="submit" class="submit-btn">Send Letter</button>
+                        <div class="form-actions">
+                            <button type="submit" class="submit-btn">Send Letter</button>
+                            <button type="button" class="cancel-btn" onclick="app.navigate('/')">Cancel</button>
+                        </div>
                     </form>
                 </main>
             </div>
@@ -209,32 +224,39 @@ class LightInSilenceApp {
     }
 
     renderLoginPage(container) {
+        if (this.currentUser) {
+            this.navigate('/');
+            return;
+        }
+
         container.innerHTML = `
-            <div class="auth-page">
-                <header class="simple-header">
-                    <a href="/" data-route="/" class="back-link">← Back to Home</a>
-                    <h1>Login</h1>
-                </header>
-                
+            <div class="login-page">
                 <main class="auth-container">
-                    <form id="loginForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
+                    <div class="auth-form">
+                        <h1>Welcome Back</h1>
+                        <p>Sign in to access your volunteer dashboard</p>
                         
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required>
-                        </div>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Username or Email</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">Sign In</button>
+                                <button type="button" class="cancel-btn" onclick="app.navigate('/')">Cancel</button>
+                            </div>
+                        </form>
                         
-                        <button type="submit" class="auth-btn">Login</button>
-                    </form>
-                    
-                    <p class="auth-switch">
-                        Don't have an account? 
-                        <a href="/register" data-route="/register">Register here</a>
-                    </p>
+                        <div class="auth-links">
+                            <p>Don't have an account? <a href="/register" data-route="/register">Register here</a></p>
+                        </div>
+                    </div>
                 </main>
             </div>
         `;
@@ -243,37 +265,49 @@ class LightInSilenceApp {
     }
 
     renderRegisterPage(container) {
+        if (this.currentUser) {
+            this.navigate('/');
+            return;
+        }
+
         container.innerHTML = `
-            <div class="auth-page">
-                <header class="simple-header">
-                    <a href="/" data-route="/" class="back-link">← Back to Home</a>
-                    <h1>Register</h1>
-                </header>
-                
+            <div class="register-page">
                 <main class="auth-container">
-                    <form id="registerForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" required minlength="3">
-                        </div>
+                    <div class="auth-form">
+                        <h1>Join Our Community</h1>
+                        <p>Register to become a volunteer and help others</p>
                         
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
+                        <form id="registerForm">
+                            <div class="form-group">
+                                <label for="reg-username">Username</label>
+                                <input type="text" id="reg-username" name="username" required minlength="3">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reg-email">Email</label>
+                                <input type="email" id="reg-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reg-password">Password</label>
+                                <input type="password" id="reg-password" name="password" required minlength="8">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reg-password2">Confirm Password</label>
+                                <input type="password" id="reg-password2" name="password2" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">Register</button>
+                                <button type="button" class="cancel-btn" onclick="app.navigate('/')">Cancel</button>
+                            </div>
+                        </form>
                         
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required minlength="8">
+                        <div class="auth-links">
+                            <p>Already have an account? <a href="/login" data-route="/login">Sign in here</a></p>
                         </div>
-                        
-                        <button type="submit" class="auth-btn">Register</button>
-                    </form>
-                    
-                    <p class="auth-switch">
-                        Already have an account? 
-                        <a href="/login" data-route="/login">Login here</a>
-                    </p>
+                    </div>
                 </main>
             </div>
         `;
@@ -526,6 +560,12 @@ class LightInSilenceApp {
         this.token = null;
         this.currentUser = null;
         localStorage.removeItem('authToken');
+        
+        // Update navigation state
+        if (typeof updateNavigationState === 'function') {
+            updateNavigationState(null);
+        }
+        
         this.navigate('/');
     }
 
@@ -633,6 +673,74 @@ class LightInSilenceApp {
                 </header>
                 <main class="content">
                     <p>Get in touch with our team...</p>
+                </main>
+            </div>
+        `;
+    }
+
+    renderBlogPage(container) {
+        container.innerHTML = `
+            <div class="blog-page">
+                <main>
+                    <h1>Blog</h1>
+                    <p>Coming soon! Our blog will feature mental health insights, personal stories, and expert advice.</p>
+                    <a href="/" data-route="/" class="cta-button">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderEventsPage(container) {
+        container.innerHTML = `
+            <div class="events-page">
+                <main>
+                    <h1>Events</h1>
+                    <p>Stay tuned for upcoming mental health workshops, support groups, and community events.</p>
+                    <a href="/" data-route="/" class="cta-button">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderResourcesPage(container) {
+        container.innerHTML = `
+            <div class="resources-page">
+                <main>
+                    <h1>Mental Health Resources</h1>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <h3>Crisis Support</h3>
+                            <p><strong>Canada Crisis Line:</strong> 1-833-456-4566</p>
+                            <p><strong>Text Support:</strong> 45645</p>
+                            <p><strong>Emergency:</strong> 911</p>
+                        </div>
+                        <div class="resource-card">
+                            <h3>Online Support</h3>
+                            <p>Access professional mental health resources and support groups.</p>
+                        </div>
+                    </div>
+                    <a href="/" data-route="/" class="cta-button">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderVolunteerInfoPage(container) {
+        container.innerHTML = `
+            <div class="volunteer-info-page">
+                <main>
+                    <h1>Become a Volunteer</h1>
+                    <p>Join our compassionate community of volunteers helping others through their mental health journey.</p>
+                    <div class="volunteer-benefits">
+                        <h3>What You'll Do:</h3>
+                        <ul>
+                            <li>Respond to anonymous letters with empathy and care</li>
+                            <li>Provide emotional support to those in need</li>
+                            <li>Help create a safe, judgment-free space</li>
+                        </ul>
+                    </div>
+                    <a href="/register" data-route="/register" class="cta-button">Join as Volunteer</a>
+                    <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
                 </main>
             </div>
         `;

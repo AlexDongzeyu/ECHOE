@@ -1,5 +1,3 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import { User, DatabaseService } from './database';
 import { Env } from '../index';
@@ -36,31 +34,88 @@ export class AuthService {
   constructor(private db: DatabaseService, private env: Env) {}
 
   async hashPassword(password: string): Promise<string> {
-    const saltRounds = 12;
-    return await bcrypt.hash(password, saltRounds);
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
   async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
-    return await bcrypt.compare(password, hashedPassword);
+    const hashedInput = await this.hashPassword(password);
+    return hashedInput === hashedPassword;
   }
 
-  generateJWT(user: User): string {
-    const payload: Omit<JWTPayload, 'iat' | 'exp'> = {
+  async generateJWT(user: User): Promise<string> {
+    const header = {
+      alg: 'HS256',
+      typ: 'JWT'
+    };
+
+    const now = Math.floor(Date.now() / 1000);
+    const payload: JWTPayload = {
       userId: user.id,
       email: user.email,
       role: user.role,
+      iat: now,
+      exp: now + (7 * 24 * 60 * 60) // 7 days
     };
 
-    return jwt.sign(payload, this.env.JWT_SECRET || 'default-secret', {
-      expiresIn: '7d',
-      issuer: 'light-in-silence',
-    });
+    const encoder = new TextEncoder();
+    const headerB64 = btoa(JSON.stringify(header)).replace(/[+\/=]/g, m => ({'+':'-', '/':'_', '=':''}[m]!));
+    const payloadB64 = btoa(JSON.stringify(payload)).replace(/[+\/=]/g, m => ({'+':'-', '/':'_', '=':''}[m]!));
+    
+    const message = `${headerB64}.${payloadB64}`;
+    const key = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(this.env.JWT_SECRET || 'default-secret'),
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign']
+    );
+
+    const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(message));
+    const signatureB64 = btoa(String.fromCharCode(...new Uint8Array(signature)))
+      .replace(/[+\/=]/g, m => ({'+':'-', '/':'_', '=':''}[m]!));
+
+    return `${message}.${signatureB64}`;
   }
 
   async verifyJWT(token: string): Promise<JWTPayload | null> {
     try {
-      const decoded = jwt.verify(token, this.env.JWT_SECRET || 'default-secret') as JWTPayload;
-      return decoded;
+      const parts = token.split('.');
+      if (parts.length !== 3) return null;
+
+      const [headerB64, payloadB64, signatureB64] = parts;
+      
+      // Verify signature
+      const encoder = new TextEncoder();
+      const message = `${headerB64}.${payloadB64}`;
+      
+      const key = await crypto.subtle.importKey(
+        'raw',
+        encoder.encode(this.env.JWT_SECRET || 'default-secret'),
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['verify']
+      );
+
+      const signature = Uint8Array.from(
+        atob(signatureB64.replace(/[-_]/g, m => ({'-':'+', '_':'/'}[m]!))), 
+        c => c.charCodeAt(0)
+      );
+
+      const isValid = await crypto.subtle.verify('HMAC', key, signature, encoder.encode(message));
+      if (!isValid) return null;
+
+      // Decode payload
+      const payloadJson = atob(payloadB64.replace(/[-_]/g, m => ({'-':'+', '_':'/'}[m]!)));
+      const payload: JWTPayload = JSON.parse(payloadJson);
+
+      // Check expiration
+      if (payload.exp < Math.floor(Date.now() / 1000)) return null;
+
+      return payload;
     } catch (error) {
       console.error('JWT verification failed:', error);
       return null;
@@ -98,7 +153,7 @@ export class AuthService {
     });
 
     // Generate JWT
-    const token = this.generateJWT(user);
+    const token = await this.generateJWT(user);
 
     return {
       user: this.formatUser(user),
@@ -120,7 +175,7 @@ export class AuthService {
     }
 
     // Generate JWT
-    const token = this.generateJWT(user);
+    const token = await this.generateJWT(user);
 
     return {
       user: this.formatUser(user),

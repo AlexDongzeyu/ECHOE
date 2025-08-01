@@ -74,4 +74,18 @@ instance/
 .azure/
 
 # Development files
-.cursor/ 
+.cursor/
+
+# Build outputs
+*.bundle.js
+*.min.js
+*.min.css
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary files
+tmp/
+temp/ 

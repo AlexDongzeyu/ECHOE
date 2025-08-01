@@ -1,6 +1,5 @@
 import { Hono } from 'hono';
-import { cors } from '@hono/cors';
-import { jwt } from '@hono/jwt';
+import { cors } from 'hono/cors';
 import { authRoutes } from './routes/auth';
 import { letterRoutes } from './routes/letters';
 import { adminRoutes } from './routes/admin';
@@ -19,10 +18,7 @@ const app = new Hono<{ Bindings: Env }>();
 
 // CORS middleware
 app.use('*', cors({
-  origin: (origin) => {
-    // Allow all origins in development, specific domains in production
-    return true; // TODO: Restrict in production
-  },
+  origin: '*', // Allow all origins in development
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

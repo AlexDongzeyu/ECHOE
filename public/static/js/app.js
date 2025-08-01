@@ -117,6 +117,12 @@ class LightInSilenceApp {
             this.renderResourcesPage(app);
         } else if (path === '/volunteer-info') {
             this.renderVolunteerInfoPage(app);
+        } else if (path === '/donate') {
+            this.renderDonatePage(app);
+        } else if (path === '/terms') {
+            this.renderTermsPage(app);
+        } else if (path === '/privacy') {
+            this.renderPrivacyPage(app);
         } else {
             this.render404(app);
         }
@@ -730,16 +736,82 @@ class LightInSilenceApp {
             <div class="volunteer-info-page">
                 <main>
                     <h1>Become a Volunteer</h1>
-                    <p>Join our compassionate community of volunteers helping others through their mental health journey.</p>
+                    <p>Join our mission to bring light to those in silence.</p>
                     <div class="volunteer-benefits">
-                        <h3>What You'll Do:</h3>
+                        <h3>Why Volunteer With Us?</h3>
+                        <p>At Light in Silence, volunteers are the heart of our mission. Your compassionate responses can provide hope, comfort, and connection to someone who needs it most.</p>
                         <ul>
-                            <li>Respond to anonymous letters with empathy and care</li>
-                            <li>Provide emotional support to those in need</li>
-                            <li>Help create a safe, judgment-free space</li>
+                            <li><strong>Make a Real Impact:</strong> Your words can be the light someone needs in their darkest moment.</li>
+                            <li><strong>Learn & Grow:</strong> Develop empathy and communication skills through comprehensive training.</li>
+                            <li><strong>Join a Community:</strong> Connect with like-minded individuals passionate about mental health advocacy.</li>
                         </ul>
                     </div>
                     <a href="/register" data-route="/register" class="cta-button">Join as Volunteer</a>
+                    <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderDonatePage(container) {
+        container.innerHTML = `
+            <div class="donate-page">
+                <main>
+                    <h1>Support Our Mission</h1>
+                    <p>Your donation helps us provide free mental health support to those who need it most.</p>
+                    <div class="donation-info">
+                        <h3>How Your Donation Helps</h3>
+                        <ul>
+                            <li>Maintain our platform and technology infrastructure</li>
+                            <li>Train volunteer responders</li>
+                            <li>Develop new mental health resources</li>
+                            <li>Expand our reach to more communities</li>
+                        </ul>
+                    </div>
+                    <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderTermsPage(container) {
+        container.innerHTML = `
+            <div class="terms-page">
+                <main>
+                    <h1>Terms of Service</h1>
+                    <p>Please read these terms carefully before using our platform.</p>
+                    <div class="terms-content">
+                        <h3>1. Acceptance of Terms</h3>
+                        <p>By accessing and using Light in Silence, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                        
+                        <h3>2. Privacy and Confidentiality</h3>
+                        <p>We are committed to protecting your privacy. All letters and responses are handled with strict confidentiality.</p>
+                        
+                        <h3>3. Crisis Support</h3>
+                        <p>If you are in crisis, please contact emergency services immediately. Our platform is not a substitute for professional mental health care.</p>
+                    </div>
+                    <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
+                </main>
+            </div>
+        `;
+    }
+
+    renderPrivacyPage(container) {
+        container.innerHTML = `
+            <div class="privacy-page">
+                <main>
+                    <h1>Privacy Policy</h1>
+                    <p>How we protect your information and maintain your privacy.</p>
+                    <div class="privacy-content">
+                        <h3>Information We Collect</h3>
+                        <p>We collect only the information necessary to provide our services, including anonymous letters and optional contact information.</p>
+                        
+                        <h3>How We Use Information</h3>
+                        <p>Your information is used solely to provide mental health support and improve our services.</p>
+                        
+                        <h3>Data Protection</h3>
+                        <p>We implement industry-standard security measures to protect your data and maintain your privacy.</p>
+                    </div>
                     <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
                 </main>
             </div>

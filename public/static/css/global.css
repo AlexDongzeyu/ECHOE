@@ -1,0 +1,113 @@
+:root {
+    --deep-indigo: #2A3D66;
+    --soft-yellow: #F4D06F;
+    --warm-white: #FAFAFA;
+    --gentle-lavender: #B39CD0;
+    --dark-indigo: #1e2e4f;
+    --light-yellow: #f8e2a0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+    color: var(--deep-indigo);
+    background-color: var(--warm-white);
+    background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" x="8" y="8" rx="2" fill="%23B39CD0" opacity="0.15"/></svg>');
+}
+
+header, nav, footer {
+    background-color: var(--deep-indigo);
+    color: var(--warm-white);
+}
+
+.btn-primary {
+    background-color: var(--soft-yellow);
+    color: var(--deep-indigo);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #eac95f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(244, 208, 111, 0.3);
+}
+
+.btn-secondary {
+    background-color: var(--gentle-lavender);
+    color: var(--warm-white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: #a28cc0;
+    transform: translateY(-2px);
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+blockquote {
+    background: var(--warm-white);
+    border-left: 4px solid var(--soft-yellow);
+    padding: 20px 30px;
+    margin: 30px 0;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--deep-indigo);
+}
+
+.section-divider {
+    height: 4px;
+    background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow), var(--gentle-lavender));
+    margin: 40px 0;
+    border-radius: 2px;
+}
+
+a {
+    color: var(--deep-indigo);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--gentle-lavender);
+}
+
+.icon {
+    margin-right: 8px;
+    color: var(--soft-yellow);
+}
+
+.icon:hover {
+    color: var(--gentle-lavender);
+}
+
+ul li::before {
+    content: '✓';
+    color: var(--soft-yellow);
+    font-weight: bold;
+    margin-right: 10px;
+} 

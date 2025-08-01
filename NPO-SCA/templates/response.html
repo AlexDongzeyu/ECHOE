@@ -299,10 +299,10 @@
                     <span><i class="fas fa-tag"></i> Topic: {{ letter.topic|title }}</span>
                     {% endif %}
                     <span><i class="fas fa-key"></i> Code: {{ letter.unique_id[:8] }}...</span>
-                </div>
+        </div>
                 
                 <div class="letter-content">{{ letter.content }}</div>
-            </div>
+    </div>
 
             <!-- Responses Section -->
             <div class="responses-section">
@@ -316,9 +316,9 @@
                     {% endif %}
                 </h2>
                 
-                {% if responses %}
-                    {% for response in responses %}
-                        <div class="response-item">
+        {% if responses %}
+            {% for response in responses %}
+                <div class="response-item">
                             <div class="response-meta">
                                 <span><i class="fas fa-user-heart"></i> A volunteer responded on {{ response.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
                                 {% if response.response_type %}
@@ -337,9 +337,9 @@
                             </div>
                             
                             <div class="response-content">{{ response.content }}</div>
-                        </div>
-                    {% endfor %}
-                {% else %}
+                </div>
+            {% endfor %}
+        {% else %}
                     <div class="no-responses">
                         <i class="fas fa-hourglass-half"></i>
                         <h3>Your Letter is Being Reviewed</h3>
@@ -354,9 +354,9 @@
                             You'll receive a caring, personalized response soon. Please check back later.
                         </p>
                     </div>
-                {% endif %}
-            </div>
-            
+        {% endif %}
+    </div>
+
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="{{ url_for('check_letter_reply') }}" class="action-btn primary">

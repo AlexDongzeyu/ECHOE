@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}Check for Reply - {{ super() }}{% endblock %}
+
+{% block styles %}
+<style>
+    .check-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .check-form-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, var(--gentle-lavender), var(--soft-yellow), var(--gentle-lavender));
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .form-intro {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        border-radius: 15px;
+        color: white;
+    }
+    
+    .form-intro h2 {
+        color: white;
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    
+    .form-intro p {
+        opacity: 0.9;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    .code-input-group {
+        margin-bottom: 30px;
+        position: relative;
+    }
+    
+    .code-input-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+    }
+    
+    .code-input-group input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        background-color: var(--warm-white);
+        font-family: 'Courier New', monospace;
+        letter-spacing: 1px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    
+    .code-input-group input:focus {
+        outline: none;
+        border-color: var(--soft-yellow);
+        box-shadow: 0 0 0 3px rgba(244, 208, 111, 0.2);
+        transform: translateY(-2px);
+    }
+    
+    .check-btn {
+        width: 100%;
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        border: none;
+        padding: 15px 25px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .check-btn:hover {
+        background: #e6c960;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(244, 208, 111, 0.5);
+    }
+    
+    .help-section {
+        margin-top: 40px;
+        padding: 25px;
+        background: var(--warm-white);
+        border-radius: 15px;
+        border-left: 4px solid var(--gentle-lavender);
+    }
+    
+    .help-section h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .help-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .help-section li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: var(--deep-indigo);
+        line-height: 1.6;
+    }
+    
+    .help-section li i {
+        color: var(--gentle-lavender);
+        margin-top: 3px;
+        font-size: 0.9rem;
+    }
+    
+    .alternative-actions {
+        margin-top: 30px;
+        text-align: center;
+        padding: 25px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(42, 61, 102, 0.05);
+    }
+    
+    .alternative-actions h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .action-btn {
+        padding: 12px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .action-btn.primary {
+        background: var(--gentle-lavender);
+        color: white;
+    }
+    
+    .action-btn.secondary {
+        background: rgba(42, 61, 102, 0.1);
+        color: var(--deep-indigo);
+        border: 2px solid var(--gentle-lavender);
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        .check-form-container {
+            margin: 20px;
+            padding: 30px 25px;
+        }
+        
+        .form-intro {
+            padding: 25px 20px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <div class="page-header">
+            <h1><i class="fas fa-search" style="color: var(--gentle-lavender); margin-right: 15px;"></i>Check for Reply</h1>
+            <p>Enter your unique code to see if you've received a response to your letter</p>
+        </div>
+        
+        <div class="check-form-container">
+            <div class="form-intro">
+                <h2><i class="fas fa-envelope-open" style="margin-right: 10px;"></i>Find Your Response</h2>
+                <p>Use the unique code you received when submitting your letter to check for caring responses from our volunteer community.</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('check_letter_reply') }}">
+                <div class="code-input-group">
+                    <label for="code">
+                        <i class="fas fa-key" style="color: var(--gentle-lavender); margin-right: 8px;"></i>
+                        Enter Your Unique Code
+                    </label>
+                    <input type="text" id="code" name="code" required 
+                           placeholder="Enter your letter code here..."
+                           maxlength="36">
+                </div>
+                
+                <button type="submit" class="check-btn">
+                    <i class="fas fa-search"></i>
+                    Check for Reply
+                </button>
+            </form>
+            
+            <div class="help-section">
+                <h3>
+                    <i class="fas fa-info-circle"></i>
+                    Need Help?
+                </h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-dot-circle"></i>
+                        Your code was provided when you submitted your letter
+                    </li>
+                    <li>
+                        <i class="fas fa-dot-circle"></i>
+                        Codes are case-insensitive and may contain letters and numbers
+                    </li>
+                    <li>
+                        <i class="fas fa-dot-circle"></i>
+                        Responses typically arrive within 24-48 hours
+                    </li>
+                    <li>
+                        <i class="fas fa-dot-circle"></i>
+                        If you can't find your code, you can submit a new letter
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="alternative-actions">
+                <h3>Don't Have Your Code?</h3>
+                <div class="action-buttons">
+                    <a href="{{ url_for('submit') }}" class="action-btn primary">
+                        <i class="fas fa-pen"></i> Write New Letter
+                    </a>
+                    <a href="{{ url_for('chat') }}" class="action-btn secondary">
+                        <i class="fas fa-comments"></i> AI Chat Support
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="action-btn secondary">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Support Resources -->
+        <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #dc3545, #c82333); border-radius: 15px; color: white; text-align: center;">
+            <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>Need Immediate Support?</h3>
+            <p style="margin-bottom: 20px; opacity: 0.9;">If you're in crisis or need someone to talk to right now:</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Crisis Line: 1-833-456-4566</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Text: 45645</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px 20px; border-radius: 10px;">
+                    <strong>Emergency: 911</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

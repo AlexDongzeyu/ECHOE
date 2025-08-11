@@ -212,7 +212,7 @@
 {% block content %}
 <div class="container">
     <div class="page-container">
-        <div class="page-header">
+    <div class="page-header">
             <h1><i class="fas fa-calendar-alt" style="color: var(--gentle-lavender); margin-right: 15px;"></i>Community Events</h1>
             <p>Join us for mental health workshops, support groups, and community gatherings</p>
         </div>
@@ -220,7 +220,7 @@
         <div class="events-intro">
             <h2><i class="fas fa-users" style="margin-right: 10px;"></i>Building Community Together</h2>
             <p>Our events create safe spaces for connection, learning, and mutual support. Whether you're looking for education, community, or a chance to help others, there's a place for you here.</p>
-        </div>
+    </div>
 
         {% if events %}
         <div class="events-filter">
@@ -234,10 +234,10 @@
         </div>
         {% endif %}
 
-        <div class="event-list">
-            {% for event in events %}
+    <div class="event-list">
+        {% for event in events %}
                 <div class="event-card">
-                    <h2><a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.title }}</a></h2>
+                <h2><a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.title }}</a></h2>
                     
                     <div class="event-meta">
                         <div class="event-meta-item">
@@ -277,8 +277,8 @@
                     <a href="{{ url_for('event_detail', event_id=event.id) }}" class="view-details-btn">
                         <i class="fas fa-info-circle"></i> View Details & Register
                     </a>
-                </div>
-            {% else %}
+            </div>
+        {% else %}
                 <div class="empty-state">
                     <i class="fas fa-calendar-plus"></i>
                     <h3>No Events Scheduled</h3>
@@ -292,7 +292,7 @@
                         </a>
                     </div>
                 </div>
-            {% endfor %}
+        {% endfor %}
         </div>
 
         <!-- Community Section -->

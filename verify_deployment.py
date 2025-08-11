@@ -8,13 +8,16 @@ import requests
 import sys
 from datetime import datetime
 
+# Update this URL to your actual Cloudflare Workers URL
+BASE_URL = "https://light-in-silence.your-subdomain.workers.dev"
+
 def test_site_health():
     """Test the basic health of the deployed site"""
     print("🔍 Testing site health...")
     
     try:
         # Test health endpoint
-        response = requests.get('https://light-in-silence.your-subdomain.workers.dev/health', timeout=10)
+        response = requests.get(f'{BASE_URL}/health', timeout=10)
         if response.status_code == 200:
             print("✅ Health endpoint working")
             return True
@@ -30,7 +33,7 @@ def test_navigation():
     print("\n🔍 Testing navigation...")
     
     try:
-        response = requests.get('https://light-in-silence.your-subdomain.workers.dev/', timeout=10)
+        response = requests.get(f'{BASE_URL}/', timeout=10)
         
         if response.status_code == 200:
             content = response.text
@@ -76,7 +79,7 @@ def test_static_files():
     all_passed = True
     for file_path in static_files:
         try:
-            response = requests.get(f'https://light-in-silence.your-subdomain.workers.dev{file_path}', timeout=10)
+            response = requests.get(f'{BASE_URL}{file_path}', timeout=10)
             if response.status_code == 200:
                 print(f"✅ {file_path}")
             else:
@@ -93,6 +96,7 @@ def main():
     print("🚀 Light in Silence - Deployment Verification")
     print("=" * 50)
     print(f"📅 Test run: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"🌐 Testing URL: {BASE_URL}")
     print()
     
     # Run all tests
@@ -128,6 +132,7 @@ def main():
     else:
         print("⚠️  SOME TESTS FAILED")
         print("❌ Please check the deployment")
+        print(f"💡 Make sure to update BASE_URL in verify_deployment.py to your actual Cloudflare Workers URL")
         return 1
 
 if __name__ == "__main__":

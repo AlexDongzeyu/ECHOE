@@ -1,4 +1,5 @@
 import { Env } from '../index';
+import type { D1Database } from '../types/cloudflare';
 
 export interface User {
   id: number;
@@ -131,6 +132,97 @@ export class DatabaseService {
   async getAllUsers(): Promise<User[]> {
     const result = await this.db.prepare('SELECT * FROM users ORDER BY created_at DESC').all<User>();
     return result.results;
+  }
+
+  // Post operations
+  async createPost(postData: Omit<Post, 'id' | 'created_at'>): Promise<Post> {
+    const result = await this.db.prepare(`
+      INSERT INTO posts (title, body, author_id)
+      VALUES (?, ?, ?)
+      RETURNING *
+    `).bind(
+      postData.title,
+      postData.body,
+      postData.author_id
+    ).first<Post>();
+
+    if (!result) {
+      throw new Error('Failed to create post');
+    }
+    return result;
+  }
+
+  async getPosts(): Promise<Post[]> {
+    const result = await this.db.prepare(
+      'SELECT * FROM posts ORDER BY created_at DESC'
+    ).all<Post>();
+    return result.results;
+  }
+
+  async getPostById(id: number): Promise<Post | null> {
+    return await this.db.prepare('SELECT * FROM posts WHERE id = ?').bind(id).first<Post>();
+  }
+
+  async updatePost(id: number, updates: Partial<Post>): Promise<Post | null> {
+    const setClause = Object.keys(updates).map(key => `${key} = ?`).join(', ');
+    const values = Object.values(updates);
+
+    const result = await this.db.prepare(`
+      UPDATE posts SET ${setClause} WHERE id = ? RETURNING *
+    `).bind(...values, id).first<Post>();
+    return result;
+  }
+
+  async deletePost(id: number): Promise<boolean> {
+    const result = await this.db.prepare('DELETE FROM posts WHERE id = ?').bind(id).run();
+    return result.success;
+  }
+
+  // Event operations
+  async createEvent(eventData: Omit<Event, 'id' | 'created_at'>): Promise<Event> {
+    const result = await this.db.prepare(`
+      INSERT INTO events (title, objective, event_date, location, structure, registration_link)
+      VALUES (?, ?, ?, ?, ?, ?)
+      RETURNING *
+    `).bind(
+      eventData.title,
+      eventData.objective,
+      eventData.event_date,
+      eventData.location,
+      eventData.structure ?? null,
+      eventData.registration_link ?? null
+    ).first<Event>();
+
+    if (!result) {
+      throw new Error('Failed to create event');
+    }
+    return result;
+  }
+
+  async getEvents(): Promise<Event[]> {
+    const result = await this.db.prepare(
+      'SELECT * FROM events ORDER BY event_date DESC'
+    ).all<Event>();
+    return result.results;
+  }
+
+  async getEventById(id: number): Promise<Event | null> {
+    return await this.db.prepare('SELECT * FROM events WHERE id = ?').bind(id).first<Event>();
+  }
+
+  async updateEvent(id: number, updates: Partial<Event>): Promise<Event | null> {
+    const setClause = Object.keys(updates).map(key => `${key} = ?`).join(', ');
+    const values = Object.values(updates);
+
+    const result = await this.db.prepare(`
+      UPDATE events SET ${setClause} WHERE id = ? RETURNING *
+    `).bind(...values, id).first<Event>();
+    return result;
+  }
+
+  async deleteEvent(id: number): Promise<boolean> {
+    const result = await this.db.prepare('DELETE FROM events WHERE id = ?').bind(id).run();
+    return result.success;
   }
 
   // Letter operations

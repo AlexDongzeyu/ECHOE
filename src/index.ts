@@ -1,10 +1,14 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import type { D1Database, D1PreparedStatement } from './types/cloudflare';
+type Fetcher = any;
 import { authRoutes } from './routes/auth';
 import { letterRoutes } from './routes/letters';
 import { adminRoutes } from './routes/admin';
 import { volunteerRoutes } from './routes/volunteer';
 import { chatRoutes } from './routes/chat';
+import { blogRoutes } from './routes/blog';
+import { eventsRoutes } from './routes/events';
 // Static site is served via Workers Assets (wrangler.toml -> assets.directory = "./public")
 
 export interface Env {
@@ -15,7 +19,7 @@ export interface Env {
   ASSETS: Fetcher; // bound by Wrangler when [assets] is configured
 }
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono();
 
 // CORS middleware
 app.use('*', cors({
@@ -26,7 +30,7 @@ app.use('*', cors({
 }));
 
 // Health check endpoint
-app.get('/health', (c) => {
+app.get('/health', (c: any) => {
   return c.json({ 
     status: 'ok', 
     timestamp: new Date().toISOString(),
@@ -40,9 +44,11 @@ app.route('/api/letters', letterRoutes);
 app.route('/api/admin', adminRoutes);
 app.route('/api/volunteer', volunteerRoutes);
 app.route('/api/chat', chatRoutes);
+app.route('/api/blog', blogRoutes);
+app.route('/api/events', eventsRoutes);
 
 // Static files and SPA fallback served from Workers Assets
-app.get('/*', async (c) => {
+app.get('/*', async (c: any) => {
   // Try to serve the exact asset first
   const assetResponse = await c.env.ASSETS.fetch(c.req.raw);
   if (assetResponse && assetResponse.status !== 404) {
@@ -55,7 +61,7 @@ app.get('/*', async (c) => {
 });
 
 // Global error handler
-app.onError((err, c) => {
+app.onError((err: any, c: any) => {
   console.error('Global error:', err);
   return c.json({
     error: 'Internal Server Error',
@@ -64,7 +70,7 @@ app.onError((err, c) => {
 });
 
 // 404 handler
-app.notFound((c) => {
+app.notFound((c: any) => {
   return c.json({ error: 'Not Found' }, 404);
 });
 

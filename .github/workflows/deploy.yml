@@ -8,6 +8,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   NODE_VERSION: '18'
@@ -100,7 +101,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy --env production
+          command: deploy --env production --minify
           secrets: |
             JWT_SECRET
             GEMINI_API_KEY
@@ -111,7 +112,7 @@ jobs:
       - name: Health Check
         run: |
           sleep 30
-          curl -f https://light-in-silence.workers.dev/health || exit 1
+          curl -f https://light-in-silence.alexdong0414.workers.dev/health || exit 1
         continue-on-error: true
 
   notify:

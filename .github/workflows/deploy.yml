@@ -64,9 +64,11 @@ jobs:
           secrets: |
             JWT_SECRET
             GEMINI_API_KEY
+            PROXY_ORIGIN
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PROXY_ORIGIN: ${{ secrets.PROXY_ORIGIN }}
 
   deploy-production:
     if: github.ref == 'refs/heads/main'
@@ -105,14 +107,16 @@ jobs:
           secrets: |
             JWT_SECRET
             GEMINI_API_KEY
+            PROXY_ORIGIN
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PROXY_ORIGIN: ${{ secrets.PROXY_ORIGIN }}
       
       - name: Health Check
         run: |
           sleep 30
-          curl -f https://light-in-silence.alexdong0414.workers.dev/health || exit 1
+          curl -f https://lightinsilence.org/health-check || exit 1
         continue-on-error: true
 
   notify:

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: light-in-silence-flask
+    env: python
+    plan: free
+    region: oregon
+    rootDir: NPO-SCA
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT app:app
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+    disk:
+      name: flask-db
+      mountPath: /opt/render/project/src/NPO-SCA/instance
+      sizeGB: 1

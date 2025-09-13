@@ -9,9 +9,6 @@ Flask-SocketIO==5.3.6
 requests==2.31.0
 python-dotenv==1.0.0
 gunicorn==21.2.0
-# eventlet kept for compatibility if running locally with eventlet
+# eventlet for SocketIO/WebSocket support on Python 3.12
 eventlet==0.33.3
-# gevent stack for production on Python 3.13
-gevent==24.2.1
-gevent-websocket==0.10.1
 setuptools>=68.0.0 

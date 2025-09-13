@@ -30,12 +30,19 @@ app.use('*', cors({
   credentials: false,
 }));
 
-// Reverse-proxy mode: if PROXY_ORIGIN is configured, forward all traffic unchanged
+// Reverse-proxy mode: if PROXY_ORIGIN is configured, forward most traffic unchanged
+// Exception: allow Worker-handled endpoints (like /api/chat) to hit local handlers
 app.use('*', async (c: any, next: any) => {
   const origin = c.env?.PROXY_ORIGIN;
   if (!origin) return next();
 
   const incomingUrl = new URL(c.req.url);
+  const pathname = incomingUrl.pathname;
+
+  // Do not proxy chat API so we can use Worker secrets to talk to Gemini
+  if (pathname.startsWith('/api/chat')) {
+    return next();
+  }
   const targetUrl = new URL(incomingUrl.pathname + incomingUrl.search, origin);
 
   // Clone request

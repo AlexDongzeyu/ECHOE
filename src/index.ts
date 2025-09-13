@@ -39,8 +39,8 @@ app.use('*', async (c: any, next: any) => {
   const incomingUrl = new URL(c.req.url);
   const pathname = incomingUrl.pathname;
 
-  // Do not proxy chat API so we can use Worker secrets to talk to Gemini
-  if (pathname.startsWith('/api/chat')) {
+  // Do not proxy certain API routes so we can use Worker handlers/secrets
+  if (pathname.startsWith('/api/chat') || pathname.startsWith('/api/health') || pathname === '/health') {
     return next();
   }
   const targetUrl = new URL(incomingUrl.pathname + incomingUrl.search, origin);

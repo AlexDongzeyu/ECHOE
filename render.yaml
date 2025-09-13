@@ -5,7 +5,7 @@ services:
     plan: free
     region: oregon
     rootDir: NPO-SCA
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT app:app
     autoDeploy: true
     envVars:
@@ -13,7 +13,5 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-    disk:
-      name: flask-db
-      mountPath: /opt/render/project/src/NPO-SCA/instance
-      sizeGB: 1
+      - key: PYTHON_VERSION
+        value: 3.12

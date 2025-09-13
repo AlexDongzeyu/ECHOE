@@ -765,6 +765,33 @@ try:
         flash('Response has been deleted.', 'success')
         return redirect(url_for('admin_content'))
 
+    # Admin moderation helpers
+    @app.route('/admin/letters/<letter_id>/flag', methods=['POST'])
+    @admin_required
+    def admin_flag_letter(letter_id):
+        """Flag a letter for review (admin only)"""
+        letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
+        letter.is_flagged = True
+        db.session.commit()
+        flash('Letter has been flagged for review.', 'success')
+        return redirect(url_for('admin_content'))
+
+    @app.route('/admin/letters/<letter_id>/approve', methods=['POST'])
+    @admin_required
+    def admin_approve_letter(letter_id):
+        """Mark a letter as processed (admin only)"""
+        letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
+        letter.is_processed = True
+        db.session.commit()
+        flash('Letter has been marked as processed.', 'success')
+        return redirect(url_for('admin_content'))
+
+    @app.route('/admin/letters/<letter_id>')
+    @admin_required
+    def view_letter_detail(letter_id):
+        """Redirect to the volunteer respond view for detailed review"""
+        return redirect(url_for('respond_to_letter', letter_id=letter_id))
+
     @app.route('/admin/users/<int:user_id>/grant-volunteer', methods=['POST'])
     @admin_required
     def grant_volunteer(user_id):

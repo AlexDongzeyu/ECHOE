@@ -16,6 +16,7 @@ routes = [
 # Ensure production has its own bindings and vars
 [env.production.vars]
 ENVIRONMENT = "production"
+PROXY_ORIGIN = "https://light-in-silence-flask.onrender.com"
 # Set this to your hosted Flask origin (e.g., Render URL) to proxy without content changes
 # PROXY_ORIGIN = "https://your-flask-origin.onrender.com"
 

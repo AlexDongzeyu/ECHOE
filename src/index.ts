@@ -54,8 +54,8 @@ app.use('*', async (c: any, next: any) => {
   };
 
   const resp = await fetch(targetUrl.toString(), init);
-  // Stream back response as-is
-  return c.body(resp.body as any, resp.status, Object.fromEntries(resp.headers as any));
+  // Return upstream response as-is to preserve headers/body/stream
+  return resp as any;
 });
 
 // Health check endpoint

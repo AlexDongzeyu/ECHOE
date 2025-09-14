@@ -82,6 +82,10 @@ class RegistrationForm(FlaskForm):
                              validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
+    class Meta:
+        # Disable CSRF for this form to support static-hosted signup page posting to Flask
+        csrf = False
+
 
 class PhysicalLetterForm(FlaskForm):
     topic = SelectField('Topic (Optional)', 

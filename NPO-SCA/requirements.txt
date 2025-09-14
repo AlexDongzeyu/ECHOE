@@ -12,3 +12,4 @@ gunicorn==21.2.0
 # eventlet for SocketIO/WebSocket support on Python 3.12
 eventlet==0.36.1
 setuptools>=68.0.0 
+email-validator>=2.1.0

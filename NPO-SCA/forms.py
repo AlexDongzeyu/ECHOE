@@ -1,6 +1,32 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, SubmitField, EmailField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, Email, Length, Optional, EqualTo
+from wtforms.validators import DataRequired, Email, Length, Optional, EqualTo, ValidationError
+import re
+
+# Graceful fallback if the optional 'email_validator' package isn't available
+try:
+    import email_validator  # noqa: F401
+    _EMAIL_VALIDATOR_AVAILABLE = True
+except Exception:
+    _EMAIL_VALIDATOR_AVAILABLE = False
+
+
+class SimpleEmail:
+    """Lightweight email validator used when 'email_validator' package is absent.
+
+    Uses a conservative regex to catch obvious invalid addresses without external deps.
+    """
+
+    _pattern = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+
+    def __call__(self, form, field):
+        value = field.data or ''
+        if value and not self._pattern.match(value):
+            raise ValidationError('Invalid email address.')
+
+
+_EMAIL_VALIDATORS_OPTIONAL = [Optional(), Email()] if _EMAIL_VALIDATOR_AVAILABLE else [Optional(), SimpleEmail()]
+_EMAIL_VALIDATORS_REQUIRED = [DataRequired(), Email()] if _EMAIL_VALIDATOR_AVAILABLE else [DataRequired(), SimpleEmail()]
 
 class LetterForm(FlaskForm):
     topic = SelectField('Topic (Optional)', 
@@ -23,7 +49,7 @@ class LetterForm(FlaskForm):
                               validators=[Optional()])
     
     anonymous_email = EmailField('Anonymous Email',
-                                validators=[Optional(), Email()])
+                                validators=_EMAIL_VALIDATORS_OPTIONAL)
     
     submit = SubmitField('Send Letter')
 
@@ -50,7 +76,7 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=64)])
-    email = EmailField('Email', validators=[DataRequired(), Email()])
+    email = EmailField('Email', validators=_EMAIL_VALIDATORS_REQUIRED)
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     password2 = PasswordField('Repeat Password', 
                              validators=[DataRequired(), EqualTo('password')])

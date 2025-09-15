@@ -777,40 +777,11 @@ async function processAIResponse(userMessage) {
 }
 
 async function getCustomerServiceResponse(message) {
-    // Customer service responses for website navigation
-    const customerServicePrompt = `You are a helpful customer service assistant for "Light in Silence", a Canadian mental health platform. 
-
-Here's information about our website:
-- We offer anonymous letter submission where people can share their struggles
-- People can choose to receive AI responses, human responses, or check for replies later
-- We have a blog, events section, and mental health resources
-- Users can volunteer to respond to letters
-- We have both online and physical mailbox locations across Canada
-- Contact information and donation options are available
-
-Answer questions about navigation, features, how to use the site, technical issues, and general information. 
-Be helpful, concise, and direct users to specific pages when relevant.
-Keep responses under 150 words.
-
-User question: ${message}`;
-
-    return await fetchAIResponse(customerServicePrompt, 'customer-service');
+    return await fetchAIResponse(message, 'practical');
 }
 
 async function getCompanionResponse(message) {
-    // AI companion responses for emotional support
-    const companionPrompt = `You are a supportive AI companion for the Light in Silence mental health platform. 
-
-Respond with empathy and care. Focus on emotional support and validation of feelings. 
-Do not diagnose or provide medical advice. Keep responses supportive, thoughtful and relatively brief (under 150 words).
-Ask gentle follow-up questions when appropriate to help the person explore their feelings.
-
-If someone mentions crisis situations (suicide, self-harm), direct them to call their local crisis line immediately. 
-In Canada: 1-833-456-4566 or text 45645.
-
-User message: ${message}`;
-
-    return await fetchAIResponse(companionPrompt, 'companion');
+    return await fetchAIResponse(message, 'supportive');
 }
 
 async function fetchAIResponse(prompt, type) {

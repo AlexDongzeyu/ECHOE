@@ -381,7 +381,7 @@ async function fetchGeminiResponse(prompt, responseType = 'supportive') {
             },
             body: JSON.stringify({
                 message: prompt,
-                response_type: responseType
+                type: responseType
             })
         });
         
@@ -390,7 +390,7 @@ async function fetchGeminiResponse(prompt, responseType = 'supportive') {
         }
         
         const data = await response.json();
-        return data.response || getRandomDefaultResponse();
+        return (data.message || data.response) || getRandomDefaultResponse();
     } catch (error) {
         console.error('Error fetching AI response:', error);
         throw error;

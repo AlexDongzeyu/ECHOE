@@ -6,6 +6,7 @@ from datetime import datetime
 import json
 import uuid
 import requests
+import httpx
 from flask_cors import CORS
 import sqlite3
 import logging
@@ -210,8 +211,10 @@ try:
                 }]
             }
             
-            response = requests.post(url, json=payload)
-            data = response.json()
+            # Use httpx to avoid eventlet/requests recursion issues and add a timeout
+            with httpx.Client(timeout=10) as client:
+                response = client.post(url, json=payload)
+                data = response.json()
             
             if data and 'candidates' in data and len(data['candidates']) > 0:
                 ai_response = " ".join([part['text'] for part in data['candidates'][0]['content']['parts']])
@@ -517,8 +520,9 @@ try:
                 }]
             }
             
-            response = requests.post(url, json=payload)
-            data = response.json()
+            with httpx.Client(timeout=10) as client:
+                response = client.post(url, json=payload)
+                data = response.json()
             
             if data and 'candidates' in data and len(data['candidates']) > 0:
                 ai_response = " ".join([part['text'] for part in data['candidates'][0]['content']['parts']])

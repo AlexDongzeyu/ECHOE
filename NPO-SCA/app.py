@@ -1,3 +1,5 @@
+import eventlet
+eventlet.monkey_patch()
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
@@ -53,7 +55,7 @@ try:
     app.wsgi_app = LanguageMiddleware(app.wsgi_app)
     logger.info("Middleware applied")
 
-    socketio = SocketIO(app)
+    socketio = SocketIO(app, async_mode='eventlet')
 
     # Define anonymous names for chat
     ANONYMOUS_NAMES = ["QuietFox", "CalmRiver", "SilentWolf", "GentleBear", "PeacefulEagle"]

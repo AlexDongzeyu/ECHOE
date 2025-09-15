@@ -229,7 +229,7 @@ function createChatWidget() {
 function setupChatEvents() {
     const chatButton = document.getElementById('chatButton');
     const chatClose = document.getElementById('chatClose');
-    const sendMessage = document.getElementById('sendMessage');
+    const sendBtn = document.getElementById('sendMessage');
     const messageInput = document.getElementById('messageInput');
     const voiceToggle = document.getElementById('voiceToggle');
     const responseTypeLinks = document.querySelectorAll('.dropdown-content a');
@@ -244,7 +244,11 @@ function setupChatEvents() {
         chatContainer.classList.remove('active');
     });
 
-    sendMessage.addEventListener('click', sendMessage);
+    if (sendBtn) {
+        sendBtn.addEventListener('click', () => {
+            sendMessage();
+        });
+    }
     
     messageInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {

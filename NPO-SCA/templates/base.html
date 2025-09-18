@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Language" content="en-CA">
-    <title>{% block title %}Light in Silence - Where Your Words Find Light{% endblock %}</title>
+    <title>{% block title %}E.C.H.O.E — Empathy Connection Hope Outreach Empowerment{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/jpeg">
@@ -543,9 +543,9 @@
         <nav>
             <a href="{{ url_for('index') }}" class="logo">
                 <div class="logo-img">
-                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Light in Silence logo" loading="eager">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
-                <span>Light in Silence</span>
+                <span>E.C.H.O.E</span>
             </a>
             
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
@@ -637,8 +637,8 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Light in Silence</h3>
-                <p class="tagline">Where Your Words Find Light</p>
+                <h3>E.C.H.O.E</h3>
+                <p class="tagline">Empathy • Connection • Hope • Outreach • Empowerment</p>
                 <p>A compassionate platform providing anonymous support through both digital and physical channels across Canada.</p>
             </div>
             
@@ -674,14 +674,14 @@
                 <ul>
                     <li><a href="tel:1-833-456-4566"><i class="fas fa-phone"></i> Crisis Line: 1-833-456-4566</a></li>
                     <li><a href="sms:45645"><i class="fas fa-sms"></i> Text Support: 45645</a></li>
-                    <li><a href="mailto:support@lightinsilence.ca"><i class="fas fa-envelope"></i> support@lightinsilence.ca</a></li>
+                    <li><a href="mailto:echoe.hosa@gmail.com"><i class="fas fa-envelope"></i> echoe.hosa@gmail.com</a></li>
                     <li><a href="{{ url_for('privacy') }}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
                     <li><a href="{{ url_for('terms') }}"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; {{ now.year }} Light in Silence. Made with ❤️ in Canada. All rights reserved.</p>
+            <p>&copy; {{ now.year }} E.C.H.O.E. Made with ❤️ in Canada. All rights reserved.</p>
         </div>
     </footer>
     

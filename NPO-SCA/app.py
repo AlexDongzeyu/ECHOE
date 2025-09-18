@@ -205,7 +205,7 @@ try:
             payload = {
                 "contents": [{
                     "parts": [{
-                        "text": f"You are a supportive AI companion for the Light in Silence mental health platform. "
+                        "text": f"You are a supportive AI companion for the E.C.H.O.E mental health platform (Empathy, Connection, Hope, Outreach, Empowerment). "
                                f"Respond with empathy and care. Do not diagnose or provide medical advice. "
                                f"Keep responses supportive, thoughtful and relatively brief. "
                                f"User message: {message}"
@@ -501,7 +501,7 @@ try:
             api_key = app.config['GEMINI_API_KEY']
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
             
-            prompt_prefix = "You are a supportive AI companion for the Light in Silence mental health platform. "
+            prompt_prefix = "You are a supportive AI companion for the E.C.H.O.E mental health platform (Empathy, Connection, Hope, Outreach, Empowerment). "
             
             if response_type == 'practical':
                 prompt_prefix += "Offer concrete, actionable advice while being supportive and compassionate. "

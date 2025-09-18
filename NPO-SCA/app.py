@@ -583,6 +583,11 @@ try:
     def donate():
         return render_template('donate.html')
 
+    # Route: Social Hub
+    @app.route('/social')
+    def social():
+        return render_template('social.html')
+
     # Admin routes
     @app.route('/admin')
     @admin_required

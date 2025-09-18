@@ -1,24 +1,23 @@
 :root {
-  /* 主要颜色方案 */
-  --color-indigo: #2A3D66;
-  --color-gold: #F4D06F;
-  --color-pearl: #FAFAFA;
-  --color-lavender: #B39CD0;
-  
-  /* 功能颜色映射 */
-  --color-primary: var(--color-indigo);
-  --color-secondary: var(--color-lavender);
-  --color-accent: var(--color-gold);
-  --color-background: var(--color-pearl);
-  
-  /* 文本颜色 */
-  --text-dark: var(--color-indigo);
-  --text-light: var(--color-pearl);
-  
-  /* 交互状态 */
-  --hover-primary: #3A4D76; /* 深靛蓝的稍亮版本 */
-  --hover-accent: #FFE08F; /* 金黄的稍亮版本 */
-  --hover-secondary: #C3AFDE; /* 薰衣草的稍亮版本 */
+  /* Brand palette (from logo) */
+  --brand-orange: #F8D29C; /* 橘色 */
+  --brand-blue:   #9FC5CB; /* 蓝色 */
+  --brand-green:  #ADCBA4; /* 绿色 */
+
+  /* System tokens mapped to brand */
+  --color-primary: #2A3D66; /* deep indigo as strong contrast base */
+  --color-secondary: var(--brand-blue);
+  --color-accent: var(--brand-orange);
+  --color-background: #FAFAFA;
+
+  /* Text colors */
+  --text-dark: #2A3D66;
+  --text-light: #FAFAFA;
+
+  /* Interactive states */
+  --hover-primary: #3A4D76;
+  --hover-accent: #FBE6BF; /* lighter orange */
+  --hover-secondary: #BFE0E4; /* lighter blue */
 }
 
 /* 全局样式 */

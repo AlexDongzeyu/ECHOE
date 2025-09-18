@@ -165,54 +165,8 @@
         opacity: 0.9;
     }
     
-    .cats-container {
-        position: absolute;
-        bottom: 35px;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        padding: 0 15%;
-        z-index: 4;
-    }
-    
-    .cat {
-        position: relative;
-        font-size: 40px;
-        opacity: 0.95;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
-    
-    .cat-1 {
-        animation: catNap 8s ease-in-out infinite;
-    }
-    
-    .cat-2 {
-        animation: catStretch 10s ease-in-out infinite;
-    }
-    
-    .cat-3 {
-        animation: catPlay 12s ease-in-out infinite;
-    }
-    
-    .cat-4 {
-        animation: catNap 8s ease-in-out infinite;
-    }
-    
-    @keyframes catNap {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1) translateY(-5px); }
-    }
-    
-    @keyframes catStretch {
-        0%, 100% { transform: rotate(-5deg); }
-        50% { transform: rotate(5deg); }
-    }
-    
-    @keyframes catPlay {
-        0%, 100% { transform: translateX(0) rotate(0); }
-        25% { transform: translateX(20px) rotate(10deg); }
-        75% { transform: translateX(-20px) rotate(-10deg); }
-    }
+    /* Removed emoji animations; we'll render a static meadow strip */
+    .cats-container { display: none; }
     
     .butterflies {
         position: absolute;
@@ -551,22 +505,38 @@
             </div>
         </section>
         
-        <!-- Instagram Highlight Block -->
+        <!-- Instagram Highlight Block (auto updates via /api/instagram-feed) -->
         <section class="page-container" style="margin:40px auto; max-width: 1100px;">
             <div class="container">
                 <h2 style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo);">On Instagram</h2>
                 <p style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo); opacity: 0.8;">Follow <strong>@echoe_hosa26</strong> for updates and community moments.</p>
-                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px;">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/echoe_hosa26/" data-instgrm-version="14">
-                        <a href="https://www.instagram.com/echoe_hosa26/">View on Instagram</a>
-                    </blockquote>
-                    <!-- Add specific post embeds here if desired -->
-                </div>
+                <div id="ig-feed" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 12px;"></div>
                 <div style="text-align:center; margin-top: 12px;">
                     <a class="btn-secondary" href="https://www.instagram.com/echoe_hosa26" target="_blank"><i class="fab fa-instagram"></i> Open Instagram</a>
                 </div>
             </div>
-            <script async defer src="https://www.instagram.com/embed.js"></script>
+            <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const res = await fetch('/api/instagram-feed');
+                    const data = await res.json();
+                    const items = (data && data.items) ? data.items : [];
+                    // Oldest first (chronological): reverse the default newest-first
+                    items.sort((a,b) => (a.timestamp||'').localeCompare(b.timestamp||''));
+                    const grid = document.getElementById('ig-feed');
+                    grid.innerHTML = items.map(it => {
+                        const isVideo = it.type === 'VIDEO';
+                        return `
+                        <a href="${it.permalink}" target="_blank" style="display:block; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06); border:1px solid rgba(159,197,203,0.35)">
+                            <div style="aspect-ratio:1/1; background:linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12)); display:flex; align-items:center; justify-content:center;">
+                                ${isVideo ? `<video src="${it.url}" muted playsinline style="max-width:100%; max-height:100%;"></video>` : `<img src="${it.thumb}" alt="Instagram media" style="width:100%; height:100%; object-fit:cover;" />`}
+                            </div>
+                            <div style="padding:10px 12px; color:#2A3D66; font-size:0.9rem;">${(it.caption||'').slice(0,80)}${(it.caption||'').length>80?'…':''}</div>
+                        </a>`
+                    }).join('');
+                } catch(e) { console.warn('IG feed load failed', e); }
+            });
+            </script>
         </section>
 
         <div class="healing-transition">
@@ -626,12 +596,12 @@
                 </div>
             </div>
             
-            <!-- 猫咪 -->
-            <div class="cats-container">
-                <span class="cat cat-1">🐱</span>
-                <span class="cat cat-2">😺</span>
-                <span class="cat cat-3">😸</span>
-                <span class="cat cat-4">🐈</span>
+            <!-- Static meadow strip (cute, no animation) -->
+            <div style="position:absolute; bottom:0; left:0; right:0; height:90px; display:flex; align-items:flex-end;">
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(173,203,164,0.95) 0%, rgba(159,197,203,0.9) 100%); border-radius: 50% 50% 0 0; transform: scaleX(1.15);"></div>
+                <div style="position:relative; width:100%; display:flex; justify-content:space-around; padding:0 4%; z-index:2; font-size:28px;">
+                    <span>🌸</span><span>🌷</span><span>🌻</span><span>🌼</span><span>🌺</span><span>🌸</span><span>🌻</span><span>🌷</span>
+                </div>
             </div>
             
             <!-- 蝴蝶 -->

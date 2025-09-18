@@ -14,6 +14,7 @@ import sqlite3
 import logging
 import sys
 import traceback
+import time
 from flask_socketio import SocketIO, emit
 import random
 from flask_migrate import Migrate
@@ -92,6 +93,52 @@ try:
     
     # Register CLI commands
     register_commands(app)
+
+    # ---------------- Instagram Feed (Basic Display API) -----------------
+    _ig_cache = { 'ts': 0, 'data': [] }
+
+    @app.route('/api/instagram-feed')
+    def instagram_feed():
+        try:
+            access_token = os.environ.get('INSTAGRAM_ACCESS_TOKEN') or app.config.get('INSTAGRAM_ACCESS_TOKEN')
+            if not access_token:
+                return jsonify({ 'items': [], 'error': 'INSTAGRAM_ACCESS_TOKEN not set' }), 200
+
+            # cache for 10 minutes
+            now = time.time()
+            if _ig_cache['data'] and now - _ig_cache['ts'] < 600:
+                return jsonify({ 'items': _ig_cache['data'] })
+
+            fields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
+            url = f'https://graph.instagram.com/me/media?fields={fields}&access_token={access_token}&limit=24'
+
+            with httpx.Client(timeout=10) as client:
+                r = client.get(url)
+                payload = r.json()
+
+            items = payload.get('data', []) if isinstance(payload, dict) else []
+            # Sort by timestamp (newest first)
+            items.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+
+            # Normalize
+            normalized = []
+            for it in items:
+                normalized.append({
+                    'id': it.get('id'),
+                    'caption': it.get('caption'),
+                    'type': it.get('media_type'),
+                    'url': it.get('media_url'),
+                    'thumb': it.get('thumbnail_url') or it.get('media_url'),
+                    'permalink': it.get('permalink'),
+                    'timestamp': it.get('timestamp')
+                })
+
+            _ig_cache['data'] = normalized
+            _ig_cache['ts'] = now
+            return jsonify({ 'items': normalized })
+        except Exception as e:
+            app.logger.error(f"Instagram feed error: {e}")
+            return jsonify({ 'items': [] }), 200
     
     @login_manager.user_loader
     def load_user(user_id):

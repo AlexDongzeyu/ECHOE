@@ -11,6 +11,8 @@ body {
     color: var(--dark-near-black);
     font-family: sans-serif;
     margin: 0;
+    /* Default site-wide background so all pages have an image */
+    background: url('/static/img/bg1.jpg') center/cover fixed no-repeat;
 }
 
 /* Backgrounds per page */

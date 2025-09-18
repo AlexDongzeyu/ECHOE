@@ -563,7 +563,7 @@
         }
     </style>
 </head>
-<body>
+<body class="{% if request.endpoint %}page-{{ request.endpoint|replace('.', '-') }}{% endif %}">
     <header>
         <nav>
             <a href="{{ url_for('index') }}" class="logo">

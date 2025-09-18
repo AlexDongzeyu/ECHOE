@@ -13,6 +13,16 @@ body {
     margin: 0;
 }
 
+/* Backgrounds per page */
+.page-index { background: url('/static/img/bg1.jpg') center/cover fixed no-repeat; }
+.page-submit { background: url('/static/img/bg2.jpg') center/cover fixed no-repeat; }
+.page-contact { background: url('/static/img/bg3.jpg') center/cover fixed no-repeat; }
+.page-about { background: url('/static/img/bg4.jpg') center/cover fixed no-repeat; }
+.page-legal { background: linear-gradient(180deg, rgba(179,156,208,0.15), rgba(244,208,111,0.15)); }
+
+/* Keep content readable on image backgrounds */
+.page-container { background-color: rgba(255,255,255,0.92); }
+
 h1, h2 {
     color: var(--deep-indigo);
 }

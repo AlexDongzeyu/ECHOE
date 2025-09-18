@@ -715,6 +715,22 @@
     
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>
+      (function() {
+        try {
+          var path = location.pathname;
+          var body = document.body;
+          var map = [
+            { test: /^\/$/, cls: 'page-index' },
+            { test: /^\/submit/, cls: 'page-submit' },
+            { test: /^\/contact/, cls: 'page-contact' },
+            { test: /^\/about/, cls: 'page-about' },
+            { test: /^\/privacy|^\/terms/, cls: 'page-legal' }
+          ];
+          for (var i=0;i<map.length;i++) { if (map[i].test.test(path)) { body.classList.add(map[i].cls); break; } }
+        } catch(e) {}
+      })();
+    </script>
+    <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('nav-menu');
             menu.classList.toggle('show');

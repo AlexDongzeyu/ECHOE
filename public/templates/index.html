@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Light in Silence - Where Your Words Find Light{% endblock %}
+{% block title %}E.C.H.O.E — Empathy Connection Hope Outreach Empowerment{% endblock %}
 
 {% block styles %}
 <style>
@@ -13,7 +13,7 @@
             padding: 100px 0 120px;
             position: relative;
             overflow: hidden;
-            background-color: var(--warm-white);
+            background: linear-gradient(180deg, rgba(159,197,203,0.15) 0%, rgba(173,203,164,0.08) 100%);
         }
         
         .hero .container {
@@ -540,17 +540,34 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Find Light in Silence</h1>
+                    <h1>Find Your Voice with E.C.H.O.E</h1>
                     <p class="quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
                     <p class="mission">A safe, anonymous space to share your thoughts and find support, both online and offline.</p>
             <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 </div>
                 <div class="hero-image">
-                    <img src="images/hero-illustration.svg" alt="Light in Silence Illustration">
+                    <img src="images/hero-illustration.svg" alt="E.C.H.O.E Illustration">
                 </div>
             </div>
         </section>
         
+        <!-- Instagram Highlight Block -->
+        <section class="page-container" style="margin:40px auto; max-width: 1100px;">
+            <div class="container">
+                <h2 style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo);">On Instagram</h2>
+                <p style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo); opacity: 0.8;">Follow <strong>@echoe_hosa26</strong> for updates and community moments.</p>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px;">
+                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/echoe_hosa26/" data-instgrm-version="14">
+                        <a href="https://www.instagram.com/echoe_hosa26/">View on Instagram</a>
+                    </blockquote>
+                </div>
+                <div style="text-align:center; margin-top: 12px;">
+                    <a class="btn-secondary" href="https://www.instagram.com/echoe_hosa26" target="_blank"><i class="fab fa-instagram"></i> Open Instagram</a>
+                </div>
+            </div>
+            <script async defer src="https://www.instagram.com/embed.js"></script>
+        </section>
+
         <div class="healing-transition">
             <div class="light-rays"></div>
             <div class="grass-layer"></div>

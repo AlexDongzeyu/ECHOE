@@ -294,139 +294,80 @@
             line-height: 1.6;
         }
         
-        /* Dual Approach Section */
-        .dual-approach {
-            padding: 80px 0;
-            background: linear-gradient(180deg, rgba(248,210,156,0.12) 0%, rgba(159,197,203,0.08) 100%);
-            text-align: center;
+        /* About / Consultant / Instagram (manual) Sections */
+        .about-section,
+        .consultant-section,
+        .social-manual {
+            padding: 70px 0;
         }
-        
-        .dual-approach h2 {
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            color: var(--deep-indigo);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .dual-approach h2:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--gentle-lavender);
-            border-radius: 2px;
-        }
-        
-        .approach-cards {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 40px 30px;
-            width: 350px;
-            box-shadow: 0 10px 30px rgba(42, 61, 102, 0.1);
-            transition: transform 0.3s ease;
+
+        .about-section {
+            background: linear-gradient(180deg, rgba(159,197,203,0.15) 0%, rgba(173,203,164,0.12) 100%);
             text-align: left;
-            border-top: 5px solid var(--deep-indigo);
         }
-        
-        .card:hover {
-            transform: translateY(-10px);
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+            align-items: center;
         }
-        
-        .card-icon {
-            color: var(--soft-yellow);
-            font-size: 40px;
-            margin-bottom: 25px;
+
+        .about-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(42,61,102,0.12);
         }
-        
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--deep-indigo);
+
+        .consultant-section {
+            background: rgba(255,255,255,0.75);
         }
-        
-        .card p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            line-height: 1.6;
+
+        .consultant-card {
+            display: grid;
+            grid-template-columns: 96px 1fr;
+            gap: 24px;
+            align-items: center;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 10px 30px rgba(42,61,102,0.12);
         }
-        
-        /* Social Proof Section */
-        .social-proof {
-            padding: 80px 0;
-            background: linear-gradient(180deg, var(--gentle-lavender) 0%, rgba(179, 156, 208, 0.85) 100%);
-            color: var(--warm-white);
+
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gentle-lavender), var(--soft-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f2233;
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        .social-manual {
+            background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
             text-align: center;
         }
-        
-        .social-proof h2 {
-            font-size: 2.5rem;
-        margin-bottom: 20px;
-        color: var(--warm-white);
+
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
         }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-        margin-bottom: 50px;
-            opacity: 0.9;
+
+        .post-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
+            border: 1px solid rgba(159,197,203,0.35);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 8px;
         }
-        
-        .testimonials {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        flex-wrap: wrap;
-        margin-bottom: 50px;
-        }
-        
-        .testimonial {
-        background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-        padding: 30px 25px;
-            width: 300px;
-        text-align: center;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .testimonial:after {
-        content: '★★★★★';
-        display: block;
-            color: var(--soft-yellow);
-        font-size: 1.2rem;
-        margin-top: 15px;
-        }
-        
-        .testimonial p {
-        font-style: italic;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
-        .testimonial span {
-        font-weight: 600;
-        color: var(--soft-yellow);
-        }
-        
-        .cta-wrapper {
-        text-align: center;
-        }
-        
-        .cta-large {
-        font-size: 1.3rem;
-        padding: 1.2rem 2.5rem;
-    }
+        .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
+        .post-card .thumb { aspect-ratio: 1/1; background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12)); border-radius: 8px; }
     
     /* Footer styles for homepage */
         footer {
@@ -536,50 +477,64 @@
             </div>
         </section>
         
-        <section class="dual-approach">
+        <section class="about-section">
             <div class="container">
-                <h2>Our Unique Approach</h2>
-                <div class="approach-cards">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                        <h3>Online Community</h3>
-                        <p>Submit your thoughts through our secure online platform and receive supportive responses.</p>
-                <a href="{{ url_for('submit') }}" class="btn-secondary">Try Online</a>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h2 style="margin-bottom:16px;">Who We Are</h2>
+                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                            E.C.H.O.E is a compassionate, youth-led initiative that offers a safe, anonymous
+                            place to share what’s on your mind and receive a thoughtful reply. We blend
+                            caring volunteers with a gentle AI companion to help you feel heard and supported.
+                        </p>
+                        <p style="opacity:0.85;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Physical Mailboxes</h3>
-                        <p>Find our "tree hole" mailboxes in community centres across Canada to share handwritten letters.</p>
-                        <a href="locations.html" class="btn-secondary">Find Locations</a>
+                    <div style="text-align:center;">
+                        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E" style="max-width:320px; width:100%; border-radius:16px; background: rgba(255,255,255,0.6); padding:14px; box-shadow:0 10px 30px rgba(42,61,102,0.12);">
                     </div>
                 </div>
             </div>
         </section>
         
-        <section class="social-proof">
+        <section class="consultant-section">
             <div class="container">
-                <h2>Join Our Growing Community</h2>
-                <p class="section-subtitle">Over 200 people have already shared their stories and found support</p>
-                <div class="testimonials">
-                    <div class="testimonial">
-                        <p>"This helped me feel less alone during a difficult time."</p>
-                        <span>— Anonymous</span>
-                    </div>
-                    <div class="testimonial">
-                        <p>"Writing down my feelings and receiving a thoughtful reply gave me tremendous relief."</p>
-                        <span>— Anonymous</span>
-                    </div>
-                    <div class="testimonial">
-                        <p>"I found comfort in knowing someone was listening, even if they didn't know who I was."</p>
-                        <span>— Anonymous</span>
+                <h2 style="text-align:center; margin-bottom:28px;">Our Mental Health Consultant</h2>
+                <div class="consultant-card">
+                    <div class="avatar">MH</div>
+                    <div>
+                        <h3 style="margin:0 0 8px;">Licensed Consultant</h3>
+                        <p style="margin:0; line-height:1.7;">A qualified mental health professional advises our content and safeguards supportive tone. This section can include their name, credentials, and a short approach statement (e.g., ACT/CBT and mindfulness).</p>
                     </div>
                 </div>
-                <div class="cta-wrapper">
-            <a href="{{ url_for('submit') }}" class="btn-primary cta-large">Start Your Journey Today</a>
+            </div>
+        </section>
+
+        <section class="social-manual">
+            <div class="container">
+                <h2 style="margin-bottom:18px;">From Our Community</h2>
+                <p class="section-subtitle" style="margin-bottom:28px;">Add recent Instagram posts or highlights manually.</p>
+                <div class="post-grid">
+                    <div class="post-card">
+                        <div class="thumb"></div>
+                        <div style="padding:10px 6px 6px; text-align:left;">
+                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank">Follow @echoe_hosa26</a>
+                            <div style="opacity:.75; font-size:.9rem;">Add a caption or link here</div>
+                        </div>
+                    </div>
+                    <div class="post-card">
+                        <div class="thumb"></div>
+                        <div style="padding:10px 6px 6px; text-align:left;">
+                            <a href="#">Add Post #2</a>
+                            <div style="opacity:.75; font-size:.9rem;">Optional description</div>
+                        </div>
+                    </div>
+                    <div class="post-card">
+                        <div class="thumb"></div>
+                        <div style="padding:10px 6px 6px; text-align:left;">
+                            <a href="#">Add Post #3</a>
+                            <div style="opacity:.75; font-size:.9rem;">Optional description</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

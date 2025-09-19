@@ -62,14 +62,9 @@
             width: 100%;
             height: auto;
             filter: drop-shadow(0 5px 15px rgba(42, 61, 102, 0.15));
-            animation: float 6s ease-in-out infinite;
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+        
     
     /* Healing Transition Styles */
     .healing-transition {
@@ -551,113 +546,9 @@
             </div>
         </section>
         
-        <!-- Instagram Highlight Block -->
-        <section class="page-container" style="margin:40px auto; max-width: 1100px;">
-            <div class="container">
-                <h2 style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo);">On Instagram</h2>
-                <p style="text-align:center; margin-bottom: 20px; color: var(--deep-indigo); opacity: 0.8;">Follow <strong>@echoe_hosa26</strong> for updates and community moments.</p>
-                <div id="ig-feed" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 12px;"></div>
-                <div style="text-align:center; margin-top: 12px;">
-                    <a class="btn-secondary" href="https://www.instagram.com/echoe_hosa26" target="_blank"><i class="fab fa-instagram"></i> Open Instagram</a>
-                </div>
-            </div>
-            <script>
-            document.addEventListener('DOMContentLoaded', async () => {
-                try {
-                    const res = await fetch('/api/instagram-feed');
-                    const data = await res.json();
-                    const items = (data && data.items) ? data.items : [];
-                    items.sort((a,b) => (a.timestamp||'').localeCompare(b.timestamp||''));
-                    const grid = document.getElementById('ig-feed');
-                    grid.innerHTML = items.map(it => {
-                        const isVideo = it.type === 'VIDEO';
-                        return `
-                        <a href="${it.permalink}" target="_blank" style="display:block; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.06); border:1px solid rgba(159,197,203,0.35)">
-                            <div style="aspect-ratio:1/1; background:linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12)); display:flex; align-items:center; justify-content:center;">
-                                ${isVideo ? `<video src="${it.url}" muted playsinline style=\"max-width:100%; max-height:100%;\"></video>` : `<img src="${it.thumb}" alt="Instagram media" style=\"width:100%; height:100%; object-fit:cover;\" />`}
-                            </div>
-                            <div style="padding:10px 12px; color:#2A3D66; font-size:0.9rem;">${(it.caption||'').slice(0,80)}${(it.caption||'').length>80?'…':''}</div>
-                        </a>`
-                    }).join('');
-                } catch(e) { console.warn('IG feed load failed', e); }
-            });
-            </script>
-        </section>
+        
 
-        <div class="healing-transition">
-            <div class="light-rays"></div>
-            <div class="grass-layer"></div>
-            <div class="garden-elements">
-                <!-- 背景花朵层 -->
-                <div class="flowers-back">
-                    <span class="flower flower-small">🌸</span>
-                    <span class="flower flower-medium">🌺</span>
-                    <span class="flower flower-small">🌷</span>
-                    <span class="flower flower-medium">🌼</span>
-                    <span class="flower flower-small">🌸</span>
-                    <span class="flower flower-medium">🌷</span>
-                    <span class="flower flower-small">🌺</span>
-                    <span class="flower flower-medium">🌸</span>
-                </div>
-                
-                <!-- 中间花朵层 -->
-                <div class="flowers-middle">
-                    <span class="flower flower-medium">🌻</span>
-                    <span class="flower flower-large">🌺</span>
-                    <span class="flower flower-medium">🌷</span>
-                    <span class="flower flower-large">🌸</span>
-                    <span class="flower flower-medium">🌼</span>
-                    <span class="flower flower-large">🌷</span>
-                    <span class="flower flower-medium">🌺</span>
-                    <span class="flower flower-large">🌸</span>
-                    <span class="flower flower-medium">🌻</span>
-                </div>
-                
-                <!-- 前景花朵层 -->
-                <div class="flowers-front">
-                    <span class="flower flower-large">🌸</span>
-                    <span class="flower flower-medium">🌷</span>
-                    <span class="flower flower-large">🌺</span>
-                    <span class="flower flower-medium">🌻</span>
-                    <span class="flower flower-large">🌼</span>
-                    <span class="flower flower-medium">🌸</span>
-                    <span class="flower flower-large">🌷</span>
-                    <span class="flower flower-medium">🌺</span>
-                    <span class="flower flower-large">🌸</span>
-                    <span class="flower flower-medium">🌼</span>
-                </div>
-                
-                <!-- 花园装饰元素 -->
-                <div class="garden-details">
-                    <span class="garden-detail">🍄</span>
-                    <span class="garden-detail">🌿</span>
-                    <span class="garden-detail">🍀</span>
-                    <span class="garden-detail">🌱</span>
-                    <span class="garden-detail">🍄</span>
-                    <span class="garden-detail">🌿</span>
-                    <span class="garden-detail">🍀</span>
-                    <span class="garden-detail">🌱</span>
-                    <span class="garden-detail">🍄</span>
-                </div>
-            </div>
-            
-            <!-- 猫咪 -->
-            <div class="cats-container">
-                <span class="cat cat-1">🐱</span>
-                <span class="cat cat-2">😺</span>
-                <span class="cat cat-3">😸</span>
-                <span class="cat cat-4">🐈</span>
-            </div>
-            
-            <!-- 蝴蝶 -->
-            <div class="butterflies">
-                <span class="butterfly" style="top: 30%; left: 10%; animation: butterflyPath1 20s linear infinite;">🦋</span>
-                <span class="butterfly" style="top: 40%; right: 10%; animation: butterflyPath2 18s linear infinite;">🦋</span>
-                <span class="butterfly" style="top: 25%; left: 30%; animation: butterflyPath1 22s linear infinite -5s;">🦋</span>
-                <span class="butterfly" style="top: 45%; right: 30%; animation: butterflyPath2 19s linear infinite -8s;">🦋</span>
-                <span class="butterfly" style="top: 35%; left: 50%; animation: butterflyPath1 21s linear infinite -10s;">🦋</span>
-            </div>
-        </div>
+        
         
         <section class="how-it-works">
             <div class="container">

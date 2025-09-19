@@ -43,10 +43,12 @@ a:hover {
     color: var(--gentle-lavender);
 }
 
+/* Softer header/footer to match imagery */
 header, footer {
-    background-color: var(--deep-indigo);
-    color: var(--warm-pearl-white);
+    background-color: rgba(159, 197, 203, 0.85); /* brand blue */
+    color: #0f2233;
     padding: 1rem;
+    backdrop-filter: saturate(120%) blur(6px);
 }
 
 .btn-primary {

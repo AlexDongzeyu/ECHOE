@@ -10,10 +10,13 @@
     }
     
         .hero {
-            padding: 100px 0 120px;
+            padding: 80px 0 60px;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(180deg, rgba(159,197,203,0.15) 0%, rgba(173,203,164,0.08) 100%);
+            background: rgba(255,255,255,0.75);
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            margin: 30px auto;
         }
         
         .hero .container {
@@ -53,8 +56,8 @@
         }
         
         .hero-image {
-            width: 45%;
-            max-width: 500px;
+            width: 40%;
+            max-width: 420px;
             z-index: 1;
         }
         
@@ -541,7 +544,7 @@
             <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 </div>
                 <div class="hero-image">
-                    <img src="images/hero-illustration.svg" alt="E.C.H.O.E Illustration">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="E.C.H.O.E" style="border-radius:16px; background: rgba(255,255,255,0.6); padding: 14px;">
                 </div>
             </div>
         </section>

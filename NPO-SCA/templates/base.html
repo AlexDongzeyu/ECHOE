@@ -65,11 +65,14 @@
         header {
             background-color: rgba(159, 197, 203, 0.85); /* brand blue tint */
             box-shadow: 0 6px 20px rgba(42,61,102,0.12);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             padding: 0.3rem 0;
             backdrop-filter: saturate(120%) blur(6px);
+            width: 100%;
         }
         
         nav {
@@ -338,7 +341,7 @@
         /* Main Content Area */
         main {
             min-height: calc(100vh - 140px);
-            padding: 40px 0;
+            padding: 100px 0 40px 0; /* offset fixed header */
         }
         
         .container {
@@ -578,12 +581,13 @@
                 <!-- Primary Actions -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
                 <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
-                <li><a href="{{ url_for('check_letter_reply') }}" class="nav-primary {% if request.endpoint == 'check_letter_reply' %}active{% endif %}">Check Reply</a></li>
+                <!-- Move Check Reply into Discover to declutter -->
                 
                 <!-- Discover Dropdown -->
                 <li class="dropdown">
                     <a href="#">Discover</a>
                     <div class="dropdown-content">
+                        <a href="{{ url_for('check_letter_reply') }}"><i class="fas fa-reply" style="margin-right: 8px;"></i>Check Reply</a>
                         <a href="{{ url_for('blog_index') }}">
                             <i class="fas fa-blog" style="margin-right: 8px;"></i>Blog
                         </a>
@@ -624,9 +628,6 @@
                         <li><a href="{{ url_for('admin_dashboard') }}" class="nav-primary">
                             <i class="fas fa-shield-alt" style="margin-right: 5px;"></i>Admin Panel
                         </a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('social') }}">Social Hub</a></li>
-                    <li><a href="{{ url_for('team') }}">Team</a></li>
                     {% endif %}
                     {% if current_user.is_volunteer or current_user.has_admin_access() %}
                         <li><a href="{{ url_for('volunteer_dashboard') }}">

@@ -65,11 +65,14 @@
         header {
             background-color: rgba(159, 197, 203, 0.85);
             box-shadow: 0 6px 20px rgba(42,61,102,0.12);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             padding: 0.3rem 0;
             backdrop-filter: saturate(120%) blur(6px);
+            width: 100%;
         }
         
         nav {
@@ -338,7 +341,7 @@
         /* Main Content Area */
         main {
             min-height: calc(100vh - 140px);
-            padding: 40px 0;
+            padding: 100px 0 40px 0; /* offset fixed header */
         }
         
         .container {

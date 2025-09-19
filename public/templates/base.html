@@ -579,6 +579,7 @@
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
                 <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
                 <li><a href="{{ url_for('check_letter_reply') }}" class="nav-primary {% if request.endpoint == 'check_letter_reply' %}active{% endif %}">Check Reply</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
                 
                 <!-- Discover Dropdown -->
                 <li class="dropdown">
@@ -672,7 +673,8 @@
                 <ul>
                     <li><a href="{{ url_for('submit') }}">Share Your Story</a></li>
                     <li><a href="{{ url_for('check_letter_reply') }}">Check Reply</a></li>
-                    <li><a href="{{ url_for('resources') }}">Mental Health Resources</a></li>
+                <li><a href="{{ url_for('resources') }}">Mental Health Resources</a></li>
+                <li><a href="{{ url_for('team') }}">Team</a></li>
                     <li><a href="{{ url_for('about') }}">About Us</a></li>
                     <li><a href="{{ url_for('contact') }}">Contact</a></li>
                 </ul>

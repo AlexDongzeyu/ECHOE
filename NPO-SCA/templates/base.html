@@ -624,6 +624,9 @@
                         <li><a href="{{ url_for('admin_dashboard') }}" class="nav-primary">
                             <i class="fas fa-shield-alt" style="margin-right: 5px;"></i>Admin Panel
                         </a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('social') }}">Social Hub</a></li>
+                    <li><a href="{{ url_for('team') }}">Team</a></li>
                     {% endif %}
                     {% if current_user.is_volunteer or current_user.has_admin_access() %}
                         <li><a href="{{ url_for('volunteer_dashboard') }}">

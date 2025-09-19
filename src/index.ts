@@ -109,7 +109,7 @@ const serveTemplate = async (c: any, path: string) => {
     if (res && res.status !== 404) return res;
     // Fall back to SPA root if specific template not found
     const rootUrl = new URL('/index.html', c.req.url).toString();
-    return (await c.env.ASSETS?.fetch(new Request(rootUrl))) || new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return (await c.env.ASSETS?.fetch(new Request(rootUrl))) || new Response('<!doctype html><html><head><meta charset="utf-8"><title>E.C.H.O.E</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   } catch (err) {
     // As a last resort, return a minimal HTML so we never 500 on static pages
     return new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
@@ -119,9 +119,9 @@ const serveTemplate = async (c: any, path: string) => {
 app.get('/', async (c: any) => {
   try {
     const url = new URL('/index.html', c.req.url).toString();
-    return await c.env.ASSETS?.fetch(new Request(url)) ?? new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return await c.env.ASSETS?.fetch(new Request(url)) ?? new Response('<!doctype html><html><head><meta charset="utf-8"><title>E.C.H.O.E</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   } catch {
-    return new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return new Response('<!doctype html><html><head><meta charset="utf-8"><title>E.C.H.O.E</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
 });
 app.get('/about', (c: any) => serveTemplate(c, 'about.html'));
@@ -135,6 +135,7 @@ app.get('/resources', (c: any) => serveTemplate(c, 'resources.html'));
 app.get('/terms', (c: any) => serveTemplate(c, 'terms.html'));
 app.get('/privacy', (c: any) => serveTemplate(c, 'privacy.html'));
 app.get('/volunteer-info', (c: any) => serveTemplate(c, 'volunteer_info.html'));
+app.get('/team', (c: any) => serveTemplate(c, 'team.html'));
 // Flask-specific admin and volunteer UI routes
 app.get('/admin', (c: any) => serveTemplate(c, 'admin/dashboard.html'));
 app.get('/admin/users', (c: any) => serveTemplate(c, 'admin/users.html'));
@@ -156,10 +157,10 @@ app.get('/*', async (c: any) => {
 
   // Fallback to root index.html for SPA routes
   const rootUrl = new URL('/index.html', c.req.url).toString();
-    return (await c.env.ASSETS?.fetch(new Request(rootUrl))) || new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return (await c.env.ASSETS?.fetch(new Request(rootUrl))) || new Response('<!doctype html><html><head><meta charset="utf-8"><title>E.C.H.O.E</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   } catch (err) {
     // Never 500 on static route fetches
-    return new Response('<!doctype html><html><head><meta charset="utf-8"><title>Light in Silence</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return new Response('<!doctype html><html><head><meta charset="utf-8"><title>E.C.H.O.E</title></head><body><div id="app"></div></body></html>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
 });
 

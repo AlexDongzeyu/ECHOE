@@ -635,6 +635,11 @@ try:
     def social():
         return render_template('social.html')
 
+    # Route: Team
+    @app.route('/team')
+    def team():
+        return render_template('team.html')
+
     # Admin routes
     @app.route('/admin')
     @admin_required

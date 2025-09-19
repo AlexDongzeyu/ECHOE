@@ -578,7 +578,6 @@
                 <!-- Primary Actions -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
                 <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
-                <li><a href="{{ url_for('check_letter_reply') }}" class="nav-primary {% if request.endpoint == 'check_letter_reply' %}active{% endif %}">Check Reply</a></li>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 
                 <!-- Discover Dropdown -->
@@ -590,6 +589,9 @@
                         </a>
                         <a href="{{ url_for('events_index') }}">
                             <i class="fas fa-calendar" style="margin-right: 8px;"></i>Events
+                        </a>
+                        <a href="{{ url_for('check_letter_reply') }}">
+                            <i class="fas fa-reply" style="margin-right: 8px;"></i>Check Reply
                         </a>
                         <a href="{{ url_for('resources') }}">
                             <i class="fas fa-book" style="margin-right: 8px;"></i>Resources

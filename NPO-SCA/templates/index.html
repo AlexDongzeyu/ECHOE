@@ -291,7 +291,7 @@
             background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
             border: 1px solid rgba(159,197,203,0.35);
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible; /* allow IG embed full height */
             padding: 8px;
         }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
@@ -421,27 +421,13 @@
                                 <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Instagram post" style="width:100%; border-radius:8px;" />
                             </a>
                         </noscript>
-                        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO4VjzFgUB9/" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; width:100%;"></blockquote>
+                        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO4VjzFgUB9/" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
                     <div class="post-card">
                         <div class="thumb"></div>
                         <div style="padding:10px 6px 6px; text-align:left;">
-                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank">Follow @echoe_hosa26</a>
-                            <div style="opacity:.75; font-size:.9rem;">Add a caption or link here</div>
-                        </div>
-                    </div>
-                    <div class="post-card">
-                        <div class="thumb"></div>
-                        <div style="padding:10px 6px 6px; text-align:left;">
                             <a href="#">Add Post #2</a>
-                            <div style="opacity:.75; font-size:.9rem;">Optional description</div>
-                        </div>
-                    </div>
-                    <div class="post-card">
-                        <div class="thumb"></div>
-                        <div style="padding:10px 6px 6px; text-align:left;">
-                            <a href="#">Add Post #3</a>
                             <div style="opacity:.75; font-size:.9rem;">Optional description</div>
                         </div>
                     </div>

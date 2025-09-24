@@ -17,7 +17,7 @@
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Georgia', 'Times New Roman', serif;
     line-height: 1.6;
     color: var(--deep-indigo);
     /* 使用柔和的渐变背景替代纯白色 */
@@ -117,6 +117,7 @@ nav ul li a:hover::after {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    font-family: 'Namdhinggo', Georgia, 'Times New Roman', serif;
     animation: fadeInDown 1s ease forwards;
 }
 
@@ -125,6 +126,7 @@ nav ul li a:hover::after {
     font-size: 1.3rem;
     margin-bottom: 1.5rem;
     color: #666;
+    font-family: 'Sriracha', 'Brush Script MT', cursive;
     animation: fadeIn 1s ease 0.3s forwards;
     opacity: 0;
 }

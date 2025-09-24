@@ -24,7 +24,7 @@
 body {
   background-color: var(--color-background);
   color: var(--text-dark);
-  font-family: 'Nunito', 'Helvetica Neue', sans-serif; /* 推荐一个圆润友好的字体 */
+  font-family: 'Georgia', 'Times New Roman', serif;
 }
 
 /* 导航和页眉 */
@@ -127,3 +127,13 @@ ul li::before {
   width: 1em;
   margin-left: -1em;
 } 
+
+/* Brand typography overrides */
+h1, h2, h3 {
+  font-family: 'Namdhinggo', Georgia, 'Times New Roman', serif;
+  font-weight: 800;
+}
+
+.tagline, .section-subtitle, .quote, .page-header p {
+  font-family: 'Sriracha', 'Brush Script MT', cursive;
+}

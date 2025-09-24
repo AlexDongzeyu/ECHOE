@@ -31,6 +31,7 @@
   font-weight: 700;
   margin-bottom: 20px;
   line-height: 1.2;
+  font-family: 'Namdhinggo', Georgia, 'Times New Roman', serif;
 }
 
 .hero .quote {
@@ -41,6 +42,7 @@
   margin-bottom: 20px;
   padding-left: 15px;
   border-left: 3px solid var(--color-accent);
+  font-family: 'Sriracha', 'Brush Script MT', cursive;
 }
 
 .hero .mission {

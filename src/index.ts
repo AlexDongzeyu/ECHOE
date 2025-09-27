@@ -30,6 +30,24 @@ app.use('*', cors({
   credentials: false,
 }));
 
+// Enforce HTTPS at the edge and add security headers
+app.use('*', async (c: any, next: any) => {
+  const reqProto = c.req.header('x-forwarded-proto') || new URL(c.req.url).protocol.replace(':', '');
+  if (reqProto !== 'https') {
+    const url = new URL(c.req.url);
+    url.protocol = 'https:';
+    return c.redirect(url.toString(), 301);
+  }
+
+  await next();
+  c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  c.header('X-Content-Type-Options', 'nosniff');
+  c.header('X-Frame-Options', 'SAMEORIGIN');
+  c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+  c.header('Permissions-Policy', 'interest-cohort=()');
+  return c.res;
+});
+
 // Reverse-proxy mode: if PROXY_ORIGIN is configured, forward most traffic unchanged
 // Exception: allow Worker-handled endpoints (like /api/chat) to hit local handlers
 app.use('*', async (c: any, next: any) => {

@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Namdhinggo:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/jpeg">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20250927-1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}?v=20250927-1">
     {% block styles %}{% endblock %}
     <style>
         :root {
@@ -815,7 +815,7 @@
         </div>
     </div>
     
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}?v=20250927-1"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html> 

@@ -164,10 +164,53 @@ try:
             logger.error(traceback.format_exc())
             return None
 
+    # Helper: get latest Instagram post (server-side, cached)
+    def get_latest_instagram_post():
+        try:
+            access_token = os.environ.get('INSTAGRAM_ACCESS_TOKEN') or app.config.get('INSTAGRAM_ACCESS_TOKEN')
+            now = time.time()
+            # Use cache when warm
+            if _ig_cache['data'] and now - _ig_cache['ts'] < 600:
+                return _ig_cache['data'][0] if _ig_cache['data'] else None
+
+            if not access_token:
+                return None
+
+            fields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
+            url = f'https://graph.instagram.com/me/media?fields={fields}&access_token={access_token}&limit=1'
+            with httpx.Client(timeout=10) as client:
+                r = client.get(url)
+                payload = r.json()
+            items = payload.get('data', []) if isinstance(payload, dict) else []
+            if not items:
+                return None
+
+            it = items[0]
+            latest = {
+                'id': it.get('id'),
+                'caption': it.get('caption'),
+                'type': it.get('media_type'),
+                'url': it.get('media_url'),
+                'thumb': it.get('thumbnail_url') or it.get('media_url'),
+                'permalink': it.get('permalink'),
+                'timestamp': it.get('timestamp'),
+            }
+            # Update cache head conservatively
+            if _ig_cache['data']:
+                _ig_cache['data'][0] = latest
+            else:
+                _ig_cache['data'] = [latest]
+            _ig_cache['ts'] = now
+            return latest
+        except Exception as e:
+            app.logger.error(f"get_latest_instagram_post error: {e}")
+            return None
+
     # Route: Home page
     @app.route('/')
     def index():
-        return render_template('index.html')
+        latest_ig = get_latest_instagram_post()
+        return render_template('index.html', latest_ig=latest_ig)
 
     # Route: Static files
     @app.route('/<path:filename>')

@@ -417,11 +417,21 @@
                 <div class="post-grid">
                     <div class="post-card">
                         <noscript>
-                            <a href="https://www.instagram.com/p/DO4VjzFgUB9/" target="_blank" rel="noopener" style="display:block">
-                                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Instagram post" style="width:100%; border-radius:8px;" />
+                            {% if latest_ig %}
+                            <a href="{{ latest_ig.permalink }}" target="_blank" rel="noopener" style="display:block">
+                                <img src="{{ latest_ig.thumb }}" alt="Instagram post" style="width:100%; border-radius:8px;" />
                             </a>
+                            {% else %}
+                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank" rel="noopener" style="display:block">
+                                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Instagram" style="width:100%; border-radius:8px;" />
+                            </a>
+                            {% endif %}
                         </noscript>
-                        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO4VjzFgUB9/" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
+                        {% if latest_ig and latest_ig.permalink %}
+                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
+                        {% else %}
+                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
+                        {% endif %}
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
                     <div class="post-card">

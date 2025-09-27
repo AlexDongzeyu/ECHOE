@@ -8,10 +8,8 @@ assets = { directory = "./public", binding = "ASSETS" }
 
 [env.production]
 name = "light-in-silence"
-routes = [
-  "echoehosa.com/*",
-  "www.echoehosa.com/*"
-]
+# routes intentionally managed in Dashboard; keep empty to avoid accidental re-attach
+routes = []
 
 # Ensure production has its own bindings and vars
 [env.production.vars]

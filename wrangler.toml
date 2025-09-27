@@ -9,8 +9,8 @@ assets = { directory = "./public", binding = "ASSETS" }
 [env.production]
 name = "light-in-silence"
 routes = [
-  "lightinsilence.org/*",
-  "www.lightinsilence.org/*"
+  "echohosa.com/*",
+  "www.echohosa.com/*"
 ]
 
 # Ensure production has its own bindings and vars

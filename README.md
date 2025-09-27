@@ -10,7 +10,7 @@ A Canadian mental health platform providing anonymous support through both digit
 
 ## 🚀 **Current Deployment Status**
 
-**Website**: [lightinsilence.org](https://lightinsilence.org) ✅ **LIVE ON CLOUDFLARE PAGES**
+**Website**: [echohosa.com](https://echohosa.com) ✅ **LIVE ON CLOUDFLARE PAGES**
 
 ## 📁 **Project Structure**
 
@@ -18,7 +18,7 @@ This repository contains **THREE versions** of the Light in Silence platform:
 
 ### 1. 🌐 **Cloudflare Pages (Current Live Site)**
 - **Location**: Root directory (`index.html`, `_redirects`)  
-- **Status**: ✅ **LIVE** - Currently deployed at lightinsilence.org
+- **Status**: ✅ **LIVE** - Currently deployed at echohosa.com
 - **Technology**: Static HTML/CSS/JavaScript
 - **Purpose**: Public landing page with coming soon functionality
 
@@ -36,7 +36,7 @@ This repository contains **THREE versions** of the Light in Silence platform:
 
 ## 🌍 **Live Website Features**
 
-The current live site at **lightinsilence.org** includes:
+The current live site at **echohosa.com** includes:
 
 - ✨ **Beautiful landing page** with animated elements
 - 📧 **Email subscription** for launch notifications
@@ -151,7 +151,7 @@ When ready to deploy the complete platform:
 
 ## 📞 **Contact & Support**
 
-- 🌐 **Website**: [lightinsilence.org](https://lightinsilence.org)
+- 🌐 **Website**: [echohosa.com](https://echohosa.com)
 - 📧 **Email**: contact@lightinsilence.org
 - 🐙 **GitHub**: [AlexDongzeyu/LightInSilence](https://github.com/AlexDongzeyu/LightInSilence)
 

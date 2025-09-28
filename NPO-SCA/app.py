@@ -302,8 +302,8 @@ try:
                     resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                     return resp
                 
-                # Otherwise show confirmation page
-                flash('Your letter has been submitted successfully! Your letter code is: ' + letter.unique_id)
+                # Otherwise show confirmation page (Inbox-based)
+                flash('Your letter has been submitted. Please check your Inbox for replies.')
                 resp = make_response(redirect(url_for('confirmation', letter_id=letter.unique_id)))
                 resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                 return resp
@@ -623,23 +623,11 @@ try:
             return redirect(url_for('contact'))
         return render_template('contact.html')
 
-    # Route to check for a reply
+    # Legacy route: redirect to Inbox (code system removed)
     @app.route('/check-reply', methods=['GET', 'POST'])
     def check_letter_reply():
-        if request.method == 'POST':
-            code = request.form.get('code')
-            if not code:
-                flash('Please enter a code.', 'error')
-                return redirect(url_for('check_letter_reply'))
-            
-            letter = Letter.query.filter_by(unique_id=code).first()
-            if letter:
-                return redirect(url_for('view_response', letter_id=code))
-            else:
-                flash('Invalid code. Please check and try again.', 'error')
-                return redirect(url_for('check_letter_reply'))
-
-        return render_template('check_reply.html')
+        flash('Replies are now available in your Inbox.', 'info')
+        return redirect(url_for('inbox'))
 
     # API route: Get AI response
     @app.route('/api/chat', methods=['POST'])

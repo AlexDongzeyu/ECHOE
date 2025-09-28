@@ -280,7 +280,7 @@
             background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
             text-align: center;
         }
-
+        
         .post-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -409,11 +409,11 @@
                 </div>
             </div>
         </section>
-
+        
         <section class="social-manual">
             <div class="container">
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
-                <p class="section-subtitle" style="margin-bottom:28px;">Add recent Instagram posts or highlights manually.</p>
+                
                 <div class="post-grid">
                     <div class="post-card">
                         <noscript>
@@ -434,12 +434,37 @@
                         {% endif %}
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
-                    <div class="post-card">
-                        <div class="thumb"></div>
-                        <div style="padding:10px 6px 6px; text-align:left;">
-                            <a href="#">Add Post #2</a>
-                            <div style="opacity:.75; font-size:.9rem;">Optional description</div>
-                        </div>
+                    <div class="post-card" id="igGalleryCard">
+                        <div id="igGallery" class="ig-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:8px;">
+                            <!-- populated by /api/instagram-feed -->
+                    </div>
+                        <script>
+                        document.addEventListener('DOMContentLoaded', async function(){
+                          try{
+                            const r = await fetch('/api/instagram-feed');
+                            const data = await r.json();
+                            const items = (data && data.items) ? data.items.slice(0,9) : [];
+                            const g = document.getElementById('igGallery');
+                            if(!g) return;
+                            g.innerHTML = '';
+                            items.forEach(it=>{
+                              const a = document.createElement('a');
+                              a.href = it.permalink;
+                              a.target = '_blank';
+                              a.rel = 'noopener';
+                              a.style.display='block';
+                              const img = document.createElement('img');
+                              img.src = it.thumb || it.url;
+                              img.alt = (it.caption||'Instagram');
+                              img.style.width='100%';
+                              img.style.borderRadius='8px';
+                              img.loading='lazy';
+                              a.appendChild(img);
+                              g.appendChild(a);
+                            });
+                          }catch(e){console.log('ig gallery error',e)}
+                        });
+                        </script>
                     </div>
                 </div>
             </div>

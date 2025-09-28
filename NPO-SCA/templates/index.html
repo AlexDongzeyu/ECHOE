@@ -435,18 +435,25 @@
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
                     <div class="post-card" id="igGalleryCard">
-                        <div id="igGallery" class="ig-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px;align-items:start;">
+                        <div id="igGallery" class="ig-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px;align-items:start;min-height:110px;">
                             <!-- populated by /api/instagram-feed -->
                     </div>
                         <script>
                         document.addEventListener('DOMContentLoaded', async function(){
                           try{
-                            const r = await fetch('/api/instagram-feed');
+                            const r = await fetch('/api/instagram-feed', {cache:'no-store'});
                             const data = await r.json();
-                            const items = (data && data.items) ? data.items.slice(0,3) : [];
+                            let items = (data && Array.isArray(data.items)) ? data.items : [];
+                            // Deduplicate by permalink and ensure we have at least 3 if available
+                            const seen = new Set();
+                            items = items.filter(it=>{ if(!it || !it.permalink || seen.has(it.permalink)) return false; seen.add(it.permalink); return true; }).slice(0,3);
                             const g = document.getElementById('igGallery');
                             if(!g) return;
                             g.innerHTML = '';
+                            if(items.length === 0){
+                              g.innerHTML = '<div style="grid-column:1/-1;opacity:.7;text-align:center;">No posts found.</div>';
+                              return;
+                            }
                             items.forEach(it=>{
                               const a = document.createElement('a');
                               a.href = it.permalink;

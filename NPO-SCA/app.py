@@ -195,12 +195,6 @@ try:
                 'permalink': it.get('permalink'),
                 'timestamp': it.get('timestamp'),
             }
-            # Update cache head conservatively
-            if _ig_cache['data']:
-                _ig_cache['data'][0] = latest
-            else:
-                _ig_cache['data'] = [latest]
-            _ig_cache['ts'] = now
             return latest
         except Exception as e:
             app.logger.error(f"get_latest_instagram_post error: {e}")

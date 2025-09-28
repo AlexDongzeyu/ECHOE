@@ -299,15 +299,22 @@ try:
                     # Redirect to response page
                     resp = make_response(redirect(url_for('view_response', letter_id=letter.unique_id)))
                     # Set persistent anonymous cookie (2 years)
-                    resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=False)
+                    resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                     return resp
                 
                 # Otherwise show confirmation page
                 flash('Your letter has been submitted successfully! Your letter code is: ' + letter.unique_id)
                 resp = make_response(redirect(url_for('confirmation', letter_id=letter.unique_id)))
-                resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=False)
+                resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                 return resp
             
+            # Ensure anon cookie even on GET so next submit links to inbox owner
+            anon_cookie = request.cookies.get('echoe_anon')
+            if not anon_cookie:
+                anon_cookie = str(uuid.uuid4()).replace('-', '')
+                resp = make_response(render_template('submit.html', form=form, mailboxes=mailboxes))
+                resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
+                return resp
             return render_template('submit.html', form=form, mailboxes=mailboxes)
         except Exception as e:
             logger.error(f"Error in submit route: {str(e)}")
@@ -347,14 +354,12 @@ try:
     def inbox_letter(letter_id):
         anon_cookie = request.cookies.get('echoe_anon')
         letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
-        # enforce ownership without identity: only anon owner can view via inbox route
-        if not anon_cookie or letter.anon_user_id != anon_cookie:
-            abort(404)
+        is_owner = bool(anon_cookie and letter.anon_user_id == anon_cookie)
         responses = letter.responses.order_by(Response.created_at).all()
-        if letter.has_unread:
+        if is_owner and letter.has_unread:
             letter.has_unread = False
             db.session.commit()
-        return render_template('inbox_thread.html', letter=letter, responses=responses)
+        return render_template('inbox_thread.html', letter=letter, responses=responses, is_owner=is_owner)
 
     @app.route('/api/inbox/unread-count')
     def inbox_unread_count():

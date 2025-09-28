@@ -1,6 +1,7 @@
 import eventlet
 eventlet.monkey_patch()
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response
+from sqlalchemy import inspect
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 import os
@@ -67,6 +68,24 @@ try:
     migrate = Migrate(app, db)
     
     # Ensure instance folder exists and create database tables
+    def _ensure_anon_inbox_schema():
+        """Ensure 'anon_user_id' and 'has_unread' columns and index exist on 'letter'.
+        Safe to call multiple times; uses SQLite-compatible statements.
+        """
+        try:
+            inspector = inspect(db.engine)
+            cols = [c['name'] for c in inspector.get_columns('letter')]
+            if 'anon_user_id' not in cols:
+                db.session.execute("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)")
+            if 'has_unread' not in cols:
+                db.session.execute("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0")
+            # Index for faster inbox lookups (SQLite supports IF NOT EXISTS for CREATE INDEX)
+            db.session.execute("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)")
+            db.session.commit()
+            logger.info("Anonymous inbox schema ensured")
+        except Exception as mig_e:
+            logger.warning(f"Anonymous inbox schema check/apply failed or already applied: {mig_e}")
+
     with app.app_context():
         try:
             logger.info("Creating instance folder...")
@@ -78,25 +97,20 @@ try:
             # Initialize initial data
             init_db(app)
             logger.info("Initial data created successfully!")
-
-            # Lightweight migration: ensure anon inbox columns exist
-            try:
-                inspector = db.inspect(db.engine)
-                cols = [c['name'] for c in inspector.get_columns('letter')]
-                if 'anon_user_id' not in cols:
-                    db.session.execute("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)")
-                if 'has_unread' not in cols:
-                    db.session.execute("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0")
-                # Index for faster inbox lookups
-                db.session.execute("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)")
-                db.session.commit()
-                logger.info("Anonymous inbox migration ensured")
-            except Exception as mig_e:
-                logger.warning(f"Anonymous inbox migration check failed or already applied: {mig_e}")
+            # Ensure anon inbox schema
+            _ensure_anon_inbox_schema()
         except Exception as e:
             logger.error(f"Error during database initialization: {str(e)}")
             logger.error(traceback.format_exc())
             raise
+
+    @app.before_first_request
+    def ensure_schema_on_first_request():
+        # Redundant guard for environments where startup hook didn't run early enough
+        try:
+            _ensure_anon_inbox_schema()
+        except Exception as _:
+            pass
 
     # Initialize login manager
     logger.info("Initializing login manager...")

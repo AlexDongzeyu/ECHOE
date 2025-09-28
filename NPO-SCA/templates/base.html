@@ -594,7 +594,7 @@
             <ul id="nav-menu">
                 <!-- Primary Actions -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
-                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
+                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}" style="background-color: var(--soft-yellow); color: var(--deep-indigo); font-weight:800; box-shadow:0 6px 16px rgba(244,208,111,.45)">Write a Letter</a></li>
                 <li><a href="{{ url_for('inbox') }}" class="{% if request.endpoint and request.endpoint.startswith('inbox') %}active{% endif %}" id="navInboxLink">Inbox<span id="inboxDot" style="display:none;margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a></li>
                 <!-- Move Check Reply into Discover to declutter -->
                 
@@ -761,6 +761,12 @@
             }
         });
     </script>
+    <style>
+        /* Floating Write button */
+        .fab-write{position:fixed;right:20px;bottom:90px;background:var(--soft-yellow);color:var(--deep-indigo);border:none;border-radius:28px;padding:12px 18px;font-weight:800;box-shadow:0 10px 24px rgba(244,208,111,.45);cursor:pointer;z-index:1000}
+        .fab-write:hover{transform:translateY(-2px)}
+        @media (max-width:768px){.fab-write{bottom:80px}}
+    </style>
     <script>
         // Poll unread count for anonymous inbox and toggle red dot
         async function pollInboxUnread(){
@@ -831,6 +837,7 @@
             </div>
         </div>
     </div>
+    <a class="fab-write" href="{{ url_for('submit') }}">✍️ Write a Letter</a>
     
     <script src="{{ url_for('static', filename='js/chat.js') }}?v=20250927-1"></script>
     {% block scripts %}{% endblock %}

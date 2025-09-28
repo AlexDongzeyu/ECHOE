@@ -81,6 +81,7 @@
         margin-bottom: 30px;
         border-top: 4px solid var(--gentle-lavender);
     }
+    .inline-cta { display: flex; justify-content: center; align-items: center; margin-top: 18px; }
     
     .code-card h2 {
         color: var(--deep-indigo);
@@ -300,7 +301,7 @@
                     Check Your Inbox
                 </h2>
                 <p style="margin:0;opacity:.9">We’ve received your letter. When a volunteer replies, it will appear in your Inbox on this device.</p>
-                <div style="margin-top:18px">
+                <div class="inline-cta">
                     <a href="{{ url_for('inbox') }}" class="action-btn primary"><i class="fas fa-inbox"></i> Go to Inbox</a>
                 </div>
             </div>

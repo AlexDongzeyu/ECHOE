@@ -1,7 +1,7 @@
 import eventlet
 eventlet.monkey_patch()
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response
-from sqlalchemy import inspect
+from sqlalchemy import inspect, text
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 import os
@@ -76,11 +76,11 @@ try:
             inspector = inspect(db.engine)
             cols = [c['name'] for c in inspector.get_columns('letter')]
             if 'anon_user_id' not in cols:
-                db.session.execute("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)")
+                db.session.execute(text("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)"))
             if 'has_unread' not in cols:
-                db.session.execute("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0")
+                db.session.execute(text("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0"))
             # Index for faster inbox lookups (SQLite supports IF NOT EXISTS for CREATE INDEX)
-            db.session.execute("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)")
+            db.session.execute(text("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)"))
             db.session.commit()
             logger.info("Anonymous inbox schema ensured")
         except Exception as mig_e:
@@ -104,13 +104,7 @@ try:
             logger.error(traceback.format_exc())
             raise
 
-    @app.before_first_request
-    def ensure_schema_on_first_request():
-        # Redundant guard for environments where startup hook didn't run early enough
-        try:
-            _ensure_anon_inbox_schema()
-        except Exception as _:
-            pass
+    # Flask 3.x removed before_first_request; schema ensured at startup above.
 
     # Initialize login manager
     logger.info("Initializing login manager...")

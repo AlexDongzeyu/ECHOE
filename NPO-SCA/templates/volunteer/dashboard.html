@@ -2,59 +2,63 @@
 
 {% block title %}Volunteer Dashboard - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+  .v-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .v-card{background:#fff;border-radius:16px;border:1px solid rgba(159,197,203,.35);box-shadow:0 8px 24px rgba(42,61,102,.06);padding:16px;transition:transform .2s ease, box-shadow .2s ease}
+  .v-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(42,61,102,.1)}
+  .v-title{font-weight:800;margin-bottom:6px}
+  .v-meta{font-size:.9rem;opacity:.7;margin-bottom:10px}
+  .v-actions{display:flex;gap:8px}
+  .avatar{width:36px;height:36px;border-radius:50%;background:var(--gentle-lavender);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;margin-right:8px}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1>Volunteer Dashboard</h1>
-    <div class="content-section">
+  <h1>Volunteer Dashboard</h1>
+
+  <div class="content-section">
     <h2>New Letters</h2>
     {% if unprocessed_letters %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Topic</th>
-                    <th>Submitted</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for letter in unprocessed_letters %}
-                <tr>
-                    <td>{{ letter.topic or 'No Topic' }}</td>
-                    <td>{{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td><a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-primary">Reply</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <div class="v-grid">
+        {% for letter in unprocessed_letters %}
+          <div class="v-card">
+            <div class="v-title">{{ letter.title or 'Untitled Letter' }}</div>
+            <div class="v-meta">{{ letter.created_at.strftime('%b %d, %Y %H:%M') }} • {{ letter.topic or 'No topic' }}</div>
+            <div style="display:flex;align-items:center;margin-bottom:10px">
+              <div class="avatar">U</div>
+              <div style="opacity:.8">Anonymous user</div>
+            </div>
+            <div class="v-actions">
+              <a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-primary">Reply</a>
+              <a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-secondary">Open</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     {% else %}
-        <p>No new letters to process. Great job!</p>
+      <p>No new letters to process. Great job!</p>
     {% endif %}
+  </div>
 
-    </div>
-    <div class="content-section">
+  <div class="content-section">
     <h2>Flagged Letters</h2>
     {% if flagged_letters %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Topic</th>
-                    <th>Submitted</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for letter in flagged_letters %}
-                <tr>
-                    <td>{{ letter.topic or 'No Topic' }}</td>
-                    <td>{{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td><a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-secondary">View & Reply</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <div class="v-grid">
+        {% for letter in flagged_letters %}
+          <div class="v-card" style="border-left:4px solid #e74c3c">
+            <div class="v-title">{{ letter.title or 'Untitled Letter' }}</div>
+            <div class="v-meta">{{ letter.created_at.strftime('%b %d, %Y %H:%M') }} • {{ letter.topic or 'No topic' }}</div>
+            <div class="v-actions">
+              <a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-secondary">View & Reply</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     {% else %}
-        <p>No flagged letters.</p>
+      <p>No flagged letters.</p>
     {% endif %}
-    </div>
+  </div>
 </div>
-{% endblock %} 
+{% endblock %}

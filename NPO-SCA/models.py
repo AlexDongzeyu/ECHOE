@@ -98,6 +98,7 @@ class Event(db.Model):
 class Letter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     unique_id = db.Column(db.String(36), unique=True, default=lambda: str(uuid.uuid4()))
+    title = db.Column(db.String(140))
     topic = db.Column(db.String(100))
     content = db.Column(db.Text, nullable=False)
     anonymous_email = db.Column(db.String(120))

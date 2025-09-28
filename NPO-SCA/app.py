@@ -79,6 +79,8 @@ try:
                 db.session.execute(text("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)"))
             if 'has_unread' not in cols:
                 db.session.execute(text("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0"))
+            if 'title' not in cols:
+                db.session.execute(text("ALTER TABLE letter ADD COLUMN title VARCHAR(140)"))
             # Index for faster inbox lookups (SQLite supports IF NOT EXISTS for CREATE INDEX)
             db.session.execute(text("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)"))
             db.session.commit()
@@ -251,6 +253,7 @@ try:
             if form.validate_on_submit():
                 # Create new letter
                 letter = Letter(
+                    title=None,
                     topic=form.topic.data,
                     content=form.content.data,
                     reply_method=form.reply_method.data,
@@ -264,6 +267,18 @@ try:
                 
                 # Save to database
                 db.session.add(letter)
+                # Before commit, optionally generate a concise title
+                try:
+                    generated = generate_ai_response_with_type(
+                        f"Create a short, human, gentle 3-6 word title for this anonymous journal entry. Avoid quotes and weird phrasing. Entry: {letter.content}",
+                        'supportive'
+                    )
+                    if generated:
+                        # Clean up to a single line, truncate
+                        clean = (generated or '').split('\n')[0].strip().strip('"\' ')
+                        letter.title = (clean[:140] if clean else None)
+                except Exception:
+                    pass
                 db.session.commit()
                 
                 # If user requested AI reply

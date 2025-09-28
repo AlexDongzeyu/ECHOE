@@ -158,9 +158,13 @@
         transform: translateY(-2px);
         }
         
-    .form-group textarea {
-        min-height: 150px;
+        .form-group textarea {
+        min-height: 260px;
             resize: vertical;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        background: linear-gradient(180deg, rgba(159,197,203,0.08), rgba(255,255,255,0.8));
         }
         
     /* Submit Button */
@@ -307,7 +311,7 @@
 
 {% block content %}
         <div class="form-container">
-            <h2>Share Your Story</h2>
+            <h2>Write From the Heart</h2>
             <p class="form-quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
             <p class="form-intro">No names, no judgement — just a safe space to express yourself and find support. We'll respond within 48 hours.</p>
             
@@ -321,8 +325,8 @@
             <form method="POST" action="{{ url_for('submit') }}">
                 {{ form.hidden_tag() }}
                 
-                        <div class="form-group">
-                    {{ form.topic.label(class="form-label") }}
+                        <!-- Topic selection hidden to reduce friction; AI will summarize title -->
+                        <div class="form-group" style="display:none;">
                     {{ form.topic(class="form-control") }}
                         </div>
                         

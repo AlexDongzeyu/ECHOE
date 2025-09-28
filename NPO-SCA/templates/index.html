@@ -435,7 +435,7 @@
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
                     <div class="post-card" id="igGalleryCard">
-                        <div id="igGallery" class="ig-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:8px;">
+                        <div id="igGallery" class="ig-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px;align-items:start;">
                             <!-- populated by /api/instagram-feed -->
                     </div>
                         <script>
@@ -443,7 +443,7 @@
                           try{
                             const r = await fetch('/api/instagram-feed');
                             const data = await r.json();
-                            const items = (data && data.items) ? data.items.slice(0,9) : [];
+                            const items = (data && data.items) ? data.items.slice(0,3) : [];
                             const g = document.getElementById('igGallery');
                             if(!g) return;
                             g.innerHTML = '';
@@ -457,7 +457,9 @@
                               img.src = it.thumb || it.url;
                               img.alt = (it.caption||'Instagram');
                               img.style.width='100%';
+                              img.style.height='auto';
                               img.style.borderRadius='8px';
+                              img.style.boxShadow='0 6px 16px rgba(42,61,102,0.08)';
                               img.loading='lazy';
                               a.appendChild(img);
                               g.appendChild(a);

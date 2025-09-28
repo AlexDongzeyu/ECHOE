@@ -296,21 +296,12 @@
             
             <div class="code-card">
                 <h2>
-                    <i class="fas fa-key"></i>
-                    Your Unique Reply Code
+                    <i class="fas fa-inbox"></i>
+                    Check Your Inbox
                 </h2>
-                
-                <div class="code-display">
-                    <div class="code-value" id="letter-code" onclick="copyCode()">{{ letter.unique_id }}</div>
-                    <button class="copy-button" onclick="copyCode()" id="copy-btn">
-                        <i class="fas fa-copy"></i>
-                        Copy Code
-                    </button>
-                </div>
-                
-                <div class="important-notice">
-                    <strong><i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>Important!</strong>
-                    This is your unique code. Please save it somewhere safe. You will need it to check for your reply. This code will not be shown again.
+                <p style="margin:0;opacity:.9">We’ve received your letter. When a volunteer replies, it will appear in your Inbox on this device.</p>
+                <div style="margin-top:18px">
+                    <a href="{{ url_for('inbox') }}" class="action-btn primary"><i class="fas fa-inbox"></i> Go to Inbox</a>
                 </div>
             </div>
             
@@ -330,7 +321,7 @@
                     </li>
                     <li>
                         <div class="step-number">3</div>
-                        <div>Use your unique code to check for replies on our website</div>
+                        <div>We’ll notify you with a dot on the Inbox link when a reply arrives</div>
                     </li>
                     <li>
                         <div class="step-number">4</div>
@@ -343,8 +334,8 @@
                 <a href="{{ url_for('index') }}" class="action-btn primary">
                     <i class="fas fa-home"></i> Back to Home
                 </a>
-                <a href="{{ url_for('check_letter_reply') }}" class="action-btn secondary">
-                    <i class="fas fa-search"></i> Check for Reply
+                <a href="{{ url_for('inbox') }}" class="action-btn secondary">
+                    <i class="fas fa-inbox"></i> Open Inbox
                 </a>
                 <a href="{{ url_for('resources') }}" class="action-btn secondary">
                     <i class="fas fa-life-ring"></i> Crisis Resources
@@ -371,49 +362,5 @@
     </div>
 </div>
 
-<script>
-function copyCode() {
-    const codeElement = document.getElementById('letter-code');
-    const copyBtn = document.getElementById('copy-btn');
-    const code = codeElement.textContent;
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(code).then(function() {
-        // Update button text
-        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        copyBtn.style.background = '#4caf50';
-        
-        // Reset after 2 seconds
-        setTimeout(function() {
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
-            copyBtn.style.background = 'var(--gentle-lavender)';
-        }, 2000);
-    }).catch(function() {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = code;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        
-        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        copyBtn.style.background = '#4caf50';
-        
-        setTimeout(function() {
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
-            copyBtn.style.background = 'var(--gentle-lavender)';
-        }, 2000);
-    });
-}
-
-// Auto-select code when clicked
-document.getElementById('letter-code').addEventListener('click', function() {
-    const range = document.createRange();
-    range.selectNodeContents(this);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-});
-</script>
+<script></script>
 {% endblock %} 

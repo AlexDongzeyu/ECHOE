@@ -1,6 +1,6 @@
 import eventlet
 eventlet.monkey_patch()
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 import os
@@ -78,6 +78,21 @@ try:
             # Initialize initial data
             init_db(app)
             logger.info("Initial data created successfully!")
+
+            # Lightweight migration: ensure anon inbox columns exist
+            try:
+                inspector = db.inspect(db.engine)
+                cols = [c['name'] for c in inspector.get_columns('letter')]
+                if 'anon_user_id' not in cols:
+                    db.session.execute("ALTER TABLE letter ADD COLUMN anon_user_id VARCHAR(64)")
+                if 'has_unread' not in cols:
+                    db.session.execute("ALTER TABLE letter ADD COLUMN has_unread BOOLEAN DEFAULT 0")
+                # Index for faster inbox lookups
+                db.session.execute("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)")
+                db.session.commit()
+                logger.info("Anonymous inbox migration ensured")
+            except Exception as mig_e:
+                logger.warning(f"Anonymous inbox migration check failed or already applied: {mig_e}")
         except Exception as e:
             logger.error(f"Error during database initialization: {str(e)}")
             logger.error(traceback.format_exc())
@@ -233,6 +248,11 @@ try:
                     reply_method=form.reply_method.data,
                     anonymous_email=form.anonymous_email.data if form.reply_method.data == 'anonymous-email' else None
                 )
+                # Anonymous inbox linkage
+                anon_cookie = request.cookies.get('echoe_anon')
+                if not anon_cookie:
+                    anon_cookie = str(uuid.uuid4()).replace('-', '')
+                letter.anon_user_id = anon_cookie
                 
                 # Save to database
                 db.session.add(letter)
@@ -254,11 +274,16 @@ try:
                     db.session.commit()
                     
                     # Redirect to response page
-                    return redirect(url_for('view_response', letter_id=letter.unique_id))
+                    resp = make_response(redirect(url_for('view_response', letter_id=letter.unique_id)))
+                    # Set persistent anonymous cookie (2 years)
+                    resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=False)
+                    return resp
                 
                 # Otherwise show confirmation page
                 flash('Your letter has been submitted successfully! Your letter code is: ' + letter.unique_id)
-                return redirect(url_for('confirmation', letter_id=letter.unique_id))
+                resp = make_response(redirect(url_for('confirmation', letter_id=letter.unique_id)))
+                resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=False)
+                return resp
             
             return render_template('submit.html', form=form, mailboxes=mailboxes)
         except Exception as e:
@@ -278,7 +303,43 @@ try:
     def view_response(letter_id):
         letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
         responses = letter.responses.order_by(Response.created_at).all()
+        # If the viewer is the anon owner, mark read
+        anon_cookie = request.cookies.get('echoe_anon')
+        if anon_cookie and letter.anon_user_id == anon_cookie and letter.has_unread:
+            letter.has_unread = False
+            db.session.commit()
         return render_template('response.html', letter=letter, responses=responses)
+
+    # -------- Anonymous Inbox --------
+    @app.route('/inbox')
+    def inbox():
+        anon_cookie = request.cookies.get('echoe_anon')
+        if not anon_cookie:
+            # empty state
+            return render_template('inbox.html', letters=[], empty=True)
+        letters = Letter.query.filter_by(anon_user_id=anon_cookie).order_by(Letter.created_at.desc()).all()
+        return render_template('inbox.html', letters=letters, empty=len(letters)==0)
+
+    @app.route('/inbox/letter/<letter_id>')
+    def inbox_letter(letter_id):
+        anon_cookie = request.cookies.get('echoe_anon')
+        letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
+        # enforce ownership without identity: only anon owner can view via inbox route
+        if not anon_cookie or letter.anon_user_id != anon_cookie:
+            abort(404)
+        responses = letter.responses.order_by(Response.created_at).all()
+        if letter.has_unread:
+            letter.has_unread = False
+            db.session.commit()
+        return render_template('inbox_thread.html', letter=letter, responses=responses)
+
+    @app.route('/api/inbox/unread-count')
+    def inbox_unread_count():
+        anon_cookie = request.cookies.get('echoe_anon')
+        if not anon_cookie:
+            return jsonify({ 'count': 0 })
+        count = Letter.query.filter_by(anon_user_id=anon_cookie, has_unread=True).count()
+        return jsonify({ 'count': count })
 
     # Internal function: Generate AI response
     def generate_ai_response(message):
@@ -479,8 +540,9 @@ try:
                 )
                 db.session.add(ai_response)
             
-            # Update letter status
+            # Update letter status and notify anon owner
             letter.is_processed = True
+            letter.has_unread = True
             letter.responder_id = current_user.id
             
             db.session.commit()

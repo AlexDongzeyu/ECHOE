@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Your Letter - {{ super() }}{% endblock %}
+
+{% block styles %}
+<style>
+  .thread-wrap{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(42,61,102,.08);padding:24px}
+  .letter-box{background:var(--warm-white);border:1px solid rgba(159,197,203,.35);border-radius:12px;padding:16px;margin-bottom:18px}
+  .response{background:#fff;border-left:4px solid var(--gentle-lavender);padding:16px;border-radius:10px;box-shadow:0 4px 12px rgba(42,61,102,.06);margin:12px 0}
+  .meta{font-size:.9rem;opacity:.7}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="thread-wrap">
+    <div class="page-header" style="border:none;margin-bottom:10px;padding-bottom:0">
+      <h1>Your Letter</h1>
+    </div>
+    <div class="letter-box">
+      <div class="meta"><strong>Topic:</strong> {{ letter.topic or 'N/A' }} • <strong>Submitted:</strong> {{ letter.created_at.strftime('%b %d, %Y %H:%M') }}</div>
+      <div style="margin-top:8px;white-space:pre-wrap">{{ letter.content }}</div>
+    </div>
+    {% if responses %}
+      <h3>Replies</h3>
+      {% for r in responses %}
+        <div class="response">
+          <div class="meta">{{ r.response_type|capitalize }} • {{ r.created_at.strftime('%b %d, %Y %H:%M') }}</div>
+          <div style="margin-top:6px;white-space:pre-wrap">{{ r.content }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="meta">No replies yet. Our volunteers will get back to you soon.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

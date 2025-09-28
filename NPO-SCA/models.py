@@ -102,6 +102,9 @@ class Letter(db.Model):
     content = db.Column(db.Text, nullable=False)
     anonymous_email = db.Column(db.String(120))
     reply_method = db.Column(db.String(20))
+    # Anonymous user linkage (persistent but anonymous)
+    anon_user_id = db.Column(db.String(64), index=True)
+    has_unread = db.Column(db.Boolean, default=False)
     
     # 状态标记
     is_flagged = db.Column(db.Boolean, default=False)

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Your Inbox - {{ super() }}{% endblock %}
+
+{% block styles %}
+<style>
+    .inbox-wrap{max-width:1000px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(42,61,102,.08);padding:24px}
+    .inbox-empty{padding:40px;text-align:center;opacity:.8}
+    .inbox-list{display:flex;flex-direction:column;gap:14px}
+    .inbox-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid rgba(159,197,203,.35);border-radius:12px;background:var(--warm-white)}
+    .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
+    .badge-unread{background:#e74c3c;color:#fff}
+    .meta{font-size:.9rem;opacity:.8}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="inbox-wrap">
+    <div class="page-header" style="border:none;margin-bottom:10px;padding-bottom:0">
+      <h1>Your Inbox</h1>
+      <p class="section-subtitle">Private, anonymous space to view your letters and replies</p>
+    </div>
+
+    {% if empty %}
+      <div class="inbox-empty">
+        <p>No letters yet. Write your first one on the <a href="{{ url_for('submit') }}">Share Your Story</a> page.</p>
+      </div>
+    {% else %}
+      <div class="inbox-list">
+        {% for l in letters %}
+        <a class="inbox-item" href="{{ url_for('inbox_letter', letter_id=l.unique_id) }}">
+          <div>
+            <div style="font-weight:700">{{ l.topic or 'Untitled Letter' }}</div>
+            <div class="meta">{{ l.created_at.strftime('%b %d, %Y') }}</div>
+          </div>
+          <div>
+            {% if l.has_unread %}<span class="badge badge-unread">New</span>{% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

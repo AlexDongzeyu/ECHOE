@@ -595,6 +595,7 @@
                 <!-- Primary Actions -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
                 <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}">Share Your Story</a></li>
+                <li><a href="{{ url_for('inbox') }}" class="{% if request.endpoint and request.endpoint.startswith('inbox') %}active{% endif %}" id="navInboxLink">Inbox<span id="inboxDot" style="display:none;margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a></li>
                 <!-- Move Check Reply into Discover to declutter -->
                 
                 <!-- Discover Dropdown -->
@@ -759,6 +760,22 @@
                 menu.classList.remove('show');
             }
         });
+    </script>
+    <script>
+        // Poll unread count for anonymous inbox and toggle red dot
+        async function pollInboxUnread(){
+            try{
+                const r = await fetch("{{ url_for('inbox_unread_count') }}", {credentials:'same-origin', cache:'no-store'});
+                const data = await r.json();
+                const dot = document.getElementById('inboxDot');
+                if(!dot) return;
+                if(data && data.count > 0){ dot.style.display = 'inline-block'; }
+                else { dot.style.display = 'none'; }
+            }catch(e){ /* ignore */ }
+        }
+        // Initial and interval
+        pollInboxUnread();
+        setInterval(pollInboxUnread, 60000);
     </script>
     
     <!-- AI Chat Widget -->

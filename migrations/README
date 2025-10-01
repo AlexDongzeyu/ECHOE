@@ -1,0 +1,8 @@
+Alembic migrations for E.C.H.O.E (Light in Silence)
+
+Use Flask-Migrate CLI to manage revisions:
+- flask db init (already set up)
+- flask db migrate -m "message"
+- flask db upgrade
+
+

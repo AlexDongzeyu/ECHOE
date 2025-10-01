@@ -364,10 +364,10 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Every Voice Deserves to Echo.</h1>
-                    <p class="quote">From the shadows of silence, we rise together.</p>
-                    <p class="mission">We amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events—so no one feels alone.</p>
-            <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
+                    <h1>Welcome to E.C.H.O.E</h1>
+                    <p class="quote">Every voice deserves to be echoed.</p>
+                    <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>
+                    <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 </div>
                 <div class="hero-image">
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E" style="border-radius:16px; background: rgba(255,255,255,0.6); padding: 14px;">
@@ -387,11 +387,15 @@
                     <div class="about-card">
                         <h2 style="margin-bottom:16px;">Who We Are</h2>
                         <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                            E.C.H.O.E is a compassionate, youth-led initiative that offers a safe, anonymous
-                            place to share what’s on your mind and receive a thoughtful reply. We blend
-                            caring volunteers with a gentle AI companion to help you feel heard and supported.
+                            We are a student-led organization committed to breaking down social isolation among teens and building a collaborative community. In a world where silence can feel heavy, we believe no one should go through their journey alone.
                         </p>
-                        <p style="opacity:0.85;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
+                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                            Our movement creates a bridge between solitude and belongingness. Teens can express themselves through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers who care. We also share resources, insights, and guidance by holding in-person events, ensuring that support is always within reach.
+                        </p>
+                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                            We don’t just listen — we inspire, uplift, and help embrace new paths toward healing and resilience. Because every voice deserves to be echoed.
+                        </p>
+                        <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
                     </div>
                     <div style="text-align:center;">
                         <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E" style="max-width:320px; width:100%; border-radius:16px; background: rgba(255,255,255,0.6); padding:14px; box-shadow:0 10px 30px rgba(42,61,102,0.12);">
@@ -406,9 +410,22 @@
                 <div class="consultant-card">
                     <div class="avatar">MH</div>
                     <div>
-                        <h3 style="margin:0 0 8px;">Licensed Consultant</h3>
-                        <p style="margin:0; line-height:1.7;">A qualified mental health professional advises our content and safeguards supportive tone. This section can include their name, credentials, and a short approach statement (e.g., ACT/CBT and mindfulness).</p>
+                        <h3 style="margin:0 0 8px;">Name: <span style="font-weight:800;">TBD</span></h3>
+                        <p style="margin:0 0 6px 0; line-height:1.7;">Description: A qualified mental health professional who advises our content and safeguards supportive tone.</p>
+                        <p style="margin:0; line-height:1.7; opacity:.85;">Approach: ACT/CBT, mindfulness, and strengths-based care.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+                <div class="about-card" style="max-width:900px; margin:0 auto;">
+                    <h2 style="margin-bottom:12px;">Collaborators</h2>
+                    <p style="margin:0 0 8px 0;">NPOs, charities, and partners we work with to extend support and outreach.</p>
+                    <ul style="margin:6px 0 0 18px; line-height:1.8;">
+                        <li>Coming soon — partner highlights</li>
+                    </ul>
                 </div>
             </div>
         </section>

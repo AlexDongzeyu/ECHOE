@@ -108,6 +108,17 @@
         <div class="content-section">
             <h2><i class="fas fa-spa" style="color: var(--soft-yellow); margin-right: 10px;"></i>Self-Care & Wellness</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 25px;">
+                <!-- Risk / Protective Factors summary card -->
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-left: 5px solid var(--soft-yellow);">
+                    <h3 style="color: var(--deep-indigo); margin-bottom: 10px;"><i class="fas fa-balance-scale" style="margin-right: 10px; color: var(--soft-yellow);"></i>Risk & Protective Factors</h3>
+                    <p style="margin: 0 0 10px 0;">Teens today face challenges like loneliness, bullying, academic pressure, and family or financial struggles. We address these by building:</p>
+                    <ul style="list-style:none; padding:0; margin:0; line-height:1.6;">
+                        <li><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 8px;"></i>Peer connectedness & inclusive clubs</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 8px;"></i>Safe, low-stimulus meetups</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 8px;"></i>Coping & mindfulness skills</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--gentle-lavender); margin-right: 8px;"></i>Supportive adults & accessible communication</li>
+                    </ul>
+                </div>
                 <div style="background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); padding: 25px; border-radius: 15px; color: white;">
                     <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-meditation" style="margin-right: 10px;"></i>Mindfulness & Meditation</h3>
                     <ul style="list-style: none; padding: 0;">
@@ -142,7 +153,7 @@
         <!-- Support Groups -->
         <div class="content-section">
             <h2><i class="fas fa-users" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Support Groups & Communities</h2>
-            <p style="margin-bottom: 25px; font-size: 1.1rem;">Sometimes connecting with others who understand your experience can provide immense comfort and insight.</p>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">Connecting with others who understand your experience can provide immense comfort and insight.</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
                 <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1);">
@@ -162,10 +173,10 @@
         <!-- Call to Action -->
         <div style="text-align: center; margin-top: 40px; padding: 40px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white;">
             <h2 style="color: white; margin-bottom: 20px;">Need Someone to Talk To?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Remember, seeking help is a sign of strength, not weakness. Your story matters, and support is available.</p>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your story matters — we’re here to listen. Reach out or share a letter anytime.</p>
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
-                <a href="{{ url_for('check_letter_reply') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white;">Check for Reply</a>
+                <a href="{{ url_for('inbox') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white;">Check Your Inbox</a>
             </div>
         </div>
     </div>

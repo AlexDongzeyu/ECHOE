@@ -108,6 +108,13 @@ When ready to deploy the complete platform:
    npm run deploy
    ```
 
+## Zero-downtime deploys
+
+- Render service defined in `render.yaml` uses a persistent disk at `/var/data/echoe` and health check `/health-check`.
+- Pre-deploy runs `scripts/predeploy.py` to apply Alembic migrations (or `create_all` fallback) so data persists.
+- GitHub Action `.github/workflows/trigger-deploy.yml` can call `RENDER_DEPLOY_HOOK` and purge Cloudflare cache.
+- Set repo secrets: `RENDER_DEPLOY_HOOK`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID`.
+
 ## 🌟 **Key Features**
 
 ### Current Live Site:

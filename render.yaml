@@ -1,6 +1,33 @@
 services:
   - type: web
     name: light-in-silence-flask
+    runtime: python
+    region: oregon
+    plan: starter
+    repo: https://github.com/AlexDongzeyu/LightInSilence
+    branch: main
+    buildCommand: pip install -r NPO-SCA/requirements.txt
+    startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT NPO-SCA.app:app
+    healthCheckPath: /health-check
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
+      - key: FLASK_ENV
+        value: production
+      - key: ENVIRONMENT
+        value: production
+      # Use persistent disk for SQLite so data survives deploys
+      - key: DATABASE_URL
+        value: sqlite:////var/data/echoe/database.db
+    disks:
+      - name: echoe-data
+        mountPath: /var/data/echoe
+        sizeGB: 1
+    preDeployCommand: python -m scripts.predeploy
+services:
+  - type: web
+    name: light-in-silence-flask
     env: python
     plan: free
     region: oregon

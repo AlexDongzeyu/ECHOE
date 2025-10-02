@@ -25,6 +25,8 @@ services:
         mountPath: /var/data/echoe
         sizeGB: 1
     preDeployCommand: python -m scripts.predeploy
+    # Optional: nightly backup of SQLite to persistent disk (runs on deploy hooks/builds; schedule backups via cron on Render if available)
+    
 services:
   - type: web
     name: light-in-silence-flask

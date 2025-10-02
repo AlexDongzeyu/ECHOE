@@ -95,3 +95,73 @@ def register_commands(app):
     app.cli.add_command(seed_admin)
     app.cli.add_command(list_admins)
     app.cli.add_command(migrate_roles) 
+
+# -------------------- User utilities --------------------
+@click.command('create-user')
+@click.option('--username', prompt=True, help='Username for the new user')
+@click.option('--email', prompt=True, help='Email for the new user')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='Password for the new user')
+@click.option('--role', type=click.Choice(['user','admin','ultimate'], case_sensitive=False), default='user', show_default=True, help='Role to assign')
+@click.option('--volunteer/--no-volunteer', default=False, show_default=True, help='Grant volunteer flag')
+@with_appcontext
+def create_user(username, email, password, role, volunteer):
+    """Create a user with specified credentials and role."""
+    try:
+        # Uniqueness checks
+        if User.query.filter_by(username=username).first():
+            click.echo(f'❌ Username already exists: {username}')
+            return
+        if User.query.filter_by(email=email).first():
+            click.echo(f'❌ Email already exists: {email}')
+            return
+
+        user = User(username=username, email=email)
+        user.set_password(password)
+        user.is_volunteer = bool(volunteer)
+
+        if role.lower() == 'admin':
+            user.role = UserRole.ADMIN
+            user.is_admin = True
+        elif role.lower() == 'ultimate':
+            user.role = UserRole.ULTIMATE_ADMIN
+            user.is_admin = True
+            user.is_volunteer = True
+        else:
+            user.role = UserRole.USER
+
+        db.session.add(user)
+        db.session.commit()
+        click.echo('✅ User created:')
+        click.echo(f'   Username: {user.username}')
+        click.echo(f'   Email:    {user.email}')
+        click.echo(f'   Role:     {user.get_role_display()}')
+        click.echo(f'   Volunteer:{"Yes" if user.is_volunteer else "No"}')
+    except Exception as e:
+        db.session.rollback()
+        click.echo(f'❌ Error creating user: {e}')
+
+@click.command('set-password')
+@click.option('--email', prompt=True, help='Email of existing user')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='New password')
+@with_appcontext
+def set_password(email, password):
+    """Reset password for a user by email."""
+    try:
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            click.echo(f'❌ User not found: {email}')
+            return
+        user.set_password(password)
+        db.session.commit()
+        click.echo(f'✅ Password updated for {email}')
+    except Exception as e:
+        db.session.rollback()
+        click.echo(f'❌ Error updating password: {e}')
+
+def register_commands(app):  # type: ignore[no-redef]
+    """Register all CLI commands with the Flask app"""
+    app.cli.add_command(seed_admin)
+    app.cli.add_command(list_admins)
+    app.cli.add_command(migrate_roles)
+    app.cli.add_command(create_user)
+    app.cli.add_command(set_password)

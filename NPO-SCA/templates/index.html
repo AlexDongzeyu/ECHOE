@@ -464,9 +464,9 @@
                             const r = await fetch('/api/instagram-feed', {cache:'no-store'});
                             const data = await r.json();
                             let items = (data && Array.isArray(data.items)) ? data.items : [];
-                            // Deduplicate by permalink and ensure we have at least 3 if available
+                            // Deduplicate by permalink
                             const seen = new Set();
-                            items = items.filter(it=>{ if(!it || !it.permalink || seen.has(it.permalink)) return false; seen.add(it.permalink); return true; }).slice(0,3);
+                            items = items.filter(it=>{ if(!it || !it.permalink || seen.has(it.permalink)) return false; seen.add(it.permalink); return true; });
                             const g = document.getElementById('igGallery');
                             if(!g) return;
                             g.innerHTML = '';

@@ -135,19 +135,41 @@ try:
                 return jsonify({ 'items': _ig_cache['data'] })
 
             fields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
-            url = f'https://graph.instagram.com/me/media?fields={fields}&access_token={access_token}&limit=24'
+            url = f'https://graph.instagram.com/me/media?fields={fields}&access_token={access_token}&limit=25'
+
+            collected = []
+            seen_ids = set()
+            max_items = 60  # cap to keep response light
 
             with httpx.Client(timeout=10) as client:
-                r = client.get(url)
-                payload = r.json()
+                while url and len(collected) < max_items:
+                    r = client.get(url)
+                    payload = r.json()
+                    page_items = payload.get('data', []) if isinstance(payload, dict) else []
+                    for it in page_items:
+                        iid = it.get('id')
+                        if not iid or iid in seen_ids:
+                            continue
+                        seen_ids.add(iid)
+                        collected.append(it)
+                        if len(collected) >= max_items:
+                            break
+                    # follow paging if available
+                    url = None
+                    try:
+                        paging = payload.get('paging', {}) if isinstance(payload, dict) else {}
+                        next_url = paging.get('next')
+                        if next_url:
+                            url = next_url
+                    except Exception:
+                        url = None
 
-            items = payload.get('data', []) if isinstance(payload, dict) else []
             # Sort by timestamp (newest first)
-            items.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+            collected.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
 
             # Normalize
             normalized = []
-            for it in items:
+            for it in collected:
                 normalized.append({
                     'id': it.get('id'),
                     'caption': it.get('caption'),

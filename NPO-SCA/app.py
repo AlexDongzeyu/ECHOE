@@ -19,6 +19,7 @@ import time
 from flask_socketio import SocketIO, emit
 import random
 from flask_migrate import Migrate
+import xml.etree.ElementTree as ET
 
 from config import Config
 from models import db, User, Letter, Response, PhysicalMailbox, Post, Event, UserRole
@@ -186,6 +187,73 @@ try:
         except Exception as e:
             app.logger.error(f"Instagram feed error: {e}")
             return jsonify({ 'items': [] }), 200
+
+    # ---------------- YouTube latest via RSS (uploads feed) -----------------
+    _yt_cache = { 'ts': 0, 'item': None }
+
+    @app.route('/api/youtube-latest')
+    def youtube_latest():
+        try:
+            # Allow config via env: YOUTUBE_HANDLE or YOUTUBE_CHANNEL_ID
+            yt_handle = os.environ.get('YOUTUBE_HANDLE') or app.config.get('YOUTUBE_HANDLE') or 'echoe_hosa'
+            yt_channel_id = os.environ.get('YOUTUBE_CHANNEL_ID') or app.config.get('YOUTUBE_CHANNEL_ID')
+
+            now = time.time()
+            if _yt_cache['item'] and now - _yt_cache['ts'] < 600:
+                return jsonify(_yt_cache['item'])
+
+            if yt_channel_id:
+                rss_url = f'https://www.youtube.com/feeds/videos.xml?channel_id={yt_channel_id}'
+            else:
+                # Handle uploads feed by user name/handle
+                rss_url = f'https://www.youtube.com/feeds/videos.xml?user={yt_handle}'
+
+            with httpx.Client(timeout=10) as client:
+                r = client.get(rss_url)
+                rss_text = r.text
+
+            # Parse RSS (Atom)
+            # Namespaces for YouTube Atom feeds
+            ns = {
+                'atom': 'http://www.w3.org/2005/Atom',
+                'media': 'http://search.yahoo.com/mrss/'
+            }
+            root = ET.fromstring(rss_text)
+            entry = root.find('atom:entry', ns)
+            if entry is None:
+                return jsonify({'error': 'No entries'}), 200
+
+            vid_id_el = entry.find('yt:videoId', {
+                'yt': 'http://www.youtube.com/xml/schemas/2015',
+                'atom': ns['atom'],
+                'media': ns['media']
+            })
+            link_el = entry.find('atom:link', ns)
+            title_el = entry.find('atom:title', ns)
+            published_el = entry.find('atom:published', ns)
+            thumb_el = entry.find('media:group/media:thumbnail', ns)
+
+            video_id = vid_id_el.text if vid_id_el is not None else None
+            link = link_el.get('href') if link_el is not None else (f'https://www.youtube.com/watch?v={video_id}' if video_id else None)
+            title = title_el.text if title_el is not None else ''
+            published = published_el.text if published_el is not None else ''
+            thumb = thumb_el.get('url') if thumb_el is not None else None
+
+            item = {
+                'video_id': video_id,
+                'url': link,
+                'title': title,
+                'published': published,
+                'thumb': thumb,
+                'embed_url': f'https://www.youtube.com/embed/{video_id}' if video_id else None
+            }
+
+            _yt_cache['item'] = item
+            _yt_cache['ts'] = now
+            return jsonify(item)
+        except Exception as e:
+            app.logger.error(f"YouTube latest error: {e}")
+            return jsonify({'error': 'failed'}), 200
     
     @login_manager.user_loader
     def load_user(user_id):

@@ -3,11 +3,12 @@
 {% block styles %}
 <style>
     .social-hero { text-align: center; margin-bottom: 30px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card { background: rgba(255,255,255,0.9); border-radius: 12px; padding: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
     .card h3 { margin: 0 0 10px 0; color: var(--deep-indigo); }
     .embed { border-radius: 10px; overflow: hidden; }
     .link-list a { display: inline-flex; align-items: center; gap: 8px; margin-right: 12px; margin-bottom: 8px; }
+    .ig-latest, .yt-latest { background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7)); border: 1px solid rgba(159,197,203,0.35); border-radius: 12px; padding: 8px; }
 </style>
 {% endblock %}
 
@@ -30,28 +31,59 @@
 
         <div class="card">
             <h3><i class="fab fa-instagram"></i> Instagram</h3>
-            <p>Visit our Instagram for updates and stories. We can also embed specific posts upon request.</p>
-            <div class="link-list">
+            <div class="ig-latest" id="igLatest">
+                <div style="padding:12px; text-align:center; opacity:.8;">Loading latest Instagram post…</div>
+            </div>
+            <div class="link-list" style="margin-top:10px;">
                 <a class="btn-secondary" href="https://www.instagram.com/echoe_hosa26" target="_blank"><i class="fab fa-instagram"></i> Open Instagram</a>
             </div>
-            <!-- Example Instagram post embed placeholder; replace with a specific post URL if desired -->
-            <!--
-            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/POST_ID/" data-instgrm-version="14">
-                <a href="https://www.instagram.com/p/POST_ID/">View this post on Instagram</a>
-            </blockquote>
-            <script async defer src="https://www.instagram.com/embed.js"></script>
-            -->
         </div>
 
         <div class="card">
             <h3><i class="fab fa-youtube"></i> YouTube</h3>
-            <div class="embed">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=echoe_hosa" title="YouTube channel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="yt-latest" id="ytLatest">
+                <div style="padding:12px; text-align:center; opacity:.8;">Loading latest YouTube video…</div>
+            </div>
+            <div class="link-list" style="margin-top:10px;">
+                <a class="btn-secondary" href="https://youtube.com/@echoe_hosa" target="_blank"><i class="fab fa-youtube"></i> Open YouTube</a>
             </div>
         </div>
     </div>
 
     <script async src="https://www.tiktok.com/embed.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async function(){
+        // Latest IG: reuse backend latest from homepage helper
+        try{
+            const r = await fetch('/api/instagram-feed', {cache:'no-store'});
+            const data = await r.json();
+            const latest = (data && Array.isArray(data.items) && data.items.length>0) ? data.items[0] : null;
+            const box = document.getElementById('igLatest');
+            if(box){
+                if(latest && latest.permalink){
+                    box.innerHTML = `<blockquote class="instagram-media" data-instgrm-permalink="${latest.permalink}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>`;
+                    const s = document.createElement('script'); s.async = true; s.src = 'https://www.instagram.com/embed.js'; document.body.appendChild(s);
+                } else {
+                    box.innerHTML = '<div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>'
+                }
+            }
+        }catch(e){ /* ignore */ }
+
+        // Latest YouTube
+        try{
+            const r2 = await fetch('/api/youtube-latest', {cache:'no-store'});
+            const yt = await r2.json();
+            const yb = document.getElementById('ytLatest');
+            if(yb){
+                if(yt && yt.embed_url){
+                    yb.innerHTML = `<div class="embed"><iframe width="100%" height="315" src="${yt.embed_url}" title="Latest YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+                } else {
+                    yb.innerHTML = '<div style="padding:12px; text-align:center; opacity:.8;">Latest YouTube video unavailable.</div>'
+                }
+            }
+        }catch(e){ /* ignore */ }
+    });
+    </script>
 </div>
 {% endblock %}
 

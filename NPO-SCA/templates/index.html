@@ -326,9 +326,10 @@
 
         /* Scroll container so users can scroll within the gallery card */
         #igGalleryScroll {
-            max-height: 520px; /* adjust as desired */
+            max-height: clamp(320px, 60vh, 640px); /* responsive cap */
             overflow-y: auto;
             padding: 8px;
+            overscroll-behavior: contain; /* keep page from scrolling when inside */
         }
     
     /* Footer styles for homepage */
@@ -520,6 +521,9 @@
                               a.appendChild(img);
                               g.appendChild(a);
                             });
+                            // ensure the scroll container starts from the top after render
+                            const scroller = document.getElementById('igGalleryScroll');
+                            if (scroller) scroller.scrollTop = 0;
                           }catch(e){console.log('ig gallery error',e)}
                         });
                         </script>

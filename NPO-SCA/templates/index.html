@@ -283,8 +283,9 @@
         
         .post-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: 1fr 1fr; /* two even columns: embed + gallery */
             gap: 16px;
+            align-items: stretch;
         }
 
         .post-card {
@@ -295,7 +296,7 @@
             padding: 8px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* top align */
             align-items: stretch;
         }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
@@ -303,7 +304,7 @@
         /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 12px;
             width: 100%;
         }
@@ -340,7 +341,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-        }
+    }
     
     /* Footer styles for homepage */
         footer {
@@ -374,6 +375,8 @@
         .hero .container {
                 flex-direction: column;
             text-align: center;
+            /* stack posts on small screens */
+            .post-grid { grid-template-columns: 1fr; }
         }
         
         .hero-content {
@@ -409,7 +412,7 @@
                     <h1>Welcome to E.C.H.O.E</h1>
                     <p class="quote">Every voice deserves to be echoed.</p>
                     <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>
-                    <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
+            <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 </div>
                 <div class="hero-image">
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E" style="border-radius:16px; background: rgba(255,255,255,0.6); padding: 14px;">
@@ -459,7 +462,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section class="about-section">
             <div class="container">
                 <div class="about-card" style="max-width:900px; margin:0 auto;">
@@ -496,12 +499,12 @@
                         {% endif %}
                         <script async src="https://www.instagram.com/embed.js"></script>
                     </div>
-                    <div class="post-card" id="igGalleryCard">
-                        <div id="igGalleryScroll">
+                    <div class="post-card" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
+                        <div id="igGalleryScroll" style="height:100%;min-height:0;overflow-y:auto;padding:8px;">
                             <div id="igGallery" class="ig-gallery" style="align-items:start; min-height:110px;">
                                 <!-- populated by /api/instagram-feed -->
                             </div>
-                        </div>
+                    </div>
                         <script>
                         document.addEventListener('DOMContentLoaded', async function(){
                           try{

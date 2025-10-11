@@ -136,8 +136,8 @@
         }
         .rail-divider {
             position: absolute;
-            top: 12px;
-            bottom: 12px;
+            top: 8px;
+            bottom: 8px;
             left: 0;
             width: 0;
             border-left: 1px dashed rgba(159,197,203,0.6);
@@ -158,7 +158,13 @@
         .suggestion-inline li { margin: 6px 0; opacity: .95; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
         .write-zone { position: relative; }
-        .write-zone textarea { padding-right: 38%; box-sizing: border-box; }
+        .write-zone textarea {
+            padding-right: 38% !important;
+            box-sizing: border-box;
+            white-space: pre-wrap; /* keep line breaks, wrap long tokens */
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
         .suggestion-card {
             background: rgba(255,255,255,0.96);
             border: 1px solid rgba(159,197,203,0.35);
@@ -414,7 +420,7 @@
             <!-- Inline suggestions rail inside the frame (transparent words only) -->
             <div class="guide-rail" aria-hidden="true">
                 <div class="rail-divider"></div>
-                <div class="suggestion-inline" id="inlineSuggest">
+                <div class="suggestion-inline" id="inlineSuggest" style="top: 64px;">
                     <ul id="inlineTips">
                         <li>It's okay to be brief — start with one thought.</li>
                         <li>Share feelings, not just events.</li>

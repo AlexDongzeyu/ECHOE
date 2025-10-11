@@ -385,9 +385,7 @@ try:
             return jsonify({'tips': default_tips, 'question': 'What would you like us to understand better?'}), 200
 
     # --- Moderation helpers ---
-    def ai_moderate_letter_content(text: str) -> tuple[bool, str]:
-        """Return (flagged, reason). Deterministic keyword scan first, then AI JSON."""
-        # Deterministic scan (broad list, quick)
+    def _deterministic_match(text: str) -> tuple[bool, str]:
         lower = (text or '').lower()
         hard_keywords = [
             # Self-harm / violence / sexual violence
@@ -399,12 +397,19 @@ try:
             'nigger','faggot','kike','chink','spic',
             # Pornographic/minors
             'child porn','cp ','cp\n','loli',
-            # Extreme profanity (subset)
-            'motherfucker','cunt','fuck you'
+            # Profanity
+            'fuck','fuck you','motherfucker','cunt','shit',
         ]
         for kw in hard_keywords:
             if kw in lower:
-                return True, f"keyword: {kw}"
+                return True, kw
+        return False, ''
+
+    def ai_moderate_letter_content(text: str) -> tuple[bool, str]:
+        """Return (flagged, reason). Deterministic keyword scan first, then AI JSON."""
+        flagged_kw, kw = _deterministic_match(text)
+        if flagged_kw:
+            return True, f"keyword: {kw}"
         try:
             prompt = (
                 "You are a strict but fair community safety checker. Read the user's entire letter.\n"
@@ -706,7 +711,7 @@ try:
     def volunteer_dashboard():
         # Exclude anything flagged (including potential NULLs) from unprocessed list
         unprocessed_letters = Letter.query.filter(
-            (Letter.is_processed == False) & (Letter.is_flagged != True)
+            (Letter.is_processed == False) & ((Letter.is_flagged == False) | (Letter.is_flagged.is_(None)))
         ).order_by(Letter.created_at).all()
         flagged_letters = Letter.query.filter_by(is_flagged=True).order_by(Letter.created_at).all()
         

@@ -1150,11 +1150,12 @@ try:
     @app.route('/admin/letters/<letter_id>/approve', methods=['POST'])
     @admin_required
     def admin_approve_letter(letter_id):
-        """Mark a letter as processed (admin only)"""
+        """Approve letter for volunteers: unflag and mark unprocessed so it shows up."""
         letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
-        letter.is_processed = True
+        letter.is_flagged = False
+        letter.is_processed = False
         db.session.commit()
-        flash('Letter has been marked as processed.', 'success')
+        flash('Letter approved and sent to volunteers.', 'success')
         return redirect(url_for('admin_content'))
 
     @app.route('/admin/letters/<letter_id>')

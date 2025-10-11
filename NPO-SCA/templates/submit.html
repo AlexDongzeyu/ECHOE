@@ -13,12 +13,12 @@
         
         /* Form Container */
         .form-container {
-            max-width: 700px;
+            max-width: 1100px; /* wider so most users avoid scrolling */
             margin: 1rem auto 3rem;
             padding: 2.5rem;
-            background-color: white;
+            background: linear-gradient(180deg, rgba(159,197,203,0.18), rgba(248,210,156,0.18));
             border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+            box-shadow: 0 10px 36px rgba(42, 61, 102, 0.14);
             position: relative;
             overflow: hidden;
         }
@@ -123,6 +123,23 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* Two-column layout for online form on desktop */
+        .online-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        .side-panel {
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(159,197,203,0.35);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 6px 20px rgba(42,61,102,0.08);
+            position: sticky;
+            top: 120px; /* below fixed header */
+        }
+
     /* Form Groups */
         .form-group {
         margin-bottom: 1.5rem;
@@ -159,7 +176,7 @@
         }
         
         .form-group textarea {
-        min-height: 360px;
+        min-height: 420px;
             resize: vertical;
         font-family: 'Sriracha', 'Georgia', 'Times New Roman', serif; /* warmer, inviting */
         font-size: 1.15rem;
@@ -298,6 +315,8 @@
                 padding: 1.8rem 1.2rem;
                 margin: 1rem;
             }
+            .online-grid { display: block; }
+            .side-panel { position: static; margin-top: 16px; }
             
         .submission-options {
                 flex-direction: column;
@@ -314,7 +333,7 @@
         <div class="form-container">
             <h2>Share Your Story with E.C.H.O.E</h2>
             <p class="form-quote">Every voice deserves to be echoed.</p>
-            <p class="form-intro">A gentle, judgment-free space to share whats on your mind. Our team will read with care and respond within 48 hours.</p>
+            <p class="form-intro">A gentle, judgment-free space to share what's on your mind. Our team will read with care and respond within 48 hours.</p>
             
             <div class="submission-options">
                 <div class="submission-option active" id="online-option">Online Submission</div>
@@ -323,6 +342,7 @@
             
             <div class="submission-forms">
                 <div class="form-section active" id="online-form">
+            <div class="online-grid">
             <form method="POST" action="{{ url_for('submit') }}">
                 {{ form.hidden_tag() }}
                 
@@ -348,6 +368,17 @@
                         
                 {{ form.submit(class="submit-btn") }}
                     </form>
+            <div class="side-panel">
+                <h3 style="margin:0 0 12px 0;">Tips for Writing</h3>
+                <ul style="margin:0 0 10px 18px; line-height:1.7;">
+                    <li>It's okay to be brief — start with one thought.</li>
+                    <li>Share feelings, not just events.</li>
+                    <li>Choose Inbox or Anonymous Email for replies.</li>
+                </ul>
+                <h3 style="margin:10px 0 8px 0;">Reply Method</h3>
+                <p style="margin:0; opacity:.85;">Inbox keeps you anonymous on our site. Anonymous Email lets our team write back without storing your name.</p>
+            </div>
+            </div>
                 </div>
                 
                 <div class="form-section" id="offline-locations">

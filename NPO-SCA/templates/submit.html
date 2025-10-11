@@ -123,22 +123,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Two-column layout for online form on desktop */
-        .online-grid {
-            display: grid;
-            grid-template-columns: 7fr 5fr; /* more width to letter area */
-            gap: 24px;
-            align-items: start;
-        }
-        .side-panel {
-            background: rgba(255,255,255,0.9);
+        /* Centered compose area with floating suggestions card */
+        .compose-wrap { position: relative; max-width: 860px; margin: 0 auto; }
+        .suggestion-card {
+            background: rgba(255,255,255,0.96);
             border: 1px solid rgba(159,197,203,0.35);
             border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 6px 20px rgba(42,61,102,0.08);
-            position: sticky;
-            top: 120px; /* below fixed header */
+            padding: 16px 16px 12px 16px;
+            box-shadow: 0 8px 24px rgba(42,61,102,0.12);
+            position: absolute;
+            width: 300px;
+            top: 0;
+            right: -340px; /* default on the right side */
         }
+        .suggestion-card.left { right: auto; left: -340px; }
+        .suggestion-header { display:flex; align-items:center; justify-content: space-between; margin-bottom:8px; }
+        .suggestion-toggle { background:none; border:1px solid rgba(159,197,203,0.6); border-radius:8px; padding:4px 8px; cursor:pointer; font-weight:600; }
 
         /* Add a subtle inner frame to balance background */
         .framed-inner {
@@ -350,7 +350,8 @@
             
             <div class="submission-forms">
                 <div class="form-section active" id="online-form">
-            <div class="online-grid framed-inner">
+            <div class="framed-inner">
+            <div class="compose-wrap" id="composeWrap">
             <form method="POST" action="{{ url_for('submit') }}">
                 {{ form.hidden_tag() }}
                 
@@ -376,16 +377,19 @@
                         
                 {{ form.submit(class="submit-btn") }}
                     </form>
-            <div class="side-panel" id="coachPanel">
-                <h3 style="margin:0 0 12px 0;">Writing Coach</h3>
-                <div id="coachTips" style="margin:0 0 8px 0;">
+            <div class="suggestion-card right" id="suggestCard">
+                <div class="suggestion-header">
+                    <h3 style="margin:0;">Suggestions</h3>
+                    <button type="button" class="suggestion-toggle" id="toggleSide">Move ↔</button>
+                </div>
+                <div id="suggestTips" style="margin:0 0 8px 0;">
                     <ul style="margin:0 0 10px 18px; line-height:1.7;">
                         <li>It's okay to be brief — start with one thought.</li>
                         <li>Share feelings, not just events.</li>
                         <li>Choose Inbox or Anonymous Email for replies.</li>
                     </ul>
                 </div>
-                <div id="coachQuestion" style="opacity:.9; margin-top:6px;">
+                <div id="suggestQuestion" style="opacity:.9; margin-top:6px;">
                     What feels most important to share right now?
                 </div>
             </div>
@@ -452,8 +456,10 @@
         
         // Live coaching: analyze textarea as the user types (debounced)
         const draftEl = document.querySelector('#online-form textarea');
-        const tipsEl = document.getElementById('coachTips');
-        const questionEl = document.getElementById('coachQuestion');
+        const tipsEl = document.getElementById('suggestTips');
+        const questionEl = document.getElementById('suggestQuestion');
+        const suggestCard = document.getElementById('suggestCard');
+        const toggleSideBtn = document.getElementById('toggleSide');
         let coachTimer;
         function debounceCoach(){
             clearTimeout(coachTimer);
@@ -478,6 +484,13 @@
             draftEl.addEventListener('input', debounceCoach);
             // prime once at load
             debounceCoach();
+        }
+
+        // Allow moving suggestion card left/right to balance layout
+        if (toggleSideBtn) {
+            toggleSideBtn.addEventListener('click', function(){
+                suggestCard.classList.toggle('left');
+            });
         }
     </script>
 {% endblock %} 

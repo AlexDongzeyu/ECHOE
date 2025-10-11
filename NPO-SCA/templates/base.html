@@ -654,7 +654,7 @@
                     {% if current_user.has_admin_access() %}
                         <li><a href="{{ url_for('admin_dashboard') }}" class="nav-primary" style="position:relative;">
                             <i class="fas fa-shield-alt" style="margin-right: 5px;"></i>Admin Panel
-                            {% if Letter.query.filter_by(is_flagged=True).count() > 0 %}
+                            {% if flagged_count and flagged_count > 0 %}
                               <span style="position:absolute; top:-6px; right:-6px; width:10px; height:10px; background:#e74c3c; border-radius:50%; display:inline-block;"></span>
                             {% endif %}
                         </a></li>

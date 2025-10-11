@@ -68,6 +68,14 @@ try:
     db.init_app(app)
     migrate = Migrate(app, db)
     
+    @app.context_processor
+    def inject_flagged_count():
+        try:
+            cnt = Letter.query.filter_by(is_flagged=True).count()
+        except Exception:
+            cnt = 0
+        return dict(flagged_count=cnt)
+    
     # Ensure instance folder exists and create database tables
     def _ensure_anon_inbox_schema():
         """Ensure 'anon_user_id' and 'has_unread' columns and index exist on 'letter'.

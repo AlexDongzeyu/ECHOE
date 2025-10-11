@@ -128,8 +128,9 @@
         /* Invisible wall inside the textarea area */
         .guide-rail {
             position: absolute;
-            top: 2.4rem; /* align to top edge of textarea (below label) */
-            bottom: 8px; /* stay within letter frame */
+            /* match textarea padding box exactly */
+            top: calc(0px + 2px); /* inside border */
+            bottom: calc(0px + 2px); /* inside border */
             right: 0;
             width: 36%; /* reserved area for inline suggestions */
             pointer-events: none;
@@ -403,6 +404,20 @@
                         <div class="form-group write-zone">
                     {{ form.content.label(class="form-label") }}
                     {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or concerns here...") }}
+                    <!-- Inline suggestions rail placed inside the letter section -->
+                    <div class="guide-rail" aria-hidden="true" id="guideRail">
+                        <div class="rail-divider"></div>
+                        <div class="suggestion-inline" id="inlineSuggest" style="top: 64px;">
+                            <ul id="inlineTips">
+                                <li>It's okay to be brief — start with one thought.</li>
+                                <li>Share feelings, not just events.</li>
+                                <li>Choose Inbox or Anonymous Email for replies.</li>
+                            </ul>
+                            <div id="inlineQuestion" style="margin-top:6px; opacity:.9;">
+                                What feels most important to share right now?
+                            </div>
+                        </div>
+                    </div>
                         </div>
                         
                         <div class="form-group">
@@ -417,20 +432,6 @@
                         
                 {{ form.submit(class="submit-btn") }}
                     </form>
-            <!-- Inline suggestions rail inside the frame (transparent words only) -->
-            <div class="guide-rail" aria-hidden="true">
-                <div class="rail-divider"></div>
-                <div class="suggestion-inline" id="inlineSuggest" style="top: 64px;">
-                    <ul id="inlineTips">
-                        <li>It's okay to be brief — start with one thought.</li>
-                        <li>Share feelings, not just events.</li>
-                        <li>Choose Inbox or Anonymous Email for replies.</li>
-                    </ul>
-                    <div id="inlineQuestion" style="margin-top:6px; opacity:.9;">
-                        What feels most important to share right now?
-                    </div>
-                </div>
-            </div>
             </div>
                 </div>
                 

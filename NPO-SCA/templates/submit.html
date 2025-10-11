@@ -126,7 +126,7 @@
         /* Two-column layout for online form on desktop */
         .online-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 7fr 5fr; /* more width to letter area */
             gap: 24px;
             align-items: start;
         }
@@ -138,6 +138,14 @@
             box-shadow: 0 6px 20px rgba(42,61,102,0.08);
             position: sticky;
             top: 120px; /* below fixed header */
+        }
+
+        /* Add a subtle inner frame to balance background */
+        .framed-inner {
+            border: 1px solid rgba(159,197,203,0.35);
+            border-radius: 16px;
+            padding: 18px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.92));
         }
 
     /* Form Groups */
@@ -342,7 +350,7 @@
             
             <div class="submission-forms">
                 <div class="form-section active" id="online-form">
-            <div class="online-grid">
+            <div class="online-grid framed-inner">
             <form method="POST" action="{{ url_for('submit') }}">
                 {{ form.hidden_tag() }}
                 
@@ -368,15 +376,18 @@
                         
                 {{ form.submit(class="submit-btn") }}
                     </form>
-            <div class="side-panel">
-                <h3 style="margin:0 0 12px 0;">Tips for Writing</h3>
-                <ul style="margin:0 0 10px 18px; line-height:1.7;">
-                    <li>It's okay to be brief — start with one thought.</li>
-                    <li>Share feelings, not just events.</li>
-                    <li>Choose Inbox or Anonymous Email for replies.</li>
-                </ul>
-                <h3 style="margin:10px 0 8px 0;">Reply Method</h3>
-                <p style="margin:0; opacity:.85;">Inbox keeps you anonymous on our site. Anonymous Email lets our team write back without storing your name.</p>
+            <div class="side-panel" id="coachPanel">
+                <h3 style="margin:0 0 12px 0;">Writing Coach</h3>
+                <div id="coachTips" style="margin:0 0 8px 0;">
+                    <ul style="margin:0 0 10px 18px; line-height:1.7;">
+                        <li>It's okay to be brief — start with one thought.</li>
+                        <li>Share feelings, not just events.</li>
+                        <li>Choose Inbox or Anonymous Email for replies.</li>
+                    </ul>
+                </div>
+                <div id="coachQuestion" style="opacity:.9; margin-top:6px;">
+                    What feels most important to share right now?
+                </div>
             </div>
             </div>
                 </div>
@@ -439,6 +450,34 @@
             document.getElementById('online-form').classList.remove('active');
         });
         
-        // AI chat link removed
+        // Live coaching: analyze textarea as the user types (debounced)
+        const draftEl = document.querySelector('#online-form textarea');
+        const tipsEl = document.getElementById('coachTips');
+        const questionEl = document.getElementById('coachQuestion');
+        let coachTimer;
+        function debounceCoach(){
+            clearTimeout(coachTimer);
+            coachTimer = setTimeout(async () => {
+                try{
+                    const content = draftEl.value || '';
+                    const r = await fetch('/api/coach', {
+                        method: 'POST',
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify({ content })
+                    });
+                    const data = await r.json();
+                    const tips = Array.isArray(data.tips) ? data.tips : [];
+                    tipsEl.innerHTML = '<ul style="margin:0 0 10px 18px; line-height:1.7;">' +
+                        tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('') +
+                        '</ul>';
+                    if(data.question){ questionEl.textContent = data.question; }
+                }catch(e){ /* ignore transient errors */ }
+            }, 500);
+        }
+        if(draftEl){
+            draftEl.addEventListener('input', debounceCoach);
+            // prime once at load
+            debounceCoach();
+        }
     </script>
 {% endblock %} 

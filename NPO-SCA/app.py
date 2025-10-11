@@ -328,6 +328,57 @@ try:
             return render_template(filename)
         return send_from_directory(app.static_folder, filename)
 
+    # API: Gentle AI coach for writing guidance (does not change user's words)
+    @app.route('/api/coach', methods=['POST'])
+    def api_coach():
+        try:
+            payload = request.get_json(silent=True) or {}
+            content = (payload.get('content') or '').strip()
+            # Default lightweight tips before invoking model
+            default_tips = [
+                "It's okay to be brief — start with one thought.",
+                "Share feelings, not just events.",
+                "Write as if to a caring friend — no need to be perfect.",
+            ]
+            if len(content) < 30:
+                return jsonify({
+                    'tips': default_tips,
+                    'question': 'What feels most important to share right now?'
+                })
+
+            # Ask the model for gentle prompts; never rewrite user's text
+            prompt = (
+                "You are a supportive writing coach for an anonymous letter portal called E.C.H.O.E.\n"
+                "User draft (do not rewrite, do not quote fully, just read to orient):\n" + content[:1500] + "\n\n"
+                "In 3 short bullet prompts (max 14 words each), offer gentle ways the writer could expand.\n"
+                "Then one reflective question starting with 'One question:'.\n"
+                "Rules: no judgment; do not change the user's wording; do not give advice;\n"
+                "focus on feelings, context, needs, and what support would help.\n"
+                "Output format:\n- prompt 1\n- prompt 2\n- prompt 3\nOne question: <single short question>\n"
+            )
+
+            suggestions_text = None
+            try:
+                suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
+            except Exception:
+                suggestions_text = None
+
+            tips, question = [], 'If you’d like, what support would feel helpful right now?'
+            if suggestions_text:
+                lines = [l.strip() for l in suggestions_text.splitlines() if l.strip()]
+                for l in lines:
+                    if l.startswith('- '):
+                        tips.append(l[2:].strip())
+                    elif l.lower().startswith('one question:'):
+                        question = l.split(':', 1)[-1].strip() or question
+                if not tips:
+                    tips = default_tips
+
+            return jsonify({'tips': tips[:3], 'question': question})
+        except Exception as e:
+            app.logger.error(f"api_coach error: {e}")
+            return jsonify({'tips': default_tips, 'question': 'What would you like us to understand better?'}), 200
+
     # Route: Submit letter
     @app.route('/submit', methods=['GET', 'POST'])
     def submit():

@@ -159,12 +159,13 @@
         }
         
         .form-group textarea {
-        min-height: 260px;
+        min-height: 360px;
             resize: vertical;
-        font-family: 'Georgia', 'Times New Roman', serif;
-        font-size: 1.05rem;
-        line-height: 1.7;
-        background: linear-gradient(180deg, rgba(159,197,203,0.08), rgba(255,255,255,0.8));
+        font-family: 'Sriracha', 'Georgia', 'Times New Roman', serif; /* warmer, inviting */
+        font-size: 1.15rem;
+        line-height: 1.8;
+        background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(255,255,255,0.92));
+        box-shadow: inset 0 2px 8px rgba(42,61,102,0.06);
         }
         
     /* Submit Button */
@@ -311,9 +312,9 @@
 
 {% block content %}
         <div class="form-container">
-            <h2>Write From the Heart</h2>
-            <p class="form-quote">"We are all broken. That's how the light gets in." — Ernest Hemingway</p>
-            <p class="form-intro">No names, no judgement — just a safe space to express yourself and find support. We'll respond within 48 hours.</p>
+            <h2>Share Your Story with E.C.H.O.E</h2>
+            <p class="form-quote">Every voice deserves to be echoed.</p>
+            <p class="form-intro">A gentle, judgment-free space to share whats on your mind. Our team will read with care and respond within 48 hours.</p>
             
             <div class="submission-options">
                 <div class="submission-option active" id="online-option">Online Submission</div>
@@ -372,10 +373,7 @@
                 </div>
             </div>
             
-            <div class="ai-assistance">
-                <span class="ai-icon">💬</span>
-         <p>Need immediate support? <span class="ai-link" id="open-chat">Chat with our AI companion</span> or <a href="{{ url_for('chat') }}">try our full AI chat page</a>.</p>
-        </div>
+            <!-- AI companion prompt removed to simplify the page per new guidance -->
     
     <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read our <a href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
             </div>
@@ -410,9 +408,6 @@
             document.getElementById('online-form').classList.remove('active');
         });
         
-    // AI Chat link
-    document.getElementById('open-chat').addEventListener('click', function() {
-        window.location.href = '{{ url_for("chat") }}';
-        });
+        // AI chat link removed
     </script>
 {% endblock %} 

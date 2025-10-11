@@ -43,9 +43,8 @@ class LetterForm(FlaskForm):
                            validators=[DataRequired(), Length(min=10, max=5000)])
     
     reply_method = SelectField('How would you like to receive a reply? (Optional)',
-                              choices=[('website', 'Check on website (you\'ll receive a reply code)'),
-                                      ('anonymous-email', 'Anonymous email'),
-                                      ('ai', 'AI-generated immediate response (plus human follow-up)')],
+                              choices=[('website', 'Check in Inbox on the website'),
+                                      ('anonymous-email', 'Anonymous email from the team')],
                               validators=[Optional()])
     
     anonymous_email = EmailField('Anonymous Email',

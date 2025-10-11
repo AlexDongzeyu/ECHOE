@@ -371,26 +371,7 @@ try:
                     pass
                 db.session.commit()
                 
-                # If user requested AI reply
-                if form.reply_method.data == 'ai':
-                    # Call AI to generate response
-                    ai_response = generate_ai_response(letter.content)
-                    
-                    response = Response(
-                        content=ai_response,
-                        response_type='ai',
-                        letter_id=letter.id,
-                        ai_model='gemini-2.0-flash'
-                    )
-                    
-                    db.session.add(response)
-                    db.session.commit()
-                    
-                    # Redirect to response page
-                    resp = make_response(redirect(url_for('view_response', letter_id=letter.unique_id)))
-                    # Set persistent anonymous cookie (2 years)
-                    resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
-                    return resp
+                # AI instant reply path removed per new product decision
                 
                 # Otherwise show confirmation page (Inbox-based)
                 flash('Your letter has been submitted. Please check your Inbox for replies.')

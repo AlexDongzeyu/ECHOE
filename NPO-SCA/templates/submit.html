@@ -136,12 +136,8 @@
             pointer-events: none;
         }
         .rail-divider {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            border-left: 1px dashed rgba(159,197,203,0.6);
+            /* hide visual divider to avoid edge overflow while keeping layout */
+            display: none;
         }
         .suggestion-inline {
             position: absolute;

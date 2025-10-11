@@ -84,6 +84,11 @@ try:
                 db.session.execute(text("ALTER TABLE letter ADD COLUMN title VARCHAR(140)"))
             # Index for faster inbox lookups (SQLite supports IF NOT EXISTS for CREATE INDEX)
             db.session.execute(text("CREATE INDEX IF NOT EXISTS idx_letter_anon_user_id ON letter(anon_user_id)"))
+            # Moderation metadata (best-effort, safe to run repeatedly)
+            if 'moderation_reason' not in cols:
+                db.session.execute(text("ALTER TABLE letter ADD COLUMN moderation_reason TEXT"))
+            if 'moderation_checked' not in cols:
+                db.session.execute(text("ALTER TABLE letter ADD COLUMN moderation_checked BOOLEAN DEFAULT 0"))
             db.session.commit()
             logger.info("Anonymous inbox schema ensured")
         except Exception as mig_e:
@@ -381,7 +386,25 @@ try:
 
     # --- Moderation helpers ---
     def ai_moderate_letter_content(text: str) -> tuple[bool, str]:
-        """Return (flagged, reason). Uses AI with safe JSON fallback to a keyword scan."""
+        """Return (flagged, reason). Deterministic keyword scan first, then AI JSON."""
+        # Deterministic scan (broad list, quick)
+        lower = (text or '').lower()
+        hard_keywords = [
+            # Self-harm / violence / sexual violence
+            'kill myself','suicide','end my life','hurt myself','self-harm','rape',
+            'kill you','shoot','bomb','terrorist','execute','hang myself','overdose',
+            # Doxxing / illegal
+            'dox','leak address','credit card number','ssn','social security',
+            # Hate slurs (subset)
+            'nigger','faggot','kike','chink','spic',
+            # Pornographic/minors
+            'child porn','cp ','cp\n','loli',
+            # Extreme profanity (subset)
+            'motherfucker','cunt','fuck you'
+        ]
+        for kw in hard_keywords:
+            if kw in lower:
+                return True, f"keyword: {kw}"
         try:
             prompt = (
                 "You are a strict but fair community safety checker. Read the user's entire letter.\n"
@@ -402,15 +425,6 @@ try:
                     pass
         except Exception:
             pass
-        # Fallback: simple keyword scan (very conservative)
-        lower = (text or '').lower()
-        bad_keywords = [
-            'kill myself','suicide','rape','kys','bomb','shoot','hate you',
-            'nigger','faggot','dox','address is','credit card','porn',
-        ]
-        for kw in bad_keywords:
-            if kw in lower:
-                return True, f"keyword: {kw}"
         return False, ''
 
     # Route: Submit letter
@@ -443,6 +457,8 @@ try:
                 # Save to database (but decide moderation status first)
                 flagged, reason = ai_moderate_letter_content(letter.content)
                 letter.is_flagged = True if flagged else False
+                letter.moderation_reason = reason
+                letter.moderation_checked = True
                 db.session.add(letter)
                 # Before commit, optionally generate a concise title
                 try:
@@ -462,7 +478,7 @@ try:
                 
                 # Otherwise show confirmation page (Inbox-based)
                 if letter.is_flagged:
-                    flash('Thanks for sharing. Your letter is under review by our admins to keep the community safe. You\'ll be notified in your Inbox.')
+                    flash("Thanks for sharing. Your letter is under review by our admins to keep the community safe. You'll be notified in your Inbox.")
                 else:
                     flash('Your letter has been submitted. Please check your Inbox for replies.')
                 resp = make_response(redirect(url_for('confirmation', letter_id=letter.unique_id)))
@@ -688,7 +704,10 @@ try:
     @app.route('/volunteer/dashboard')
     @volunteer_required
     def volunteer_dashboard():
-        unprocessed_letters = Letter.query.filter_by(is_processed=False, is_flagged=False).order_by(Letter.created_at).all()
+        # Exclude anything flagged (including potential NULLs) from unprocessed list
+        unprocessed_letters = Letter.query.filter(
+            (Letter.is_processed == False) & (Letter.is_flagged != True)
+        ).order_by(Letter.created_at).all()
         flagged_letters = Letter.query.filter_by(is_flagged=True).order_by(Letter.created_at).all()
         
         return render_template('volunteer/dashboard.html', 

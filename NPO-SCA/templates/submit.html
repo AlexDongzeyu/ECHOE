@@ -151,8 +151,28 @@
             overflow-wrap: anywhere;
             word-break: break-word;
         }
-        .suggestion-inline ul { list-style: disc; list-style-position: outside; margin: 0; padding-left: 22px; text-align: left; }
-        .suggestion-inline li { margin: 8px 0; opacity: .95; text-align: left; text-indent: 0; white-space: normal; hyphens: auto; }
+        .suggestion-inline ul {
+            list-style: disc;
+            list-style-position: outside;
+            margin: 0;
+            padding-left: 26px; /* fixed gutter so bullets align */
+            text-align: left;
+        }
+        .suggestion-inline li {
+            margin: 10px 0;
+            opacity: .95;
+            text-align: left;
+            text-indent: 0;
+            white-space: normal;
+            hyphens: auto;
+            transform-origin: left center;
+            animation: suggestPop .35s ease both;
+        }
+        .suggestion-inline li:nth-child(1){ animation-delay: .02s; }
+        .suggestion-inline li:nth-child(2){ animation-delay: .08s; }
+        .suggestion-inline li:nth-child(3){ animation-delay: .14s; }
+        .suggestion-inline li:nth-child(4){ animation-delay: .20s; }
+        @keyframes suggestPop { from { opacity: 0; transform: translateY(6px) scale(.98);} to { opacity:1; transform: translateY(0) scale(1);} }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
         .write-zone { position: relative; }
         .write-zone textarea {
@@ -401,9 +421,9 @@
                     {{ form.content.label(class="form-label") }}
                     {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or concerns here...") }}
                     <!-- Inline suggestions rail placed inside the letter section -->
-                    <div class="guide-rail" aria-hidden="true" id="guideRail">
+            <div class="guide-rail" aria-hidden="true" id="guideRail">
                         <div class="rail-divider"></div>
-                        <div class="suggestion-inline" id="inlineSuggest" style="top: 64px;">
+                <div class="suggestion-inline" id="inlineSuggest" style="top: 64px;">
                             <ul id="inlineTips">
                                 <li>It's okay to be brief — start with one thought.</li>
                                 <li>Share feelings, not just events.</li>

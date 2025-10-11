@@ -327,10 +327,19 @@
 
         /* Scroll container so users can scroll within the gallery card */
         #igGalleryScroll {
-            max-height: clamp(320px, 60vh, 640px); /* responsive cap */
+            /* Fill the card height so the grid starts at the top */
+            height: 100%;
+            max-height: none;
             overflow-y: auto;
             padding: 8px;
             overscroll-behavior: contain; /* keep page from scrolling when inside */
+            min-height: 0; /* allow flex child to shrink and enable scroll */
+        }
+        /* Ensure the IG gallery card top-aligns content and allows the scroller to expand */
+        #igGalleryCard {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
     
     /* Footer styles for homepage */

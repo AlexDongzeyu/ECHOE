@@ -300,11 +300,12 @@
         }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
 
-        /* Uniform square grid for IG gallery thumbnails */
+        /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 12px;
+            width: 100%;
         }
         .ig-gallery .ig-item {
             position: relative;

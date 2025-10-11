@@ -379,6 +379,40 @@ try:
             app.logger.error(f"api_coach error: {e}")
             return jsonify({'tips': default_tips, 'question': 'What would you like us to understand better?'}), 200
 
+    # --- Moderation helpers ---
+    def ai_moderate_letter_content(text: str) -> tuple[bool, str]:
+        """Return (flagged, reason). Uses AI with safe JSON fallback to a keyword scan."""
+        try:
+            prompt = (
+                "You are a strict but fair community safety checker. Read the user's entire letter.\n"
+                "Decide if it should be suspended for admin review before volunteers see it.\n"
+                "Reasons: hate/harassment, self-harm intent, explicit sexual content, doxxing, threats, spam/scams, minors sexual content, or severe profanity.\n"
+                "Consider context; support-seeking mentions of self-harm without plan can pass.\n"
+                "Respond ONLY in JSON with keys flagged (true/false) and reason (short).\n"
+                f"Letter: '''{text[:6000]}'''\n"
+            )
+            result = generate_ai_response_with_type(prompt, 'moderation')
+            if result:
+                try:
+                    data = json.loads(result)
+                    flagged = bool(data.get('flagged'))
+                    reason = (data.get('reason') or '').strip()
+                    return flagged, reason
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        # Fallback: simple keyword scan (very conservative)
+        lower = (text or '').lower()
+        bad_keywords = [
+            'kill myself','suicide','rape','kys','bomb','shoot','hate you',
+            'nigger','faggot','dox','address is','credit card','porn',
+        ]
+        for kw in bad_keywords:
+            if kw in lower:
+                return True, f"keyword: {kw}"
+        return False, ''
+
     # Route: Submit letter
     @app.route('/submit', methods=['GET', 'POST'])
     def submit():
@@ -406,7 +440,9 @@ try:
                     anon_cookie = str(uuid.uuid4()).replace('-', '')
                 letter.anon_user_id = anon_cookie
                 
-                # Save to database
+                # Save to database (but decide moderation status first)
+                flagged, reason = ai_moderate_letter_content(letter.content)
+                letter.is_flagged = True if flagged else False
                 db.session.add(letter)
                 # Before commit, optionally generate a concise title
                 try:
@@ -425,7 +461,10 @@ try:
                 # AI instant reply path removed per new product decision
                 
                 # Otherwise show confirmation page (Inbox-based)
-                flash('Your letter has been submitted. Please check your Inbox for replies.')
+                if letter.is_flagged:
+                    flash('Thanks for sharing. Your letter is under review by our admins to keep the community safe. You\'ll be notified in your Inbox.')
+                else:
+                    flash('Your letter has been submitted. Please check your Inbox for replies.')
                 resp = make_response(redirect(url_for('confirmation', letter_id=letter.unique_id)))
                 resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                 return resp
@@ -1032,11 +1071,13 @@ try:
         posts = Post.query.order_by(Post.created_at.desc()).all()
         events = Event.query.order_by(Event.event_date.desc()).all()
         
+        flagged_letters = Letter.query.filter_by(is_flagged=True).order_by(Letter.created_at.desc()).all()
         return render_template('admin/content.html',
                              letters=letters,
                              responses=responses,
                              posts=posts,
-                             events=events)
+                             events=events,
+                             flagged_letters=flagged_letters)
 
     @app.route('/admin/letters/<letter_id>/delete', methods=['POST'])
     @admin_required

@@ -42,23 +42,6 @@
     {% endif %}
   </div>
 
-  <div class="content-section">
-    <h2>Flagged Letters</h2>
-    {% if flagged_letters %}
-      <div class="v-grid">
-        {% for letter in flagged_letters %}
-          <div class="v-card" style="border-left:4px solid #e74c3c">
-            <div class="v-title">{{ letter.title or 'Untitled Letter' }}</div>
-            <div class="v-meta">{{ letter.created_at.strftime('%b %d, %Y %H:%M') }} • {{ letter.topic or 'No topic' }}</div>
-            <div class="v-actions">
-              <a href="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}" class="btn-secondary">View & Reply</a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>No flagged letters.</p>
-    {% endif %}
-  </div>
+  <!-- Flagged letters are not visible to volunteers by policy -->
 </div>
 {% endblock %}

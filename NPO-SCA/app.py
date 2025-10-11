@@ -713,11 +713,9 @@ try:
         unprocessed_letters = Letter.query.filter(
             (Letter.is_processed == False) & ((Letter.is_flagged == False) | (Letter.is_flagged.is_(None)))
         ).order_by(Letter.created_at).all()
-        flagged_letters = Letter.query.filter_by(is_flagged=True).order_by(Letter.created_at).all()
-        
+        # Volunteers no longer see flagged letters at all
         return render_template('volunteer/dashboard.html', 
-                              unprocessed_letters=unprocessed_letters,
-                              flagged_letters=flagged_letters)
+                              unprocessed_letters=unprocessed_letters)
 
     # Volunteer route: Respond to letter
     @app.route('/volunteer/letter/<letter_id>', methods=['GET', 'POST'])

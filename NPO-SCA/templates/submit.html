@@ -404,6 +404,10 @@
                 <div class="submission-option active" id="online-option">Online Submission</div>
                 <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
             </div>
+            <div id="offlineBanner" class="note" style="display:none; margin-top:0;">
+                Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email 
+                <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+            </div>
             
             <div class="submission-forms">
                 <div class="form-section active" id="online-form">
@@ -487,6 +491,7 @@
             
             document.getElementById('online-form').classList.add('active');
             document.getElementById('offline-locations').classList.remove('active');
+            document.getElementById('offlineBanner').style.display = 'none';
         });
         
         document.getElementById('offline-option').addEventListener('click', function() {
@@ -497,6 +502,7 @@
             document.getElementById('online-form').classList.remove('active');
             // bring section into view so users see it immediately
             document.getElementById('offline-locations').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('offlineBanner').style.display = 'block';
         });
         
         // Live coaching: analyze textarea as the user types (debounced)

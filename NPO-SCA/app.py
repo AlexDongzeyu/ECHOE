@@ -379,65 +379,56 @@ try:
             payload = request.get_json(silent=True) or {}
             content = (payload.get('content') or '').strip()
             mode = (payload.get('mode') or 'reply').strip()  # 'reply' | 'rephrase'
-            # Default lightweight tips before invoking model
-            default_tips = [
-                "It's okay to be brief — start with one thought.",
-                "Share feelings, not just events.",
-                "Write as if to a caring friend — no need to be perfect.",
-            ]
-            if len(content) < 2:
-                return jsonify({
-                    'tips': default_tips,
-                    'question': 'What feels most important to share right now?'
-                })
 
-            # Ask the model for gentle prompts; never rewrite user's text
-            if mode == 'rephrase':
-                prompt = (
-                    "You are assisting an admin reviewing a flagged letter on E.C.H.O.E.\n"
-                    "Provide 3 concise bullet suggestions to help the user rephrase problematic wording while preserving their feelings.\n"
-                    "Be non-judgmental. Do NOT write the text for them.\n"
-                    "User letter excerpt (do not quote back):\n" + content[:1500] + "\n\n"
-                    "Output bullets only."
-                )
-            else:
-                prompt = (
-                    "You are a supportive reply assistant for volunteers on E.C.H.O.E.\n"
-                    "Given the user's letter excerpt (do not quote back), provide 3 concise reply tips focusing on empathy, reflection, and one gentle next step.\n"
-                    "No diagnoses or medical advice.\n"
-                    "Letter excerpt:\n" + content[:1500]
-                )
+            app.logger.info(f"Coach API called: content='{content[:50]}...', mode={mode}")
 
-            suggestions_text = None
-            # If no model key configured, skip remote call and serve instant heuristic tips
-            _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
-            if _api_key_present:
-                try:
-                    suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
-                except Exception:
-                    suggestions_text = None
+            # Always generate dynamic tips based on content, even if no API key
+            tips, question = _heuristic_coach_suggestions(content, mode)
+            app.logger.info(f"Generated tips: {tips[:2]}..., question: {question}")
 
-            tips, question = [], 'If you’d like, what support would feel helpful right now?'
-            if suggestions_text:
-                lines = [l.strip() for l in suggestions_text.splitlines() if l.strip()]
-                for l in lines:
-                    # Accept common bullet characters or numeric lists
-                    if l.startswith(('- ', '• ', '* ', '– ')) or l[:2].isdigit():
-                        tips.append(l.lstrip('•*-– ').split(' ', 1)[-1].strip())
-                    elif l.lower().startswith('one question:'):
-                        question = l.split(':', 1)[-1].strip() or question
-                if not tips:
-                    # If AI returned prose, fall back to heuristics derived from the user's text
-                    tips, question = _heuristic_coach_suggestions(content, mode)
+            # Try to enhance with AI if key is available
+            if len(content) >= 2:
+                _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
+                if _api_key_present:
+                    try:
+                        # Ask the model for gentle prompts; never rewrite user's text
+                        if mode == 'rephrase':
+                            prompt = (
+                                "You are assisting an admin reviewing a flagged letter on E.C.H.O.E.\n"
+                                "Provide 3 concise bullet suggestions to help the user rephrase problematic wording while preserving their feelings.\n"
+                                "Be non-judgmental. Do NOT write the text for them.\n"
+                                "User letter excerpt (do not quote back):\n" + content[:1500] + "\n\n"
+                                "Output bullets only."
+                            )
+                        else:
+                            prompt = (
+                                "You are a supportive reply assistant for volunteers on E.C.H.O.E.\n"
+                                "Given the user's letter excerpt (do not quote back), provide 3 concise reply tips focusing on empathy, reflection, and one gentle next step.\n"
+                                "No diagnoses or medical advice.\n"
+                                "Letter excerpt:\n" + content[:1500]
+                            )
 
-            # If AI call failed entirely, use heuristic suggestions so UI still feels alive
-            if not tips:
-                tips, question = _heuristic_coach_suggestions(content, mode)
+                        suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
+                        if suggestions_text:
+                            lines = [l.strip() for l in suggestions_text.splitlines() if l.strip()]
+                            ai_tips = []
+                            for l in lines:
+                                # Accept common bullet characters or numeric lists
+                                if l.startswith(('- ', '• ', '* ', '– ')) or l[:2].isdigit():
+                                    ai_tips.append(l.lstrip('•*-– ').split(' ', 1)[-1].strip())
+                                elif l.lower().startswith('one question:'):
+                                    question = l.split(':', 1)[-1].strip() or question
+                            if ai_tips:
+                                tips = ai_tips[:3]  # Use AI tips if available
+                    except Exception as e:
+                        app.logger.warning(f"AI coach enhancement failed: {e}")
 
             return jsonify({'tips': tips[:3], 'question': question})
         except Exception as e:
             app.logger.error(f"api_coach error: {e}")
-            return jsonify({'tips': default_tips, 'question': 'What would you like us to understand better?'}), 200
+            # Fallback even on error
+            tips, question = _heuristic_coach_suggestions(content, mode)
+            return jsonify({'tips': tips[:3], 'question': question}), 200
 
     # --- Moderation helpers ---
     def _deterministic_match(text: str) -> tuple[bool, str]:

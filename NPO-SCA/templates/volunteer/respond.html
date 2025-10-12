@@ -63,23 +63,47 @@
 <script>
 // Live AI suggestions for replies
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Reply page: DOM loaded, initializing coach...');
   const area = document.querySelector('textarea[name="content"]');
   const tipsBox = document.getElementById('replyTips');
+
+  if (!area) {
+    console.error('Reply page: textarea not found!');
+    return;
+  }
+  if (!tipsBox) {
+    console.error('Reply page: tipsBox not found!');
+    return;
+  }
+
+  console.log('Reply page: Elements found, setting up coach...');
+
   let t; let ctrl;
   function debounce(){
-    clearTimeout(t); t = setTimeout(async () => {
+    clearTimeout(t);
+    t = setTimeout(async () => {
       try{
         const payload = { content: area.value || '', mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }} };
+        console.log('Reply page: Calling coach API with content:', payload.content.substring(0, 50) + '...');
         if (ctrl) { try{ ctrl.abort(); }catch(_){} }
         ctrl = new AbortController();
         const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: ctrl.signal});
         const data = await r.json();
+        console.log('Reply page: Coach API response:', data);
         const tips = Array.isArray(data.tips)?data.tips:[];
         tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
-      }catch(e){}
+        if (data.question) {
+          console.log('Reply page: Question:', data.question);
+        }
+      }catch(e){
+        console.error('Reply page: Coach API error:', e);
+      }
     }, 350);
   }
-  if(area){ area.addEventListener('input', debounce); setTimeout(debounce, 200); }
+
+  area.addEventListener('input', debounce);
+  console.log('Reply page: Event listener added');
+  setTimeout(debounce, 200);
 });
 </script>
 {% endblock %}

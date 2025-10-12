@@ -348,28 +348,61 @@ try:
     # Heuristic fallback for coach tips when the AI model/key is unavailable
     def _heuristic_coach_suggestions(content: str, mode: str) -> tuple[list, str]:
         text = (content or '').strip()
-        # Simple feature extraction
-        first_line = (text.split('\n', 1)[0] if text else '')[:140]
-        words = [w for w in first_line.split() if w.isalpha()][:6]
-        reflected = ' '.join(words)
-        # Very light tone detection
+        if not text:
+            return [
+                "It's okay to be brief — start with one thought.",
+                "Share feelings, not just events.",
+                "Write as if to a caring friend — no need to be perfect."
+            ], "What feels most important to share right now?"
+
+        # Analyze the entire content for better suggestions
         lower = text.lower()
-        if any(k in lower for k in ['sad', 'down', 'lonely', 'anxious', 'stress', 'worried']):
+        sentences = [s.strip() for s in text.split('.') if s.strip()][:3]  # First 3 sentences
+        words = [w for w in text.split() if w.isalpha()][:8]  # More words for analysis
+        key_phrases = ' '.join(words[:4]) if words else ''
+
+        # Enhanced tone detection based on full content
+        if any(k in lower for k in ['sad', 'down', 'lonely', 'anxious', 'stress', 'worried', 'depressed', 'hopeless']):
             ack = "It sounds like you're carrying a lot right now."
-        elif any(k in lower for k in ['angry', 'mad', 'frustrat']):
+        elif any(k in lower for k in ['angry', 'mad', 'frustrat', 'annoyed', 'irritated']):
             ack = "Your frustration comes through — that's valid."
+        elif any(k in lower for k in ['happy', 'grateful', 'excited', 'hopeful']):
+            ack = "It's great to hear some positive feelings too."
+        elif any(k in lower for k in ['confused', 'lost', 'unsure', 'dont know']):
+            ack = "It's okay to feel uncertain — many people do."
         else:
             ack = "Thanks for sharing — I'm listening."
 
-        tips = [
-            ack,
-            (f"I'm noticing '{reflected}' — would you like to say a bit more?" if reflected else "Reflect one small detail that matters to you."),
-            ("One gentle next step: write one sentence about what support would feel helpful." if mode != 'rephrase' else "Try softening strong words and stating the feeling + request.")
-        ]
-        question = (
-            "If you’d like, what support would feel helpful right now?" if mode != 'rephrase' 
-            else "What would be a kinder, clearer way to say what you mean?"
-        )
+        # Dynamic tips based on content length and mode
+        if mode == 'rephrase':
+            tips = [
+                ack,
+                f"I'm noticing '{key_phrases}' — would you like to say a bit more about that?" if key_phrases else "Reflect one small detail that matters to you.",
+                "Try softening strong words and stating the feeling + request."
+            ]
+            question = "What would be a kinder, clearer way to say what you mean?"
+        else:
+            if len(text) < 50:
+                tips = [
+                    ack,
+                    f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you.",
+                    "One gentle next step: write one sentence about what support would feel helpful."
+                ]
+            elif len(text) < 150:
+                tips = [
+                    ack,
+                    f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you.",
+                    "Consider sharing how this situation is affecting you emotionally."
+                ]
+            else:
+                tips = [
+                    ack,
+                    "You've shared quite a bit — that's brave.",
+                    "One gentle next step: write one sentence about what support would feel helpful."
+                ]
+
+            question = "If you'd like, what support would feel helpful right now?"
+
         return tips, question
 
     # API: Gentle AI coach for writing guidance (does not change user's words)
@@ -386,8 +419,8 @@ try:
             tips, question = _heuristic_coach_suggestions(content, mode)
             app.logger.info(f"Generated tips: {tips[:2]}..., question: {question}")
 
-            # Try to enhance with AI if key is available
-            if len(content) >= 2:
+            # Try to enhance with AI if key is available and content is substantial
+            if len(content) >= 10:  # Only try AI for longer content
                 _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
                 if _api_key_present:
                     try:
@@ -420,6 +453,7 @@ try:
                                     question = l.split(':', 1)[-1].strip() or question
                             if ai_tips:
                                 tips = ai_tips[:3]  # Use AI tips if available
+                                app.logger.info(f"Using AI tips: {tips[:2]}...")
                     except Exception as e:
                         app.logger.warning(f"AI coach enhancement failed: {e}")
 

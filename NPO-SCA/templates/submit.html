@@ -518,7 +518,7 @@
                     const r = await fetch('/api/coach', {
                         method: 'POST',
                         headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify({ content })
+                        body: JSON.stringify({ content, mode: 'reply' })
                     });
                     const data = await r.json();
                     const tips = Array.isArray(data.tips) ? data.tips : [];
@@ -531,8 +531,8 @@
         }
         if(draftEl){
             draftEl.addEventListener('input', debounceCoach);
-            // prime once at load
-            debounceCoach();
+            // prime once at load (defer slightly for DOM readiness)
+            setTimeout(debounceCoach, 200);
         }
 
         // Support deep-linking to offline view via hash or query param

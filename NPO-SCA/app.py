@@ -358,7 +358,7 @@ try:
                 "Share feelings, not just events.",
                 "Write as if to a caring friend — no need to be perfect.",
             ]
-            if len(content) < 30:
+            if len(content) < 5:
                 return jsonify({
                     'tips': default_tips,
                     'question': 'What feels most important to share right now?'

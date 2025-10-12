@@ -345,6 +345,33 @@ try:
             return render_template(filename)
         return send_from_directory(app.static_folder, filename)
 
+    # Heuristic fallback for coach tips when the AI model/key is unavailable
+    def _heuristic_coach_suggestions(content: str, mode: str) -> tuple[list, str]:
+        text = (content or '').strip()
+        # Simple feature extraction
+        first_line = (text.split('\n', 1)[0] if text else '')[:140]
+        words = [w for w in first_line.split() if w.isalpha()][:6]
+        reflected = ' '.join(words)
+        # Very light tone detection
+        lower = text.lower()
+        if any(k in lower for k in ['sad', 'down', 'lonely', 'anxious', 'stress', 'worried']):
+            ack = "It sounds like you're carrying a lot right now."
+        elif any(k in lower for k in ['angry', 'mad', 'frustrat']):
+            ack = "Your frustration comes through — that's valid."
+        else:
+            ack = "Thanks for sharing — I'm listening."
+
+        tips = [
+            ack,
+            (f"I'm noticing '{reflected}' — would you like to say a bit more?" if reflected else "Reflect one small detail that matters to you."),
+            ("One gentle next step: write one sentence about what support would feel helpful." if mode != 'rephrase' else "Try softening strong words and stating the feeling + request.")
+        ]
+        question = (
+            "If you’d like, what support would feel helpful right now?" if mode != 'rephrase' 
+            else "What would be a kinder, clearer way to say what you mean?"
+        )
+        return tips, question
+
     # API: Gentle AI coach for writing guidance (does not change user's words)
     @app.route('/api/coach', methods=['POST'])
     def api_coach():
@@ -358,7 +385,7 @@ try:
                 "Share feelings, not just events.",
                 "Write as if to a caring friend — no need to be perfect.",
             ]
-            if len(content) < 5:
+            if len(content) < 2:
                 return jsonify({
                     'tips': default_tips,
                     'question': 'What feels most important to share right now?'
@@ -391,12 +418,18 @@ try:
             if suggestions_text:
                 lines = [l.strip() for l in suggestions_text.splitlines() if l.strip()]
                 for l in lines:
-                    if l.startswith('- '):
-                        tips.append(l[2:].strip())
+                    # Accept common bullet characters or numeric lists
+                    if l.startswith(('- ', '• ', '* ', '– ')) or l[:2].isdigit():
+                        tips.append(l.lstrip('•*-– ').split(' ', 1)[-1].strip())
                     elif l.lower().startswith('one question:'):
                         question = l.split(':', 1)[-1].strip() or question
                 if not tips:
-                    tips = default_tips
+                    # If AI returned prose, fall back to heuristics derived from the user's text
+                    tips, question = _heuristic_coach_suggestions(content, mode)
+
+            # If AI call failed entirely, use heuristic suggestions so UI still feels alive
+            if not tips:
+                tips, question = _heuristic_coach_suggestions(content, mode)
 
             return jsonify({'tips': tips[:3], 'question': question})
         except Exception as e:

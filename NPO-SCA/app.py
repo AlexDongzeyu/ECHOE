@@ -19,6 +19,7 @@ import time
 from flask_socketio import SocketIO, emit
 import random
 from flask_migrate import Migrate
+import re
 import xml.etree.ElementTree as ET
 
 from config import Config
@@ -355,14 +356,23 @@ try:
                 "Write as if to a caring friend — no need to be perfect."
             ], "What feels most important to share right now?"
 
-        # Analyze the entire content for better suggestions
+        # Focus on the most recent part of the text so guidance evolves as user types
         lower = text.lower()
-        sentences = [s.strip() for s in text.split('.') if s.strip()][:3]  # First 3 sentences
-        words = [w for w in text.split() if w.isalpha()][:8]  # More words for analysis
-        key_phrases = ' '.join(words[:4]) if words else ''
+        recent = lower[-160:]
+        # Try last sentence-like clause from ., !, ? or newline
+        for sep in ['\n', '.', '!', '?']:
+            if sep in recent:
+                recent = recent.split(sep)[-1]
+        # Basic keyword extraction from recent clause
+        tokens = re.findall(r"[a-zA-Z']+", recent)
+        stop = {
+            'the','and','a','to','of','is','in','it','i','im','am','are','was','were','be','for','on','at','this','that','with','as','but','so','just','very','really','now','about','my','me','we','you','they'
+        }
+        key_words = [t for t in tokens if t not in stop][:6]
+        key_phrases = ' '.join(key_words[:4]) if key_words else ''
 
         # Enhanced tone detection based on full content
-        if any(k in lower for k in ['sad', 'down', 'lonely', 'anxious', 'stress', 'worried', 'depressed', 'hopeless']):
+        if any(k in lower for k in ['sad', 'down', 'lonely', 'anxious', 'anxiety', 'stress', 'stressed', 'worried', 'depressed', 'hopeless']):
             ack = "It sounds like you're carrying a lot right now."
         elif any(k in lower for k in ['angry', 'mad', 'frustrat', 'annoyed', 'irritated']):
             ack = "Your frustration comes through — that's valid."
@@ -373,11 +383,44 @@ try:
         else:
             ack = "Thanks for sharing — I'm listening."
 
+        # Domain hints for more specific next-step guidance
+        domain = None
+        if any(k in lower for k in ['exam','exams','test','tests','school','teacher','class','homework','assignment']):
+            domain = 'school'
+        elif any(k in lower for k in ['friend','friends','alone','bully','bullying','relationship']):
+            domain = 'social'
+        elif any(k in lower for k in ['parent','parents','mom','dad','family','home']):
+            domain = 'family'
+        elif any(k in lower for k in ['panic','anxiety','overwhelmed','worry']):
+            domain = 'anxiety'
+
+        def domain_next_step() -> str:
+            if domain == 'school':
+                return "One gentle next step: write one sentence about what would make school feel a little safer or easier this week."
+            if domain == 'social':
+                return "Consider one small connection you might want — a message to a friend or a question you'd like to ask."
+            if domain == 'family':
+                return "If you're comfortable, name one feeling you'd like your family to understand about your situation."
+            if domain == 'anxiety':
+                return "Try a grounding step: describe one sensation you notice (sight, sound, touch) and how it affects you."
+            return "One gentle next step: write one sentence about what support would feel helpful."
+
+        def domain_question() -> str:
+            if domain == 'school':
+                return "What's one small change at school that might help you breathe a bit easier?"
+            if domain == 'social':
+                return "Is there someone you'd feel okay reaching out to, even with a short message?"
+            if domain == 'family':
+                return "If you could tell your family one sentence about how you're feeling, what would it be?"
+            if domain == 'anxiety':
+                return "When anxiety rises, what helps even a tiny bit — breath, movement, or a reassuring thought?"
+            return "If you'd like, what support would feel helpful right now?"
+
         # Dynamic tips based on content length and mode
         if mode == 'rephrase':
             tips = [
                 ack,
-                f"I'm noticing '{key_phrases}' — would you like to say a bit more about that?" if key_phrases else "Reflect one small detail that matters to you.",
+                (f"I'm noticing '{key_phrases}' — would you like to say a bit more about that?" if key_phrases else "Reflect one small detail that matters to you."),
                 "Try softening strong words and stating the feeling + request."
             ]
             question = "What would be a kinder, clearer way to say what you mean?"
@@ -385,23 +428,23 @@ try:
             if len(text) < 50:
                 tips = [
                     ack,
-                    f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you.",
-                    "One gentle next step: write one sentence about what support would feel helpful."
+                    (f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you."),
+                    domain_next_step()
                 ]
             elif len(text) < 150:
                 tips = [
                     ack,
-                    f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you.",
-                    "Consider sharing how this situation is affecting you emotionally."
+                    (f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Reflect one small detail that matters to you."),
+                    ("Consider sharing how this situation is affecting you emotionally." if domain is None else domain_next_step())
                 ]
             else:
                 tips = [
                     ack,
                     "You've shared quite a bit — that's brave.",
-                    "One gentle next step: write one sentence about what support would feel helpful."
+                    domain_next_step()
                 ]
 
-            question = "If you'd like, what support would feel helpful right now?"
+            question = domain_question()
 
         return tips, question
 

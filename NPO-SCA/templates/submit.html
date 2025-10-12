@@ -510,24 +510,28 @@
         const tipsEl = document.getElementById('inlineTips');
         const questionEl = document.getElementById('inlineQuestion');
         let coachTimer;
+        let coachAbort;
         function debounceCoach(){
             clearTimeout(coachTimer);
             coachTimer = setTimeout(async () => {
                 try{
                     const content = draftEl.value || '';
+                    if (coachAbort) { try{ coachAbort.abort(); }catch(_){} }
+                    coachAbort = new AbortController();
                     const r = await fetch('/api/coach', {
                         method: 'POST',
                         headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify({ content, mode: 'reply' })
+                        body: JSON.stringify({ content, mode: 'reply' }),
+                        signal: coachAbort.signal
                     });
                     const data = await r.json();
                     const tips = Array.isArray(data.tips) ? data.tips : [];
                     tipsEl.innerHTML = '<ul style="margin:0 0 10px 18px; line-height:1.7;">' +
                         tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('') +
                         '</ul>';
-                    if(data.question){ questionEl.textContent = data.question; }
+                    if(data.question && questionEl){ questionEl.textContent = data.question; }
                 }catch(e){ /* ignore transient errors */ }
-            }, 500);
+            }, 350);
         }
         if(draftEl){
             draftEl.addEventListener('input', debounceCoach);

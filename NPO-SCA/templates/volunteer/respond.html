@@ -65,17 +65,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   const area = document.querySelector('textarea[name="content"]');
   const tipsBox = document.getElementById('replyTips');
-  let t;
+  let t; let ctrl;
   function debounce(){
     clearTimeout(t); t = setTimeout(async () => {
       try{
         const payload = { content: area.value || '', mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }} };
-        const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        if (ctrl) { try{ ctrl.abort(); }catch(_){} }
+        ctrl = new AbortController();
+        const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: ctrl.signal});
         const data = await r.json();
         const tips = Array.isArray(data.tips)?data.tips:[];
         tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
       }catch(e){}
-    }, 500);
+    }, 350);
   }
   if(area){ area.addEventListener('input', debounce); setTimeout(debounce, 200); }
 });

@@ -761,6 +761,10 @@ try:
             
             # Update letter status and notify anon owner
             letter.is_processed = True
+            # If an admin or volunteer replies to a flagged letter during review,
+            # consider it resolved from the suspension queue so the red dot clears.
+            if letter.is_flagged:
+                letter.is_flagged = False
             letter.has_unread = True
             letter.responder_id = current_user.id
             

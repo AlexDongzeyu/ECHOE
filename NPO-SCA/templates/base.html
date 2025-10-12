@@ -660,8 +660,11 @@
                         </a></li>
                     {% endif %}
                     {% if current_user.is_volunteer or current_user.has_admin_access() %}
-                        <li><a href="{{ url_for('volunteer_dashboard') }}">
+                        <li><a href="{{ url_for('volunteer_dashboard') }}" style="position:relative;">
                             <i class="fas fa-tachometer-alt" style="margin-right: 5px;"></i>Volunteer Dashboard
+                            {% if unprocessed_count and unprocessed_count > 0 %}
+                              <span style="position:absolute; top:-6px; right:-6px; width:10px; height:10px; background:#e74c3c; border-radius:50%; display:inline-block;"></span>
+                            {% endif %}
                         </a></li>
                     {% endif %}
                     <li><a href="{{ url_for('logout') }}" class="logout-btn">

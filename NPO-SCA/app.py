@@ -69,12 +69,16 @@ try:
     migrate = Migrate(app, db)
     
     @app.context_processor
-    def inject_flagged_count():
+    def inject_nav_counts():
         try:
-            cnt = Letter.query.filter_by(is_flagged=True).count()
+            flagged_cnt = Letter.query.filter_by(is_flagged=True).count()
+            unprocessed_cnt = Letter.query.filter(
+                (Letter.is_processed == False) & ((Letter.is_flagged == False) | (Letter.is_flagged.is_(None)))
+            ).count()
         except Exception:
-            cnt = 0
-        return dict(flagged_count=cnt)
+            flagged_cnt = 0
+            unprocessed_cnt = 0
+        return dict(flagged_count=flagged_cnt, unprocessed_count=unprocessed_cnt)
     
     # Ensure instance folder exists and create database tables
     def _ensure_anon_inbox_schema():

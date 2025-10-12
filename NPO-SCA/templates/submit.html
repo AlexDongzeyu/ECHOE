@@ -449,25 +449,9 @@
                 </div>
                 
                 <div class="form-section" id="offline-locations">
-                    <h3>Find Our Physical Mailboxes</h3>
-                    <p>You can write a letter by hand and drop it in one of our tree hole mailboxes located across Canada:</p>
-                    
-                    <div class="mailbox-locations">
-                {% for mailbox in mailboxes %}
-                        <div class="location-item">
-                    <h4>{{ mailbox.name }}</h4>
-                    <p>{{ mailbox.address }}, {{ mailbox.city }}, {{ mailbox.province }}</p>
-                    {% if mailbox.description %}
-                    <p>{{ mailbox.description }}</p>
-                    {% endif %}
-                    {% if mailbox.operating_hours %}
-                    <p><strong>Hours:</strong> {{ mailbox.operating_hours }}</p>
-                    {% endif %}
-                </div>
-                {% endfor %}
-                        
-                <p class="note">More locations coming soon! If you'd like to host a mailbox at your community centre, <a href="{{ url_for('contact') }}">please contact us</a>.</p>
-                    </div>
+                    <h3>Physical Mailboxes — Coming Soon</h3>
+                    <p>We’re currently securing locations for in-person “tree hole” mailboxes across Canada.</p>
+                    <p class="note">Interested in hosting a mailbox at your school or community centre? Email <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.</p>
                 </div>
             </div>
             

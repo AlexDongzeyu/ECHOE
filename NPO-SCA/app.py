@@ -347,6 +347,7 @@ try:
         try:
             payload = request.get_json(silent=True) or {}
             content = (payload.get('content') or '').strip()
+            mode = (payload.get('mode') or 'reply').strip()  # 'reply' | 'rephrase'
             # Default lightweight tips before invoking model
             default_tips = [
                 "It's okay to be brief — start with one thought.",
@@ -360,15 +361,21 @@ try:
                 })
 
             # Ask the model for gentle prompts; never rewrite user's text
-            prompt = (
-                "You are a supportive writing coach for an anonymous letter portal called E.C.H.O.E.\n"
-                "User draft (do not rewrite, do not quote fully, just read to orient):\n" + content[:1500] + "\n\n"
-                "In 3 short bullet prompts (max 14 words each), offer gentle ways the writer could expand.\n"
-                "Then one reflective question starting with 'One question:'.\n"
-                "Rules: no judgment; do not change the user's wording; do not give advice;\n"
-                "focus on feelings, context, needs, and what support would help.\n"
-                "Output format:\n- prompt 1\n- prompt 2\n- prompt 3\nOne question: <single short question>\n"
-            )
+            if mode == 'rephrase':
+                prompt = (
+                    "You are assisting an admin reviewing a flagged letter on E.C.H.O.E.\n"
+                    "Provide 3 concise bullet suggestions to help the user rephrase problematic wording while preserving their feelings.\n"
+                    "Be non-judgmental. Do NOT write the text for them.\n"
+                    "User letter excerpt (do not quote back):\n" + content[:1500] + "\n\n"
+                    "Output bullets only."
+                )
+            else:
+                prompt = (
+                    "You are a supportive reply assistant for volunteers on E.C.H.O.E.\n"
+                    "Given the user's letter excerpt (do not quote back), provide 3 concise reply tips focusing on empathy, reflection, and one gentle next step.\n"
+                    "No diagnoses or medical advice.\n"
+                    "Letter excerpt:\n" + content[:1500]
+                )
 
             suggestions_text = None
             try:

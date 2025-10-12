@@ -2,54 +2,76 @@
 
 {% block title %}Respond to Letter - {{ super() }}{% endblock %}
 
+{% block styles %}
+<style>
+  .form-container{max-width:1100px;margin:1rem auto 3rem;padding:2.5rem;background:linear-gradient(180deg,rgba(159,197,203,.18),rgba(248,210,156,.18));border-radius:20px;box-shadow:0 10px 36px rgba(42,61,102,.14);position:relative}
+  .framed-inner{border:1px solid rgba(159,197,203,.35);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.92))}
+  .compose-wrap{position:relative;max-width:860px;margin:0 auto}
+  .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:none}
+  .suggestion-inline{position:absolute;right:12px;top:16px;width:calc(100% - 24px);font-family:'Sriracha','Brush Script MT',cursive;color:rgba(159,197,203,.95);pointer-events:none;overflow-wrap:anywhere;word-break:break-word}
+  .suggestion-inline ul{list-style:disc outside;margin:0 0 10px 18px}
+  .write-zone textarea{padding-right:38%!important;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+  .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap}
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1>Respond to Letter</h1>
-    
-    <div class="letter-content">
-        <h2>Original Letter</h2>
-        <p><strong>Topic:</strong> {{ letter.topic or 'N/A' }}</p>
-        <p><strong>Submitted:</strong> {{ letter.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
-        <hr>
-        <div>
-            {{ letter.content }}
+<div class="form-container">
+  <h1>Respond to Letter</h1>
+  <div class="framed-inner" style="margin-bottom:16px">
+    <h3 style="margin-bottom:8px">Original Letter</h3>
+    <div class="letter-box">{{ letter.content }}</div>
+  </div>
+
+  <div class="framed-inner">
+    <div class="compose-wrap">
+      <form method="POST" action="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group write-zone">
+          {{ form.content.label(class="form-label") }}
+          {{ form.content(class="form-control", placeholder="Write a caring, respectful reply...") }}
+          <div class="guide-rail" aria-hidden="true">
+            <div class="suggestion-inline" id="replyTips">
+              <ul>
+                {% if letter.is_flagged %}
+                  <li>Gently explain community guidelines and why the wording was flagged.</li>
+                  <li>Invite the writer to rephrase while preserving their feelings.</li>
+                  <li>Offer help resources when appropriate.</li>
+                {% else %}
+                  <li>Acknowledge the feeling you notice first.</li>
+                  <li>Reflect one detail to show careful reading.</li>
+                  <li>Offer one gentle next step or resource.</li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
         </div>
+        {{ form.submit(class='btn-primary') }}
+      </form>
     </div>
-
-    {% if previous_responses %}
-    <div class="previous-responses">
-        <h2>Previous Responses</h2>
-        {% for response in previous_responses %}
-            <div class="response-item">
-                <p><strong>{{ response.response_type|capitalize }} response on {{ response.created_at.strftime('%Y-%m-%d') }}:</strong></p>
-                <div>{{ response.content }}</div>
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="response-form">
-        <h2>Your Reply</h2>
-        <form method="POST" action="{{ url_for('respond_to_letter', letter_id=letter.unique_id) }}">
-            {{ form.hidden_tag() }}
-            <div>
-                {{ form.content.label }}<br>
-                {{ form.content(rows=15, cols=80) }}
-                {% for error in form.content.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-            <div>
-                {{ form.response_type.label }}<br>
-                {{ form.response_type() }}
-                {% for error in form.response_type.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-            <div>
-                {{ form.submit(class='btn-primary') }}
-            </div>
-        </form>
-    </div>
+  </div>
 </div>
-{% endblock %} 
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Live AI suggestions for replies
+document.addEventListener('DOMContentLoaded', () => {
+  const area = document.querySelector('textarea[name="content"]');
+  const tipsBox = document.getElementById('replyTips');
+  let t;
+  function debounce(){
+    clearTimeout(t); t = setTimeout(async () => {
+      try{
+        const payload = { content: area.value, mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }} };
+        const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        const data = await r.json();
+        const tips = Array.isArray(data.tips)?data.tips:[];
+        tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
+      }catch(e){}
+    }, 500);
+  }
+  if(area){ area.addEventListener('input', debounce); debounce(); }
+});
+</script>
+{% endblock %}

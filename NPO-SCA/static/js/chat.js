@@ -234,6 +234,11 @@ function setupChatEvents() {
     const voiceToggle = document.getElementById('voiceToggle');
     const responseTypeLinks = document.querySelectorAll('.dropdown-content a');
 
+    // Gracefully exit if elements don't exist (not on a chat-enabled page)
+    if (!chatButton || !chatClose || !messageInput || !voiceToggle) {
+        return;
+    }
+
     chatButton.addEventListener('click', () => {
         chatButton.classList.add('active');
         chatContainer.classList.add('active');

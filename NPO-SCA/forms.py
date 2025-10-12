@@ -56,12 +56,14 @@ class LetterForm(FlaskForm):
 class ResponseForm(FlaskForm):
     content = TextAreaField('Your Response', 
                            validators=[DataRequired(), Length(min=5, max=5000)])
-    
+
+    # Optional: default to human-only (UI no longer exposes options)
     response_type = SelectField('Response Type',
                                choices=[('human', 'Human Only'),
                                        ('ai-assisted', 'AI Assisted'),
                                        ('hybrid', 'Hybrid (Include AI response)')],
-                               validators=[DataRequired()])
+                               default='human',
+                               validators=[Optional()])
     
     submit = SubmitField('Send Response')
 

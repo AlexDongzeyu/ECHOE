@@ -573,7 +573,7 @@ try:
     # Internal function: Generate AI response
     def generate_ai_response(message):
         try:
-            api_key = app.config['GEMINI_API_KEY']
+            api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
             
             payload = {
@@ -866,7 +866,7 @@ try:
     # Internal function: Generate AI response of specified type
     def generate_ai_response_with_type(message, response_type):
         try:
-            api_key = app.config['GEMINI_API_KEY']
+            api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
             
             prompt_prefix = "You are a supportive AI companion for the E.C.H.O.E mental health platform (Empathy, Connection, Hope, Outreach, Empowerment). "

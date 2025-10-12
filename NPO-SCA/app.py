@@ -409,10 +409,13 @@ try:
                 )
 
             suggestions_text = None
-            try:
-                suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
-            except Exception:
-                suggestions_text = None
+            # If no model key configured, skip remote call and serve instant heuristic tips
+            _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
+            if _api_key_present:
+                try:
+                    suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
+                except Exception:
+                    suggestions_text = None
 
             tips, question = [], 'If you’d like, what support would feel helpful right now?'
             if suggestions_text:

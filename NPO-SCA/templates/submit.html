@@ -420,6 +420,9 @@
                         <div class="form-group write-zone">
                     {{ form.content.label(class="form-label") }}
                     {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or concerns here...") }}
+                    {% if form.content.errors %}
+                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.content.errors[0] }}</div>
+                    {% endif %}
                     <!-- Inline suggestions rail placed inside the letter section -->
             <div class="guide-rail" aria-hidden="true" id="guideRail">
                         <div class="rail-divider"></div>
@@ -436,6 +439,9 @@
                         <div class="form-group">
                     {{ form.reply_method.label(class="form-label") }}
                     {{ form.reply_method(class="form-control", id="reply-method") }}
+                    {% if form.reply_method.errors %}
+                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.reply_method.errors[0] }}</div>
+                    {% endif %}
                         </div>
                         
                         <div class="form-group" id="email-container" style="display: none;">
@@ -449,9 +455,10 @@
                 </div>
                 
                 <div class="form-section" id="offline-locations">
-                    <h3>Physical Mailboxes — Coming Soon</h3>
-                    <p>We’re currently securing locations for in-person “tree hole” mailboxes across Canada.</p>
-                    <p class="note">Interested in hosting a mailbox at your school or community centre? Email <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.</p>
+                    <h3>Find Physical Mailboxes</h3>
+                    <div class="note" style="margin-top:0">
+                        Physical mailboxes are coming soon — we’re confirming locations now. If you’re interested in hosting one, email <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+                    </div>
                 </div>
             </div>
             
@@ -488,6 +495,8 @@
             
             document.getElementById('offline-locations').classList.add('active');
             document.getElementById('online-form').classList.remove('active');
+            // bring section into view so users see it immediately
+            document.getElementById('offline-locations').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         
         // Live coaching: analyze textarea as the user types (debounced)
@@ -520,6 +529,13 @@
             debounceCoach();
         }
 
+        // Support deep-linking to offline view via hash or query param
+        (function(){
+            const params = new URLSearchParams(location.search);
+            if (location.hash === '#offline' || params.get('offline') === '1') {
+                document.getElementById('offline-option').click();
+            }
+        })();
         // No card toggle; inline rail stays inside the frame
     </script>
 {% endblock %} 

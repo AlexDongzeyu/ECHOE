@@ -418,6 +418,13 @@ try:
 
         # Dynamic tips based on content length and mode
         if mode == 'rephrase':
+            # Acknowledge phrasing variety by hashing recent text
+            ack_templates = [
+                "It sounds like you're carrying a lot right now.",
+                "I hear the weight in what you're sharing.",
+                "Thank you for trusting us with this — it's a lot to hold."
+            ]
+            ack = ack_templates[abs(hash(recent)) % len(ack_templates)]
             tips = [
                 ack,
                 (f"I'm noticing '{key_phrases}' — would you like to say a bit more about that?" if key_phrases else "Reflect one small detail that matters to you."),
@@ -425,6 +432,12 @@ try:
             ]
             question = "What would be a kinder, clearer way to say what you mean?"
         else:
+            ack_templates = [
+                ack,
+                "Thanks for sharing — I'm listening.",
+                "You're not alone in feeling this way; I'm here with you."
+            ]
+            ack = ack_templates[abs(hash(recent)) % len(ack_templates)]
             if len(text) < 50:
                 tips = [
                     ack,
@@ -500,12 +513,17 @@ try:
                     except Exception as e:
                         app.logger.warning(f"AI coach enhancement failed: {e}")
 
-            return jsonify({'tips': tips[:3], 'question': question})
+            # Ensure the guiding question is also available as a final bullet
+            if question and (not tips or tips[-1] != question):
+                tips = (tips or []) + [question]
+            return jsonify({'tips': tips[:4], 'question': question})
         except Exception as e:
             app.logger.error(f"api_coach error: {e}")
             # Fallback even on error
             tips, question = _heuristic_coach_suggestions(content, mode)
-            return jsonify({'tips': tips[:3], 'question': question}), 200
+            if question and (not tips or tips[-1] != question):
+                tips = (tips or []) + [question]
+            return jsonify({'tips': tips[:4], 'question': question}), 200
 
     # --- Moderation helpers ---
     def _deterministic_match(text: str) -> tuple[bool, str]:

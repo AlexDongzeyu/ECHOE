@@ -55,7 +55,7 @@ class LetterForm(FlaskForm):
 
 class ResponseForm(FlaskForm):
     content = TextAreaField('Your Response', 
-                           validators=[DataRequired(), Length(min=10, max=5000)])
+                           validators=[DataRequired(), Length(min=5, max=5000)])
     
     response_type = SelectField('Response Type',
                                choices=[('human', 'Human Only'),

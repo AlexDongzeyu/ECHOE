@@ -417,7 +417,14 @@ try:
             return "If you'd like, what support would feel helpful right now?"
 
         # Dynamic tips based on content length and mode
-        if mode == 'rephrase':
+        if mode == 'write':
+            tips = [
+                "It's okay to be brief — start with one thought.",
+                (f"I'm noticing '{key_phrases}' — would you like to say a bit more?" if key_phrases else "Share feelings, not just events."),
+                "Write as if to a caring friend — no need to be perfect."
+            ]
+            question = domain_question()
+        elif mode == 'rephrase':
             # Acknowledge phrasing variety by hashing recent text
             ack_templates = [
                 "It sounds like you're carrying a lot right now.",
@@ -489,6 +496,15 @@ try:
                             f"Original letter (context for issues):\n'''{letter_ctx}'''\n\n"
                             f"Reviewer notes / latest typing (focus):\n'''{recent}'''\n"
                         )
+                    elif mode == 'write':
+                        prompt = (
+                            "You are a supportive writing coach for the E.C.H.O.E. platform.\n"
+                            "Task: Guide a human who is WRITING their own letter.\n"
+                            "Rules: Do NOT write text for them; give brief coaching prompts only.\n"
+                            "Output 3-4 short bullet tips (no intro/outro), <= 18 words each.\n"
+                            f"What they've written so far (full context):\n'''{letter_ctx}'''\n\n"
+                            f"Latest typing (focus first):\n'''{recent}'''\n"
+                        )
                     else:  # reply
                         prompt = (
                             "You are a supportive reply coach for E.C.H.O.E. volunteers.\n"
@@ -518,7 +534,7 @@ try:
                         if not ai_tips and '•' in ai_text:
                             ai_tips = [seg.strip() for seg in ai_text.split('•') if seg.strip()]
                     if ai_tips:
-                        tips = ai_tips[:3]
+                        tips = ai_tips[:4]
                 except Exception as e:
                     app.logger.warning(f"Gemini coach call failed: {e}")
 

@@ -97,6 +97,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }); 
   }
   if (suggestClose) { suggestClose.addEventListener('click', ()=>{ tipsBox.classList.add('hidden'); suggestToggle.classList.remove('hidden'); }); }
+
+  // Continuous updates like submit page
+  let lastCallAt = 0;
+  const DEBOUNCE_MS = 1200;
+  const PERIODIC_MS = 6000;
+  const CALL_COOLDOWN = 3500;
+  let debounceT;
+  function shouldCall(){ return (Date.now() - lastCallAt) > CALL_COOLDOWN; }
+  area.addEventListener('input', () => {
+    clearTimeout(debounceT);
+    debounceT = setTimeout(() => loadTips(), DEBOUNCE_MS);
+  });
+  setInterval(()=>{ if(!tipsBox.classList.contains('hidden') && shouldCall()) loadTips(); }, PERIODIC_MS);
+
+  // Auto-load once on page open (volunteer flow)
+  setTimeout(()=>{ if(shouldCall()) loadTips(); }, 400);
 });
 </script>
 {% endblock %}

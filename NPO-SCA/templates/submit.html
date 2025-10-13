@@ -451,7 +451,7 @@
             <div class="guide-rail" aria-hidden="true" id="guideRail">
                         <button type="button" id="suggestionToggle" class="suggestion-toggle-btn">💬 Need ideas? Click for suggestions</button>
                         <div class="rail-divider"></div>
-                <div class="suggestion-inline hidden" id="inlineSuggest" style="top: 64px;">
+                <div class="suggestion-inline hidden" id="inlineSuggest">
                             <button type="button" id="suggestionClose" class="suggestion-close" aria-label="Hide">✕</button>
                             <ul id="inlineTips">
                                 <li>It's okay to be brief — start with one thought.</li>
@@ -566,10 +566,20 @@
                 });
             }
 
-            async function loadTips(){
+            let lastCallAt = 0;
+            const DEBOUNCE_MS = 1200; // user pause
+            const PERIODIC_MS = 6000; // background refresh
+            const CALL_COOLDOWN = 3500; // minimum gap between calls
+            let debounceT;
+
+            function shouldCall(){ return (Date.now() - lastCallAt) > CALL_COOLDOWN; }
+
+            async function loadTips(force=false){
                 try{
+                    if(!force && !shouldCall()) return;
                     const content = draftEl.value || '';
                     const r = await fetch('/api/coach', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ content, mode: 'write' })});
+                    lastCallAt = Date.now();
                     const data = await r.json();
                     const tips = Array.isArray(data.tips) ? data.tips : [];
                     tipsEl.innerHTML = tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
@@ -589,6 +599,13 @@
                     suggestToggle.classList.remove('hidden');
                 });
             }
+
+            // Continuous updates: debounce on typing + periodic background refresh
+            draftEl.addEventListener('input', () => {
+                clearTimeout(debounceT);
+                debounceT = setTimeout(() => loadTips(true), DEBOUNCE_MS);
+            });
+            setInterval(() => loadTips(false), PERIODIC_MS);
 
             // Support deep-linking to offline view via hash or query param
             (function(){

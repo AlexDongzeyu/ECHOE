@@ -76,26 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  let lastCallAt = 0;
   const DEBOUNCE_MS = 1200; // user pause
   const PERIODIC_MS = 6000; // background refresh
-  const CALL_COOLDOWN = 3500; // minimum gap
   let debounceT;
   const mode = {{ '"rephrase"' if letter.is_flagged else '"reply"' }};
   const letterCtx = {{ letter.content|tojson }};
 
-  function shouldCall(){ return (Date.now() - lastCallAt) > CALL_COOLDOWN; }
-
   async function loadTips(force=false){
     try{
-      if(!force && !shouldCall()) return;
       // Seed with letter content if volunteer hasn't typed yet so tips show immediately
       const content = (draftEl.value && draftEl.value.trim().length>0) ? draftEl.value : (letterCtx || '').slice(0, 400);
       const r = await fetch('/api/coach', {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ content, mode, letter: letterCtx })
       });
-      lastCallAt = Date.now();
       const data = await r.json();
       const tips = Array.isArray(data.tips) ? data.tips : [];
       tipsEl.innerHTML = (tips.length ? tips : [
@@ -115,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(debounceT);
     debounceT = setTimeout(() => loadTips(true), DEBOUNCE_MS);
   });
-  setInterval(() => loadTips(false), PERIODIC_MS);
+  setInterval(() => loadTips(true), PERIODIC_MS);
 
   // Prime once and ensure visible (since button removed)
   suggestBox.classList.remove('hidden');
-  setTimeout(() => { if(shouldCall()) loadTips(true); }, 200);
+  setTimeout(() => { loadTips(true); }, 200);
 });
 </script>
 {% endblock %}

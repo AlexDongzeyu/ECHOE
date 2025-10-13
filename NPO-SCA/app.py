@@ -522,13 +522,13 @@ try:
                 except Exception as e:
                     app.logger.warning(f"Gemini coach call failed: {e}")
 
-            # Return exactly 3 bullets; question returned separately for UIs that want it
-            return jsonify({'tips': tips[:3], 'question': question})
+            # Return up to 4 bullets to support denser guidance
+            return jsonify({'tips': tips[:4], 'question': question})
         except Exception as e:
             app.logger.error(f"api_coach error: {e}")
             # Fallback even on error
             tips, question = _heuristic_coach_suggestions(content, mode)
-            return jsonify({'tips': tips[:3], 'question': question}), 200
+            return jsonify({'tips': tips[:4], 'question': question}), 200
 
     # --- Moderation helpers ---
     def _deterministic_match(text: str) -> tuple[bool, str]:
@@ -611,6 +611,8 @@ try:
                 letter.moderation_reason = reason
                 letter.moderation_checked = True
                 db.session.add(letter)
+                # Ensure the letter has an id/unique_id persisted before redirect
+                db.session.flush()
                 # Before commit, optionally generate a concise title
                 try:
                     generated = generate_ai_response_with_type(
@@ -623,7 +625,8 @@ try:
                         letter.title = (clean[:140] if clean else None)
                 except Exception:
                     pass
-                    db.session.commit()
+                # Commit after possible title generation to ensure unique_id is saved
+                db.session.commit()
                     
                 # AI instant reply path removed per new product decision
                 

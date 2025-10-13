@@ -12,7 +12,8 @@
   .suggestion-inline ul{list-style:disc outside;margin:0 0 10px 18px}
   .write-zone textarea{padding-right:38%!important;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
   .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap}
-  .suggestion-toggle-btn{position:absolute;right:8px;top:-6px;z-index:2;background:rgba(159,197,203,.18);border:1px solid rgba(159,197,203,.45);color:var(--deep-indigo);font-weight:700;border-radius:18px;padding:6px 10px;cursor:pointer}
+  .suggestion-toggle-btn{position:absolute;right:8px;top:-6px;z-index:2;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:22px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35)}
+  .suggestion-toggle-btn:hover{transform:translateY(-2px)}
   .suggestion-close{position:absolute;right:6px;top:6px;pointer-events:auto;cursor:pointer;background:transparent;border:none;color:rgba(42,61,102,.6);font-weight:800}
   .suggestion-inline.hidden{display:none}
   /* Match writing page inputs */
@@ -66,7 +67,7 @@
 
 {% block scripts %}
 <script>
-// Live AI suggestions for replies
+// On-demand suggestions for replies (3–4 tips)
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Reply page: DOM loaded, initializing coach...');
   const area = document.querySelector('textarea[name="content"]');
@@ -85,36 +86,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Reply page: Elements found, setting up coach...');
 
-  // Toggle show/hide suggestions
-  if (suggestToggle) { suggestToggle.addEventListener('click', ()=> tipsBox.classList.remove('hidden')); }
+  // Toggle show/hide suggestions and load on click
+  if (suggestToggle) { 
+    suggestToggle.addEventListener('click', async ()=>{ 
+      tipsBox.classList.remove('hidden');
+      await loadTips();
+    }); 
+  }
   if (suggestClose) { suggestClose.addEventListener('click', ()=> tipsBox.classList.add('hidden')); }
 
-  let t; let ctrl;
-  function debounce(){
-    clearTimeout(t);
-    t = setTimeout(async () => {
-      try{
-        const payload = { content: area.value || '', mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }}, letter: `{{ letter.content|replace('\n','\\n') }}` };
-        console.log('Reply page: Calling coach API with content:', payload.content.substring(0, 50) + '...');
-        if (ctrl) { try{ ctrl.abort(); }catch(_){} }
-        ctrl = new AbortController();
-        const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: ctrl.signal});
-        const data = await r.json();
-        console.log('Reply page: Coach API response:', data);
-        const tips = Array.isArray(data.tips)?data.tips:[];
-        tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
-        if (data.question) {
-          console.log('Reply page: Question:', data.question);
-        }
-      }catch(e){
-        console.error('Reply page: Coach API error:', e);
-      }
-    }, 350);
+  async function loadTips(){
+    try{
+      const payload = { content: area.value || '', mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }}, letter: `{{ letter.content|replace('\n','\\n') }}` };
+      const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+      const data = await r.json();
+      const tips = Array.isArray(data.tips)?data.tips:[];
+      tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
+    }catch(e){ console.error('Reply page: Coach API error:', e); }
   }
-
-  area.addEventListener('input', debounce);
-  console.log('Reply page: Event listener added');
-  setTimeout(debounce, 200);
 });
 </script>
 {% endblock %}

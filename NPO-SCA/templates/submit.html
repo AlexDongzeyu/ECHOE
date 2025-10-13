@@ -133,7 +133,7 @@
             bottom: calc(0px + 2px); /* inside border */
             right: 0;
             width: 36%; /* reserved area for inline suggestions */
-            pointer-events: none;
+            pointer-events: auto; /* allow clicks inside rail */
         }
         .rail-divider {
             /* hide visual divider to avoid edge overflow while keeping layout */
@@ -146,7 +146,7 @@
             width: calc(100% - 24px);
             font-family: 'Sriracha', 'Brush Script MT', cursive; /* alternate font for suggestions */
             color: rgba(159,197,203,0.95); /* brand blue tint */
-            pointer-events: none; /* text only, not interactive */
+            pointer-events: auto; /* interactive */
             animation: fadeInUp .35s ease;
             overflow-wrap: anywhere;
             word-break: break-word;
@@ -208,9 +208,11 @@
 
         /* Suggestion toggles */
         .suggestion-toggle-btn {
-            position: absolute; right: 8px; top: -6px; z-index: 2;
+            position: absolute; right: 12px; top: 16px; z-index: 2;
+            width: calc(100% - 24px); height: 84px;
             background: var(--soft-yellow); border: 2px solid var(--gentle-lavender);
-            color: var(--deep-indigo); font-weight: 800; border-radius: 22px; padding: 8px 14px; cursor: pointer;
+            color: var(--deep-indigo); font-weight: 800; border-radius: 16px; padding: 8px 14px; cursor: pointer;
+            display:flex; align-items:center; justify-content:center; text-align:center;
             box-shadow: 0 4px 10px rgba(244,208,111,.35);
         }
         .suggestion-toggle-btn:hover{ transform: translateY(-2px); }

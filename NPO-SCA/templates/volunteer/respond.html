@@ -7,12 +7,12 @@
   .form-container{max-width:1100px;margin:1rem auto 3rem;padding:2.5rem;background:linear-gradient(180deg,rgba(159,197,203,.18),rgba(248,210,156,.18));border-radius:20px;box-shadow:0 10px 36px rgba(42,61,102,.14);position:relative}
   .framed-inner{border:1px solid rgba(159,197,203,.35);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.92))}
   .compose-wrap{position:relative;max-width:860px;margin:0 auto}
-  .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:none}
-  .suggestion-inline{position:absolute;right:12px;top:96px;width:calc(100% - 24px);font-family:'Sriracha','Brush Script MT',cursive;color:rgba(159,197,203,.95);pointer-events:none;overflow-wrap:anywhere;word-break:break-word}
+  .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:auto}
+  .suggestion-inline{position:absolute;right:12px;top:16px;width:calc(100% - 24px);font-family:'Sriracha','Brush Script MT',cursive;color:rgba(159,197,203,.95);pointer-events:auto;overflow-wrap:anywhere;word-break:break-word}
   .suggestion-inline ul{list-style:disc outside;margin:0 0 10px 18px}
   .write-zone textarea{padding-right:38%!important;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
   .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap}
-  .suggestion-toggle-btn{position:absolute;right:8px;top:-6px;z-index:2;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:22px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35)}
+  .suggestion-toggle-btn{position:absolute;right:12px;top:16px;z-index:2;width:calc(100% - 24px);height:84px;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:16px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35);display:flex;align-items:center;justify-content:center;text-align:center}
   .suggestion-toggle-btn:hover{transform:translateY(-2px)}
   .suggestion-close{position:absolute;right:6px;top:6px;pointer-events:auto;cursor:pointer;background:transparent;border:none;color:rgba(42,61,102,.6);font-weight:800}
   .suggestion-inline.hidden{display:none}

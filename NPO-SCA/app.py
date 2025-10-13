@@ -471,59 +471,53 @@ try:
 
             app.logger.info(f"Coach API called: content='{content[:50]}...', mode={mode}")
 
-            # Always generate dynamic tips based on content, even if no API key
+            # Baseline dynamic tips
             tips, question = _heuristic_coach_suggestions(content, mode)
-            app.logger.info(f"Generated tips: {tips[:2]}..., question: {question}")
 
-            # Try to enhance with AI if key is available and content is substantial
-            if len(content) >= 10:  # Only try AI for longer content
-                _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
-                if _api_key_present:
-                    try:
-                        # Ask the model for gentle prompts; never rewrite user's text
-                        if mode == 'rephrase':
-                            prompt = (
-                                "You are assisting an admin reviewing a flagged letter on E.C.H.O.E.\n"
-                                "Provide 3 concise bullet suggestions to help the user rephrase problematic wording while preserving their feelings.\n"
-                                "Be non-judgmental. Do NOT write the text for them.\n"
-                                "User letter excerpt (do not quote back):\n" + content[:1500] + "\n\n"
-                                "Output bullets only."
-                            )
-                        else:
-                            prompt = (
-                                "You are a supportive reply assistant for volunteers on E.C.H.O.E.\n"
-                                "Given the user's letter excerpt (do not quote back), provide 3 concise reply tips focusing on empathy, reflection, and one gentle next step.\n"
-                                "No diagnoses or medical advice.\n"
-                                "Letter excerpt:\n" + content[:1500]
-                            )
+            # Prefer Gemini when available; emphasize most-recent lines but include full context
+            _api_key_present = bool(app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY'))
+            if _api_key_present and content:
+                try:
+                    recent = content[-600:]
+                    prompt = (
+                        "You are a gentle writing coach for the E.C.H.O.E. platform.\n"
+                        "Consider the entire letter, but prioritize the MOST RECENT lines.\n"
+                        "Output EXACTLY 3 short bullet tips (no intro/outro), <= 18 words each.\n"
+                        "Be empathetic, concrete, non-judgmental, and do not rewrite the user's words.\n"
+                        f"Full letter (context):\n'''{content[:4000]}'''\n\n"
+                        f"Most recent lines (focus):\n'''{recent}'''\n"
+                    )
+                    api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+                    payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.6, "topP": 0.9}}
+                    with httpx.Client(timeout=15) as client:
+                        resp = client.post(url, json=payload)
+                        data = resp.json()
+                    ai_text = None
+                    if isinstance(data, dict) and data.get('candidates'):
+                        ai_text = " ".join([p.get('text','') for p in data['candidates'][0]['content']['parts']]).strip()
+                    ai_tips = []
+                    if ai_text:
+                        lines = [ln.strip() for ln in ai_text.splitlines() if ln.strip()]
+                        for ln in lines:
+                            if ln.startswith(('- ', '• ', '* ', '– ')) or re.match(r"^\d+[\).]\s", ln):
+                                cleaned = re.sub(r"^(?:[-•*–]\s|\d+[\).]\s)", '', ln).strip()
+                                if cleaned:
+                                    ai_tips.append(cleaned)
+                        if not ai_tips and '•' in ai_text:
+                            ai_tips = [seg.strip() for seg in ai_text.split('•') if seg.strip()]
+                    if ai_tips:
+                        tips = ai_tips[:3]
+                except Exception as e:
+                    app.logger.warning(f"Gemini coach call failed: {e}")
 
-                        suggestions_text = generate_ai_response_with_type(prompt, 'supportive')
-                        if suggestions_text:
-                            lines = [l.strip() for l in suggestions_text.splitlines() if l.strip()]
-                            ai_tips = []
-                            for l in lines:
-                                # Accept common bullet characters or numeric lists
-                                if l.startswith(('- ', '• ', '* ', '– ')) or l[:2].isdigit():
-                                    ai_tips.append(l.lstrip('•*-– ').split(' ', 1)[-1].strip())
-                                elif l.lower().startswith('one question:'):
-                                    question = l.split(':', 1)[-1].strip() or question
-                            if ai_tips:
-                                tips = ai_tips[:3]  # Use AI tips if available
-                                app.logger.info(f"Using AI tips: {tips[:2]}...")
-                    except Exception as e:
-                        app.logger.warning(f"AI coach enhancement failed: {e}")
-
-            # Ensure the guiding question is also available as a final bullet
-            if question and (not tips or tips[-1] != question):
-                tips = (tips or []) + [question]
-            return jsonify({'tips': tips[:4], 'question': question})
+            # Return exactly 3 bullets; question returned separately for UIs that want it
+            return jsonify({'tips': tips[:3], 'question': question})
         except Exception as e:
             app.logger.error(f"api_coach error: {e}")
             # Fallback even on error
             tips, question = _heuristic_coach_suggestions(content, mode)
-            if question and (not tips or tips[-1] != question):
-                tips = (tips or []) + [question]
-            return jsonify({'tips': tips[:4], 'question': question}), 200
+            return jsonify({'tips': tips[:3], 'question': question}), 200
 
     # --- Moderation helpers ---
     def _deterministic_match(text: str) -> tuple[bool, str]:

@@ -45,6 +45,7 @@
           {{ form.content.label(class="form-label") }}
           {{ form.content(rows=14, class="form-control", style="min-height:420px;", placeholder="Write a caring, respectful reply...") }}
           <div class="guide-rail" aria-hidden="true" id="guideRail">
+            <button type="button" id="suggestionToggle" class="suggestion-toggle-btn hidden">💬 Show reply checklist</button>
             <div class="rail-divider"></div>
             <div class="suggestion-inline" id="inlineSuggest">
               <button type="button" id="suggestionClose" class="suggestion-close" aria-label="Hide">✕</button>
@@ -78,18 +79,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const questionEl = document.getElementById('inlineQuestion');
   const suggestBox = document.getElementById('inlineSuggest');
   const suggestClose = document.getElementById('suggestionClose');
+  const suggestToggle = document.getElementById('suggestionToggle');
 
   if (!draftEl || !tipsEl || !questionEl || !suggestBox || !suggestClose) {
     console.error('Reply page: missing elements for suggestions');
     return;
   }
 
-  suggestClose.addEventListener('click', () => {
-    suggestBox.classList.add('hidden');
-  });
+  if (suggestClose) {
+    suggestClose.addEventListener('click', () => {
+      suggestBox.classList.add('hidden');
+      if (suggestToggle) suggestToggle.classList.remove('hidden');
+    });
+  }
+
+  if (suggestToggle) {
+    suggestToggle.addEventListener('click', () => {
+      suggestBox.classList.remove('hidden');
+      suggestToggle.classList.add('hidden');
+    });
+  }
 
   // Show by default
   suggestBox.classList.remove('hidden');
+  if (suggestToggle) suggestToggle.classList.add('hidden');
 });
 </script>
 {% endblock %}

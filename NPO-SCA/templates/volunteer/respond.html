@@ -42,9 +42,8 @@
           {{ form.content.label(class="form-label") }}
           {{ form.content(rows=14, class="form-control", style="min-height:420px;", placeholder="Write a caring, respectful reply...") }}
           <div class="guide-rail" aria-hidden="true" id="guideRail">
-            <button type="button" id="suggestionToggle" class="suggestion-toggle-btn">💬 Need ideas? Click for suggestions</button>
             <div class="rail-divider"></div>
-            <div class="suggestion-inline hidden" id="inlineSuggest">
+            <div class="suggestion-inline" id="inlineSuggest">
               <button type="button" id="suggestionClose" class="suggestion-close" aria-label="Hide">✕</button>
               <ul id="inlineTips"></ul>
               <div id="inlineQuestion" style="margin-top: 8px; font-style: italic; opacity: 0.8;"></div>
@@ -66,10 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const tipsEl = document.getElementById('inlineTips');
   const questionEl = document.getElementById('inlineQuestion');
   const suggestBox = document.getElementById('inlineSuggest');
-  const suggestToggle = document.getElementById('suggestionToggle');
   const suggestClose = document.getElementById('suggestionClose');
 
-  if (!draftEl || !tipsEl || !questionEl || !suggestBox || !suggestToggle || !suggestClose) {
+  if (!draftEl || !tipsEl || !questionEl || !suggestBox || !suggestClose) {
     console.error('Reply page: missing elements for suggestions');
     return;
   }
@@ -100,14 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(e){ console.error('Reply page: Coach API error:', e); }
   }
 
-  suggestToggle.addEventListener('click', async () => {
-    suggestToggle.classList.add('hidden');
-    suggestBox.classList.remove('hidden');
-    await loadTips(true);
-  });
   suggestClose.addEventListener('click', () => {
     suggestBox.classList.add('hidden');
-    suggestToggle.classList.remove('hidden');
   });
 
   draftEl.addEventListener('input', () => {
@@ -116,8 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   setInterval(() => loadTips(false), PERIODIC_MS);
 
-  // Prime once
-  setTimeout(() => { if(shouldCall()) loadTips(true); }, 400);
+  // Prime once and ensure visible (since button removed)
+  suggestBox.classList.remove('hidden');
+  setTimeout(() => { if(shouldCall()) loadTips(true); }, 200);
 });
 </script>
 {% endblock %}

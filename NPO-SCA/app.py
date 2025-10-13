@@ -479,14 +479,25 @@ try:
             if _api_key_present and content:
                 try:
                     recent = content[-600:]
-                    prompt = (
-                        "You are a gentle writing coach for the E.C.H.O.E. platform.\n"
-                        "Consider the entire letter, but prioritize the MOST RECENT lines.\n"
-                        "Output EXACTLY 3 short bullet tips (no intro/outro), <= 18 words each.\n"
-                        "Be empathetic, concrete, non-judgmental, and do not rewrite the user's words.\n"
-                        f"Full letter (context):\n'''{content[:4000]}'''\n\n"
-                        f"Most recent lines (focus):\n'''{recent}'''\n"
-                    )
+                    letter_ctx = (payload.get('letter') or '')[:4000]
+                    if mode == 'rephrase':
+                        prompt = (
+                            "You are a gentle rephrasing guide for the E.C.H.O.E. platform.\n"
+                            "Task: Offer guidance so the WRITER can rephrase their own words respectfully.\n"
+                            "Rules: Never rewrite text; give coaching prompts only.\n"
+                            "Output EXACTLY 3 short, actionable bullet tips (no intro/outro), <= 18 words each.\n"
+                            f"Original letter (context for issues):\n'''{letter_ctx}'''\n\n"
+                            f"Reviewer notes / latest typing (focus):\n'''{recent}'''\n"
+                        )
+                    else:  # reply
+                        prompt = (
+                            "You are a supportive reply coach for E.C.H.O.E. volunteers.\n"
+                            "Task: Guide a human to craft an empathetic reply to the letter.\n"
+                            "Rules: Do NOT write the reply; give coaching prompts only.\n"
+                            "Output EXACTLY 3 short bullet tips (no intro/outro), <= 18 words each.\n"
+                            f"Original letter (reader context):\n'''{letter_ctx}'''\n\n"
+                            f"Volunteer draft / latest typing (focus):\n'''{recent}'''\n"
+                        )
                     api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
                     payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.6, "topP": 0.9}}
@@ -612,8 +623,8 @@ try:
                         letter.title = (clean[:140] if clean else None)
                 except Exception:
                     pass
-                db.session.commit()
-                
+                    db.session.commit()
+                    
                 # AI instant reply path removed per new product decision
                 
                 # Otherwise show confirmation page (Inbox-based)
@@ -706,7 +717,7 @@ try:
             # Use httpx to avoid eventlet/requests recursion issues and add a timeout
             with httpx.Client(timeout=15) as client:
                 response = client.post(url, json=payload)
-                data = response.json()
+            data = response.json()
             
             if data and 'candidates' in data and len(data['candidates']) > 0:
                 ai_response = " ".join([part['text'] for part in data['candidates'][0]['content']['parts']])
@@ -1008,7 +1019,7 @@ try:
             
             with httpx.Client(timeout=15) as client:
                 response = client.post(url, json=payload)
-                data = response.json()
+            data = response.json()
             
             if data and 'candidates' in data and len(data['candidates']) > 0:
                 ai_response = " ".join([part['text'] for part in data['candidates'][0]['content']['parts']])

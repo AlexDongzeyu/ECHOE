@@ -9,7 +9,10 @@
   .compose-wrap{position:relative;max-width:860px;margin:0 auto}
   .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:auto;z-index:2}
   .suggestion-inline{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:calc(100% - 24px);min-height:200px;max-height:80%;font-family:'Sriracha','Brush Script MT',cursive;color:rgba(42,61,102,.9);pointer-events:auto;overflow-wrap:anywhere;word-break:break-word;background:rgba(255,255,255,0.96);border:2px solid var(--gentle-lavender);border-radius:16px;padding:16px;box-shadow:0 4px 10px rgba(244,208,111,.35);overflow-y:auto;z-index:3}
-  .suggestion-inline ul{list-style:disc outside;margin:0 0 10px 18px; line-height:1.7}
+  .suggestion-inline ul{list-style:none;margin:0 0 10px 0; padding:0; line-height:1.7}
+  .suggestion-inline li{display:flex;align-items:flex-start;gap:10px;margin:8px 0;color:var(--deep-indigo)}
+  .suggestion-inline input[type="checkbox"]{margin-top:3px;accent-color: var(--gentle-lavender)}
+  .suggestion-title{font-weight:800;color:var(--deep-indigo);margin:0 0 6px 0}
   .write-zone textarea{padding-right:38%!important;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
   .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
   .suggestion-toggle-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:2;width:calc(100% - 24px);height:84px;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:16px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35);display:flex;align-items:center;justify-content:center;text-align:center}
@@ -45,10 +48,15 @@
             <div class="rail-divider"></div>
             <div class="suggestion-inline" id="inlineSuggest">
               <button type="button" id="suggestionClose" class="suggestion-close" aria-label="Hide">✕</button>
-              <ul id="inlineTips">
-                <li>You might start by gently reflecting one feeling you notice.</li>
-                <li>Consider acknowledging a specific detail to show careful reading.</li>
-                <li>If you'd like, offer one small, practical next step.</li>
+              <p class="suggestion-title">Reply checklist</p>
+              <ul id="inlineTips" class="checklist">
+                <li><input id="c1" type="checkbox"><label for="c1">Acknowledge one feeling you notice.</label></li>
+                <li><input id="c2" type="checkbox"><label for="c2">Reflect a specific detail to show careful reading.</label></li>
+                <li><input id="c3" type="checkbox"><label for="c3">Use a warm, non‑judgmental tone (avoid advice first).</label></li>
+                <li><input id="c4" type="checkbox"><label for="c4">Offer one gentle, practical next step (optional).</label></li>
+                <li><input id="c5" type="checkbox"><label for="c5">Close with encouragement and care.</label></li>
+                <li><input id="c6" type="checkbox"><label for="c6">Avoid diagnosing or making promises you can’t keep.</label></li>
+                <li><input id="c7" type="checkbox"><label for="c7">Respect privacy; share resources only if invited.</label></li>
               </ul>
               <div id="inlineQuestion" style="margin-top: 8px; font-style: italic; opacity: 0.8;"></div>
             </div>
@@ -63,7 +71,7 @@
 
 {% block scripts %}
 <script>
-// Mirror submit page suggestion UX for reply (mode=reply / rephrase)
+// Simple close interaction for checklist (no AI)
 document.addEventListener('DOMContentLoaded', () => {
   const draftEl = document.querySelector('textarea[name="content"]');
   const tipsEl = document.getElementById('inlineTips');
@@ -76,44 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const DEBOUNCE_MS = 1200; // user pause
-  const PERIODIC_MS = 6000; // background refresh
-  let debounceT;
-  const mode = {{ '"rephrase"' if letter.is_flagged else '"reply"' }};
-  const letterCtx = {{ letter.content|tojson }};
-
-  async function loadTips(force=false){
-    try{
-      // Seed with letter content if volunteer hasn't typed yet so tips show immediately
-      const content = (draftEl.value && draftEl.value.trim().length>0) ? draftEl.value : (letterCtx || '').slice(0, 400);
-      const r = await fetch('/api/coach', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ content, mode, letter: letterCtx })
-      });
-      const data = await r.json();
-      const tips = Array.isArray(data.tips) ? data.tips : [];
-      tipsEl.innerHTML = (tips.length ? tips : [
-        "You might start by gently reflecting one feeling you notice.",
-        "Consider acknowledging a specific detail to show careful reading.",
-        "If you'd like, offer one small, practical next step."
-      ]).map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
-      if(data.question && questionEl){ questionEl.textContent = data.question; }
-    }catch(e){ console.error('Reply page: Coach API error:', e); }
-  }
-
   suggestClose.addEventListener('click', () => {
     suggestBox.classList.add('hidden');
   });
 
-  draftEl.addEventListener('input', () => {
-    clearTimeout(debounceT);
-    debounceT = setTimeout(() => loadTips(true), DEBOUNCE_MS);
-  });
-  setInterval(() => loadTips(true), PERIODIC_MS);
-
-  // Prime once and ensure visible (since button removed)
+  // Show by default
   suggestBox.classList.remove('hidden');
-  setTimeout(() => { loadTips(true); }, 200);
 });
 </script>
 {% endblock %}

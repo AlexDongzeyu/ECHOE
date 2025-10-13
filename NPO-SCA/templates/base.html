@@ -631,20 +631,17 @@
                 <li class="dropdown">
                     <a href="#">About</a>
                     <div class="dropdown-content">
+                        <a href="{{ url_for('team') }}">
+                            <i class="fas fa-users" style="margin-right: 8px;"></i>Our Team
+                        </a>
                         <a href="{{ url_for('about') }}">
                             <i class="fas fa-info-circle" style="margin-right: 8px;"></i>Our Mission
-                        </a>
-                        <a href="{{ url_for('contact') }}">
-                            <i class="fas fa-envelope" style="margin-right: 8px;"></i>Contact Us
                         </a>
                         <a href="{{ url_for('volunteer_info') }}">
                             <i class="fas fa-hands-helping" style="margin-right: 8px;"></i>Volunteer
                         </a>
                         <a href="{{ url_for('donate') }}">
                             <i class="fas fa-heart" style="margin-right: 8px;"></i>Donate
-                        </a>
-                        <a href="{{ url_for('team') }}">
-                            <i class="fas fa-users" style="margin-right: 8px;"></i>Team
                         </a>
                     </div>
                 </li>

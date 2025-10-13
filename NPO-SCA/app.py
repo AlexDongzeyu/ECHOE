@@ -467,7 +467,7 @@ try:
         try:
             payload = request.get_json(silent=True) or {}
             content = (payload.get('content') or '').strip()
-            mode = (payload.get('mode') or 'reply').strip()  # 'reply' | 'rephrase'
+            mode = (payload.get('mode') or 'reply').strip()  # 'reply' | 'rephrase' | 'write'
 
             app.logger.info(f"Coach API called: content='{content[:50]}...', mode={mode}")
 

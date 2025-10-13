@@ -8,12 +8,13 @@
   .framed-inner{border:1px solid rgba(159,197,203,.35);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.92))}
   .compose-wrap{position:relative;max-width:860px;margin:0 auto}
   .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:auto}
-  .suggestion-inline{position:absolute;right:12px;top:16px;width:calc(100% - 24px);font-family:'Sriracha','Brush Script MT',cursive;color:rgba(159,197,203,.95);pointer-events:auto;overflow-wrap:anywhere;word-break:break-word}
+  .suggestion-inline{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:calc(100% - 24px);min-height:200px;max-height:80%;font-family:'Sriracha','Brush Script MT',cursive;color:rgba(159,197,203,.95);pointer-events:auto;overflow-wrap:anywhere;word-break:break-word;background:rgba(255,255,255,0.96);border:2px solid var(--gentle-lavender);border-radius:16px;padding:16px;box-shadow:0 4px 10px rgba(244,208,111,.35);overflow-y:auto}
   .suggestion-inline ul{list-style:disc outside;margin:0 0 10px 18px}
   .write-zone textarea{padding-right:38%!important;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
-  .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap}
-  .suggestion-toggle-btn{position:absolute;right:12px;top:16px;z-index:2;width:calc(100% - 24px);height:84px;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:16px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35);display:flex;align-items:center;justify-content:center;text-align:center}
-  .suggestion-toggle-btn:hover{transform:translateY(-2px)}
+  .letter-box{background:var(--warm-white);border-radius:12px;padding:16px;border:1px solid rgba(159,197,203,.35);white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+  .suggestion-toggle-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:2;width:calc(100% - 24px);height:84px;background:var(--soft-yellow);border:2px solid var(--gentle-lavender);color:var(--deep-indigo);font-weight:800;border-radius:16px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 10px rgba(244,208,111,.35);display:flex;align-items:center;justify-content:center;text-align:center}
+  .suggestion-toggle-btn:hover{transform:translateY(-50%) translateY(-2px)}
+  .suggestion-toggle-btn.hidden{display:none}
   .suggestion-close{position:absolute;right:6px;top:6px;pointer-events:auto;cursor:pointer;background:transparent;border:none;color:rgba(42,61,102,.6);font-weight:800}
   .suggestion-inline.hidden{display:none}
   /* Match writing page inputs */
@@ -43,17 +44,8 @@
           <div class="guide-rail" aria-hidden="true">
             <button type="button" id="replySuggestToggle" class="suggestion-toggle-btn">💬 Need ideas? Click for suggestions</button>
             <div class="suggestion-inline hidden" id="replyTips">
-              <button type="button" id="replySuggestClose" class="suggestion-close" aria-label="Hide">✕</button>
               <ul>
-                {% if letter.is_flagged %}
-                  <li>Gently explain community guidelines and why the wording was flagged.</li>
-                  <li>Invite the writer to rephrase while preserving their feelings.</li>
-                  <li>Offer help resources when appropriate.</li>
-                {% else %}
-                  <li>Acknowledge the feeling you notice first.</li>
-                  <li>Reflect one detail to show careful reading.</li>
-                  <li>Offer one gentle next step or resource.</li>
-                {% endif %}
+                <li>Loading suggestions...</li>
               </ul>
             </div>
           </div>
@@ -86,24 +78,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Reply page: Elements found, setting up coach...');
 
-  // Toggle show/hide suggestions and load on click
-  if (suggestToggle) { 
-    suggestToggle.addEventListener('click', async ()=>{ 
-      tipsBox.classList.remove('hidden');
-      await loadTips();
-    }); 
-  }
-  if (suggestClose) { suggestClose.addEventListener('click', ()=> tipsBox.classList.add('hidden')); }
-
   async function loadTips(){
     try{
       const payload = { content: area.value || '', mode: {{ '"rephrase"' if letter.is_flagged else '"reply"' }}, letter: `{{ letter.content|replace('\n','\\n') }}` };
       const r = await fetch('/api/coach', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
       const data = await r.json();
       const tips = Array.isArray(data.tips)?data.tips:[];
-      tipsBox.innerHTML = '<ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
+      tipsBox.innerHTML = '<button type="button" id="replySuggestClose" class="suggestion-close" aria-label="Hide">✕</button><ul style="margin:0 0 10px 18px">' + tips.map(x=>'<li>'+ (x||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
+      const newClose = document.getElementById('replySuggestClose');
+      if(newClose){ newClose.addEventListener('click', ()=>{ tipsBox.classList.add('hidden'); suggestToggle.classList.remove('hidden'); }); }
     }catch(e){ console.error('Reply page: Coach API error:', e); }
   }
+  if (suggestToggle) { 
+    suggestToggle.addEventListener('click', async ()=>{ 
+      suggestToggle.classList.add('hidden');
+      tipsBox.classList.remove('hidden');
+      await loadTips();
+    }); 
+  }
+  if (suggestClose) { suggestClose.addEventListener('click', ()=>{ tipsBox.classList.add('hidden'); suggestToggle.classList.remove('hidden'); }); }
 });
 </script>
 {% endblock %}

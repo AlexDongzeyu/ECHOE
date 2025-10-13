@@ -142,14 +142,17 @@
         .suggestion-inline {
             position: absolute;
             right: 12px;
-            top: 16px;
+            top: 50%; transform: translateY(-50%);
             width: calc(100% - 24px);
+            min-height: 200px; max-height: 80%;
             font-family: 'Sriracha', 'Brush Script MT', cursive; /* alternate font for suggestions */
             color: rgba(159,197,203,0.95); /* brand blue tint */
             pointer-events: auto; /* interactive */
-            animation: fadeInUp .35s ease;
             overflow-wrap: anywhere;
             word-break: break-word;
+            background: rgba(255,255,255,0.96); border: 2px solid var(--gentle-lavender); border-radius: 16px; padding: 16px;
+            box-shadow: 0 4px 10px rgba(244,208,111,.35);
+            overflow-y: auto;
         }
         .suggestion-inline.hidden { display: none; }
         .suggestion-inline ul {
@@ -208,14 +211,15 @@
 
         /* Suggestion toggles */
         .suggestion-toggle-btn {
-            position: absolute; right: 12px; top: 16px; z-index: 2;
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%); z-index: 2;
             width: calc(100% - 24px); height: 84px;
             background: var(--soft-yellow); border: 2px solid var(--gentle-lavender);
             color: var(--deep-indigo); font-weight: 800; border-radius: 16px; padding: 8px 14px; cursor: pointer;
             display:flex; align-items:center; justify-content:center; text-align:center;
             box-shadow: 0 4px 10px rgba(244,208,111,.35);
         }
-        .suggestion-toggle-btn:hover{ transform: translateY(-2px); }
+        .suggestion-toggle-btn:hover{ transform: translateY(-50%) translateY(-2px); }
+        .suggestion-toggle-btn.hidden{ display:none; }
         .suggestion-close {
             position: absolute; right: 6px; top: 6px; pointer-events: auto; cursor: pointer;
             background: transparent; border: none; color: rgba(42,61,102,.6); font-weight: 800;
@@ -565,14 +569,26 @@
             async function loadTips(){
                 try{
                     const content = draftEl.value || '';
-                    const r = await fetch('/api/coach', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ content, mode: 'reply' })});
+                    const r = await fetch('/api/coach', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ content, mode: 'write' })});
                     const data = await r.json();
                     const tips = Array.isArray(data.tips) ? data.tips : [];
-                    tipsEl.innerHTML = '<ul style="margin:0 0 10px 18px; line-height:1.7;">' + tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('') + '</ul>';
+                    tipsEl.innerHTML = tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
                     if(data.question && questionEl){ questionEl.textContent = data.question; }
                 }catch(e){ console.error('Write page: Coach API error:', e); }
             }
-            if (suggestToggle) { suggestToggle.addEventListener('click', () => { suggestBox.classList.remove('hidden'); loadTips(); }); }
+            if (suggestToggle) {
+                suggestToggle.addEventListener('click', async () => {
+                    suggestToggle.classList.add('hidden');
+                    suggestBox.classList.remove('hidden');
+                    await loadTips();
+                });
+            }
+            if (suggestClose) {
+                suggestClose.addEventListener('click', () => {
+                    suggestBox.classList.add('hidden');
+                    suggestToggle.classList.remove('hidden');
+                });
+            }
 
             // Support deep-linking to offline view via hash or query param
             (function(){

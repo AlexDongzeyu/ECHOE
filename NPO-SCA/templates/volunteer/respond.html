@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadTips(force=false){
     try{
       if(!force && !shouldCall()) return;
-      const content = draftEl.value || '';
+      // Seed with letter content if volunteer hasn't typed yet so tips show immediately
+      const content = (draftEl.value && draftEl.value.trim().length>0) ? draftEl.value : (letterCtx || '').slice(0, 400);
       const r = await fetch('/api/coach', {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ content, mode, letter: letterCtx })
@@ -93,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
       lastCallAt = Date.now();
       const data = await r.json();
       const tips = Array.isArray(data.tips) ? data.tips : [];
-      tipsEl.innerHTML = tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
+      tipsEl.innerHTML = (tips.length ? tips : [
+        "You might start by gently reflecting one feeling you notice.",
+        "Consider acknowledging a specific detail to show careful reading.",
+        "If you'd like, offer one small, practical next step."
+      ]).map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
       if(data.question && questionEl){ questionEl.textContent = data.question; }
     }catch(e){ console.error('Reply page: Coach API error:', e); }
   }

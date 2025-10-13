@@ -1383,6 +1383,11 @@ try:
             'default_voice': 'en-US-Standard-A'
         })
 
+    # Health check for frontend widget
+    @app.route('/api/health')
+    def api_health():
+        return jsonify({'status': 'ok'}), 200
+
     # 保存聊天记录
     @app.route('/save-chat', methods=['POST'])
     def save_chat():

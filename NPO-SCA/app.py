@@ -551,36 +551,70 @@ try:
             return jsonify({'tips': tips[:4], 'question': question}), 200
 
     # --- Moderation helpers ---
+    def _normalize_for_moderation(text: str) -> tuple[str, str]:
+        """Return (simple_norm, ascii_norm) for leetspeak/spacing obfuscation checks."""
+        t = (text or '').lower()
+        # Replace common leetspeak digits
+        t = (t
+             .replace('0', 'o')
+             .replace('1', 'i')
+             .replace('3', 'e')
+             .replace('4', 'a')
+             .replace('5', 's')
+             .replace('7', 't')
+             .replace('8', 'b'))
+        # Remove non-letters/digits to defeat inserted punctuation/spaces
+        simple = re.sub(r"[^\w\u0080-\uffff]+", "", t)
+        # Collapse 3+ repeats to 2
+        simple = re.sub(r"(.)\1{2,}", r"\1\1", simple)
+        try:
+            import unicodedata
+            ascii_norm = unicodedata.normalize('NFKD', simple).encode('ascii', 'ignore').decode('ascii')
+        except Exception:
+            ascii_norm = simple
+        return simple, ascii_norm
+
     def _deterministic_match(text: str) -> tuple[bool, str]:
         lower = (text or '').lower()
+        simple, ascii_norm = _normalize_for_moderation(text)
+        # Core categories across languages (stems/keywords)
         hard_keywords = [
-            # Self-harm / violence / sexual violence
-            'kill myself','suicide','end my life','hurt myself','self-harm','rape',
-            'kill you','shoot','bomb','terrorist','execute','hang myself','overdose',
+            # Self-harm / suicide (multi-lang, stems)
+            'suicide','selfharm','endmylife','hangmyself','overdose','kms','killmyself',
+            'tuersoi','seppuku','suicidio','suicidar','suicidarse','suicid', 'самоубий', 'суицид', '죽다', '自杀', '自殺', '自殺',
+            # Threats / violence
+            'killyou','shoot','bomb','terrorist','execute','stab','toten','toten','tuer','matar','убью','殺す','korosu','杀了你','죽여',
+            # Sexual violence
+            'rape','rapist','vergewaltig','viol', 'violar','강간','レイプ','强奸','اغتصاب',
             # Doxxing / illegal
-            'dox','leak address','credit card number','ssn','social security',
-            # Hate slurs (subset)
-            'nigger','faggot','kike','chink','spic',
-            # Pornographic/minors
-            'child porn','cp ','cp\n','loli',
-            # Profanity
-            'fuck','fuck you','motherfucker','cunt','shit',
+            'dox','leakaddress','creditcard','ssn','socialsecurity',
+            # Hate slurs/profanity (representative; not exhaustive)
+            'nigger','faggot','kike','chink','spic','retard','tranny',
+            'puta','pendejo','mierda','cabron','putain','salope','encule','merde','scheisse','arschloch','hurensohn',
+            'blyat','suka','сука','бляд',
+            'fuck','motherfucker','cunt','shit','bitch','asshole',
+            '操','傻逼','妈的','去死','滚','垃圾',
+            '死ね','くそ','畜生',
+            '씨발','좆','병신'
         ]
+        haystacks = [lower, simple, ascii_norm]
         for kw in hard_keywords:
-            if kw in lower:
-                return True, kw
+            for h in haystacks:
+                if kw in h:
+                    return True, kw
         return False, ''
 
     def ai_moderate_letter_content(text: str) -> tuple[bool, str]:
-        """Return (flagged, reason). Deterministic keyword scan first, then AI JSON."""
+        """Return (flagged, reason). Deterministic scan first, then AI JSON (multi‑lingual)."""
         flagged_kw, kw = _deterministic_match(text)
         if flagged_kw:
             return True, f"keyword: {kw}"
         try:
             prompt = (
-                "You are a strict but fair community safety checker. Read the user's entire letter.\n"
+                "You are a strict but fair community safety checker. The text may be in ANY language.\n"
                 "Decide if it should be suspended for admin review before volunteers see it.\n"
                 "Reasons: hate/harassment, self-harm intent, explicit sexual content, doxxing, threats, spam/scams, minors sexual content, or severe profanity.\n"
+                "Be robust to obfuscation: leetspeak (e.g., 5u1c1d3), repeated letters, inserted punctuation/spaces, transliteration, and emojis implying violence/sex.\n"
                 "Consider context; support-seeking mentions of self-harm without plan can pass.\n"
                 "Respond ONLY in JSON with keys flagged (true/false) and reason (short).\n"
                 f"Letter: '''{text[:6000]}'''\n"
@@ -1056,20 +1090,18 @@ try:
 
     # Internal function: Content moderation
     def moderate_content_internal(content):
-        # Simple moderation logic (in a real application, you might use a more complex AI service)
-        flagged_keywords = ['suicide', 'kill myself', 'end my life', 'hurt myself', 'self-harm']
-        is_flagged = any(keyword in content.lower() for keyword in flagged_keywords)
-        
-        if is_flagged:
+        """Unified moderation for chat/API using deterministic + AI (multilingual)."""
+        flagged, reason = ai_moderate_letter_content(content)
+        if flagged:
             return {
                 'status': 'flagged',
-                'message': "I notice you've mentioned something concerning. If you're in crisis, please call your local crisis line immediately. In Canada, you can call 1-833-456-4566, or text 45645. Would you like me to provide more support resources?"
+                'message': "I notice something potentially harmful or unsafe. If you're in crisis, please call your local crisis line. In Canada: 1-833-456-4566 or text 45645.",
+                'reason': reason
             }
-        else:
-            return {
-                'status': 'approved',
-                'message': None
-            }
+        return {
+            'status': 'approved',
+            'message': None
+        }
 
     # Route: Community Chat (redirect to home since chat is now a widget)
     @app.route('/chat')

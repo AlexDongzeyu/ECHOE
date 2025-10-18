@@ -9,5 +9,8 @@ Flask-SocketIO==5.3.6
 requests==2.31.0
 python-dotenv==1.0.0
 gunicorn==21.2.0
-eventlet==0.33.3
+eventlet==0.36.1
 email-validator>=2.1.0
+httpx>=0.27.0
+alembic>=1.13.2
+psycopg2-binary>=2.9.9

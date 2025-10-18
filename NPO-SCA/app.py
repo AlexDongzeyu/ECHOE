@@ -110,7 +110,9 @@ try:
     with app.app_context():
         try:
             logger.info("Creating instance folder...")
-            os.makedirs(os.path.dirname(app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')), exist_ok=True)
+            db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+            if db_uri.startswith('sqlite:///'):
+                os.makedirs(os.path.dirname(db_uri.replace('sqlite:///', '')), exist_ok=True)
             logger.info("Creating database tables...")
             db.create_all()
             logger.info("Database tables created successfully!")
@@ -1497,7 +1499,18 @@ try:
     # Run application (development environment)
     if __name__ == '__main__':
         logger.info("Starting Flask application...")
-        logger.info(f"Database URI: {app.config['SQLALCHEMY_DATABASE_URI']}")
+        # Avoid printing credentials
+        _uri = app.config['SQLALCHEMY_DATABASE_URI']
+        _safe_uri = _uri
+        try:
+            if '://' in _uri and '@' in _uri:
+                scheme, rest = _uri.split('://', 1)
+                if '@' in rest:
+                    creds, hostpart = rest.split('@', 1)
+                    _safe_uri = f"{scheme}://****:****@{hostpart}"
+        except Exception:
+            pass
+        logger.info(f"Database URI: {_safe_uri}")
         logger.info(f"Instance folder: {app.instance_path}")
         socketio.run(app, debug=True, use_reloader=False)
 

@@ -1,0 +1,112 @@
+[33meefc790[m deploy: retrigger after requirements newline fix
+[33m4739c31[m deploy: retrigger after requirements fix (psycopg2 + httpx + alembic)
+[33mc87b8b7[m ci: retrigger build after requirements fix
+[33me528feb[m deploy: trigger redeploy (Postgres driver + predeploy)
+[33mfad331b[m deploy: trigger Render auto-deploy (Postgres setup + predeploy)
+[33m9deab01[m deploy: trigger Render redeploy (Postgres setup + predeploy)
+[33m00dd183[m ci: retrigger deploy after adding psycopg2-binary
+[33m1c11535[m Home: enlarge IG section frame to prevent clipping (equal-height)
+[33mc3e60b3[m ci: trigger Render predeploy migration to Postgres
+[33mfddc981[m DB: postgres config normalization + safe logging
+[33m1f4021f[m ci: trigger redeploy (no code changes)
+[33md9f5fec[m Home: increase IG equal-height frame so left embed fits fully
+[33m4eb1678[m Render: fix blueprint to single service; psycopg2-binary for Postgres; predeploy migrations
+[33m60ddcdf[m Home: make IG left embed and right gallery equal-height frames; center left; right scroll within same frame
+[33mb4d7a83[m Volunteer: update slogan; Contact: larger icon links for email/Instagram/TikTok/YouTube
+[33m3d7eaab[m Volunteer respond: move checklist up; remove internal scroll; fit in frame
+[33mca40f47[m deploy: retrigger
+[33m094bb35[m Slight UI Change on respond panel
+[33m8002a40[m UX: Remove final suggestion line to keep list aligned and avoid overflow issues
+[33mb0cffc6[m UX: Align suggestion bullets on exact column; add staggered pop animation for more beautiful UI
+[33m9af1fd8[m chore: re-trigger double deploy (Action + hook)
+[33m1ada23e[m chore: force redeploy to latest commit (double trigger)
+[33m63211c3[m UX: Normalize suggestion list alignment; consistent left gutter and spacing for all lines
+[33mc21b675[m CI/CD: Re-enable GitHub Action hook trigger so pushes + manual hook both fire (2x deploy as requested)
+[33m83f7b3f[m UX: Hide dashed divider; retain invisible wall via padding-right and inline rail (no visual line).
+[33m2db79e7[m UX: Place guide rail inside write-zone container; tighten top/bottom to textarea inner box so dashed line no longer exceeds frame; ensure suggestions left aligned
+[33m9d5ab38[m UX: Pin guide rail within textarea bounds; align dashed divider; left-align suggestion lines for consistent line starts
+[33me5a8248[m UX: Enforce invisible wall (wrap + padding-right !important); move suggestions down inside frame; shorten dashed divider to letter area bounds
+[33m1eecd64[m UX: Align inline suggestions within frame; brand-blue suggestion color; word-wrap; textarea padding-right to prevent overflow; symmetrical layout
+[33mb115358[m UX: Rename panel to Suggestions; center letter; floating suggestions card with left/right toggle; align rectangles and reduce empty space
+[33m95f7a2c[m UX: Write page - fix apostrophe, widen to 1100px, colorful gradient, two-column layout with tips, submit visible without scroll
+[33m2d50a7c[m UX: Redesign submit page for E.C.H.O.E; larger inviting textarea (Sriracha), remove AI reply option, keep Inbox/Anonymous Email, remove AI companion section
+[33m53b07ba[m UX: make IG gallery column fill full area; two-column layout; top-align; responsive stack on mobile
+[33mc513e21[m chore: add visible footer version tag IGGrid-20251011-2 for deploy verification
+[33m9f3787b[m UX: top-align IG gallery card, make scroller fill height for full-area grid
+[33mb133a31[m UX: make IG gallery fill full width with auto-fill grid and maintain scroll
+[33m1c49fb8[m chore: retrigger deployment via CI/CD
+[33med8a47a[m chore: trigger deployment (force CI/CD)
+[33m67e493b[m feat(social): IG gallery starts at top with scrolling; Social Hub shows latest IG+YT; add /api/youtube-latest via RSS
+[33m618960c[m ci: manual redeploy trigger (Render)
+[33m87b9c4a[m Home: IG gallery scroll: responsive max-height, no scroll bleed, reset to top
+[33m4a3493f[m ci: trigger Render redeploy (no code changes)
+[33mfcf2c96[m Home: uniform Instagram gallery grid with scroll; no DB changes
+[33ma31ad62[m ops: add user recovery CLI (create-user, set-password) and SQLite backup script; note backups in render config
+[33mf794de1[m feat(home): expand Instagram feed to ~60 posts with paging; gallery renders all posts; DB untouched
+[33m7b8e3f2[m migrations: bootstrap Alembic (env.py, alembic.ini) wired to Flask-Migrate; ready for autogenerate
+[33m3067e89[m deploy: zero-downtime setup for Render (health check, persistent disk, predeploy migrations); add alembic dep
+[33m43f478c[m fix(nav): keep dropdown open with hover bridge and remove gap for easier navigation
+[33m1513a46[m render: redeploy bump (center IG embed)
+[33mf52eb97[m UI: center Instagram embed inside post card using flex
+[33m3bfcd2c[m render: redeploy bump (ig gallery fix)
+[33m471efc9[m home: robust IG gallery fetch (no-store, 3 items, dedupe); minor cache change
+[33m7ac3f41[m render: redeploy bump (full retrigger)
+[33mc913553[m render: manual redeploy trigger (user request)
+[33mc985481[m render: redeploy bump (3 ig posts + team images)
+[33md07d7a1[m home: show 3 IG posts in gallery; team: full images no captions
+[33m347e560[m render: manual redeploy trigger (empty commit)
+[33me76c823[m render: redeploy bump (retrigger IG gallery + team images)
+[33m637b761[m render: redeploy bump (ig gallery + team images)
+[33m5fe033b[m home: remove placeholder; add dynamic IG gallery; team: show 5.png,6.png
+[33me159384[m render: redeploy bump (latest instagram on home)
+[33m52808b6[m instagram: auto-display latest post on homepage via Graph API (cached)
+[33m2c5d9dc[m domain: revert to echoehosa.com across configs, templates, docs
+[33m9cc74c1[m ci: add GitHub Action to trigger Render deploy hook and purge Cloudflare cache
+[33m147c00f[m chore(deploy): trigger redeploy (empty commit)
+[33m19b509b[m render: redeploy bump (ig embed layout)
+[33m471c91b[m home: fix IG embed clipping; remove second card; responsive min-width
+[33m29aadd4[m render: redeploy bump (captioned IG embed)
+[33m79206ee[m home: instagram embed shows caption + noscript fallback
+[33mc15345f[m home: embed Instagram post DO4VjzFgUB9 on both homepages
+[33m88e5244[m render: force redeploy (REDEPLOY_TRIGGER)
+[33m0eafe27[m render: manual redeploy trigger
+[33m007fee5[m home: add Instagram first post card linking to DO4VjzFgUB9
+[33mf6fdcfe[m render: retrigger deploy (append)
+[33mf30eb12[m render: retrigger deploy
+[33mab75a70[m home: replace approach/testimonials with Who We Are, Consultant, manual IG grid; unify styling
+[33m37cf9dd[m home: remove animation and IG block; tighten hero for cleaner look
+[33m2c2f7df[m render: retrigger deploy for Flask service
+[33m51b4742[m ui(backgrounds): per-page background classes and CSS; auto-assign classes on Worker
+[33m9bfc765[m Home: remove animations; add static pastel meadow; Instagram feed endpoint + chronological grid on homepage (Flask+public)
+[33m7ecef7e[m UI: pastel background with soft blobs; hero/sections use brand gradients; homepage Instagram highlight block (Flask+public)
+[33mcf0a03f[m Rebrand to E.C.H.O.E: titles, header text, footer slogan/email; Social Hub updated with Instagram embed placeholder; AI prompts updated to E.C.H.O.E
+[33m9e15b73[m render: trigger redeploy for Flask service
+[33m368166c[m chat: stop embedding moderation-triggering keywords in prompts; send raw message with type
+[33m8074262[m chat(worker): align /api/chat payload {message,type} and read data.message
+[33m254eb63[m signup: make POST target explicit; disable CSRF on RegistrationForm to support static form
+[33ma2c73c8[m chore(render): trigger redeploy again (py 3.12.6)
+[33mb7e9790[m chore(render): bump to trigger PYTHON_VERSION=3.12.6 deploy
+[33m0e8da51[m feat(render): add Render blueprint and Procfile; chore(workers): enable PROXY_ORIGIN reverse-proxy mode and CI secrets
+[33me29fba6[m Align Workers header/nav and styles with Flask base.html; include shared CSS; add dropdown menus
+[33m7b9dc48[m Complete Flask content migration to Cloudflare Workers - All templates and static assets deployed
+[33mc190b08[m  Add deployment verification script - Tests site health, navigation, and static files - Provides clear pass/fail indicators - Ensures deployment is working correctly
+[33meccc6a6[m  Add comprehensive project organization summary
+[33m9eed2fd[m  Fix navigation inconsistencies and organize file structure
+[33macca69d[m  Fix navigation organization and styling inconsistencies
+[33m48cb3f9[m  Modernize all pages with consistent beautiful styling
+[33m88c4476[m \ RESTORE ORIGINAL: Beautiful homepage with cats & animations + Cloudflare Workers"
+[33m7268856[m \ EMERGENCY FIX: Restore ALL missing Flask app features to website\n\n PROBLEM SOLVED:\n- Website was only showing simple landing page\n- Users lost access to ALL Flask app functionality (25+ routes)\n- No navigation to submit letters, admin, volunteer, blog, etc.\n\n FEATURES RESTORED:\n Navigation to ALL Flask app pages:\n  - Letter submission (/submit)\n  - Admin dashboard (/admin)\n  - Volunteer dashboard (/volunteer/*)\n  - User management system\n  - Blog system (/blog)\n  - Events system (/events) \n  - AI Chat (/chat)\n  - Login/Register (/login, /register)\n  - Check reply (/check-reply)\n  - Contact (/contact)\n  - Resources (/resources)\n  - Donate (/donate)\n  - About (/about)\n  - Privacy/Terms (/privacy, /terms)\n  - Content moderation\n  - Response viewing\n  - API endpoints (/api/*)\n  - And 10+ other features!\n\n FIXES IMPLEMENTED:\n Full-featured homepage with:\n  - Complete navigation menu\n  - Quick action cards for all features\n  - Crisis resources section\n  - Professional styling matching Flask app\n  \n Updated redirects to route:\n  - All Flask URLs to NPO-SCA directory\n  - Proper static asset serving\n  - API endpoint routing\n  \n Result: Users can now access ALL features again!\n Website fully functional with complete feature set restored"
+[33m2863b54[m  FIX DEPLOYMENT: Add landing page and fix infinite redirect loop
+[33m7891da0[m  RESTORE ALL MISSING FUNCTIONALITY: Complete Admin/Volunteer Dashboard System
+[33mcdd6f9f[m  COMPLETE: Full website functionality restored with all original features
+[33m2d7e296[m  RESTORE: Complete website functionality with all original features
+[33mee7d110[m  ORGANIZE: Structure repository for multi-platform deployment
+[33mdeee12f[m  Organize repository: Preserve original Flask app + Cloudflare Workers migration
+[33m1a25ca7[m  Migrate to Cloudflare Workers
+[33m94c490e[m Update main_lightinsilence.yml
+[33madde3d3[m Update main_lightinsilence.yml
+[33mcaa2d0d[m Update main_lightinsilence.yml
+[33m560095f[m Merge branch 'main' of https://github.com/AlexDongzeyu/LightInSilence
+[33m1e776f0[m Add Azure deployment configuration files
+[33md81a9bd[m Add or update the Azure App Service build and deployment workflow config
+[33m604a9c8[m Add or update the Azure App Service build and deployment workflow config

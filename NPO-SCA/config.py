@@ -7,8 +7,11 @@ class Config:
     
     # Database configuration
     basedir = os.path.abspath(os.path.dirname(__file__))
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
+    _env_db_url = os.environ.get('DATABASE_URL')
+    # Normalize legacy postgres scheme if present
+    if _env_db_url and _env_db_url.startswith('postgres://'):
+        _env_db_url = _env_db_url.replace('postgres://', 'postgresql+psycopg2://', 1)
+    SQLALCHEMY_DATABASE_URI = _env_db_url or 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # Use a safe engine configuration for SQLite under async/eventlet workers
     if SQLALCHEMY_DATABASE_URI.startswith('sqlite'):

@@ -1,15 +1,14 @@
 services:
   - type: web
     name: light-in-silence-flask
-    runtime: python
+    env: python
+    plan: free
     region: oregon
-    plan: starter
-    repo: https://github.com/AlexDongzeyu/LightInSilence
-    branch: main
-    buildCommand: pip install -r NPO-SCA/requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r NPO-SCA/requirements.txt
     startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT NPO-SCA.app:app
     healthCheckPath: /health-check
     autoDeploy: true
+    preDeployCommand: python -m scripts.predeploy
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.6
@@ -17,30 +16,9 @@ services:
         value: production
       - key: ENVIRONMENT
         value: production
-      # Use persistent disk for SQLite so data survives deploys
-      - key: DATABASE_URL
-        value: sqlite:////var/data/echoe/database.db
-    disks:
-      - name: echoe-data
-        mountPath: /var/data/echoe
-        sizeGB: 1
-    preDeployCommand: python -m scripts.predeploy
-    # Optional: nightly backup of SQLite to persistent disk (runs on deploy hooks/builds; schedule backups via cron on Render if available)
-    
-services:
-  - type: web
-    name: light-in-silence-flask
-    env: python
-    plan: free
-    region: oregon
-    rootDir: NPO-SCA
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT app:app
-    autoDeploy: true
-    envVars:
       - key: SECRET_KEY
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      - key: PYTHON_VERSION
-        value: 3.12.6
+      - key: DATABASE_URL
+        sync: false

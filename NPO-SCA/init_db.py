@@ -1,4 +1,4 @@
-from models import db, User, Letter, Response, PhysicalMailbox, Post, Event
+from models import db, User, Letter, Response, PhysicalMailbox, Post, Event, UserRole
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 
@@ -10,6 +10,25 @@ def init_db(app):
         
         # Create initial data
         create_initial_data()
+        
+        # Always ensure admin user exists (delete and recreate if needed)
+        admin_user = User.query.filter_by(email='dongzeyu123@outlook.com').first()
+        if admin_user:
+            # Delete existing admin user to ensure fresh state
+            db.session.delete(admin_user)
+            db.session.commit()
+
+        # Create admin user
+        admin_user = User(
+            username='dongzeyu',
+            email='dongzeyu123@outlook.com',
+            is_volunteer=True,
+            is_admin=True,
+            role=UserRole.ULTIMATE_ADMIN
+        )
+        admin_user.set_password('Dongzeyu1!')
+        db.session.add(admin_user)
+        db.session.commit()
         
         # Create test user if no users exist
         test_user = User.query.filter_by(username='test_user').first()
@@ -29,7 +48,7 @@ def init_db(app):
             post = Post(
                 title="Finding Light in the Smallest Moments",
                 body="Even on the darkest days, there is light to be found. It might be in the warmth of a cup of tea, the sound of rain on the window, or a kind word from a stranger. This blog is about noticing and appreciating those small moments. What small moment brought you a little light today?",
-                author_id=test_user.id
+                author_id=admin_user.id
             )
             db.session.add(post)
             db.session.commit()
@@ -87,4 +106,4 @@ def create_initial_data():
         for mailbox in mailboxes:
             db.session.add(mailbox)
         
-        db.session.commit() 
+        db.session.commit()

@@ -668,9 +668,7 @@
                         <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Logout
                     </a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}" class="login-btn">
-                        <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login
-                    </a></li>
+                    {# Login button hidden per rubric; use footer version link to access login #}
                 {% endif %}
             </ul>
         </nav>
@@ -744,7 +742,7 @@
         </div>
         <div class="copyright">
             <p>&copy; {{ now.year }} E.C.H.O.E. Made with ❤️ in Canada. All rights reserved.</p>
-            <p style="margin-top:6px; font-size:0.85rem; opacity:.85;">Version: IGGrid-20251011-2</p>
+            <p style="margin-top:6px; font-size:0.85rem; opacity:.85;"><a href="{{ url_for('login') }}" style="color:inherit; text-decoration:none;">Version: IGGrid-20251011-2</a></p>
         </div>
     </footer>
     

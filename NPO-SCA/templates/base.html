@@ -80,7 +80,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.3rem 2rem;
+            padding: 0.3rem 2.2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -127,7 +127,7 @@
             display: flex;
             list-style: none;
             align-items: center;
-            gap: 0.9rem; /* tighter but consistent spacing */
+            gap: 1.0rem; /* balanced spacing for larger font */
             flex-wrap: wrap; /* allow two/three-line buttons where needed */
         }
         
@@ -139,11 +139,11 @@
             color: #0f2233;
             text-decoration: none;
             transition: color 0.2s ease;
-            font-weight: 700;
+            font-weight: 800;
             font-family: 'Nunito', sans-serif; /* rounder font for menu */
-            padding: 0.25rem 0.4rem; /* remove pill background */
+            padding: 0.35rem 0.55rem;
             border-radius: 0;
-            font-size: 1rem;
+            font-size: 1.08rem;
             display: inline-block;
             text-align: center;
             line-height: 1.15;
@@ -152,12 +152,13 @@
         
         nav ul li a:hover {
             color: #0f2233;
-            background-color: rgba(255, 255, 255, 0.25);
+            background-color: rgba(255, 255, 255, 0.18);
+            border-radius: 14px; /* rounder on hover */
         }
         
         nav ul li a.active {
             color: var(--soft-yellow);
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255, 255, 255, 0.22); /* darker than before */
             font-weight: 700;
             border-radius: 12px; /* slightly rounded active background */
         }
@@ -215,7 +216,7 @@
             padding: 12px 20px;
             text-decoration: none;
             display: block;
-            font-weight: 600;
+            font-weight: 700; /* bold dropdown items */
             font-size: 0.9rem;
             transition: all 0.3s ease;
             border-radius: 0;
@@ -241,7 +242,7 @@
         
         /* Primary Navigation Items - highlighted */
         .nav-primary { background: none; border: none; }
-        .nav-primary:hover { color: var(--dark-indigo) !important; }
+        .nav-primary:hover { color: var(--dark-indigo) !important; background-color: rgba(255,255,255,0.18); border-radius:14px; }
         
         /* Mobile Menu */
         .mobile-menu-toggle {
@@ -482,8 +483,8 @@
         footer {
             background-color: rgba(159, 197, 203, 0.85);
             color: #0f2233;
-            padding: 40px 0 20px;
-            margin-top: 60px;
+            padding: 28px 0 16px; /* tighter */
+            margin-top: 40px; /* reduce whitespace above footer */
             backdrop-filter: saturate(120%) blur(6px);
         }
         
@@ -492,8 +493,8 @@
             margin: 0 auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px; /* less gap */
         }
         
         .footer-section h3 {
@@ -543,8 +544,8 @@
         
         .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 18px;
+            padding-top: 14px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.9rem;
             opacity: 0.8;
@@ -590,7 +591,7 @@
     <header>
         <nav>
             <a href="{{ url_for('index') }}" class="logo" style="background:none; padding:0;">
-                <div class="logo-img" style="height:44px; width:44px; margin-right:8px;">
+                <div class="logo-img" style="height:52px; width:52px; margin-right:10px;">
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
                 <span style="display:none">E.C.H.O.E</span>
@@ -605,7 +606,7 @@
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
                 <!-- Write/Inbox dropdown to reduce crowding -->
                 <li class="dropdown">
-                    <a href="#">Write<br>Letter</a>
+                    <a href="#" class="nav-write" style="background-color: var(--soft-yellow); color: var(--deep-indigo); font-weight:800; border-radius:14px;">Write a Letter <span id="writeDot" style="display:none;margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a>
                     <div class="dropdown-content">
                         <a href="{{ url_for('submit') }}">Write a Letter</a>
                         <a href="{{ url_for('inbox') }}" id="navInboxLink">Inbox<span id="inboxDot" style="margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a>
@@ -783,9 +784,10 @@
                 const r = await fetch("{{ url_for('inbox_unread_count') }}", {credentials:'same-origin', cache:'no-store'});
                 const data = await r.json();
                 const dot = document.getElementById('inboxDot');
-                if(!dot) return;
-                if(data && data.count > 0){ dot.style.display = 'inline-block'; }
-                else { dot.style.display = 'none'; }
+                const writeDot = document.getElementById('writeDot');
+                const show = (data && data.count > 0);
+                if(dot) dot.style.display = show ? 'inline-block' : 'none';
+                if(writeDot) writeDot.style.display = show ? 'inline-block' : 'none';
             }catch(e){ /* ignore */ }
         }
         // Initial and interval

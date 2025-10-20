@@ -10,13 +10,13 @@
     }
     
         .hero {
-            padding: 80px 0 60px;
+            padding: 56px 0 44px; /* closer to header */
             position: relative;
             overflow: hidden;
             background: rgba(255,255,255,0.75);
             border-radius: 20px;
             backdrop-filter: blur(4px);
-            margin: 30px auto;
+            margin: 12px auto; /* reduced gap below header */
         }
         
         .hero .container {
@@ -226,7 +226,7 @@
         .about-section,
         .consultant-section,
         .social-manual {
-            padding: 70px 0;
+            padding: 50px 0; /* reduce section spacing */
         }
 
         .about-section {
@@ -283,7 +283,7 @@
         
         .post-grid {
             display: grid;
-            grid-template-columns: 1.1fr 1fr 1fr; /* left TikTok+YouTube, middle IG latest, right IG gallery */
+            grid-template-columns: 1fr 1fr 1fr; /* equal columns */
             gap: 16px;
             align-items: stretch;
         }
@@ -528,7 +528,7 @@
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
                 
                 <div class="post-grid">
-                <div class="post-card" style="display:flex;flex-direction:column;gap:12px;">
+                <div class="post-card equal-height" style="display:flex;flex-direction:column;gap:12px;">
                     <div class="embed-center" style="min-height:320px;">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
                           <section>Loading TikTok…</section>

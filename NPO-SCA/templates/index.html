@@ -284,7 +284,7 @@
         .social-manual blockquote.instagram-media,
         .social-manual blockquote.tiktok-embed{ margin:0 !important; }
         
-        .post-grid {
+        #community-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* force three equal columns */
             gap: 16px;
@@ -292,7 +292,8 @@
             width: 100%;
         }
         .post-card { width: 100%; }
-        @media (max-width: 1024px) { .post-grid { grid-template-columns: 1fr; } }
+        .social-manual .container { max-width: 1300px; }
+        @media (max-width: 1024px) { #community-grid { grid-template-columns: 1fr; } }
         /* Equal height social cards with internal scroll */
         .post-card.social-equal { height: clamp(680px, 72vh, 860px); display: flex; }
         .post-card .card-scroll { height: 100%; width: 100%; overflow-y: auto; overscroll-behavior: contain; }
@@ -537,7 +538,7 @@
             <div class="container">
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
                 
-                <div class="post-grid">
+                <div id="community-grid" class="post-grid">
                 <div class="post-card social-equal">
                     <div class="card-scroll" style="display:flex;flex-direction:column;gap:12px;">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">

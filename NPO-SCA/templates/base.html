@@ -485,14 +485,15 @@
             backdrop-filter: saturate(120%) blur(6px);
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 18px; /* less gap */
-        }
+            .footer-content {
+                max-width: 1300px;
+                margin: 0 auto;
+                padding: 0 16px;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr); /* five even columns on desktop */
+                gap: 18px; /* compact gap */
+                align-items: start;
+            }
         
         .footer-section h3 {
             margin-bottom: 20px;
@@ -687,42 +688,33 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="{{ url_for('submit') }}">Share Your Story</a></li>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('submit') }}">Write a Letter</a></li>
                     <li><a href="{{ url_for('inbox') }}">Inbox</a></li>
-                    <li><a href="{{ url_for('resources') }}">Mental Health Resources</a></li>
-                    <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    
+                    <li><a href="{{ url_for('helplines') }}">Helplines</a></li>
+                    <li><a href="{{ url_for('calendar_page') }}">Calendar</a></li>
+                    <li><a href="{{ url_for('events_overview') }}">Events</a></li>
+                    <li><a href="{{ url_for('meet_the_team') }}">Meet the Team</a></li>
+                    <li><a href="{{ url_for('join') }}">Join Us</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Get Involved</h3>
                 <ul>
-                    <li><a href="{{ url_for('volunteer_info') }}">Become a Volunteer</a></li>
-                    <li><a href="{{ url_for('donate') }}">Donate</a></li>
-                    <li><a href="{{ url_for('events_index') }}">Community Events</a></li>
-                    <li><a href="{{ url_for('blog_index') }}">Read Our Blog</a></li>
+                    <li><a href="{{ url_for('join') }}">Join Us</a></li>
+                    <li><a href="{{ url_for('events_overview') }}">Community Events</a></li>
+                    <li><a href="{{ url_for('campaign_feel_good_friday') }}">Social Media Campaigns</a></li>
                 </ul>
-            <div class="social-links" style="display:block; margin-top:10px;">
-                <div style="display:inline-block; text-align:left; max-width:520px; width:100%">
-                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
-                        <i class="fas fa-envelope" style="color: var(--soft-yellow); font-size:1.1rem; width:22px; text-align:center"></i>
-                        <a href="mailto:echoe.hosa@gmail.com" style="color: #0f2233; text-decoration:none; font-weight:700">echoe.hosa@gmail.com</a>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
-                        <i class="fab fa-instagram" style="color:#C13584; font-size:1.1rem; width:22px; text-align:center"></i>
-                        <a href="https://www.instagram.com/echoe_hosa26" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa26</a>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
-                        <i class="fab fa-tiktok" style="color:#0f2233; font-size:1.1rem; width:22px; text-align:center"></i>
-                        <a href="https://www.tiktok.com/@echoe_hosa26" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa26</a>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
-                        <i class="fab fa-youtube" style="color:#FF0000; font-size:1.1rem; width:22px; text-align:center"></i>
-                        <a href="https://youtube.com/@echoe_hosa" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa</a>
-                    </div>
-                </div>
             </div>
+            <div class="footer-section">
+                <h3>Social Media</h3>
+                <ul>
+                    <li><a href="mailto:echoe.hosa@gmail.com"><i class="fas fa-envelope"></i> echoe.hosa@gmail.com</a></li>
+                    <li><a href="https://www.instagram.com/echoe_hosa26" target="_blank"><i class="fab fa-instagram"></i> @echoe_hosa26</a></li>
+                    <li><a href="https://www.tiktok.com/@echoe_hosa" target="_blank"><i class="fab fa-tiktok"></i> @echoe_hosa</a></li>
+                    <li><a href="https://youtube.com/@echoe_hosa" target="_blank"><i class="fab fa-youtube"></i> @echoe_hosa</a></li>
+                </ul>
             </div>
             
             <div class="footer-section">
@@ -732,7 +724,6 @@
                     <li><a href="sms:45645"><i class="fas fa-sms"></i> Text Support: 45645</a></li>
                     <li><a href="mailto:echoe.hosa@gmail.com"><i class="fas fa-envelope"></i> echoe.hosa@gmail.com</a></li>
                     <li><a href="{{ url_for('privacy') }}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-                    <li><a href="{{ url_for('terms') }}"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
                 </ul>
             </div>
         </div>

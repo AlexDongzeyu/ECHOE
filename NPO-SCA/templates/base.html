@@ -27,6 +27,7 @@
             --dark-indigo: #1e2e4f;
             --light-yellow: #fbe6bf;
         }
+        .brand-text { color: var(--soft-yellow); font-weight: 800; margin-left: 6px; }
         
         * {
             margin: 0;
@@ -593,7 +594,7 @@
                 <div class="logo-img" style="height:52px; width:52px; margin-right:10px;">
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
-                <span style="display:none">E.C.H.O.E</span>
+                <span class="brand-text">E.C.H.O.E</span>
             </a>
             
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">

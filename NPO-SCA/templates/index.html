@@ -335,7 +335,8 @@
         .ig-gallery {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr)); /* fixed two columns */
-            gap: 16px; /* constant spacing horizontally and vertically */
+            column-gap: 16px; /* keep current column spacing */
+            row-gap: 32px; /* 2x vertical spacing between rows */
             width: 100%;
             align-items: stretch; /* ensure rows align consistently */
             justify-items: stretch;

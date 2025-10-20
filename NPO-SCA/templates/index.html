@@ -539,15 +539,28 @@
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
                 
                 <div id="community-grid" class="post-grid">
+                <!-- Left: TikTok only -->
                 <div class="post-card social-equal">
                     <div class="card-scroll" style="display:flex;flex-direction:column;gap:12px;">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
                           <section>Loading TikTok…</section>
                         </blockquote>
-                        <div id="ytLatestHome">
-                        <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube video…</div>
                     </div>
                     <script async src="https://www.tiktok.com/embed.js"></script>
+                </div>
+                <!-- Middle: IG latest + YouTube latest stacked -->
+                <div class="post-card social-equal" id="igLatestCard">
+                    <div class="card-scroll" style="display:flex;flex-direction:column;gap:12px;">
+                        {% if latest_ig and latest_ig.permalink %}
+                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
+                        {% else %}
+                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
+                        {% endif %}
+                        <div id="ytLatestHome">
+                            <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube video…</div>
+                        </div>
+                    </div>
+                    <script async src="https://www.instagram.com/embed.js"></script>
                     <script>
                     document.addEventListener('DOMContentLoaded', async function(){
                         try{
@@ -564,16 +577,6 @@
                         }catch(e){ /* ignore */ }
                     });
                     </script>
-                </div>
-                <div class="post-card social-equal" id="igLatestCard">
-                    <div class="card-scroll">
-                        {% if latest_ig and latest_ig.permalink %}
-                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
-                        {% else %}
-                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
-                        {% endif %}
-                    </div>
-                    <script async src="https://www.instagram.com/embed.js"></script>
                 </div>
                     <div class="post-card social-equal" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
                         <div id="igGalleryScroll" class="card-scroll" style="height:100%;min-height:0;padding:8px;">

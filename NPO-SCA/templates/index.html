@@ -334,14 +334,17 @@
         /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* fixed two columns */
-            gap: 12px;
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* fixed two columns */
+            gap: 16px; /* constant spacing horizontally and vertically */
             width: 100%;
+            align-items: stretch; /* ensure rows align consistently */
+            justify-items: stretch;
         }
         .ig-gallery .ig-item {
             position: relative;
+            display: block; /* avoid inline gaps */
             width: 100%;
-            aspect-ratio: 1 / 1; /* force squares */
+            aspect-ratio: 1 / 1; /* force squares on modern browsers */
             overflow: hidden;
             border-radius: 8px;
             background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12));
@@ -351,9 +354,17 @@
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
             height: 100%;
             object-fit: cover; /* crop to square without distortion */
+        }
+        /* Fallback for browsers without aspect-ratio support */
+        @supports not (aspect-ratio: 1 / 1) {
+            .ig-gallery .ig-item { height: auto; }
+            .ig-gallery .ig-item::before { content: ''; display: block; padding-top: 100%; }
+            .ig-gallery .ig-item img { position: absolute; inset: 0; }
         }
 
         /* Scroll container so users can scroll within the gallery card */

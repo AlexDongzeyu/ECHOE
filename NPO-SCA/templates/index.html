@@ -10,13 +10,13 @@
     }
     
         .hero {
-            padding: 56px 0 44px; /* closer to header */
+            padding: 44px 0 40px; /* closer to header */
             position: relative;
             overflow: hidden;
             background: rgba(255,255,255,0.75);
             border-radius: 20px;
             backdrop-filter: blur(4px);
-            margin: 12px auto; /* reduced gap below header */
+            margin: 6px auto; /* minimal gap below header */
         }
         
         .hero .container {
@@ -249,7 +249,7 @@
         }
 
         .consultant-section {
-            background: rgba(255,255,255,0.75);
+            background: linear-gradient(180deg, rgba(173,203,164,0.12) 0%, rgba(159,197,203,0.12) 100%);
         }
 
         .consultant-card {
@@ -280,6 +280,9 @@
             background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
             text-align: center;
         }
+        /* Remove built-in margins inside embeds to avoid top gaps */
+        .social-manual blockquote.instagram-media,
+        .social-manual blockquote.tiktok-embed{ margin:0 !important; }
         
         .post-grid {
             display: grid;
@@ -304,7 +307,8 @@
         #igLatestCard { height: clamp(860px, 90vh, 1300px); }
 
         /* Center helper for the left Instagram embed */
-        .embed-center { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; }
+        .embed-center { flex: 1 1 auto; display: block; }
+        .social-scroll { height: 100%; overflow-y: auto; }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
 
         /* Uniform square grid for IG gallery thumbnails - fill full width */
@@ -529,12 +533,12 @@
                 
                 <div class="post-grid">
                 <div class="post-card equal-height" style="display:flex;flex-direction:column;gap:12px;">
-                    <div class="embed-center" style="min-height:320px;">
+                    <div class="social-scroll">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
                           <section>Loading TikTok…</section>
                         </blockquote>
                     </div>
-                    <div id="ytLatestHome" class="embed-center" style="min-height:315px;">
+                    <div id="ytLatestHome" class="social-scroll">
                         <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube video…</div>
                     </div>
                     <script async src="https://www.tiktok.com/embed.js"></script>

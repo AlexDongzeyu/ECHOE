@@ -334,12 +334,11 @@
         /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* fixed two columns */
-            column-gap: 8px;   /* small constant space horizontally */
-            row-gap: 28px;     /* larger vertical spacing between rows */
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* two equal columns, no overflow */
+            gap: 14px; /* constant spacing horizontally and vertically */
             width: 100%;
             box-sizing: border-box;
-            grid-auto-flow: row dense;
+            grid-auto-flow: row; /* prevent dense reordering that can appear as stacking */
             align-items: stretch;
         }
         .ig-gallery .ig-item {

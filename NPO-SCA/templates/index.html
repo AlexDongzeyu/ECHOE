@@ -286,11 +286,13 @@
         
         .post-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(320px, 1fr)); /* always three columns on desktop */
+            grid-template-columns: repeat(3, 1fr); /* force three equal columns */
             gap: 16px;
             align-items: stretch;
             width: 100%;
         }
+        .post-card { width: 100%; }
+        @media (max-width: 1024px) { .post-grid { grid-template-columns: 1fr; } }
         /* Equal height social cards with internal scroll */
         .post-card.social-equal { height: clamp(680px, 72vh, 860px); display: flex; }
         .post-card .card-scroll { height: 100%; width: 100%; overflow-y: auto; overscroll-behavior: contain; }

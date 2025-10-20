@@ -127,7 +127,8 @@
             display: flex;
             list-style: none;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.9rem; /* tighter but consistent spacing */
+            flex-wrap: wrap; /* allow two/three-line buttons where needed */
         }
         
         nav ul li {
@@ -137,11 +138,15 @@
         nav ul li a {
             color: #0f2233;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            padding: 0.4rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
+            transition: color 0.2s ease;
+            font-weight: 700;
+            padding: 0.25rem 0.4rem; /* remove pill background */
+            border-radius: 0;
+            font-size: 1rem;
+            display: inline-block;
+            text-align: center;
+            line-height: 1.15;
+            white-space: normal;
         }
         
         nav ul li a:hover {
@@ -233,17 +238,8 @@
         }
         
         /* Primary Navigation Items - highlighted */
-        .nav-primary {
-            background-color: rgba(255, 255, 255, 0.35);
-            color: #0f2233 !important;
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            font-weight: 700;
-        }
-        
-        .nav-primary:hover {
-            background-color: rgba(173, 203, 164, 0.35) !important; /* brand green */
-            color: var(--warm-white) !important;
-        }
+        .nav-primary { background: none; border: none; }
+        .nav-primary:hover { color: var(--dark-indigo) !important; }
         
         /* Mobile Menu */
         .mobile-menu-toggle {
@@ -591,11 +587,11 @@
 <body class="{% if request.endpoint %}page-{{ request.endpoint|replace('.', '-') }}{% endif %}">
     <header>
         <nav>
-            <a href="{{ url_for('index') }}" class="logo">
-                <div class="logo-img">
+            <a href="{{ url_for('index') }}" class="logo" style="background:none; padding:0;">
+                <div class="logo-img" style="height:44px; width:44px; margin-right:8px;">
                     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
-                <span>E.C.H.O.E</span>
+                <span style="display:none">E.C.H.O.E</span>
             </a>
             
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
@@ -689,7 +685,7 @@
                     <li><a href="{{ url_for('inbox') }}">Inbox</a></li>
                     <li><a href="{{ url_for('resources') }}">Mental Health Resources</a></li>
                     <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    
                 </ul>
             </div>
             
@@ -701,12 +697,26 @@
                     <li><a href="{{ url_for('events_index') }}">Community Events</a></li>
                     <li><a href="{{ url_for('blog_index') }}">Read Our Blog</a></li>
                 </ul>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/echoe_hosa26" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="https://youtube.com/@echoe_hosa" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
-                    <a href="mailto:echoe.hosa@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i> Email</a>
+            <div class="social-links" style="display:block; margin-top:10px;">
+                <div style="display:inline-block; text-align:left; max-width:520px; width:100%">
+                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
+                        <i class="fas fa-envelope" style="color: var(--soft-yellow); font-size:1.1rem; width:22px; text-align:center"></i>
+                        <a href="mailto:echoe.hosa@gmail.com" style="color: #0f2233; text-decoration:none; font-weight:700">echoe.hosa@gmail.com</a>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
+                        <i class="fab fa-instagram" style="color:#C13584; font-size:1.1rem; width:22px; text-align:center"></i>
+                        <a href="https://www.instagram.com/echoe_hosa26" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa26</a>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
+                        <i class="fab fa-tiktok" style="color:#0f2233; font-size:1.1rem; width:22px; text-align:center"></i>
+                        <a href="https://www.tiktok.com/@echoe_hosa26" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa26</a>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:14px; margin:8px 0; font-size:1.05rem">
+                        <i class="fab fa-youtube" style="color:#FF0000; font-size:1.1rem; width:22px; text-align:center"></i>
+                        <a href="https://youtube.com/@echoe_hosa" target="_blank" style="color:#0f2233; text-decoration:none; font-weight:700">@echoe_hosa</a>
+                    </div>
                 </div>
+            </div>
             </div>
             
             <div class="footer-section">

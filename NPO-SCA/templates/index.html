@@ -283,7 +283,7 @@
         
         .post-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* two even columns: embed + gallery */
+            grid-template-columns: 1.1fr 1fr 1fr; /* left TikTok+YouTube, middle IG latest, right IG gallery */
             gap: 16px;
             align-items: stretch;
         }
@@ -456,6 +456,44 @@
             </div>
         </section>
         
+        <!-- Mission / Vision / Values combined from former Mission page -->
+        <section class="about-section">
+            <div class="container">
+                <div class="content-section" style="text-align:center">
+                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Mission</h2>
+                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
+                </div>
+                <div class="content-section" style="text-align:center">
+                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Vision</h2>
+                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated — built on empathy, collaboration, and belonging.</p>
+                </div>
+                <div class="content-section" style="text-align:center">
+                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Values</h2>
+                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">Empathy • Connection • Hope • Outreach • Empowerment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined How We Help + Privacy & Safety -->
+        <section class="consultant-section">
+            <div class="container">
+                <div class="about-card">
+                    <h2>How We Help</h2>
+                    <ul style="margin:12px 0 18px 18px; line-height:1.8;">
+                        <li>Secure online platform for anonymous sharing and human replies</li>
+                        <li>Physical mailboxes in local spaces for offline letters</li>
+                        <li>Supportive community events that foster belonging</li>
+                    </ul>
+                    <h2>Your Privacy & Safety</h2>
+                    <ul style="margin:12px 0 0 18px; line-height:1.8;">
+                        <li>Anonymous letters and secure storage</li>
+                        <li>Volunteer training and content moderation</li>
+                        <li>Clear safety guidelines to protect all users</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
         <section class="consultant-section">
             <div class="container">
                 <h2 style="text-align:center; margin-bottom:28px;">Our Mental Health Consultant</h2>
@@ -505,14 +543,24 @@
                             const yb = document.getElementById('ytLatestHome');
                             if(yb){
                                 if(yt && yt.embed_url){
-                                    yb.innerHTML = `<div class="embed"><iframe width="100%" height="315" src="${yt.embed_url}" title="Latest YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+                                    yb.innerHTML = `<div class=\"embed\"><iframe width=\"100%\" height=\"315\" src=\"${yt.embed_url}\" title=\"Latest YouTube video\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></div>`;
                                 } else {
-                                    yb.innerHTML = '<div style="padding:12px; text-align:center; opacity:.8;">Latest YouTube video unavailable.</div>'
+                                    yb.innerHTML = '<div class=\"embed\"><iframe width=\"100%\" height=\"315\" src=\"https://www.youtube.com/embed/0lwx3_8T7SE\" title=\"Latest YouTube video\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></div>'
                                 }
                             }
                         }catch(e){ /* ignore */ }
                     });
                     </script>
+                </div>
+                <div class="post-card equal-height">
+                    <div class="embed-center">
+                        {% if latest_ig and latest_ig.permalink %}
+                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
+                        {% else %}
+                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
+                        {% endif %}
+                    </div>
+                    <script async src="https://www.instagram.com/embed.js"></script>
                 </div>
                     <div class="post-card equal-height" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
                         <div id="igGalleryScroll" style="height:100%;min-height:0;overflow-y:auto;padding:8px;">

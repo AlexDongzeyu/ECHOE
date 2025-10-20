@@ -335,7 +335,8 @@
         .ig-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* fixed two columns */
-            gap: 28px; /* even larger spacing between posts */
+            column-gap: 8px;   /* small constant space horizontally */
+            row-gap: 16px;     /* a bit more space vertically between rows */
             width: 100%;
             box-sizing: border-box;
             grid-auto-flow: row dense;
@@ -366,7 +367,7 @@
             height: 100%;
             max-height: none;
             overflow-y: auto;
-            padding: 16px; /* more breathing room around grid */
+            padding: 8px; /* compact, consistent margins around grid */
             overscroll-behavior: contain; /* keep page from scrolling when inside */
             min-height: 0; /* allow flex child to shrink and enable scroll */
             display: flex;

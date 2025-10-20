@@ -334,12 +334,9 @@
         /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr)); /* two equal columns, no overflow */
-            gap: 14px; /* constant spacing horizontally and vertically */
+            grid-template-columns: repeat(2, 1fr); /* fixed two columns */
+            gap: 12px;
             width: 100%;
-            box-sizing: border-box;
-            grid-auto-flow: row; /* prevent dense reordering that can appear as stacking */
-            align-items: stretch;
         }
         .ig-gallery .ig-item {
             position: relative;
@@ -349,7 +346,6 @@
             border-radius: 8px;
             background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12));
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            display: block; /* avoid inline stacking behavior */
         }
         .ig-gallery .ig-item img {
             position: absolute;
@@ -366,13 +362,9 @@
             height: 100%;
             max-height: none;
             overflow-y: auto;
-            padding: 8px; /* compact, consistent margins around grid */
+            padding: 8px;
             overscroll-behavior: contain; /* keep page from scrolling when inside */
             min-height: 0; /* allow flex child to shrink and enable scroll */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: stretch;
         }
         /* Ensure the IG gallery card top-aligns content and allows the scroller to expand */
         #igGalleryCard {

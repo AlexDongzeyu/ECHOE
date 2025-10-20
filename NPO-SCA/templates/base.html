@@ -602,49 +602,29 @@
                 <i class="fas fa-bars"></i>
             </button>
             
-            <ul id="nav-menu">
-                <!-- Primary Actions -->
+            <ul id="nav-menu" style="row-gap:2px; column-gap:.4rem;">
+                <!-- Public Navigation (visible to everyone) -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
-                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}" style="background-color: var(--soft-yellow); color: var(--deep-indigo); font-weight:800; box-shadow:0 6px 16px rgba(244,208,111,.45)">Write a Letter</a></li>
+                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}" style="background-color: var(--soft-yellow); color: var(--deep-indigo); font-weight:800; box-shadow:0 6px 16px rgba(244,208,111,.45)">Write a\nLetter</a></li>
                 <li><a href="{{ url_for('inbox') }}" class="{% if request.endpoint and request.endpoint.startswith('inbox') %}active{% endif %}" id="navInboxLink">Inbox<span id="inboxDot" style="display:none;margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a></li>
-                <!-- Discover Dropdown -->
+                <li><a href="{{ url_for('risk_protective_factors') }}" class="{% if request.endpoint == 'risk_protective_factors' %}active{% endif %}">Risk &<br>Protective Factors</a></li>
+                <li><a href="{{ url_for('helplines') }}" class="{% if request.endpoint == 'helplines' %}active{% endif %}">Helplines</a></li>
+                <li><a href="{{ url_for('calendar_page') }}" class="{% if request.endpoint == 'calendar_page' %}active{% endif %}">Calendar</a></li>
+                <li><a href="{{ url_for('events_overview') }}" class="{% if request.endpoint == 'events_overview' %}active{% endif %}">Events</a></li>
                 <li class="dropdown">
-                    <a href="#">Discover</a>
+                    <a href="#">Social Media<br>Campaigns</a>
                     <div class="dropdown-content">
-                        <!-- Check Reply removed in favor of Inbox -->
-                        <a href="{{ url_for('blog_index') }}">
-                            <i class="fas fa-blog" style="margin-right: 8px;"></i>Blog
-                        </a>
-                        <a href="{{ url_for('events_index') }}">
-                            <i class="fas fa-calendar" style="margin-right: 8px;"></i>Events
-                        </a>
-                        <a href="{{ url_for('social') }}">
-                            <i class="fas fa-hashtag" style="margin-right: 8px;"></i>Social Hub
-                        </a>
-                        <a href="{{ url_for('resources') }}">
-                            <i class="fas fa-book" style="margin-right: 8px;"></i>Resources
-                        </a>
+                        <a href="{{ url_for('campaign_feel_good_friday') }}">Feel‑Good‑Friday</a>
+                        <a href="{{ url_for('campaign_holiday_messages') }}">Holiday Messages</a>
+                        <a href="{{ url_for('campaign_echo_of_month') }}">Echo of the Month</a>
+                        <a href="{{ url_for('campaign_echo_message') }}">Echo Message</a>
+                        <a href="{{ url_for('campaign_monthly_trivia') }}">Monthly Trivia</a>
                     </div>
                 </li>
-                
-                <!-- About Dropdown -->
-                <li class="dropdown">
-                    <a href="#">About</a>
-                    <div class="dropdown-content">
-                        <a href="{{ url_for('team') }}">
-                            <i class="fas fa-users" style="margin-right: 8px;"></i>Team
-                        </a>
-                        <a href="{{ url_for('about') }}">
-                            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>Mission
-                        </a>
-                        <a href="{{ url_for('volunteer_info') }}">
-                            <i class="fas fa-hands-helping" style="margin-right: 8px;"></i>Volunteer
-                        </a>
-                        <a href="{{ url_for('donate') }}">
-                            <i class="fas fa-heart" style="margin-right: 8px;"></i>Donate
-                        </a>
-                    </div>
-                </li>
+                <li><a href="{{ url_for('research_study') }}" class="{% if request.endpoint == 'research_study' %}active{% endif %}">Research<br>Study</a></li>
+                <li><a href="{{ url_for('next_steps') }}" class="{% if request.endpoint == 'next_steps' %}active{% endif %}">Our Next<br>Steps</a></li>
+                <li><a href="{{ url_for('meet_the_team') }}" class="{% if request.endpoint == 'meet_the_team' %}active{% endif %}">Meet the<br>Team</a></li>
+                <li><a href="{{ url_for('join') }}" class="{% if request.endpoint == 'join' %}active{% endif %}">Join Us</a></li>
 
                 <!-- User Area -->
                 {% if current_user.is_authenticated %}

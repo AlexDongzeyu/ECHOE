@@ -1145,6 +1145,61 @@ try:
     def team():
         return render_template('team.html')
 
+    # --- New public pages ---
+    @app.route('/risk-protective-factors')
+    def risk_protective_factors():
+        return render_template('risk_protective.html')
+
+    @app.route('/helplines')
+    def helplines():
+        # Reuse existing resources page content
+        return render_template('resources.html')
+
+    @app.route('/calendar')
+    def calendar_page():
+        return render_template('calendar.html')
+
+    @app.route('/events-overview')
+    def events_overview():
+        return render_template('events_overview.html')
+
+    # Social Media Campaigns
+    @app.route('/campaigns/feel-good-friday')
+    def campaign_feel_good_friday():
+        return render_template('campaigns/feel_good_friday.html')
+
+    @app.route('/campaigns/holiday-messages')
+    def campaign_holiday_messages():
+        return render_template('campaigns/holiday_messages.html')
+
+    @app.route('/campaigns/echo-of-the-month')
+    def campaign_echo_of_month():
+        return render_template('campaigns/echo_of_the_month.html')
+
+    @app.route('/campaigns/echo-message')
+    def campaign_echo_message():
+        return render_template('campaigns/echo_message.html')
+
+    @app.route('/campaigns/monthly-trivia')
+    def campaign_monthly_trivia():
+        return render_template('campaigns/monthly_trivia.html')
+
+    @app.route('/research-study')
+    def research_study():
+        return render_template('research_study.html')
+
+    @app.route('/next-steps')
+    def next_steps():
+        return render_template('next_steps.html')
+
+    @app.route('/meet-the-team')
+    def meet_the_team():
+        return render_template('team.html')
+
+    @app.route('/join')
+    def join():
+        return render_template('join.html')
+
     # Admin routes
     @app.route('/admin')
     @admin_required

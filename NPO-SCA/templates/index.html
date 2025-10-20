@@ -487,27 +487,33 @@
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
                 
                 <div class="post-grid">
-                    <div class="post-card equal-height">
-                        <div class="embed-center">
-                        <noscript>
-                            {% if latest_ig %}
-                            <a href="{{ latest_ig.permalink }}" target="_blank" rel="noopener" style="display:block">
-                                <img src="{{ latest_ig.thumb }}" alt="Instagram post" style="width:100%; border-radius:8px;" />
-                            </a>
-                            {% else %}
-                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank" rel="noopener" style="display:block">
-                                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Instagram" style="width:100%; border-radius:8px;" />
-                            </a>
-                            {% endif %}
-                        </noscript>
-                        {% if latest_ig and latest_ig.permalink %}
-                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
-                        {% else %}
-                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
-                        {% endif %}
-                        </div>
-                        <script async src="https://www.instagram.com/embed.js"></script>
+                <div class="post-card equal-height" style="display:flex;flex-direction:column;gap:12px;">
+                    <div class="embed-center" style="min-height:320px;">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
+                          <section>Loading TikTok…</section>
+                        </blockquote>
                     </div>
+                    <div id="ytLatestHome" class="embed-center" style="min-height:315px;">
+                        <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube video…</div>
+                    </div>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', async function(){
+                        try{
+                            const r2 = await fetch('/api/youtube-latest', {cache:'no-store'});
+                            const yt = await r2.json();
+                            const yb = document.getElementById('ytLatestHome');
+                            if(yb){
+                                if(yt && yt.embed_url){
+                                    yb.innerHTML = `<div class="embed"><iframe width="100%" height="315" src="${yt.embed_url}" title="Latest YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+                                } else {
+                                    yb.innerHTML = '<div style="padding:12px; text-align:center; opacity:.8;">Latest YouTube video unavailable.</div>'
+                                }
+                            }
+                        }catch(e){ /* ignore */ }
+                    });
+                    </script>
+                </div>
                     <div class="post-card equal-height" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
                         <div id="igGalleryScroll" style="height:100%;min-height:0;overflow-y:auto;padding:8px;">
                             <div id="igGallery" class="ig-gallery" style="align-items:start; min-height:110px;">

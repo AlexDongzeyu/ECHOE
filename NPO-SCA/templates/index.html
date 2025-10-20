@@ -309,6 +309,8 @@
             overflow-y: auto;
             overscroll-behavior: contain;
         }
+        /* Left card should start content at top to avoid squeezing */
+        .card-scroll-top { justify-content: flex-start; align-items: stretch; }
 
         .post-card {
             background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
@@ -552,7 +554,7 @@
                 <div id="community-grid" class="post-grid">
                 <!-- Left: TikTok + YouTube stacked in one scrollable box -->
                 <div class="post-card social-equal">
-                    <div class="card-scroll" style="display:flex;flex-direction:column;gap:12px;">
+                    <div class="card-scroll card-scroll-top">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
                           <section>Loading TikTok…</section>
                         </blockquote>

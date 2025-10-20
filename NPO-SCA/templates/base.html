@@ -140,6 +140,7 @@
             text-decoration: none;
             transition: color 0.2s ease;
             font-weight: 700;
+            font-family: 'Nunito', sans-serif; /* rounder font for menu */
             padding: 0.25rem 0.4rem; /* remove pill background */
             border-radius: 0;
             font-size: 1rem;
@@ -158,6 +159,7 @@
             color: var(--soft-yellow);
             background-color: rgba(255, 255, 255, 0.15);
             font-weight: 700;
+            border-radius: 12px; /* slightly rounded active background */
         }
         
         /* Dropdown Menu Styles */
@@ -601,8 +603,14 @@
             <ul id="nav-menu" style="row-gap:2px; column-gap:.4rem;">
                 <!-- Public Navigation (visible to everyone) -->
                 <li><a href="{{ url_for('index') }}" class="nav-primary {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
-                <li><a href="{{ url_for('submit') }}" class="nav-primary {% if request.endpoint == 'submit' %}active{% endif %}" style="background-color: var(--soft-yellow); color: var(--deep-indigo); font-weight:800; box-shadow:0 6px 16px rgba(244,208,111,.45)">Write a\nLetter</a></li>
-                <li><a href="{{ url_for('inbox') }}" class="{% if request.endpoint and request.endpoint.startswith('inbox') %}active{% endif %}" id="navInboxLink">Inbox<span id="inboxDot" style="display:none;margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a></li>
+                <!-- Write/Inbox dropdown to reduce crowding -->
+                <li class="dropdown">
+                    <a href="#">Write<br>Letter</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('submit') }}">Write a Letter</a>
+                        <a href="{{ url_for('inbox') }}" id="navInboxLink">Inbox<span id="inboxDot" style="margin-left:6px;width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;vertical-align:middle;"></span></a>
+                    </div>
+                </li>
                 <li><a href="{{ url_for('risk_protective_factors') }}" class="{% if request.endpoint == 'risk_protective_factors' %}active{% endif %}">Risk &<br>Protective Factors</a></li>
                 <li><a href="{{ url_for('helplines') }}" class="{% if request.endpoint == 'helplines' %}active{% endif %}">Helplines</a></li>
                 <li><a href="{{ url_for('calendar_page') }}" class="{% if request.endpoint == 'calendar_page' %}active{% endif %}">Calendar</a></li>

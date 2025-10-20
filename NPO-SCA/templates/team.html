@@ -11,7 +11,10 @@
         </div>
 
         <div class="content-section" style="padding:0; background: transparent; box-shadow:none;">
-            <img src="{{ url_for('static', filename='img/5.png') }}" alt="Our Team" style="width:100%; height:auto; display:block;" loading="eager" />
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <img src="{{ url_for('static', filename='img/5.png') }}" alt="Our Team 1" style="width:100%; height:auto; display:block;" loading="eager" />
+                <img src="{{ url_for('static', filename='img/6.png') }}" alt="Our Team 2" style="width:100%; height:auto; display:block;" loading="eager" />
+            </div>
         </div>
     </div>
 </div>

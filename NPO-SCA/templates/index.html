@@ -300,7 +300,8 @@
             align-items: stretch;
         }
         /* Equal frame height for both IG cards */
-        .post-card.equal-height { height: clamp(740px, 80vh, 1040px); }
+        .post-card.equal-height { height: clamp(760px, 85vh, 1200px); }
+        #igLatestCard { height: clamp(860px, 90vh, 1300px); }
 
         /* Center helper for the left Instagram embed */
         .embed-center { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; }
@@ -309,7 +310,7 @@
         /* Uniform square grid for IG gallery thumbnails - fill full width */
         .ig-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-template-columns: repeat(2, 1fr); /* fixed two columns */
             gap: 12px;
             width: 100%;
         }
@@ -456,20 +457,22 @@
             </div>
         </section>
         
-        <!-- Mission / Vision / Values combined from former Mission page -->
+        <!-- Mission / Vision / Values combined box -->
         <section class="about-section">
             <div class="container">
-                <div class="content-section" style="text-align:center">
-                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Mission</h2>
-                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
-                </div>
-                <div class="content-section" style="text-align:center">
-                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Vision</h2>
-                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated — built on empathy, collaboration, and belonging.</p>
-                </div>
-                <div class="content-section" style="text-align:center">
-                    <h2 style="font-size:2.0rem; margin-bottom:8px;">Values</h2>
-                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto">Empathy • Connection • Hope • Outreach • Empowerment.</p>
+                <div class="about-card" style="max-width:1000px; margin:0 auto; text-align:center;">
+                    <h2 style="margin-bottom:12px;">Our Mission</h2>
+                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto 20px;">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
+                    <h2 style="margin:12px 0;">Our Vision</h2>
+                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto 20px;">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
+                    <h2 style="margin:12px 0;">Values</h2>
+                    <ul style="list-style:none; padding:0; max-width:900px; margin:0 auto; line-height:1.8;">
+                        <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
+                        <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.</li>
+                        <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
+                        <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
+                        <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace their voice.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -525,7 +528,7 @@
                 <h2 style="margin-bottom:18px;">From Our Community</h2>
                 
                 <div class="post-grid">
-                <div class="post-card equal-height" style="display:flex;flex-direction:column;gap:12px;">
+                <div class="post-card" style="display:flex;flex-direction:column;gap:12px;">
                     <div class="embed-center" style="min-height:320px;">
                         <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
                           <section>Loading TikTok…</section>
@@ -552,7 +555,7 @@
                     });
                     </script>
                 </div>
-                <div class="post-card equal-height">
+                <div class="post-card equal-height" id="igLatestCard">
                     <div class="embed-center">
                         {% if latest_ig and latest_ig.permalink %}
                         <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>

@@ -296,7 +296,19 @@
         @media (max-width: 1024px) { #community-grid { grid-template-columns: 1fr; } }
         /* Equal height social cards with internal scroll */
         .post-card.social-equal { height: clamp(680px, 72vh, 860px); display: flex; }
-        .post-card .card-scroll { height: 100%; width: 100%; overflow-y: auto; overscroll-behavior: contain; }
+        /* Center content when there is extra space; still scrolls when overflow */
+        .post-card .card-scroll {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* center when content shorter than container */
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
 
         .post-card {
             background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));

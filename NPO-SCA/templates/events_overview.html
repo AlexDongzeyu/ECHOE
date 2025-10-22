@@ -1,14 +1,49 @@
 {% extends "base.html" %}
 {% block title %}Events - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+  .events-hero{background:linear-gradient(135deg,rgba(159,197,203,.25),rgba(173,203,164,.25));padding:50px 30px;border-radius:20px;text-align:center;margin-bottom:40px;box-shadow:0 10px 30px rgba(42,61,102,.08)}
+  .events-hero h1{font-size:2.8rem;margin-bottom:16px;color:var(--deep-indigo)}
+  .events-hero p{font-size:1.2rem;color:var(--deep-indigo);opacity:.9;max-width:700px;margin:0 auto 24px}
+  .social-cta{background:#fff;padding:40px;border-radius:16px;box-shadow:0 8px 24px rgba(42,61,102,.1);text-align:center;margin-bottom:30px;border-left:4px solid var(--soft-yellow)}
+  .social-cta h2{color:var(--deep-indigo);margin-bottom:16px;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:10px}
+  .social-cta p{font-size:1.1rem;line-height:1.7;color:var(--deep-indigo);margin-bottom:24px}
+  .linktree-btn{display:inline-flex;align-items:center;gap:12px;background:var(--soft-yellow);color:var(--deep-indigo);padding:16px 32px;border-radius:50px;text-decoration:none;font-weight:800;font-size:1.1rem;transition:all .3s ease;box-shadow:0 6px 20px rgba(244,208,111,.4)}
+  .linktree-btn:hover{background:var(--light-yellow);transform:translateY(-3px);box-shadow:0 10px 30px rgba(244,208,111,.5);color:var(--deep-indigo)}
+  .linktree-btn i{font-size:1.3rem}
+  .event-placeholder{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,255,255,.85));padding:40px;border-radius:16px;text-align:center;border:2px dashed rgba(159,197,203,.4);margin-top:30px}
+  .event-placeholder i{font-size:3rem;color:var(--gentle-lavender);margin-bottom:20px;opacity:.7}
+  .event-placeholder h3{color:var(--deep-indigo);margin-bottom:12px;font-size:1.5rem}
+  .event-placeholder p{color:var(--deep-indigo);opacity:.8;line-height:1.6}
+  @media (max-width:768px){
+    .events-hero h1{font-size:2.2rem}
+    .events-hero{padding:40px 20px}
+    .social-cta{padding:30px 20px}
+  }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="page-container">
-    <div class="page-header">
-      <h1>Events</h1>
-      <p>Check back for upcoming events.</p>
+    <div class="events-hero">
+      <h1><i class="fas fa-calendar-alt"></i> E.C.H.O.E Events</h1>
+      <p class="section-subtitle">Join us for in-person gatherings where every voice is heard, and connection flourishes.</p>
     </div>
-    <div class="content-section">
-      <p>We are planning community events — details will appear here.</p>
+
+    <div class="social-cta">
+      <h2><i class="fas fa-bullhorn"></i> See Our Upcoming Events</h2>
+      <p>Stay up-to-date with our latest in-person events, workshops, and community gatherings by following us on social media. Click the link below to explore all our channels and never miss an opportunity to connect!</p>
+      <a href="https://linktr.ee/echoehosa" target="_blank" rel="noopener" class="linktree-btn">
+        <i class="fas fa-link"></i>
+        Visit Our Linktree
+      </a>
+    </div>
+
+    <div class="event-placeholder">
+      <i class="fas fa-users"></i>
+      <h3>In-Person Events</h3>
+      <p>We host regular community events designed to foster belonging, connection, and support. From workshops to social gatherings, each event is a safe space where teens can meet, share, and grow together.</p>
+      <p style="margin-top:16px;font-weight:600;">Follow us on social media to get notified when registration opens for our next event!</p>
     </div>
   </div>
 </div>

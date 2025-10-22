@@ -1123,7 +1123,7 @@ try:
     # Route: Resources
     @app.route('/resources')
     def resources():
-        return render_template('resources.html')
+        return redirect(url_for('helplines'))
 
     # Route: Volunteer information
     @app.route('/volunteer-info')

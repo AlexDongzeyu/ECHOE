@@ -18,14 +18,14 @@
       <h1>Your Letter</h1>
     </div>
     <div class="letter-box">
-      <div class="meta"><strong>Topic:</strong> {{ letter.topic or 'N/A' }} • <strong>Submitted:</strong> {{ letter.created_at.strftime('%b %d, %Y %H:%M') }}</div>
+      <div class="meta"><strong>Submitted:</strong> {{ letter.created_at.strftime('%b %d, %Y %H:%M') }}</div>
       <div style="margin-top:8px;white-space:pre-wrap">{{ letter.content }}</div>
     </div>
     {% if responses %}
       <h3>Replies</h3>
       {% for r in responses %}
         <div class="response">
-          <div class="meta">{{ r.response_type|capitalize }} • {{ r.created_at.strftime('%b %d, %Y %H:%M') }}</div>
+          <div class="meta">{{ r.created_at.strftime('%b %d, %Y %H:%M') }}</div>
           <div style="margin-top:6px;white-space:pre-wrap">{{ r.content }}</div>
         </div>
       {% endfor %}

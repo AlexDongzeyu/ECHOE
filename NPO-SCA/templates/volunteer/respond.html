@@ -32,6 +32,18 @@
 {% block content %}
 <div class="form-container">
   <h1>Respond to Letter</h1>
+  {% if letter and (letter.anonymous_email or (letter.reply_method and letter.reply_method.startswith('anonymous'))) %}
+  <div class="framed-inner" style="margin-bottom:16px;background:linear-gradient(180deg, rgba(248,210,156,.15), rgba(255,255,255,.95));">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <i class="fas fa-envelope" style="color:var(--deep-indigo);"></i>
+      <div>
+        <strong>Sender requested an email reply</strong>
+        {% if letter.anonymous_email %}<div style="opacity:.85">Email: <span style="font-weight:800">{{ letter.anonymous_email }}</span></div>{% endif %}
+        <div class="meta" style="margin-top:4px">Please send your response manually to the email above after posting a short acknowledgement here.</div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
   <div class="framed-inner" style="margin-bottom:16px">
     <h3 style="margin-bottom:8px">Original Letter</h3>
     <div class="letter-box">{{ letter.content }}</div>

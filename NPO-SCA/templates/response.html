@@ -299,9 +299,7 @@
                 
                 <div class="letter-meta">
                     <span><i class="fas fa-calendar"></i> Submitted: {{ letter.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
-                    {% if letter.topic %}
-                    <span><i class="fas fa-tag"></i> Topic: {{ letter.topic|title }}</span>
-                    {% endif %}
+                    
                     <span><i class="fas fa-key"></i> Code: {{ letter.unique_id[:8] }}...</span>
         </div>
                 
@@ -325,19 +323,7 @@
                 <div class="response-item">
                             <div class="response-meta">
                                 <span><i class="fas fa-user-heart"></i> A volunteer responded on {{ response.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
-                                {% if response.response_type %}
-                                    <div class="response-type-badge">
-                                        {% if response.response_type == 'ai' %}
-                                            <i class="fas fa-robot"></i> AI Response
-                                        {% elif response.response_type == 'human' %}
-                                            <i class="fas fa-user"></i> Human Response
-                                        {% elif response.response_type == 'hybrid' %}
-                                            <i class="fas fa-users"></i> Collaborative Response
-                                        {% else %}
-                                            <i class="fas fa-heart"></i> Volunteer Response
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
+                                
                             </div>
                             
                             <div class="response-content">{{ response.content }}</div>
@@ -372,7 +358,7 @@
                 <a href="{{ url_for('chat') }}" class="action-btn secondary">
                     <i class="fas fa-comments"></i> AI Chat Support
                 </a>
-                <a href="{{ url_for('resources') }}" class="action-btn secondary">
+                <a href="{{ url_for('helplines') }}" class="action-btn secondary">
                     <i class="fas fa-life-ring"></i> Crisis Resources
                 </a>
             </div>

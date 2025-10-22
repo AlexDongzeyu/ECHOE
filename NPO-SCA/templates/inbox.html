@@ -35,7 +35,7 @@
           <div style="display:flex;align-items:center">
             <div class="avatar">U</div>
             <div>
-              <div style="font-weight:800">{{ l.title or 'Untitled Letter' }}</div>
+              <div style="font-weight:800">{{ (l.content[:80] ~ ('...' if l.content|length > 80 else '')) }}</div>
               <div class="meta">{{ l.created_at.strftime('%b %d, %Y') }}</div>
             </div>
           </div>

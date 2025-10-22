@@ -765,13 +765,14 @@ try:
             db.session.commit()
             
             flash('Your reply has been sent to the volunteer!', 'success')
-            return redirect(url_for('view_response', letter_id=letter.unique_id))
+            # Redirect back to inbox thread instead of separate response page
+            return redirect(url_for('inbox_letter', letter_id=letter.unique_id))
         
         # If form validation fails, redirect back with error
         for field, errors in form.errors.items():
             for error in errors:
                 flash(f'{error}', 'error')
-        return redirect(url_for('view_response', letter_id=letter.unique_id))
+        return redirect(url_for('inbox_letter', letter_id=letter.unique_id))
 
     # -------- Anonymous Inbox --------
     @app.route('/inbox')

@@ -98,7 +98,27 @@
     const form = document.getElementById('reply-form-' + responseId);
     if (form) {
       form.classList.toggle('hidden');
+      // If opening the form, scroll it into view
+      if (!form.classList.contains('hidden')) {
+        setTimeout(() => {
+          form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
     }
   }
+  
+  // Scroll to the last response if there's a success message (reply was just added)
+  window.addEventListener('DOMContentLoaded', function() {
+    const flashMessages = document.querySelector('.flash-messages');
+    if (flashMessages && flashMessages.textContent.includes('reply has been sent')) {
+      const responses = document.querySelectorAll('.response');
+      if (responses.length > 0) {
+        const lastResponse = responses[responses.length - 1];
+        setTimeout(() => {
+          lastResponse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    }
+  });
 </script>
 {% endblock %}

@@ -223,9 +223,9 @@
                 </div>
                 
                 <div style="background: var(--warm-white); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
-                    <p style="color: var(--deep-indigo); line-height: 1.6; white-space: pre-wrap;">
-                        {{ letter.content[:300] }}{% if letter.content|length > 300 %}...{% endif %}
-                    </p>
+                    <div style="color: var(--deep-indigo); line-height: 1.6; white-space: pre-wrap; max-height: 300px; overflow-y: auto;">
+                        {{ letter.content }}
+                    </div>
                 </div>
                 
                 <!-- Show conversation thread if there are responses -->
@@ -239,8 +239,8 @@
                             <div style="font-size: 0.85rem; color: var(--gentle-lavender); margin-bottom: 6px;">
                                 <i class="fas fa-user-heart"></i> Volunteer responded: {{ response.created_at.strftime('%b %d, %Y %H:%M') }}
                             </div>
-                            <div style="color: var(--deep-indigo); font-size: 0.9rem; white-space: pre-wrap;">
-                                {{ response.content[:200] }}{% if response.content|length > 200 %}...{% endif %}
+                            <div style="color: var(--deep-indigo); font-size: 0.9rem; white-space: pre-wrap; max-height: 200px; overflow-y: auto;">
+                                {{ response.content }}
                             </div>
                             
                             <!-- Show user replies to this response -->
@@ -250,8 +250,8 @@
                                         <div style="font-size: 0.8rem; color: var(--deep-indigo); opacity: 0.8; margin-bottom: 4px;">
                                             <i class="fas fa-reply"></i> User replied: {{ user_reply.created_at.strftime('%b %d, %Y %H:%M') }}
                                         </div>
-                                        <div style="color: var(--deep-indigo); font-size: 0.85rem; white-space: pre-wrap;">
-                                            {{ user_reply.content[:150] }}{% if user_reply.content|length > 150 %}...{% endif %}
+                                        <div style="color: var(--deep-indigo); font-size: 0.85rem; white-space: pre-wrap; max-height: 150px; overflow-y: auto;">
+                                            {{ user_reply.content }}
                                         </div>
                                     </div>
                                 {% endfor %}

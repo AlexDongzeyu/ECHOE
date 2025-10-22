@@ -744,35 +744,40 @@ try:
     @app.route('/response/<int:response_id>/reply', methods=['POST'])
     def submit_user_reply(response_id):
         """Allow users to reply to volunteer responses"""
-        response_obj = Response.query.get_or_404(response_id)
-        letter = response_obj.letter
-        
-        # Verify the user is the owner of the letter
-        anon_cookie = request.cookies.get('echoe_anon')
-        if not anon_cookie or letter.anon_user_id != anon_cookie:
-            flash('You can only reply to responses on your own letters.', 'error')
-            return redirect(url_for('index'))
-        
-        form = UserReplyForm()
-        if form.validate_on_submit():
-            user_reply = UserReply(
-                content=form.content.data,
-                response_id=response_id,
-                letter_id=letter.id,
-                anon_user_id=anon_cookie
-            )
-            db.session.add(user_reply)
-            db.session.commit()
+        try:
+            response_obj = Response.query.get_or_404(response_id)
+            letter = response_obj.letter
             
-            flash('Your reply has been sent to the volunteer!', 'success')
-            # Redirect back to inbox thread instead of separate response page
+            # Verify the user is the owner of the letter
+            anon_cookie = request.cookies.get('echoe_anon')
+            if not anon_cookie or letter.anon_user_id != anon_cookie:
+                flash('You can only reply to responses on your own letters.', 'error')
+                return redirect(url_for('index'))
+            
+            form = UserReplyForm()
+            if form.validate_on_submit():
+                user_reply = UserReply(
+                    content=form.content.data,
+                    response_id=response_id,
+                    letter_id=letter.id,
+                    anon_user_id=anon_cookie
+                )
+                db.session.add(user_reply)
+                db.session.commit()
+                
+                flash('Your reply has been sent to the volunteer!', 'success')
+                # Redirect back to inbox thread instead of separate response page
+                return redirect(url_for('inbox_letter', letter_id=letter.unique_id))
+            
+            # If form validation fails, redirect back with error
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f'{error}', 'error')
             return redirect(url_for('inbox_letter', letter_id=letter.unique_id))
-        
-        # If form validation fails, redirect back with error
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(f'{error}', 'error')
-        return redirect(url_for('inbox_letter', letter_id=letter.unique_id))
+        except Exception as e:
+            logger.error(f"Error submitting user reply: {str(e)}")
+            flash('An error occurred while submitting your reply. Please try again.', 'error')
+            return redirect(url_for('inbox'))
 
     # -------- Anonymous Inbox --------
     @app.route('/inbox')

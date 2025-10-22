@@ -979,9 +979,24 @@ try:
         unprocessed_letters = Letter.query.filter(
             (Letter.is_processed == False) & ((Letter.is_flagged == False) | (Letter.is_flagged.is_(None)))
         ).order_by(Letter.created_at).all()
+        
+        # Find letters with unread user replies
+        letters_with_unread_replies = []
+        processed_letters = Letter.query.filter(Letter.is_processed == True).all()
+        for letter in processed_letters:
+            for response in letter.responses:
+                unread_count = response.user_replies.filter_by(is_read=False).count()
+                if unread_count > 0:
+                    letters_with_unread_replies.append({
+                        'letter': letter,
+                        'unread_count': unread_count
+                    })
+                    break  # Only add the letter once
+        
         # Volunteers no longer see flagged letters at all
         return render_template('volunteer/dashboard.html', 
-                              unprocessed_letters=unprocessed_letters)
+                              unprocessed_letters=unprocessed_letters,
+                              letters_with_unread_replies=letters_with_unread_replies)
 
     # Volunteer route: Respond to letter
     @app.route('/volunteer/letter/<letter_id>', methods=['GET', 'POST'])

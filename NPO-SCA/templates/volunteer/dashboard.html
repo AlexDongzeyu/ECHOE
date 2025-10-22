@@ -18,6 +18,37 @@
 <div class="container">
   <h1>Volunteer Dashboard</h1>
 
+  <!-- Letters with unread user replies -->
+  {% if letters_with_unread_replies %}
+  <div class="content-section" style="background:linear-gradient(180deg, rgba(248,210,156,0.15), rgba(255,255,255,0.95));border-left:4px solid var(--soft-yellow);margin-bottom:2rem">
+    <h2 style="display:flex;align-items:center;gap:10px">
+      <i class="fas fa-reply"></i> Conversations with New Replies
+      <span style="background:var(--soft-yellow);color:var(--deep-indigo);padding:4px 10px;border-radius:12px;font-size:0.85rem">{{ letters_with_unread_replies|length }}</span>
+    </h2>
+    <p style="opacity:0.8;margin-bottom:1rem">Users have replied to your previous responses. Continue the conversation!</p>
+    <div class="v-grid">
+      {% for item in letters_with_unread_replies %}
+        <div class="v-card" style="border-left:3px solid var(--soft-yellow)">
+          <div class="v-title" style="display:flex;align-items:center;justify-content:space-between">
+            <span>{{ item.letter.title or 'Ongoing Conversation' }}</span>
+            <span style="background:#e74c3c;color:#fff;padding:3px 8px;border-radius:10px;font-size:0.75rem">{{ item.unread_count }} new</span>
+          </div>
+          <div class="v-meta">Last activity: {{ item.letter.responses[-1].created_at.strftime('%b %d, %Y %H:%M') if item.letter.responses else 'N/A' }}</div>
+          <div style="display:flex;align-items:center;margin-bottom:10px">
+            <div class="avatar" style="background:var(--soft-yellow);color:var(--deep-indigo)">U</div>
+            <div style="opacity:.8">User replied to your response</div>
+          </div>
+          <div class="v-actions">
+            <a href="{{ url_for('respond_to_letter', letter_id=item.letter.unique_id) }}" class="btn-primary" style="background:var(--soft-yellow);color:var(--deep-indigo)">
+              <i class="fas fa-reply"></i> Continue Conversation
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="content-section">
     <h2>New Letters</h2>
     {% if unprocessed_letters %}

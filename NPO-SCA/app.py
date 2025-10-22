@@ -1184,6 +1184,14 @@ try:
     def campaign_monthly_trivia():
         return render_template('campaigns/monthly_trivia.html')
 
+    @app.route('/campaigns/playlist')
+    def campaign_playlist():
+        return render_template('campaigns/playlist.html')
+
+    @app.route('/campaigns/podcast')
+    def campaign_podcast():
+        return render_template('campaigns/podcast.html')
+
     @app.route('/research-study')
     def research_study():
         return render_template('research_study.html')

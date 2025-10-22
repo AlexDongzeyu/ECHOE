@@ -1152,8 +1152,7 @@ try:
 
     @app.route('/helplines')
     def helplines():
-        # Reuse existing resources page content
-        return render_template('resources.html')
+        return render_template('helplines.html')
 
     @app.route('/calendar')
     def calendar_page():

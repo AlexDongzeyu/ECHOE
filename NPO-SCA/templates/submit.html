@@ -20,7 +20,39 @@
             border-radius: 20px;
             box-shadow: 0 10px 36px rgba(42, 61, 102, 0.14);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+        }
+        
+        /* Cat decorations */
+        .cat-standing {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0 4px 12px rgba(42,61,102,0.15));
+            pointer-events: none;
+        }
+        
+        .cat-laying {
+            position: absolute;
+            bottom: -30px;
+            left: -60px;
+            width: 140px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0 4px 12px rgba(42,61,102,0.15));
+            pointer-events: none;
+        }
+        
+        @media (max-width: 1200px) {
+            .cat-standing { display: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .cat-laying { display: none; }
         }
         
         .form-container::before {
@@ -416,6 +448,10 @@
 
 {% block content %}
         <div class="form-container">
+            <!-- Cat decorations -->
+            <img src="{{ url_for('static', filename='img/Untitled design.png') }}" alt="E.C.H.O.E mascot" class="cat-standing">
+            <img src="{{ url_for('static', filename='img/Untitled design (1).png') }}" alt="E.C.H.O.E mascot" class="cat-laying">
+            
             <h2>Share Your Story with E.C.H.O.E</h2>
             <p class="form-quote">Every voice deserves to be echoed.</p>
             <p class="form-intro">A gentle, judgment-free space to share what's on your mind. Our team will read with care and respond within 48 hours.</p>

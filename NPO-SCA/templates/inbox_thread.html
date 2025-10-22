@@ -11,6 +11,21 @@
   .user-reply .meta{color:var(--deep-indigo);opacity:0.8;margin-bottom:6px}
   .meta{font-size:.9rem;opacity:.7}
   .reply-indicator{display:inline-flex;align-items:center;gap:6px;background:var(--soft-yellow);color:var(--deep-indigo);padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600;margin-left:10px}
+  
+  /* Reply form styles */
+  .reply-form-container{margin-top:16px;padding-top:16px;border-top:2px dashed rgba(159,197,203,.3)}
+  .toggle-reply-btn{background:var(--soft-yellow);color:var(--deep-indigo);border:none;padding:10px 18px;border-radius:20px;font-weight:600;cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:8px;font-size:0.9rem;box-shadow:0 3px 10px rgba(244,208,111,.3)}
+  .toggle-reply-btn:hover{background:#e6c960;transform:translateY(-2px);box-shadow:0 5px 15px rgba(244,208,111,.4)}
+  .reply-form{margin-top:12px;background:rgba(255,255,255,0.5);padding:16px;border-radius:12px;border:2px solid rgba(159,197,203,.2)}
+  .reply-form.hidden{display:none}
+  .reply-textarea{width:100%;padding:12px 15px;border:2px solid rgba(159,197,203,.3);border-radius:10px;font-size:1rem;font-family:inherit;resize:vertical;transition:border-color .3s ease;background:white}
+  .reply-textarea:focus{outline:none;border-color:var(--gentle-lavender);box-shadow:0 0 0 3px rgba(159,197,203,.1)}
+  .reply-form-actions{display:flex;gap:12px;margin-top:12px}
+  .submit-reply-btn{background:var(--gentle-lavender);color:white;border:none;padding:10px 20px;border-radius:20px;font-weight:600;cursor:pointer;transition:all .3s ease;font-size:0.9rem}
+  .submit-reply-btn:hover{background:#7ea4ac;transform:translateY(-2px);box-shadow:0 5px 15px rgba(159,197,203,.3)}
+  .cancel-reply-btn{background:transparent;color:var(--gentle-lavender);border:2px solid var(--gentle-lavender);padding:10px 20px;border-radius:20px;font-weight:600;cursor:pointer;transition:all .3s ease;font-size:0.9rem}
+  .cancel-reply-btn:hover{background:rgba(159,197,203,.1)}
+  .error-msg{color:#c0392b;font-weight:600;margin-top:8px;font-size:0.9rem}
 </style>
 {% endblock %}
 
@@ -44,6 +59,30 @@
               </div>
             {% endfor %}
           {% endif %}
+          
+          <!-- Reply form -->
+          {% if is_owner %}
+          <div class="reply-form-container">
+            <button type="button" class="toggle-reply-btn" onclick="toggleReplyForm({{ r.id }})">
+              <i class="fas fa-reply"></i> Reply to this response
+            </button>
+            <div id="reply-form-{{ r.id }}" class="reply-form hidden">
+              <form method="POST" action="{{ url_for('submit_user_reply', response_id=r.id) }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ form.content(class="form-control reply-textarea", placeholder="Share your thoughts or ask a follow-up question...", rows="4") }}
+                  {% if form.content.errors %}
+                    <div class="error-msg">{{ form.content.errors[0] }}</div>
+                  {% endif %}
+                </div>
+                <div class="reply-form-actions">
+                  {{ form.submit(class="submit-reply-btn") }}
+                  <button type="button" class="cancel-reply-btn" onclick="toggleReplyForm({{ r.id }})">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          {% endif %}
         </div>
       {% endfor %}
     {% else %}
@@ -53,3 +92,13 @@
 </div>
 {% endblock %}
 
+{% block scripts %}
+<script>
+  function toggleReplyForm(responseId) {
+    const form = document.getElementById('reply-form-' + responseId);
+    if (form) {
+      form.classList.toggle('hidden');
+    }
+  }
+</script>
+{% endblock %}

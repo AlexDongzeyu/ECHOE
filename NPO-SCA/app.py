@@ -793,6 +793,9 @@ try:
             letter.has_unread = False
             db.session.commit()
         
+        # Create a form for replies
+        form = UserReplyForm()
+        
         # Get user replies for each response
         response_replies = {}
         for response in responses:
@@ -802,7 +805,8 @@ try:
                              letter=letter, 
                              responses=responses, 
                              is_owner=is_owner,
-                             response_replies=response_replies)
+                             response_replies=response_replies,
+                             form=form)
 
     @app.route('/api/inbox/unread-count')
     def inbox_unread_count():

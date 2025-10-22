@@ -244,6 +244,146 @@
         animation: newResponse 0.5s ease-out;
     }
     
+    /* User Reply Styles */
+    .user-replies-section {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px dashed rgba(159, 197, 203, 0.3);
+    }
+    
+    .user-reply-item {
+        background: rgba(248, 210, 156, 0.1);
+        border-left: 3px solid var(--soft-yellow);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .user-reply-meta {
+        font-size: 0.9rem;
+        color: var(--gentle-lavender);
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .user-reply-content {
+        color: var(--deep-indigo);
+        line-height: 1.7;
+        font-size: 1rem;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+    
+    /* Reply Form */
+    .reply-form-container {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px dashed rgba(159, 197, 203, 0.3);
+    }
+    
+    .toggle-reply-btn {
+        background: var(--soft-yellow);
+        color: var(--deep-indigo);
+        border: none;
+        padding: 12px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(244, 208, 111, 0.3);
+    }
+    
+    .toggle-reply-btn:hover {
+        background: #e6c960;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(244, 208, 111, 0.4);
+    }
+    
+    .reply-form {
+        margin-top: 15px;
+        background: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        border-radius: 12px;
+        border: 2px solid rgba(159, 197, 203, 0.2);
+    }
+    
+    .reply-form.hidden {
+        display: none;
+    }
+    
+    .reply-textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid rgba(159, 197, 203, 0.3);
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: inherit;
+        resize: vertical;
+        transition: border-color 0.3s ease;
+        background: white;
+    }
+    
+    .reply-textarea:focus {
+        outline: none;
+        border-color: var(--gentle-lavender);
+        box-shadow: 0 0 0 3px rgba(159, 197, 203, 0.1);
+    }
+    
+    .reply-form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 15px;
+    }
+    
+    .submit-reply-btn {
+        background: var(--gentle-lavender);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .submit-reply-btn:hover {
+        background: #7ea4ac;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(159, 197, 203, 0.3);
+    }
+    
+    .cancel-reply-btn {
+        background: transparent;
+        color: var(--gentle-lavender);
+        border: 2px solid var(--gentle-lavender);
+        padding: 12px 25px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+    
+    .cancel-reply-btn:hover {
+        background: rgba(159, 197, 203, 0.1);
+    }
+    
+    .error-msg {
+        color: #c0392b;
+        font-weight: 600;
+        margin-top: 8px;
+        font-size: 0.9rem;
+    }
+
     @media (max-width: 768px) {
         .response-container {
             margin: 20px;
@@ -276,6 +416,15 @@
         .action-buttons {
             flex-direction: column;
             align-items: center;
+        }
+        
+        .reply-form-actions {
+            flex-direction: column;
+        }
+        
+        .submit-reply-btn,
+        .cancel-reply-btn {
+            width: 100%;
         }
     }
 </style>
@@ -327,6 +476,45 @@
                             </div>
                             
                             <div class="response-content">{{ response.content }}</div>
+                            
+                            <!-- User replies to this response -->
+                            {% if response_replies.get(response.id) %}
+                                <div class="user-replies-section">
+                                    <h4 style="color: var(--deep-indigo); font-size: 1.1rem; margin: 20px 0 15px 0; display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-reply"></i> Your Replies
+                                    </h4>
+                                    {% for user_reply in response_replies[response.id] %}
+                                        <div class="user-reply-item">
+                                            <div class="user-reply-meta">
+                                                <span><i class="fas fa-user"></i> You replied on {{ user_reply.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
+                                            </div>
+                                            <div class="user-reply-content">{{ user_reply.content }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Reply form -->
+                            <div class="reply-form-container">
+                                <button class="toggle-reply-btn" onclick="toggleReplyForm({{ response.id }})">
+                                    <i class="fas fa-reply"></i> Reply to this response
+                                </button>
+                                <div id="reply-form-{{ response.id }}" class="reply-form hidden">
+                                    <form method="POST" action="{{ url_for('submit_user_reply', response_id=response.id) }}">
+                                        {{ form.hidden_tag() }}
+                                        <div class="form-group">
+                                            {{ form.content(class="form-control reply-textarea", placeholder="Share your thoughts or ask a follow-up question...", rows="4") }}
+                                            {% if form.content.errors %}
+                                                <div class="error-msg">{{ form.content.errors[0] }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="reply-form-actions">
+                                            {{ form.submit(class="submit-reply-btn") }}
+                                            <button type="button" class="cancel-reply-btn" onclick="toggleReplyForm({{ response.id }})">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                 </div>
             {% endfor %}
         {% else %}
@@ -382,4 +570,15 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function toggleReplyForm(responseId) {
+        const form = document.getElementById('reply-form-' + responseId);
+        if (form) {
+            form.classList.toggle('hidden');
+        }
+    }
+</script>
 {% endblock %} 

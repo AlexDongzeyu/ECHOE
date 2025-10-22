@@ -113,4 +113,11 @@ class PhysicalLetterForm(FlaskForm):
     contact_info = StringField('Contact Information (if applicable)',
                               validators=[Optional()])
     
-    submit = SubmitField('Process Letter') 
+    submit = SubmitField('Process Letter')
+
+
+class UserReplyForm(FlaskForm):
+    """Form for users to reply to volunteer responses"""
+    content = TextAreaField('Your Reply', 
+                           validators=[DataRequired(), Length(min=5, max=2000)])
+    submit = SubmitField('Send Reply') 

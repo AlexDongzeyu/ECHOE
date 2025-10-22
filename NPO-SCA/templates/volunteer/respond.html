@@ -48,6 +48,37 @@
     <h3 style="margin-bottom:8px">Original Letter</h3>
     <div class="letter-box">{{ letter.content }}</div>
   </div>
+  
+  {% if existing_responses %}
+  <div class="framed-inner" style="margin-bottom:16px;background:linear-gradient(180deg, rgba(173,203,164,.12), rgba(255,255,255,.95));">
+    <h3 style="margin-bottom:12px;color:var(--deep-indigo);display:flex;align-items:center;gap:8px">
+      <i class="fas fa-history"></i> Previous Conversation
+    </h3>
+    {% for resp in existing_responses %}
+      <div style="background:#fff;border-left:4px solid var(--gentle-lavender);padding:14px;border-radius:10px;margin-bottom:12px">
+        <div style="font-size:0.9rem;opacity:0.7;margin-bottom:8px">
+          <i class="fas fa-user-heart"></i> Volunteer replied: {{ resp.created_at.strftime('%b %d, %Y %H:%M') }}
+        </div>
+        <div style="white-space:pre-wrap;line-height:1.6">{{ resp.content }}</div>
+        
+        <!-- Show user replies to this response -->
+        {% if resp.user_replies.count() > 0 %}
+          {% for user_reply in resp.user_replies.order_by(user_reply.__class__.created_at).all() %}
+            <div style="background:rgba(248,210,156,0.15);border-left:3px solid var(--soft-yellow);padding:12px;border-radius:8px;margin:10px 0 0 16px">
+              <div style="font-size:0.85rem;color:var(--deep-indigo);opacity:0.8;margin-bottom:6px;font-weight:600">
+                <i class="fas fa-reply"></i> User replied: {{ user_reply.created_at.strftime('%b %d, %Y %H:%M') }}
+                {% if not user_reply.is_read %}
+                  <span style="background:var(--soft-yellow);color:var(--deep-indigo);padding:2px 8px;border-radius:10px;font-size:0.75rem;margin-left:6px">New</span>
+                {% endif %}
+              </div>
+              <div style="white-space:pre-wrap;line-height:1.6;font-size:0.95rem">{{ user_reply.content }}</div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   <div class="framed-inner">
     <div class="compose-wrap">

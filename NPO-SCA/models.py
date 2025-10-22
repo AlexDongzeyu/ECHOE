@@ -142,8 +142,33 @@ class Response(db.Model):
     ai_model = db.Column(db.String(50))
     moderation_score = db.Column(db.Float)
     
+    # User replies to this response
+    user_replies = db.relationship('UserReply', backref='response', lazy='dynamic', cascade='all, delete-orphan')
+    
     def __repr__(self):
         return f'<Response to {self.letter_id}>'
+
+
+class UserReply(db.Model):
+    """User's reply to a volunteer's response"""
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    response_id = db.Column(db.Integer, db.ForeignKey('response.id'), nullable=False)
+    
+    # Track which letter this reply chain belongs to (for easier querying)
+    letter_id = db.Column(db.Integer, db.ForeignKey('letter.id'), nullable=False)
+    
+    # Anonymous user tracking (same as letter's anon_user_id)
+    anon_user_id = db.Column(db.String(64), index=True)
+    
+    # Status flags
+    is_read = db.Column(db.Boolean, default=False)  # Has volunteer read this reply?
+    
+    def __repr__(self):
+        return f'<UserReply to Response {self.response_id}>'
 
 
 class PhysicalMailbox(db.Model):

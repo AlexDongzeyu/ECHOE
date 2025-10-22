@@ -1,4 +1,4 @@
-from models import db, User, Letter, Response, PhysicalMailbox, Post, Event, UserRole
+from models import db, User, Letter, Response, UserReply, PhysicalMailbox, Post, Event, UserRole
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 

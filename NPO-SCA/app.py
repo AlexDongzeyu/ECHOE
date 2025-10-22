@@ -23,8 +23,8 @@ import re
 import xml.etree.ElementTree as ET
 
 from config import Config
-from models import db, User, Letter, Response, PhysicalMailbox, Post, Event, UserRole
-from forms import LetterForm, ResponseForm, LoginForm, RegistrationForm, PhysicalLetterForm
+from models import db, User, Letter, Response, UserReply, PhysicalMailbox, Post, Event, UserRole
+from forms import LetterForm, ResponseForm, LoginForm, RegistrationForm, PhysicalLetterForm, UserReplyForm
 from middlewares import LanguageMiddleware
 from init_db import init_db
 from cli_commands import register_commands
@@ -725,7 +725,53 @@ try:
         if anon_cookie and letter.anon_user_id == anon_cookie and letter.has_unread:
             letter.has_unread = False
             db.session.commit()
-        return render_template('response.html', letter=letter, responses=responses)
+        
+        # Create a form for each response to allow replies
+        form = UserReplyForm()
+        
+        # Get user replies for each response
+        response_replies = {}
+        for response in responses:
+            response_replies[response.id] = response.user_replies.order_by(UserReply.created_at).all()
+        
+        return render_template('response.html', 
+                             letter=letter, 
+                             responses=responses, 
+                             form=form,
+                             response_replies=response_replies)
+
+    # Route: Submit user reply to a volunteer response
+    @app.route('/response/<int:response_id>/reply', methods=['POST'])
+    def submit_user_reply(response_id):
+        """Allow users to reply to volunteer responses"""
+        response_obj = Response.query.get_or_404(response_id)
+        letter = response_obj.letter
+        
+        # Verify the user is the owner of the letter
+        anon_cookie = request.cookies.get('echoe_anon')
+        if not anon_cookie or letter.anon_user_id != anon_cookie:
+            flash('You can only reply to responses on your own letters.', 'error')
+            return redirect(url_for('index'))
+        
+        form = UserReplyForm()
+        if form.validate_on_submit():
+            user_reply = UserReply(
+                content=form.content.data,
+                response_id=response_id,
+                letter_id=letter.id,
+                anon_user_id=anon_cookie
+            )
+            db.session.add(user_reply)
+            db.session.commit()
+            
+            flash('Your reply has been sent to the volunteer!', 'success')
+            return redirect(url_for('view_response', letter_id=letter.unique_id))
+        
+        # If form validation fails, redirect back with error
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f'{error}', 'error')
+        return redirect(url_for('view_response', letter_id=letter.unique_id))
 
     # -------- Anonymous Inbox --------
     @app.route('/inbox')
@@ -746,7 +792,17 @@ try:
         if is_owner and letter.has_unread:
             letter.has_unread = False
             db.session.commit()
-        return render_template('inbox_thread.html', letter=letter, responses=responses, is_owner=is_owner)
+        
+        # Get user replies for each response
+        response_replies = {}
+        for response in responses:
+            response_replies[response.id] = response.user_replies.order_by(UserReply.created_at).all()
+        
+        return render_template('inbox_thread.html', 
+                             letter=letter, 
+                             responses=responses, 
+                             is_owner=is_owner,
+                             response_replies=response_replies)
 
     @app.route('/api/inbox/unread-count')
     def inbox_unread_count():
@@ -930,6 +986,13 @@ try:
         letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
         previous_responses = letter.responses.order_by(Response.created_at).all()
         
+        # Mark all user replies as read when volunteer views this letter
+        for response in previous_responses:
+            for user_reply in response.user_replies.all():
+                if not user_reply.is_read:
+                    user_reply.is_read = True
+        db.session.commit()
+        
         form = ResponseForm()
         if form.validate_on_submit():
             # If it's AI-assisted or hybrid response
@@ -971,7 +1034,7 @@ try:
             return redirect(url_for('volunteer_dashboard'))
         
         return render_template('volunteer/respond.html', letter=letter, 
-                              previous_responses=previous_responses, form=form)
+                              existing_responses=previous_responses, form=form)
 
     # Blog routes
     @app.route('/blog')

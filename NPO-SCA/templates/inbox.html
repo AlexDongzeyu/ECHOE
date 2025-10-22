@@ -7,8 +7,8 @@
     .inbox-wrap{max-width:1000px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(42,61,102,.08);padding:24px}
     .inbox-empty{padding:40px;text-align:center;opacity:.8}
     .inbox-list{display:flex;flex-direction:column;gap:14px}
-    .inbox-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid rgba(159,197,203,.35);border-radius:12px;background:var(--warm-white);transition:transform .2s ease, box-shadow .2s ease}
-    .inbox-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(42,61,102,.08)}
+    .inbox-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid rgba(159,197,203,.35);border-radius:12px;background:var(--warm-white);transition:transform .2s ease, box-shadow .2s ease;text-decoration:none;color:inherit;cursor:pointer}
+    .inbox-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(42,61,102,.08);text-decoration:none}
     .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
     .badge-unread{background:#e74c3c;color:#fff}
     .meta{font-size:.9rem;opacity:.8}
@@ -31,10 +31,10 @@
     {% else %}
       <div class="inbox-list">
         {% for l in letters %}
-        <a class="inbox-item" href="{{ url_for('inbox_letter', letter_id=l.unique_id) }}">
-          <div style="display:flex;align-items:center">
+        <a class="inbox-item" href="{{ url_for('inbox_letter', letter_id=l.unique_id) }}" style="position:relative;z-index:1">
+          <div style="display:flex;align-items:center;flex:1">
             <div class="avatar">U</div>
-            <div>
+            <div style="flex:1">
               <div style="font-weight:800">{{ (l.content[:80] ~ ('...' if l.content|length > 80 else '')) }}</div>
               <div class="meta">{{ l.created_at.strftime('%b %d, %Y') }}</div>
             </div>

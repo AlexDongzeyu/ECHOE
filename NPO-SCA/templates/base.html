@@ -748,7 +748,7 @@
             const menu = document.getElementById('nav-menu');
             const toggle = document.querySelector('.mobile-menu-toggle');
             
-            if (!nav.contains(event.target) || (!toggle.contains(event.target) && !menu.contains(event.target))) {
+            if (!nav.contains(event.target)) {
                 menu.classList.remove('show');
             }
         });

@@ -223,10 +223,43 @@
                 </div>
                 
                 <div style="background: var(--warm-white); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
-                    <p style="color: var(--deep-indigo); line-height: 1.6;">
+                    <p style="color: var(--deep-indigo); line-height: 1.6; white-space: pre-wrap;">
                         {{ letter.content[:300] }}{% if letter.content|length > 300 %}...{% endif %}
                     </p>
                 </div>
+                
+                <!-- Show conversation thread if there are responses -->
+                {% if letter.responses.count() > 0 %}
+                <div style="background: rgba(159, 197, 203, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <h5 style="color: var(--deep-indigo); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-comments"></i> Conversation Thread ({{ letter.responses.count() }} response{{ 's' if letter.responses.count() != 1 else '' }})
+                    </h5>
+                    {% for response in letter.responses.order_by(letter.responses[0].__class__.created_at).all() %}
+                        <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--gentle-lavender);">
+                            <div style="font-size: 0.85rem; color: var(--gentle-lavender); margin-bottom: 6px;">
+                                <i class="fas fa-user-heart"></i> Volunteer responded: {{ response.created_at.strftime('%b %d, %Y %H:%M') }}
+                            </div>
+                            <div style="color: var(--deep-indigo); font-size: 0.9rem; white-space: pre-wrap;">
+                                {{ response.content[:200] }}{% if response.content|length > 200 %}...{% endif %}
+                            </div>
+                            
+                            <!-- Show user replies to this response -->
+                            {% if response.user_replies.count() > 0 %}
+                                {% for user_reply in response.user_replies.order_by(response.user_replies[0].__class__.created_at).all() %}
+                                    <div style="background: rgba(248, 210, 156, 0.15); padding: 10px; border-radius: 6px; margin: 8px 0 0 12px; border-left: 2px solid var(--soft-yellow);">
+                                        <div style="font-size: 0.8rem; color: var(--deep-indigo); opacity: 0.8; margin-bottom: 4px;">
+                                            <i class="fas fa-reply"></i> User replied: {{ user_reply.created_at.strftime('%b %d, %Y %H:%M') }}
+                                        </div>
+                                        <div style="color: var(--deep-indigo); font-size: 0.85rem; white-space: pre-wrap;">
+                                            {{ user_reply.content[:150] }}{% if user_reply.content|length > 150 %}...{% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
                 
                 <div class="content-actions">
                     {% if not letter.is_processed %}

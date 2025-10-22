@@ -1454,12 +1454,20 @@ try:
         events = Event.query.order_by(Event.event_date.desc()).all()
         
         flagged_letters = Letter.query.filter_by(is_flagged=True).order_by(Letter.created_at.desc()).all()
+        unprocessed_letters = Letter.query.filter_by(is_processed=False).order_by(Letter.created_at.desc()).all()
+        processed_letters = Letter.query.filter_by(is_processed=True).order_by(Letter.created_at.desc()).all()
+        
+        total_letters = Letter.query.count()
+        
         return render_template('admin/content.html',
                              letters=letters,
                              responses=responses,
                              posts=posts,
                              events=events,
-                             flagged_letters=flagged_letters)
+                             flagged_letters=flagged_letters,
+                             unprocessed_letters=unprocessed_letters,
+                             processed_letters=processed_letters,
+                             total_letters=total_letters)
 
     @app.route('/admin/letters/<letter_id>/delete', methods=['POST'])
     @admin_required

@@ -984,14 +984,22 @@ try:
         letters_with_unread_replies = []
         processed_letters = Letter.query.filter(Letter.is_processed == True).all()
         for letter in processed_letters:
+            total_unread = 0
+            last_activity = None
             for response in letter.responses:
                 unread_count = response.user_replies.filter_by(is_read=False).count()
-                if unread_count > 0:
-                    letters_with_unread_replies.append({
-                        'letter': letter,
-                        'unread_count': unread_count
-                    })
-                    break  # Only add the letter once
+                total_unread += unread_count
+                # Get the most recent user reply timestamp
+                latest_reply = response.user_replies.order_by(UserReply.created_at.desc()).first()
+                if latest_reply and (not last_activity or latest_reply.created_at > last_activity):
+                    last_activity = latest_reply.created_at
+            
+            if total_unread > 0:
+                letters_with_unread_replies.append({
+                    'letter': letter,
+                    'unread_count': total_unread,
+                    'last_activity': last_activity or letter.created_at
+                })
         
         # Volunteers no longer see flagged letters at all
         return render_template('volunteer/dashboard.html', 

@@ -33,7 +33,7 @@
             <span>{{ item.letter.title or 'Ongoing Conversation' }}</span>
             <span style="background:#e74c3c;color:#fff;padding:3px 8px;border-radius:10px;font-size:0.75rem">{{ item.unread_count }} new</span>
           </div>
-          <div class="v-meta">Last activity: {{ item.letter.responses[-1].created_at.strftime('%b %d, %Y %H:%M') if item.letter.responses else 'N/A' }}</div>
+          <div class="v-meta">Last activity: {{ item.last_activity.strftime('%b %d, %Y %H:%M') }}</div>
           <div style="display:flex;align-items:center;margin-bottom:10px">
             <div class="avatar" style="background:var(--soft-yellow);color:var(--deep-indigo)">U</div>
             <div style="opacity:.8">User replied to your response</div>

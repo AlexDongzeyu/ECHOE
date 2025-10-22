@@ -250,23 +250,6 @@
 
         .consultant-section {
             background: linear-gradient(180deg, rgba(173,203,164,0.12) 0%, rgba(159,197,203,0.12) 100%);
-            position: relative;
-        }
-        
-        /* Cat mascot in footer area */
-        .footer-cat {
-            position: absolute;
-            bottom: 20px;
-            right: 40px;
-            width: 100px;
-            height: auto;
-            filter: drop-shadow(0 4px 12px rgba(42,61,102,0.15));
-            pointer-events: none;
-            z-index: 5;
-        }
-        
-        @media (max-width: 768px) {
-            .footer-cat { display: none; }
         }
 
         .consultant-card {
@@ -581,8 +564,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Cat mascot decoration -->
-            <img src="{{ url_for('static', filename='img/Untitled design.png') }}" alt="E.C.H.O.E mascot" class="footer-cat">
         </section>
         
         <section class="social-manual">

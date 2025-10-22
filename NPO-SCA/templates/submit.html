@@ -49,18 +49,20 @@
         /* Cat hint message */
         .cat-hint {
             position: absolute;
-            left: 20px;
-            top: 20px;
-            background: rgba(248, 210, 156, 0.25);
-            border: 1px solid rgba(248, 210, 156, 0.5);
+            right: 15px;
+            bottom: 60px;
+            background: rgba(248, 210, 156, 0.35);
+            border: 2px solid rgba(248, 210, 156, 0.6);
             border-radius: 12px;
             padding: 10px 16px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--deep-indigo);
             font-weight: 600;
             z-index: 2;
             pointer-events: none;
             animation: gentlePulse 3s ease-in-out infinite;
+            text-align: center;
+            max-width: 260px;
         }
         
         .cat-hint.hidden {
@@ -80,8 +82,9 @@
             .cat-hint {
                 font-size: 0.85rem;
                 padding: 8px 12px;
-                left: 15px;
-                top: 15px;
+                right: 12px;
+                bottom: 50px;
+                max-width: 180px;
             }
         }
         
@@ -91,10 +94,11 @@
                 right: 10px;
             }
             .cat-hint {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 padding: 6px 10px;
-                left: 10px;
-                top: 10px;
+                right: 10px;
+                bottom: 40px;
+                max-width: 130px;
             }
         }
         
@@ -642,17 +646,6 @@
             const catBtn = document.getElementById('cat-suggest-btn');
             const catHint = document.getElementById('cat-hint');
             
-            // Hide hint when user starts typing
-            if (draftEl && catHint) {
-                draftEl.addEventListener('input', () => {
-                    if (draftEl.value.trim().length > 0) {
-                        catHint.classList.add('hidden');
-                    } else {
-                        catHint.classList.remove('hidden');
-                    }
-                });
-            }
-            
             if (catBtn) {
                 const activateCat = async () => {
                     catBtn.classList.add('hidden');
@@ -672,10 +665,7 @@
                 suggestClose.addEventListener('click', () => {
                     suggestBox.classList.add('hidden');
                     if (catBtn) catBtn.classList.remove('hidden');
-                    // Show hint again if textarea is empty
-                    if (catHint && draftEl && draftEl.value.trim().length === 0) {
-                        catHint.classList.remove('hidden');
-                    }
+                    if (catHint) catHint.classList.remove('hidden');
                 });
             }
 

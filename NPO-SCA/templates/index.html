@@ -34,8 +34,39 @@
             color: var(--deep-indigo);
             font-size: 3.2rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             line-height: 1.2;
+        }
+        
+        .acronym-subtitle {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--gentle-lavender);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .acronym-subtitle span {
+            display: inline-block;
+        }
+        
+        .acronym-letter {
+            color: var(--soft-yellow);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .acronym-word {
+            color: var(--deep-indigo);
+        }
+        
+        .acronym-dot {
+            color: var(--gentle-lavender);
+            opacity: 0.5;
         }
         
         .hero .quote {
@@ -430,6 +461,15 @@
                 font-size: 2.5rem;
             }
             
+            .acronym-subtitle {
+                font-size: 1rem;
+                gap: 6px;
+            }
+            
+            .acronym-letter {
+                font-size: 1.1rem;
+            }
+            
             .hero .quote, .hero .mission {
                 font-size: 1.1rem;
             }
@@ -454,6 +494,17 @@
             <div class="container">
                 <div class="hero-content">
                     <h1>Welcome to E.C.H.O.E</h1>
+                    <div class="acronym-subtitle">
+                        <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
+                        <span class="acronym-dot">•</span>
+                        <span><span class="acronym-letter">C</span><span class="acronym-word">onnection</span></span>
+                        <span class="acronym-dot">•</span>
+                        <span><span class="acronym-letter">H</span><span class="acronym-word">ope</span></span>
+                        <span class="acronym-dot">•</span>
+                        <span><span class="acronym-letter">O</span><span class="acronym-word">utreach</span></span>
+                        <span class="acronym-dot">•</span>
+                        <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
+                    </div>
                     <p class="quote">Every voice deserves to echo.</p>
                     <p style="font-style:italic; font-size:1.05rem; color:var(--deep-indigo); opacity:0.85; margin-bottom:18px;">From the shadows of silence, we rise together.</p>
                     <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>

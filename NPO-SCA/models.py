@@ -121,7 +121,7 @@ class Letter(db.Model):
     
     # 关系
     responder_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    responses = db.relationship('Response', backref='letter', lazy='dynamic')
+    responses = db.relationship('Response', backref='letter', lazy='dynamic', cascade='all, delete-orphan')
     
     def __repr__(self):
         return f'<Letter {self.unique_id}>'

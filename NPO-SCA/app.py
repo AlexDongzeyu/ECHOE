@@ -1478,16 +1478,28 @@ try:
     @admin_required
     def admin_delete_letter(letter_id):
         """Delete a letter (admin only)"""
-        letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
-        
-        # Delete all associated responses first
-        Response.query.filter_by(letter_id=letter.id).delete()
-        
-        db.session.delete(letter)
-        db.session.commit()
-        
-        flash('Letter and all associated responses have been deleted.', 'success')
-        return redirect(url_for('admin_content'))
+        try:
+            letter = Letter.query.filter_by(unique_id=letter_id).first_or_404()
+            
+            # Delete all associated data in correct order to avoid foreign key violations
+            # 1. Delete all user replies to responses on this letter
+            for response in letter.responses:
+                UserReply.query.filter_by(response_id=response.id).delete()
+            
+            # 2. Delete all responses to this letter
+            Response.query.filter_by(letter_id=letter.id).delete()
+            
+            # 3. Delete the letter itself
+            db.session.delete(letter)
+            db.session.commit()
+            
+            flash('Letter and all associated responses have been deleted.', 'success')
+            return redirect(url_for('admin_content'))
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Error deleting letter {letter_id}: {str(e)}")
+            flash('An error occurred while deleting the letter. Please try again.', 'error')
+            return redirect(url_for('admin_content'))
 
     @app.route('/admin/responses/<int:response_id>/delete', methods=['POST'])
     @admin_required

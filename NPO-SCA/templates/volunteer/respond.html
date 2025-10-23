@@ -63,7 +63,7 @@
         
         <!-- Show user replies to this response -->
         {% if resp.user_replies.count() > 0 %}
-          {% for user_reply in resp.user_replies.order_by(user_reply.__class__.created_at).all() %}
+          {% for user_reply in resp.user_replies.all() %}
             <div style="background:rgba(248,210,156,0.15);border-left:3px solid var(--soft-yellow);padding:12px;border-radius:8px;margin:10px 0 0 16px">
               <div style="font-size:0.85rem;color:var(--deep-indigo);opacity:0.8;margin-bottom:6px;font-weight:600">
                 <i class="fas fa-reply"></i> User replied: {{ user_reply.created_at.strftime('%b %d, %Y %H:%M') }}

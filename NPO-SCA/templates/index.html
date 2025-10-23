@@ -26,7 +26,7 @@
         }
         
         .hero-content {
-            max-width: 550px;
+            max-width: 600px;
             z-index: 2;
         }
         
@@ -44,10 +44,8 @@
             color: var(--gentle-lavender);
             margin-bottom: 20px;
             letter-spacing: 0.5px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
+            white-space: nowrap;
+            overflow-x: auto;
         }
         
         .acronym-subtitle span {
@@ -462,12 +460,13 @@
             }
             
             .acronym-subtitle {
-                font-size: 1rem;
-                gap: 6px;
+                font-size: 0.95rem;
+                overflow-x: auto;
+                white-space: nowrap;
             }
             
             .acronym-letter {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
             }
             
             .hero .quote, .hero .mission {
@@ -505,8 +504,7 @@
                         <span class="acronym-dot">•</span>
                         <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
                     </div>
-                    <p class="quote">Every voice deserves to echo.</p>
-                    <p style="font-style:italic; font-size:1.05rem; color:var(--deep-indigo); opacity:0.85; margin-bottom:18px;">From the shadows of silence, we rise together.</p>
+                    <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
                     <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>
             <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 </div>

@@ -16,6 +16,7 @@
         :root {
             /* Brand palette from logo */
             --brand-orange: #F8D29C; /* 橘色 */
+            --brand-orange-dark: #E8BC6E; /* darker orange for active states */
             --brand-blue:   #9FC5CB; /* 蓝色 */
             --brand-green:  #ADCBA4; /* 绿色 */
             --brand-blue-dark: #7AAEB6; /* darker shade in same family */
@@ -155,7 +156,7 @@
         }
         
         nav ul li a.active {
-            color: var(--soft-yellow);
+            color: var(--brand-orange-dark);
             background-color: var(--brand-blue-dark); /* same family, noticeably darker */
             font-weight: 700;
             border-radius: 12px; /* slightly rounded active background */

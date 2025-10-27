@@ -255,7 +255,7 @@
         .about-section,
         .consultant-section,
         .social-manual {
-            padding: 50px 0; /* reduce section spacing */
+            padding: 36px 0; /* tighter section spacing */
         }
 
         .about-section {
@@ -266,15 +266,22 @@
         .about-grid {
             display: grid;
             grid-template-columns: 1.4fr 1fr;
-            gap: 40px;
+            gap: 24px;
             align-items: center;
         }
 
         .about-card {
             background: rgba(255,255,255,0.9);
             border-radius: 16px;
-            padding: 30px;
+            padding: 24px; /* tighter card padding */
             box-shadow: 0 10px 30px rgba(42,61,102,0.12);
+        }
+        /* Generic two-column grid for paired sections */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
         }
 
         .consultant-section {
@@ -316,7 +323,7 @@
         #community-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* force three equal columns */
-            gap: 16px;
+            gap: 12px; /* tighter spacing between frames */
             align-items: stretch;
             width: 100%;
         }
@@ -364,11 +371,10 @@
         .ig-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* fixed two columns */
-            gap: 16px; /* single source of truth for both row/column gaps */
+            gap: 16px; /* single source of truth for gaps */
             width: 100%;
             align-items: stretch; /* ensure rows align consistently */
             justify-items: stretch;
-            grid-auto-rows: 1fr; /* stabilize track sizing */
             padding-bottom: 2px; /* prevent visual crowding at bottom edge */
         }
         .ig-gallery .ig-item {
@@ -485,6 +491,7 @@
             }
         /* On narrow screens, let cards auto-size */
         .post-card.equal-height { height: auto; }
+        .two-col-grid { grid-template-columns: 1fr; }
         }
     </style>
 {% endblock %}
@@ -547,22 +554,38 @@
             </div>
         </section>
         
-        <!-- Mission / Vision / Values combined box -->
+        <!-- Mission/Vision/Values and How We Help side by side -->
         <section class="about-section">
             <div class="container">
-                <div class="about-card" style="max-width:1000px; margin:0 auto; text-align:center;">
-                    <h2 style="margin-bottom:12px;">Our Mission</h2>
-                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto 20px;">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
-                    <h2 style="margin:12px 0;">Our Vision</h2>
-                    <p style="font-size:1.1rem;max-width:900px;margin:0 auto 20px;">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
-                    <h2 style="margin:12px 0;">Values</h2>
-                    <ul style="list-style:none; padding:0; max-width:900px; margin:0 auto; line-height:1.8;">
-                        <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
-                        <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.</li>
-                        <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
-                        <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
-                        <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace their voice.</li>
-                    </ul>
+                <div class="two-col-grid">
+                    <div class="about-card" style="text-align:center;">
+                        <h2 style="margin-bottom:10px;">Our Mission</h2>
+                        <p style="font-size:1.05rem; margin:0 0 16px;">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
+                        <h2 style="margin:10px 0;">Our Vision</h2>
+                        <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
+                        <h2 style="margin:10px 0;">Values</h2>
+                        <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
+                            <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
+                            <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.</li>
+                            <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
+                            <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
+                            <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace their voice.</li>
+                        </ul>
+                    </div>
+                    <div class="about-card">
+                        <h2>How We Help</h2>
+                        <ul style="margin:8px 0 0 18px; line-height:1.7;">
+                            <li>Secure online platform for anonymous sharing and human replies</li>
+                            <li>Physical mailboxes in local spaces for offline letters</li>
+                            <li>Supportive community events that foster belonging</li>
+                        </ul>
+                        <h2 style="margin-top:16px;">Your Privacy & Safety</h2>
+                        <ul style="margin:8px 0 0 18px; line-height:1.7;">
+                            <li>Anonymous letters and secure storage</li>
+                            <li>Volunteer training and content moderation</li>
+                            <li>Clear safety guidelines to protect all users</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -587,29 +610,26 @@
             </div>
         </section>
         
-        <section class="consultant-section">
-            <div class="container">
-                <h2 style="text-align:center; margin-bottom:28px;">Our Mental Health Consultant</h2>
-                <div class="consultant-card">
-                    <div class="avatar">MH</div>
-                    <div>
-                        <h3 style="margin:0 0 8px;">Name: <span style="font-weight:800;">TBD</span></h3>
-                        <p style="margin:0 0 6px 0; line-height:1.7;">Description: A qualified mental health professional who advises our content and safeguards supportive tone.</p>
-                        <p style="margin:0; line-height:1.7; opacity:.85;">Approach: ACT/CBT, mindfulness, and strengths-based care.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <section class="about-section">
             <div class="container">
-                <div class="about-card" style="max-width:900px; margin:0 auto;">
-                    <h2 style="margin-bottom:12px;">Collaborators</h2>
-                    <p style="margin:0 0 8px 0;">NPOs, charities, and partners we work with to extend support and outreach.</p>
-                    <div style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; margin-top:20px;">
-                        <div style="text-align:center;">
-                            <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:200px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
-                            <p style="margin-top:10px; font-weight:700; color:var(--deep-indigo);">Gifted People Services</p>
+                <div class="two-col-grid">
+                    <div class="about-card">
+                        <h2 style="margin-bottom:10px;">Our Mental Health Consultant</h2>
+                        <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
+                            <div class="avatar">MH</div>
+                            <div>
+                                <p style="margin:0 0 6px 0; line-height:1.7; font-weight:700;">Coming soon</p>
+                                <p style="margin:0; line-height:1.7; opacity:.85;">A qualified professional will advise our content and ensure supportive, safe practice.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-card">
+                        <h2 style="margin-bottom:10px;">Collaborators</h2>
+                        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                            <div style="text-align:center;">
+                                <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:180px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
+                                <p style="margin-top:8px; font-weight:700; color:var(--deep-indigo);">Gifted People Services</p>
+                            </div>
                         </div>
                     </div>
                 </div>

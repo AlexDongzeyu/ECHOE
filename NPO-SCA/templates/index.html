@@ -323,23 +323,23 @@
         .post-card { width: 100%; }
         .social-manual .container { max-width: 1300px; }
         @media (max-width: 1024px) { #community-grid { grid-template-columns: 1fr; } }
-        /* Equal height social cards with internal scroll */
-        .post-card.social-equal { height: clamp(900px, 88vh, 1250px); display: flex; }
+        /* Equal height social cards with internal scroll (reduced excess space) */
+        .post-card.social-equal { height: clamp(700px, 78vh, 900px); display: flex; }
         /* Center content when there is extra space; still scrolls when overflow */
         .post-card .card-scroll {
             height: 100%;
             width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* center when content shorter than container */
-            align-items: center;
+            justify-content: flex-start; /* top align to remove large blanks */
+            align-items: stretch;
             gap: 12px;
-            padding: 8px;
+            padding: 6px;
             overflow-y: auto;
             overscroll-behavior: contain;
         }
-        /* Ensure centered content in all cards */
-        .card-scroll-top { justify-content: center; align-items: center; }
+        /* Ensure top-aligned content in all cards */
+        .card-scroll-top { justify-content: flex-start; align-items: stretch; }
 
         .post-card {
             background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));
@@ -364,8 +364,8 @@
         .ig-gallery {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr)); /* fixed two columns */
-            column-gap: 10px; /* slightly tighter columns */
-            row-gap: 32px; /* 2x vertical spacing between rows */
+            column-gap: 14px; /* keep constant horizontal gap */
+            row-gap: 18px; /* reduce vertical blank space, consistent rows */
             width: 100%;
             align-items: stretch; /* ensure rows align consistently */
             justify-items: stretch;
@@ -403,7 +403,7 @@
             height: 100%;
             max-height: none;
             overflow-y: auto;
-            padding: 8px;
+            padding: 6px;
             overscroll-behavior: contain; /* keep page from scrolling when inside */
             min-height: 0; /* allow flex child to shrink and enable scroll */
         }

@@ -281,8 +281,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            align-items: start;
+            align-items: stretch; /* make children equal height */
         }
+        .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }
 
         .consultant-section {
             background: linear-gradient(180deg, rgba(173,203,164,0.12) 0%, rgba(159,197,203,0.12) 100%);
@@ -590,25 +591,7 @@
             </div>
         </section>
 
-        <!-- Combined How We Help + Privacy & Safety -->
-        <section class="consultant-section">
-            <div class="container">
-                <div class="about-card">
-                    <h2>How We Help</h2>
-                    <ul style="margin:12px 0 18px 18px; line-height:1.8;">
-                        <li>Secure online platform for anonymous sharing and human replies</li>
-                        <li>Physical mailboxes in local spaces for offline letters</li>
-                        <li>Supportive community events that foster belonging</li>
-                    </ul>
-                    <h2>Your Privacy & Safety</h2>
-                    <ul style="margin:12px 0 0 18px; line-height:1.8;">
-                        <li>Anonymous letters and secure storage</li>
-                        <li>Volunteer training and content moderation</li>
-                        <li>Clear safety guidelines to protect all users</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        
         
         <section class="about-section">
             <div class="container">

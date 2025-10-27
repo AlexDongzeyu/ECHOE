@@ -18,6 +18,7 @@
             --brand-orange: #F8D29C; /* 橘色 */
             --brand-blue:   #9FC5CB; /* 蓝色 */
             --brand-green:  #ADCBA4; /* 绿色 */
+            --brand-blue-dark: #7AAEB6; /* darker shade in same family */
 
             /* Derived system tokens */
             --deep-indigo: #2A3D66; /* legacy primary for contrast */
@@ -155,7 +156,7 @@
         
         nav ul li a.active {
             color: var(--soft-yellow);
-            background-color: rgba(255, 255, 255, 0.22); /* same hue, darker shade */
+            background-color: var(--brand-blue-dark); /* same family, noticeably darker */
             font-weight: 700;
             border-radius: 12px; /* slightly rounded active background */
         }

@@ -293,8 +293,8 @@
 
         .consultant-card {
             display: grid;
-            grid-template-columns: 96px 1fr;
-            gap: 24px;
+            grid-template-columns: 140px 1fr;
+            gap: 28px;
             align-items: center;
             background: rgba(255,255,255,0.92);
             border-radius: 16px;
@@ -314,7 +314,7 @@
             font-weight: 800;
             font-size: 1.4rem;
         }
-        .avatar-photo { width:96px; height:96px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
+        .avatar-photo { width:140px; height:140px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
 
         .social-manual {
             background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
@@ -459,6 +459,9 @@
             text-align: center;
             /* stack posts on small screens */
             .post-grid { grid-template-columns: 1fr; }
+        /* Shrink consultant photo on small screens */
+        .consultant-card { grid-template-columns: 96px 1fr; gap: 20px; }
+        .avatar-photo { width:96px; height:96px; }
         }
         
         .hero-content {
@@ -617,7 +620,7 @@
                         <h2 style="margin-bottom:10px;">Collaborators</h2>
                         <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                             <div style="text-align:center;">
-                                <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:180px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
+                                <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:220px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
                                 <p style="margin-top:8px; font-weight:700; color:var(--deep-indigo);">Gifted People Services</p>
                             </div>
                         </div>

@@ -283,6 +283,8 @@
             gap: 20px;
             align-items: stretch; /* make children equal height */
         }
+        /* Wider left column specifically for partners block */
+        .partners-grid { grid-template-columns: 1.4fr 1fr; }
         .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }
 
         .consultant-section {
@@ -312,6 +314,7 @@
             font-weight: 800;
             font-size: 1.4rem;
         }
+        .avatar-photo { width:96px; height:96px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
 
         .social-manual {
             background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
@@ -597,14 +600,16 @@
         <section class="about-section">
             <div class="container">
                 <h2 style="text-align:center; margin-bottom:18px;">Our Partners</h2>
-                <div class="two-col-grid">
+                <div class="two-col-grid partners-grid">
                     <div class="about-card">
                         <h2 style="margin-bottom:10px;">Our Mental Health Consultant</h2>
                         <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
-                            <div class="avatar">MH</div>
+                            <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Leora Raphael-Berman" class="avatar-photo">
                             <div>
-                                <p style="margin:0 0 6px 0; line-height:1.7; font-weight:700;">Coming soon</p>
-                                <p style="margin:0; line-height:1.7; opacity:.85;">A qualified professional will advise our content and ensure supportive, safe practice.</p>
+                                <p style="margin:0 0 8px 0; line-height:1.7; font-weight:800; color:var(--deep-indigo);">Leora Raphael-Berman, RN</p>
+                                <p style="margin:0; line-height:1.75; opacity:.9;">
+                                    Leora Raphael-Berman is a Registered Nurse with over a decade of experience in public and community health. She is deeply passionate about mental health and empowering young people to care for their well-being and support one another. Alongside her clinical and community work, she has proudly served as the staff lead for her school’s JACK chapter for the past three years. This year, she is excited to support the HOSA team as the Mental Health Consultant, helping students build a project that promotes awareness, empathy, and meaningful conversations about mental wellness.
+                                </p>
                             </div>
                         </div>
                     </div>

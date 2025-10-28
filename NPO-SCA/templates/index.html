@@ -293,7 +293,7 @@
 
         .consultant-card {
             display: grid;
-            grid-template-columns: 220px 1fr;
+            grid-template-columns: 260px 1fr;
             gap: 28px;
             align-items: center;
             background: rgba(255,255,255,0.92);
@@ -314,7 +314,7 @@
             font-weight: 800;
             font-size: 1.4rem;
         }
-        .avatar-photo { width:220px; height:220px; border-radius:14px; object-fit:cover; object-position:center top; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
+        .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
 
         .social-manual {
             background: linear-gradient(180deg, rgba(179,156,208,0.18) 0%, rgba(159,197,203,0.18) 100%);
@@ -460,8 +460,8 @@
             /* stack posts on small screens */
             .post-grid { grid-template-columns: 1fr; }
         /* Shrink consultant photo on small screens */
-        .consultant-card { grid-template-columns: 150px 1fr; gap: 20px; }
-        .avatar-photo { width:150px; height:180px; border-radius:12px; object-position:center top; }
+        .consultant-card { grid-template-columns: 180px 1fr; gap: 20px; }
+        .avatar-photo { width:100%; height:auto; border-radius:12px; object-fit:contain; object-position:center; }
         }
         
         .hero-content {

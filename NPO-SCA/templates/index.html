@@ -381,9 +381,10 @@
             grid-row-gap: 16px; /* Safari legacy */
             grid-column-gap: 16px; /* Safari legacy */
             width: 100%;
-            align-items: stretch; /* ensure rows align consistently */
+            align-items: start; /* let each item size to its content height */
             justify-items: stretch;
             padding-bottom: 2px; /* prevent visual crowding at bottom edge */
+            grid-auto-rows: auto; /* ensure rows grow to content */
         }
         .ig-gallery .ig-item {
             position: relative;
@@ -397,9 +398,11 @@
         .ig-gallery .ig-item img {
             position: static;
             display: block;
-            width: 100%;
-            height: auto; /* keep full image visible */
-            object-fit: contain;
+            width: 100% !important;
+            height: auto !important; /* keep full image visible */
+            max-height: none !important;
+            object-fit: contain !important;
+            object-position: center center;
         }
         @media (max-width: 640px) {
             .ig-gallery { grid-template-columns: 1fr; }

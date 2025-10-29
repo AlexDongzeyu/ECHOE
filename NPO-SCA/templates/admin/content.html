@@ -173,8 +173,29 @@
         </div>
     </div>
     
+    <!-- Bulk actions form holder -->
+    <form id="bulkForm" method="POST" action="{{ url_for('admin_bulk_delete_letters') }}"></form>
+
     <!-- Filter Tabs -->
     <div class="content-section">
+        <div style="display:flex; justify-content: space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+            <div>
+                <label style="font-weight:700; color: var(--deep-indigo);">
+                    <input type="checkbox" id="selectAll" style="margin-right:8px;"> Select All
+                </label>
+            </div>
+            <div style="display:flex; gap:8px;">
+                <button class="action-btn" style="background:#f44336;color:white;" form="bulkForm" name="action" value="delete_selected" onclick="return confirm('Delete selected letters?');">
+                    <i class="fas fa-trash"></i> Delete Selected
+                </button>
+                <button class="action-btn" style="background:#b00020;color:white;" form="bulkForm" name="action" value="delete_all" onclick="return confirm('Delete ALL letters? This cannot be undone.');">
+                    <i class="fas fa-skull-crossbones"></i> Delete ALL
+                </button>
+                <button class="action-btn" style="background:#e67e22;color:white;" form="bulkForm" name="action" value="delete_all_except" onclick="return confirm('Delete all EXCEPT selected letters?');">
+                    <i class="fas fa-minus-circle"></i> Delete All Except Selected
+                </button>
+            </div>
+        </div>
         <div class="filter-tabs">
             <div class="filter-tab active" data-filter="all">
                 <i class="fas fa-list"></i> All Content
@@ -207,9 +228,9 @@
                         </p>
                     </div>
                     <div style="display: flex; gap: 10px; align-items: center;">
-                        <span style="background: #f44336; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">
-                            <i class="fas fa-flag"></i> Flagged
-                        </span>
+                            <span style="background: #f44336; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">
+                                <i class="fas fa-flag"></i> Flagged
+                            </span>
                     </div>
                 </div>
                 
@@ -220,6 +241,9 @@
                 </div>
                 
                 <div class="content-actions">
+                    <label style="margin-right:auto; font-weight:600; color:var(--deep-indigo);">
+                        <input type="checkbox" name="selected_letters" value="{{ letter.unique_id }}" form="bulkForm"> Select
+                    </label>
                     <form method="POST" action="{{ url_for('admin_approve_letter', letter_id=letter.unique_id) }}" style="display: inline;">
                         <button type="submit" class="action-btn approve-btn">
                             <i class="fas fa-check"></i> Approve
@@ -310,6 +334,9 @@
                 </div>
                 
                 <div class="content-actions">
+                    <label style="margin-right:auto; font-weight:600; color:var(--deep-indigo);">
+                        <input type="checkbox" name="selected_letters" value="{{ letter.unique_id }}" form="bulkForm"> Select
+                    </label>
                     {% if not letter.is_processed %}
                         <form method="POST" action="{{ url_for('admin_approve_letter', letter_id=letter.unique_id) }}" style="display: inline;">
                             <button type="submit" class="action-btn approve-btn">
@@ -382,6 +409,15 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(function() {
         // You can implement AJAX refresh here if needed
     }, 30000);
+
+    // Bulk select handling
+    const selectAll = document.getElementById('selectAll');
+    if (selectAll) {
+        selectAll.addEventListener('change', function(){
+            const boxes = document.querySelectorAll('input[name="selected_letters"]');
+            boxes.forEach(b => { b.checked = selectAll.checked; });
+        });
+    }
 });
 </script>
 {% endblock %}

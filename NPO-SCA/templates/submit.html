@@ -512,7 +512,7 @@
                 <div class="form-section active" id="online-form">
             <div class="framed-inner">
             <div class="compose-wrap" id="composeWrap">
-            <form method="POST" action="{{ url_for('submit') }}">
+            <form method="POST" action="{{ url_for('submit') }}" id="letterForm">
                 {{ form.hidden_tag() }}
                 
                         <!-- Topic selection hidden to reduce friction; AI will summarize title -->
@@ -564,7 +564,7 @@
                     {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't collect any personal information)") }}
                         </div>
                         
-                {{ form.submit(class="submit-btn") }}
+                {{ form.submit(class="submit-btn", id="submitBtn") }}
                     </form>
             </div>
                 </div>
@@ -704,6 +704,19 @@
                     document.getElementById('offline-option').click();
                 }
             })();
+
+            // Prevent double submission by disabling the button immediately on submit
+            const form = document.getElementById('letterForm');
+            const submitBtn = document.getElementById('submitBtn');
+            if (form && submitBtn) {
+                form.addEventListener('submit', function(){
+                    submitBtn.disabled = true;
+                    const original = submitBtn.textContent || 'Sending...';
+                    submitBtn.dataset.original = original;
+                    submitBtn.textContent = 'Sending…';
+                    setTimeout(() => { submitBtn.disabled = true; }, 0);
+                });
+            }
         });
     </script>
 {% endblock %} 

@@ -5,7 +5,7 @@ from sqlalchemy import inspect, text
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import uuid
 import requests
@@ -647,18 +647,36 @@ try:
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
             
             if form.validate_on_submit():
+                # Prepare submit context and de-duplicate recent identical posts
+                content_clean = (form.content.data or '').strip()
+                anon_cookie = request.cookies.get('echoe_anon')
+                if not anon_cookie:
+                    anon_cookie = str(uuid.uuid4()).replace('-', '')
+
+                # Block duplicates submitted within the last 3 minutes by same anon user and same content
+                recent_window = datetime.utcnow() - timedelta(minutes=3)
+                existing = (
+                    Letter.query
+                    .filter(Letter.anon_user_id == anon_cookie)
+                    .filter(Letter.created_at >= recent_window)
+                    .filter(Letter.content == content_clean)
+                    .order_by(Letter.created_at.desc())
+                    .first()
+                )
+                if existing:
+                    flash('Looks like you already sent this letter. We saved your original submission.', 'info')
+                    resp = make_response(redirect(url_for('confirmation', letter_id=existing.unique_id)))
+                    resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
+                    return resp
+
                 # Create new letter
                 letter = Letter(
                     title=None,
                     topic=form.topic.data,
-                    content=form.content.data,
+                    content=content_clean,
                     reply_method=form.reply_method.data,
                     anonymous_email=form.anonymous_email.data if form.reply_method.data == 'anonymous-email' else None
                 )
-                # Anonymous inbox linkage
-                anon_cookie = request.cookies.get('echoe_anon')
-                if not anon_cookie:
-                    anon_cookie = str(uuid.uuid4()).replace('-', '')
                 letter.anon_user_id = anon_cookie
                 
                 # Save to database (but decide moderation status first)
@@ -1540,6 +1558,47 @@ try:
     def view_letter_detail(letter_id):
         """Redirect to the volunteer respond view for detailed review"""
         return redirect(url_for('respond_to_letter', letter_id=letter_id))
+
+    @app.route('/admin/letters/bulk-delete', methods=['POST'])
+    @admin_required
+    def admin_bulk_delete_letters():
+        """Bulk delete letters: selected, all, or all except selected."""
+        try:
+            action = (request.form.get('action') or '').strip()
+            selected_ids = request.form.getlist('selected_letters') or []
+
+            # Determine target queryset
+            letters_to_delete = []
+            if action == 'delete_selected':
+                if not selected_ids:
+                    flash('No letters selected.', 'error')
+                    return redirect(url_for('admin_content'))
+                letters_to_delete = Letter.query.filter(Letter.unique_id.in_(selected_ids)).all()
+            elif action == 'delete_all':
+                letters_to_delete = Letter.query.all()
+            elif action == 'delete_all_except':
+                letters_to_delete = Letter.query.filter(~Letter.unique_id.in_(selected_ids)).all()
+            else:
+                flash('Invalid action.', 'error')
+                return redirect(url_for('admin_content'))
+
+            # Perform deletions including associated responses and user replies
+            deleted_count = 0
+            for letter in letters_to_delete:
+                for response in letter.responses:
+                    UserReply.query.filter_by(response_id=response.id).delete()
+                Response.query.filter_by(letter_id=letter.id).delete()
+                db.session.delete(letter)
+                deleted_count += 1
+            db.session.commit()
+
+            flash(f'Deleted {deleted_count} letter(s).', 'success')
+            return redirect(url_for('admin_content'))
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Bulk delete error: {str(e)}")
+            flash('An error occurred while performing bulk delete.', 'error')
+            return redirect(url_for('admin_content'))
 
     @app.route('/admin/users/<int:user_id>/grant-volunteer', methods=['POST'])
     @admin_required

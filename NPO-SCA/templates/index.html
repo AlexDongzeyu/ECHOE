@@ -376,9 +376,9 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px; /* base gap = column gap */
-            row-gap: 45px; /* larger vertical gap per request */
+            row-gap: 0; /* use margin on items for vertical spacing (Edge-safe) */
             column-gap: 12px; /* tighter column spacing */
-            grid-row-gap: 45px; /* Safari legacy vertical */
+            grid-row-gap: 0; /* legacy */
             grid-column-gap: 12px; /* Safari legacy horizontal */
             width: 100%;
             align-items: start; /* let each item size to its content height */
@@ -391,11 +391,11 @@
             display: block;
             width: 100%;
             overflow: hidden; /* keep rounded corners */
-            border-radius: 14px; /* ensure rounded corners are visible */
-            background: #fff; /* solid background to show rounded edge */
+            border-radius: 14px; /* keep rounded corners */
+            background: transparent; /* no surrounding frame */
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            margin: 0; /* rely on grid gaps for spacing */
-            padding: 6px; /* internal breathing room so rows never appear stuck */
+            margin: 0 0 45px 0; /* explicit vertical spacing between rows */
+            padding: 0; /* remove inner frame */
             box-sizing: border-box;
         }
         .ig-gallery .ig-item img {

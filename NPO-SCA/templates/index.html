@@ -375,11 +375,11 @@
         .ig-gallery {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px; /* primary gap */
-            row-gap: 20px; /* explicit row gap for broader browser support */
-            column-gap: 20px; /* explicit column gap */
-            grid-row-gap: 20px; /* Safari legacy */
-            grid-column-gap: 20px; /* Safari legacy */
+            gap: 12px; /* base gap = column gap */
+            row-gap: 20px; /* larger vertical gap */
+            column-gap: 12px; /* tighter column spacing */
+            grid-row-gap: 20px; /* Safari legacy vertical */
+            grid-column-gap: 12px; /* Safari legacy horizontal */
             width: 100%;
             align-items: start; /* let each item size to its content height */
             justify-items: stretch;
@@ -394,7 +394,7 @@
             border-radius: 8px;
             background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12));
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            margin: 0; /* ensure grid gaps control spacing */
+            margin: 0 0 12px 0; /* fallback vertical spacing for Safari gaps bug */
         }
         .ig-gallery .ig-item img {
             position: static;

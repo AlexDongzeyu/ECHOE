@@ -376,9 +376,9 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px; /* base gap = column gap */
-            row-gap: 28px; /* larger vertical gap */
+            row-gap: 45px; /* larger vertical gap per request */
             column-gap: 12px; /* tighter column spacing */
-            grid-row-gap: 28px; /* Safari legacy vertical */
+            grid-row-gap: 45px; /* Safari legacy vertical */
             grid-column-gap: 12px; /* Safari legacy horizontal */
             width: 100%;
             align-items: start; /* let each item size to its content height */
@@ -391,10 +391,10 @@
             display: block;
             width: 100%;
             overflow: hidden; /* keep rounded corners */
-            border-radius: 8px;
-            background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12));
+            border-radius: 14px; /* ensure rounded corners are visible */
+            background: #fff; /* solid background to show rounded edge */
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            margin: 0 0 12px 0; /* fallback vertical spacing for Safari gaps bug */
+            margin: 0; /* rely on grid gaps for spacing */
             padding: 6px; /* internal breathing room so rows never appear stuck */
             box-sizing: border-box;
         }

@@ -376,9 +376,9 @@
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px; /* base gap = column gap */
-            row-gap: 20px; /* larger vertical gap */
+            row-gap: 28px; /* larger vertical gap */
             column-gap: 12px; /* tighter column spacing */
-            grid-row-gap: 20px; /* Safari legacy vertical */
+            grid-row-gap: 28px; /* Safari legacy vertical */
             grid-column-gap: 12px; /* Safari legacy horizontal */
             width: 100%;
             align-items: start; /* let each item size to its content height */
@@ -395,6 +395,8 @@
             background: linear-gradient(180deg, rgba(159,197,203,0.12), rgba(248,210,156,0.12));
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
             margin: 0 0 12px 0; /* fallback vertical spacing for Safari gaps bug */
+            padding: 6px; /* internal breathing room so rows never appear stuck */
+            box-sizing: border-box;
         }
         .ig-gallery .ig-item img {
             position: static;

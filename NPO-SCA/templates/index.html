@@ -371,10 +371,10 @@
         .social-scroll { height: 100%; overflow-y: auto; }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
 
-        /* IG gallery - show full posts with natural aspect ratio */
+        /* IG gallery - two columns, full posts (no crop), scroll within frame */
         .ig-gallery {
             display: grid;
-            grid-template-columns: 1fr; /* single column, full width */
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 16px; /* primary gap */
             row-gap: 16px; /* explicit row gap for broader browser support */
             column-gap: 16px; /* explicit column gap */
@@ -400,6 +400,9 @@
             width: 100%;
             height: auto; /* keep full image visible */
             object-fit: contain;
+        }
+        @media (max-width: 640px) {
+            .ig-gallery { grid-template-columns: 1fr; }
         }
 
         /* Scroll container so users can scroll within the gallery card */

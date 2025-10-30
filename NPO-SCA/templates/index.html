@@ -267,7 +267,7 @@
             display: grid;
             grid-template-columns: 1.4fr 1fr;
             gap: 24px;
-            align-items: center;
+            align-items: stretch; /* equalize heights between text and image card */
         }
 
         .about-card {
@@ -276,6 +276,12 @@
             padding: 24px; /* tighter card padding */
             box-shadow: 0 10px 30px rgba(42,61,102,0.12);
         }
+        /* Ensure equal heights within the about-grid */
+        .about-grid .about-card { height: 100%; display: flex; flex-direction: column; }
+
+        /* Reusable rounded rectangle photo with uniform height */
+        .photo-rect { width: 100%; height: 260px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: 0 8px 24px rgba(42,61,102,0.12); background:#fff; }
+        @media (max-width: 768px){ .photo-rect { height: 220px; } }
         /* Generic two-column grid for paired sections */
         .two-col-grid {
             display: grid;
@@ -557,8 +563,8 @@
                         </p>
                         <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
                         </div>
-                    <div style="text-align:center;">
-                        <img src="{{ url_for('static', filename='img/Untitled design.png') }}" alt="Echo the Cat" style="max-width:320px; width:100%; border-radius:16px; background: rgba(255,255,255,0.6); padding:14px; box-shadow:0 10px 30px rgba(42,61,102,0.12);">
+                    <div class="about-card" style="justify-content:center; align-items:center;">
+                        <img src="{{ url_for('static', filename='img/Weixin Image_20250918013743_1430_474.jpg') }}" alt="E.C.H.O.E Team" class="photo-rect">
                     </div>
                 </div>
             </div>
@@ -567,22 +573,24 @@
         <!-- Meet Echo the Cat! -->
         <section class="about-section">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-card">
-                        <h2 style="margin-bottom:12px;">Meet Echo the Cat!</h2>
-                        <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                            Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of curiosity, tilting her head to every little ping and boop that floated through the digital air.
-                        </p>
-                        <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                            Echo adores unraveling mysterious tangles of code, napping on forgotten story scrolls, and sipping warm imaginary tea. Her shimmering monocle helps her see clearly, and her little green scarf keeps her snug for adventures.
-                        </p>
-                        <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                            Most of all, Echo loves making friends. She listens quietly, offers gentle presence, and reminds us that our online world can be warm, welcoming, and wonderfully curious. If you look closely, you might catch a friendly wink from behind her monocle — she’s happy you’re here.
-                        </p>
-                    </div>
-                    <div class="about-card" style="display:grid; grid-template-columns: 1fr; gap:12px; align-items:center;">
-                        <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_ushjnxushjnxushj.png') }}" alt="Echo with monocle" style="width:100%; border-radius:14px; box-shadow:0 8px 24px rgba(42,61,102,0.12); object-fit:contain;">
-                        <img src="{{ url_for('static', filename='img/IMG_5417 (1).GIF') }}" alt="Echo playful animation" style="width:100%; border-radius:14px; box-shadow:0 8px 24px rgba(42,61,102,0.12); object-fit:contain;">
+                <div class="about-card">
+                    <h2 style="margin-bottom:12px;">Meet Echo the Cat!</h2>
+                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
+                        Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of curiosity, tilting her head to every little ping and boop that floated through the digital air.
+                    </p>
+                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
+                        Echo adores unraveling mysterious tangles of code, napping on forgotten story scrolls, and sipping warm imaginary tea. Her shimmering monocle helps her see clearly, and her little green scarf keeps her snug for adventures.
+                    </p>
+                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo); margin:0;">
+                        Most of all, Echo loves making friends. She listens quietly, offers gentle presence, and reminds us that our online world can be warm, welcoming, and wonderfully curious. If you look closely, you might catch a friendly wink from behind her monocle — she’s happy you’re here.
+                    </p>
+                </div>
+                <div class="about-card" style="margin-top:18px;">
+                    <div class="echo-photos" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+                        <img src="{{ url_for('static', filename='img/Untitled design.png') }}" alt="Echo icon" class="photo-rect">
+                        <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_ushjnxushjnxushj.png') }}" alt="Echo with monocle" class="photo-rect">
+                        <img src="{{ url_for('static', filename='img/IMG_5365.PNG') }}" alt="Echo sketch 1" class="photo-rect">
+                        <img src="{{ url_for('static', filename='img/IMG_5369.PNG') }}" alt="Echo sketch 2" class="photo-rect">
                     </div>
                 </div>
             </div>

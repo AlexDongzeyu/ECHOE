@@ -555,6 +555,41 @@
             opacity: 0.8;
         }
         
+        /* Accessibility: Modes and Controls */
+        :root{ --font-scale: 1; }
+        html{ font-size: calc(16px * var(--font-scale)); }
+        /* Calm / Low‑Stimulus */
+        body.mode-calm *{ animation: none !important; transition: none !important; }
+        body.mode-calm .bg-shapes, body.mode-calm [data-decorative="true"], body.mode-calm .butterflies, body.mode-calm .flowers-front, body.mode-calm .flowers-middle, body.mode-calm .flowers-back, body.mode-calm .hero-image{ display:none !important; }
+        body.mode-calm{ filter: saturate(90%); background-color:#f6f7f8; }
+        /* Focus / Reader */
+        body.mode-focus header, body.mode-focus footer, body.mode-focus .chat-widget, body.mode-focus .fab-write{ display:none !important; }
+        body.mode-focus main{ padding-top: 40px; }
+        body.mode-focus .container{ max-width: 860px; }
+        body.mode-focus p, body.mode-focus li{ line-height: 1.9; letter-spacing: .02em; }
+        body.mode-focus{ font-family: 'Nunito', Arial, sans-serif; }
+        /* High Contrast */
+        body.mode-contrast{ background:#000 !important; color:#fff !important; }
+        body.mode-contrast a{ color:#ffea00 !important; text-decoration: underline; }
+        body.mode-contrast .content-section, body.mode-contrast .page-container, body.mode-contrast .about-card{ background:#000 !important; border-color:#fff !important; box-shadow:none !important; }
+
+        /* Floating Echo Accessibility button */
+        .a11y-fab{ position:fixed; left:20px; bottom:90px; z-index:1100; display:flex; align-items:center; gap:8px; background:#fff; border:2px solid rgba(159,197,203,.5); border-radius:24px; padding:6px 10px; box-shadow:0 10px 24px rgba(42,61,102,.15); cursor:pointer; }
+        .a11y-fab img{ width:28px; height:28px; border-radius:50%; }
+        .a11y-fab span{ font-weight:800; color:var(--deep-indigo); font-size:.95rem; }
+        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:80px; } }
+        /* Panel */
+        .a11y-panel{ position:fixed; left:20px; bottom:150px; z-index:1100; width:min(92vw, 340px); background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; }
+        .a11y-panel.open{ display:block; }
+        .a11y-panel header{ padding:10px 14px; border-bottom:1px solid rgba(159,197,203,.35); font-weight:800; color:var(--deep-indigo); display:flex; align-items:center; justify-content:space-between; }
+        .a11y-panel .body{ padding:12px 14px; display:grid; gap:10px; }
+        .a11y-panel .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+        .a11y-panel .row label{ font-weight:700; color:var(--deep-indigo); }
+        .a11y-panel .actions{ display:flex; gap:8px; flex-wrap:wrap; }
+        .a11y-btn{ background:var(--soft-yellow); color:var(--deep-indigo); border:none; border-radius:12px; padding:8px 12px; font-weight:800; cursor:pointer; }
+        .a11y-btn.secondary{ background:var(--gentle-lavender); color:#0f2233; }
+        .a11y-small{ font-size:.85rem; color:#4b5b7a; }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             nav {
@@ -763,6 +798,102 @@
                 menu.classList.remove('show');
             }
         });
+    </script>
+    
+    <!-- Echo Accessibility Controls -->
+    <button id="a11yFab" class="a11y-fab" aria-haspopup="true" aria-expanded="false" title="Accessibility & display options">
+        <img src="{{ url_for('static', filename='img/Untitled design.png') }}" alt="Echo the Cat">
+        <span>Echo Options</span>
+    </button>
+    <div id="a11yPanel" class="a11y-panel" role="dialog" aria-labelledby="a11yTitle" aria-modal="false">
+        <header>
+            <div id="a11yTitle">Accessibility & Comfort</div>
+            <button id="a11yClose" class="a11y-btn secondary" style="padding:4px 8px;">Close</button>
+        </header>
+        <div class="body">
+            <div class="row">
+                <label for="calmToggle">Calm / Low‑Stimulus</label>
+                <button id="calmToggle" class="a11y-btn">Toggle</button>
+            </div>
+            <div class="row">
+                <label for="focusToggle">Focus / Reader</label>
+                <button id="focusToggle" class="a11y-btn">Toggle</button>
+            </div>
+            <div class="row">
+                <label for="contrastToggle">High Contrast</label>
+                <button id="contrastToggle" class="a11y-btn">Toggle</button>
+            </div>
+            <div class="row">
+                <label>Text Size</label>
+                <div class="actions">
+                    <button id="textSmaller" class="a11y-btn secondary">A−</button>
+                    <button id="textReset" class="a11y-btn secondary">Reset</button>
+                    <button id="textLarger" class="a11y-btn secondary">A+</button>
+                </div>
+            </div>
+            <div class="row">
+                <label>Quick Exit</label>
+                <button id="quickExit" class="a11y-btn" title="Leave this site immediately">Leave</button>
+            </div>
+            <div class="a11y-small">Echo helps you adjust the page to reduce overwhelm and improve readability.</div>
+        </div>
+    </div>
+    
+    <script>
+        (function(){
+            const body = document.body;
+            const fab = document.getElementById('a11yFab');
+            const panel = document.getElementById('a11yPanel');
+            const btnClose = document.getElementById('a11yClose');
+            const calmBtn = document.getElementById('calmToggle');
+            const focusBtn = document.getElementById('focusToggle');
+            const contrastBtn = document.getElementById('contrastToggle');
+            const smaller = document.getElementById('textSmaller');
+            const larger = document.getElementById('textLarger');
+            const reset = document.getElementById('textReset');
+            const quickExit = document.getElementById('quickExit');
+
+            const KEY = {
+                calm:'a11y:calm', focus:'a11y:focus', contrast:'a11y:contrast', scale:'a11y:fontScale'
+            };
+
+            function applyFromStorage(){
+                try{
+                    if(localStorage.getItem(KEY.calm)==='1') body.classList.add('mode-calm');
+                    if(localStorage.getItem(KEY.focus)==='1') body.classList.add('mode-focus');
+                    if(localStorage.getItem(KEY.contrast)==='1') body.classList.add('mode-contrast');
+                    const s = parseFloat(localStorage.getItem(KEY.scale)||'1');
+                    if(!isNaN(s)) document.documentElement.style.setProperty('--font-scale', Math.min(1.6, Math.max(0.85, s)));
+                }catch(e){}
+            }
+
+            function toggle(key, cls){
+                const active = body.classList.toggle(cls);
+                try{ localStorage.setItem(key, active? '1':'0'); }catch(e){}
+            }
+
+            function setScale(delta){
+                const current = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale'))||1;
+                const next = Math.min(1.8, Math.max(0.85, current + delta));
+                document.documentElement.style.setProperty('--font-scale', next);
+                try{ localStorage.setItem(KEY.scale, String(next)); }catch(e){}
+            }
+
+            fab.addEventListener('click', ()=>{
+                const open = panel.classList.toggle('open');
+                fab.setAttribute('aria-expanded', open? 'true':'false');
+            });
+            btnClose.addEventListener('click', ()=>{ panel.classList.remove('open'); fab.setAttribute('aria-expanded','false'); });
+            calmBtn.addEventListener('click', ()=> toggle(KEY.calm, 'mode-calm'));
+            focusBtn.addEventListener('click', ()=> toggle(KEY.focus, 'mode-focus'));
+            contrastBtn.addEventListener('click', ()=> toggle(KEY.contrast, 'mode-contrast'));
+            smaller.addEventListener('click', ()=> setScale(-0.1));
+            larger.addEventListener('click', ()=> setScale(+0.1));
+            reset.addEventListener('click', ()=>{ document.documentElement.style.setProperty('--font-scale', 1); try{localStorage.setItem(KEY.scale,'1');}catch(e){} });
+            quickExit.addEventListener('click', ()=>{ window.location.href='https://www.google.com'; });
+
+            applyFromStorage();
+        })();
     </script>
     <style>
         /* Floating Write button */

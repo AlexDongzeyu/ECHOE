@@ -583,12 +583,12 @@
         body.mode-contrast .content-section, body.mode-contrast .page-container, body.mode-contrast .about-card{ background:#000 !important; border:2px solid #fff !important; box-shadow:none !important; }
 
         /* Floating Echo Accessibility button */
-        .a11y-fab{ position:fixed; right:20px; bottom:120px; z-index:1600; display:flex; align-items:center; gap:8px; background:#fff; border:2px solid rgba(159,197,203,.5); border-radius:24px; padding:8px 12px; box-shadow:0 10px 24px rgba(42,61,102,.15); cursor:pointer; }
+        .a11y-fab{ position:fixed; right:20px; bottom:168px; z-index:1600; display:flex; align-items:center; gap:8px; background:#fff; border:2px solid rgba(159,197,203,.5); border-radius:24px; padding:8px 12px; box-shadow:0 10px 24px rgba(42,61,102,.15); cursor:pointer; }
         .a11y-fab img{ width:28px; height:28px; border-radius:50%; }
         .a11y-fab span{ font-weight:800; color:var(--deep-indigo); font-size:.95rem; }
-        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:110px; } }
+        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:148px; } }
         /* Panel */
-        .a11y-panel{ position:fixed; right:20px; bottom:180px; z-index:1600; width:min(92vw, 360px); max-height:70vh; overflow:auto; background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; }
+        .a11y-panel{ position:fixed; right:20px; bottom:228px; z-index:1600; width:min(92vw, 360px); max-height:70vh; overflow:auto; background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; }
         .a11y-panel.open{ display:block; }
         .a11y-panel header{ padding:10px 14px; border-bottom:1px solid rgba(159,197,203,.35); font-weight:800; color:var(--deep-indigo); display:flex; align-items:center; justify-content:space-between; }
         .a11y-panel .body{ padding:12px 14px; display:grid; gap:10px; }
@@ -599,6 +599,8 @@
         .a11y-btn.secondary{ background:var(--gentle-lavender); color:#0f2233; }
         .a11y-btn.active{ outline:3px solid rgba(42,61,102,.25); }
         .a11y-small{ font-size:.85rem; color:#4b5b7a; }
+        /* Ensure chat widget is fixed bottom-right across pages */
+        .chat-widget{ position:fixed; right:20px; bottom:20px; z-index:1600; }
 
         /* Responsive Design */
         @media (max-width: 768px) {

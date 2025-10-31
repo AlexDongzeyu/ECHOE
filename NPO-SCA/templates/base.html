@@ -561,7 +561,8 @@
         /* Calm / Low‑Stimulus */
         body.mode-calm *{ animation: none !important; transition: none !important; }
         body.mode-calm .bg-shapes, body.mode-calm [data-decorative="true"], body.mode-calm .butterflies, body.mode-calm .flowers-front, body.mode-calm .flowers-middle, body.mode-calm .flowers-back{ display:none !important; }
-        body.mode-calm{ filter: saturate(85%) brightness(1.02); background-color:#f6f8fa; }
+        /* Avoid filter on body to prevent breaking position:fixed containment */
+        body.mode-calm{ background-color:#f6f8fa; }
         body.mode-calm .about-card, body.mode-calm .post-card, body.mode-calm .page-container{ box-shadow:none !important; border:1px solid rgba(0,0,0,0.05); }
         body.mode-calm .hero{ background: rgba(255,255,255,0.92) !important; }
         /* Focus / Reader */

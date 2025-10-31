@@ -117,7 +117,7 @@
             justify-content: center;
         }
         .logo-img img {
-            height: 28px;
+            height: 42px;
             width: auto;
             border-radius: 4px;
             display: block;
@@ -560,11 +560,13 @@
         html{ font-size: calc(16px * var(--font-scale)); }
         /* Calm / Low‑Stimulus */
         body.mode-calm *{ animation: none !important; transition: none !important; }
-        body.mode-calm .bg-shapes, body.mode-calm [data-decorative="true"], body.mode-calm .butterflies, body.mode-calm .flowers-front, body.mode-calm .flowers-middle, body.mode-calm .flowers-back, body.mode-calm .hero-image{ display:none !important; }
+        body.mode-calm .bg-shapes, body.mode-calm [data-decorative="true"], body.mode-calm .butterflies, body.mode-calm .flowers-front, body.mode-calm .flowers-middle, body.mode-calm .flowers-back{ display:none !important; }
         body.mode-calm{ filter: saturate(90%); background-color:#f6f7f8; }
         /* Focus / Reader */
-        body.mode-focus header, body.mode-focus footer, body.mode-focus .chat-widget, body.mode-focus .fab-write{ display:none !important; }
-        body.mode-focus main{ padding-top: 40px; }
+        body.mode-focus footer, body.mode-focus .chat-widget, body.mode-focus .fab-write{ display:none !important; }
+        body.mode-focus header{ position: static; background:#ffffff !important; box-shadow:none !important; }
+        body.mode-focus nav ul, body.mode-focus .mobile-menu-toggle{ display:none !important; }
+        body.mode-focus main{ padding-top: 40px; } 
         body.mode-focus .container{ max-width: 860px; }
         body.mode-focus p, body.mode-focus li{ line-height: 1.9; letter-spacing: .02em; }
         body.mode-focus{ font-family: 'Nunito', Arial, sans-serif; }
@@ -574,12 +576,12 @@
         body.mode-contrast .content-section, body.mode-contrast .page-container, body.mode-contrast .about-card{ background:#000 !important; border-color:#fff !important; box-shadow:none !important; }
 
         /* Floating Echo Accessibility button */
-        .a11y-fab{ position:fixed; left:20px; bottom:90px; z-index:1100; display:flex; align-items:center; gap:8px; background:#fff; border:2px solid rgba(159,197,203,.5); border-radius:24px; padding:6px 10px; box-shadow:0 10px 24px rgba(42,61,102,.15); cursor:pointer; }
+        .a11y-fab{ position:fixed; right:20px; bottom:150px; z-index:1100; display:flex; align-items:center; gap:8px; background:#fff; border:2px solid rgba(159,197,203,.5); border-radius:24px; padding:6px 10px; box-shadow:0 10px 24px rgba(42,61,102,.15); cursor:pointer; }
         .a11y-fab img{ width:28px; height:28px; border-radius:50%; }
         .a11y-fab span{ font-weight:800; color:var(--deep-indigo); font-size:.95rem; }
-        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:80px; } }
+        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:140px; } }
         /* Panel */
-        .a11y-panel{ position:fixed; left:20px; bottom:150px; z-index:1100; width:min(92vw, 340px); background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; }
+        .a11y-panel{ position:fixed; right:20px; bottom:220px; z-index:1100; width:min(92vw, 340px); background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; }
         .a11y-panel.open{ display:block; }
         .a11y-panel header{ padding:10px 14px; border-bottom:1px solid rgba(159,197,203,.35); font-weight:800; color:var(--deep-indigo); display:flex; align-items:center; justify-content:space-between; }
         .a11y-panel .body{ padding:12px 14px; display:grid; gap:10px; }
@@ -869,6 +871,9 @@
 
             function toggle(key, cls){
                 const active = body.classList.toggle(cls);
+                // Calm and Focus should be mutually exclusive to avoid odd layouts
+                if(active && cls==='mode-calm'){ body.classList.remove('mode-focus'); try{ localStorage.setItem(KEY.focus,'0'); }catch(e){} }
+                if(active && cls==='mode-focus'){ body.classList.remove('mode-calm'); try{ localStorage.setItem(KEY.calm,'0'); }catch(e){} }
                 try{ localStorage.setItem(key, active? '1':'0'); }catch(e){}
             }
 

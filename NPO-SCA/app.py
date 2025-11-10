@@ -1101,8 +1101,8 @@ try:
     # Event routes
     @app.route('/events')
     def events_index():
-        events = Event.query.order_by(Event.event_date.desc()).all()
-        return render_template('events/index.html', events=events)
+        # Legacy page replaced by the new overview
+        return redirect(url_for('events_overview'))
 
     @app.route('/events/<int:event_id>')
     def event_detail(event_id):

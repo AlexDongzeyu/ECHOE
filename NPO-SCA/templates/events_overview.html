@@ -5,6 +5,21 @@
   .events-hero{background:linear-gradient(135deg,rgba(159,197,203,.25),rgba(173,203,164,.25));padding:50px 30px;border-radius:20px;text-align:center;margin-bottom:40px;box-shadow:0 10px 30px rgba(42,61,102,.08)}
   .events-hero h1{font-size:2.8rem;margin-bottom:16px;color:var(--deep-indigo)}
   .events-hero p{font-size:1.2rem;color:var(--deep-indigo);opacity:.9;max-width:700px;margin:0 auto 24px}
+
+  /* Featured event */
+  .featured-event{background:#fff;border-radius:16px;box-shadow:0 10px 28px rgba(42,61,102,.10);padding:22px;border-left:4px solid var(--soft-yellow);margin-bottom:30px}
+  .featured-grid{display:grid;grid-template-columns:1.25fr .95fr;gap:18px;align-items:start}
+  .featured-title{margin:0 0 6px 0;font-size:1.8rem;color:var(--deep-indigo)}
+  .featured-meta{color:var(--gentle-lavender);font-weight:700;margin-bottom:12px}
+  .video-embed{background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.15);margin-bottom:14px}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .gallery a{display:block;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(42,61,102,.10)}
+  .gallery img{display:block;width:100%;height:140px;object-fit:cover}
+  .event-desc{background:linear-gradient(180deg,rgba(244,208,111,.08),rgba(179,156,208,.08));border-radius:12px;padding:16px;box-shadow:inset 0 0 0 1px rgba(42,61,102,.06)}
+  .event-desc h3{margin:0 0 10px 0;color:var(--deep-indigo)}
+  .event-cardlet{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 14px rgba(42,61,102,.06)}
+  @media (max-width:980px){.featured-grid{grid-template-columns:1fr}.gallery img{height:120px}}
+  @media (max-width:620px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery img{height:110px}}
   .social-cta{background:#fff;padding:40px;border-radius:16px;box-shadow:0 8px 24px rgba(42,61,102,.1);text-align:center;margin-bottom:30px;border-left:4px solid var(--soft-yellow)}
   .social-cta h2{color:var(--deep-indigo);margin-bottom:16px;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:10px}
   .social-cta p{font-size:1.1rem;line-height:1.7;color:var(--deep-indigo);margin-bottom:24px}
@@ -21,16 +36,7 @@
     .social-cta{padding:30px 20px}
   }
 
-  /* Upcoming event (compact) */
-  .upcoming-section{margin:0 0 30px 0}
-  .upcoming-card{background:rgba(255,255,255,.95);border-radius:16px;box-shadow:0 10px 30px rgba(42,61,102,.12);padding:18px 20px;display:grid;grid-template-columns:1.2fr 320px;gap:16px;align-items:center}
-  .upcoming-title{margin:0 0 6px 0;color:var(--deep-indigo);font-weight:800;font-size:1.35rem}
-  .upcoming-meta{margin:6px 0;color:var(--deep-indigo);opacity:.9;display:flex;flex-wrap:wrap;gap:12px 18px}
-  .upcoming-meta span{display:inline-flex;align-items:center;gap:8px}
-  .upcoming-actions{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  .upcoming-thumbs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .upcoming-thumbs img{width:100%;height:120px;object-fit:cover;object-position:center;border-radius:12px;box-shadow:0 6px 16px rgba(42,61,102,.08);background:#fff}
-  @media (max-width:900px){.upcoming-card{grid-template-columns:1fr}.upcoming-thumbs img{height:140px}}
+  /* Legacy compact section removed in favor of featured layout */
 </style>
 {% endblock %}
 {% block content %}
@@ -41,6 +47,62 @@
       <p class="section-subtitle">Join us for in-person gatherings where every voice is heard, and connection flourishes.</p>
     </div>
 
+    <!-- Featured Event -->
+    <section class="featured-event">
+      <div>
+        <h2 class="featured-title">ECHOE of the Gifted Hearts</h2>
+        <div class="featured-meta">November 8, 2025 · Hosted by E.C.H.O.E</div>
+      </div>
+
+      <div class="featured-grid">
+        <!-- Media: Instagram + Gallery -->
+        <div>
+          <div class="video-embed">
+            <iframe src="https://www.instagram.com/reel/DQ2i5eqgX-S/embed" width="100%" height="540" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen title="Instagram Reel"></iframe>
+          </div>
+          <div class="gallery">
+            <a href="{{ url_for('static', filename='img/EOGH 1.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 1.jpg') }}" alt="EOGH 1"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 2.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 2.jpg') }}" alt="EOGH 2"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 3.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 3.jpg') }}" alt="EOGH 3"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 4.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 4.jpg') }}" alt="EOGH 4"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 5.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 5.jpg') }}" alt="EOGH 5"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 6.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 6.jpg') }}" alt="EOGH 6"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 7.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 7.jpg') }}" alt="EOGH 7"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 8.png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 8.png') }}" alt="EOGH 8"></a>
+            <a href="{{ url_for('static', filename='img/EOGH 9.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 9.jpg') }}" alt="EOGH 9"></a>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="event-desc">
+          <h3>Event Highlights</h3>
+          <p style="margin:0 0 10px 0; color:var(--deep-indigo); line-height:1.65;">
+            Our ECHOE of the Gifted Hearts event was a vibrant success, bringing teens together to fulfill our mission: breaking social isolation and fostering a supportive community. As E.C.H.O.E—Empathy, Connection, Hope, Outreach, and Empowerment—we were proud to create a safe space for connection and understanding.
+          </p>
+          <div style="display:grid; gap:10px; margin:10px 0 12px 0;">
+            <div class="event-cardlet">
+              <strong style="color:var(--deep-indigo);">Guest Presentation:</strong>
+              <div style="color:var(--deep-indigo);">We hosted Dianna Jiang from Gifted People Services (GPS), who shared valuable insights on autism awareness and inclusion.</div>
+            </div>
+            <div class="event-cardlet">
+              <strong style="color:var(--deep-indigo);">Interactive Connections:</strong>
+              <div style="color:var(--deep-indigo);">Attendees connected through our lively “Social Circle Bingo” and the fast-paced “Social Circle Challenge,” which sparked new conversations.</div>
+            </div>
+            <div class="event-cardlet">
+              <strong style="color:var(--deep-indigo);">Fundraising:</strong>
+              <div style="color:var(--deep-indigo);">Our Bake Sale Café, Raffle Booth, and Art Wall Fundraiser were highlights of the event, with all donations supporting our charity partner, GPS.</div>
+            </div>
+            <div class="event-cardlet">
+              <strong style="color:var(--deep-indigo);">Community Closing:</strong>
+              <div style="color:var(--deep-indigo);">We concluded with a celebratory group photo and invited everyone to make a personal promise on our Connection Pledge Wall.</div>
+            </div>
+          </div>
+          <div style="font-size:.95rem; color:var(--gentle-lavender);">Thank you to everyone who made this happen—your presence matters. 💛</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More / Stay tuned -->
     <div class="social-cta">
       <h2><i class="fas fa-bullhorn"></i> See Our Upcoming Events</h2>
       <p>Stay up-to-date with our latest in-person events, workshops, and community gatherings by following us on social media. Click the link below to explore all our channels and never miss an opportunity to connect!</p>
@@ -49,33 +111,6 @@
         Visit Our Linktree
       </a>
     </div>
-
-    <!-- Upcoming Event (compact) -->
-    <section class="upcoming-section">
-      <div class="upcoming-card">
-        <div>
-          <h2 class="upcoming-title">Echoes of Gifted Hearts — Community Event</h2>
-          <div class="upcoming-meta">
-            <span><i class="fas fa-calendar"></i> Saturday, November 8</span>
-            <span><i class="fas fa-clock"></i> 10:00am – 1:00pm</span>
-            <span><i class="fas fa-map-marker-alt"></i> Fairview Library, 35 Fairview Mall Dr, Toronto ON M2J 4S4</span>
-          </div>
-          <p style="margin:8px 0 0; line-height:1.6; opacity:.9; color:var(--deep-indigo);">
-            Join us to celebrate connection, share stories of resilience, and support families touched by developmental disabilities. Presentations, interactive workshops, bake sale cafe, raffle, and art wall fundraiser.
-          </p>
-          <div class="upcoming-actions">
-            <a href="https://forms.gle/mXkK9R2kd1n2Etn16" target="_blank" rel="noopener" class="btn-primary">Sign Up</a>
-            <a href="https://forms.gle/RC2WFZ95TKtmBmct6" target="_blank" rel="noopener" class="btn-secondary">Volunteer Sign Up</a>
-          </div>
-        </div>
-        <div class="upcoming-thumbs">
-          <a href="{{ url_for('static', filename='img/Banner for Nov event.png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/Banner for Nov event.png') }}" alt="Event banner"></a>
-          <a href="{{ url_for('static', filename='img/ECHOE Poster.png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/ECHOE Poster.png') }}" alt="Event poster"></a>
-          <a href="{{ url_for('static', filename='img/ECHOE brochure (1).png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/ECHOE brochure (1).png') }}" alt="Brochure front"></a>
-          <a href="{{ url_for('static', filename='img/ECHOE brochure (2).png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/ECHOE brochure (2).png') }}" alt="Brochure inside"></a>
-        </div>
-      </div>
-    </section>
 
     <div class="event-placeholder">
       <i class="fas fa-users"></i>

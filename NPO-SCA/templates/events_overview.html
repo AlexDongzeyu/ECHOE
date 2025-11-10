@@ -8,18 +8,19 @@
 
   /* Featured event */
   .featured-event{background:#fff;border-radius:16px;box-shadow:0 10px 28px rgba(42,61,102,.10);padding:22px;border-left:4px solid var(--soft-yellow);margin-bottom:30px}
-  .media-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:18px;align-items:start}
+  .media-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
   .featured-title{margin:0 0 6px 0;font-size:2rem;color:var(--deep-indigo);font-weight:800}
   .featured-meta{color:var(--gentle-lavender);font-weight:700;margin-bottom:12px}
   .video-embed{background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.15);margin-bottom:14px}
-  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .gallery a{display:block;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(42,61,102,.10)}
-  .gallery img{display:block;width:100%;height:220px;object-fit:cover}
+  .gallery img{display:block;width:100%;height:260px;object-fit:cover;-webkit-user-drag:none;user-select:none}
+  .no-save{-webkit-user-drag:none;user-select:none}
   .event-desc{background:linear-gradient(180deg,rgba(244,208,111,.08),rgba(179,156,208,.08));border-radius:12px;padding:16px;box-shadow:inset 0 0 0 1px rgba(42,61,102,.06)}
   .event-desc h3{margin:0 0 10px 0;color:var(--deep-indigo)}
   .event-cardlet{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 14px rgba(42,61,102,.06)}
-  @media (max-width:1100px){.media-grid{grid-template-columns:1fr}.gallery img{height:200px}}
-  @media (max-width:620px){.gallery{grid-template-columns:1fr}.gallery img{height:220px}}
+  @media (max-width:1200px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery img{height:220px}}
+  @media (max-width:620px){.gallery{grid-template-columns:1fr}.gallery img{height:240px}}
   .social-cta{background:#fff;padding:40px;border-radius:16px;box-shadow:0 8px 24px rgba(42,61,102,.1);text-align:center;margin-bottom:30px;border-left:4px solid var(--soft-yellow)}
   .social-cta h2{color:var(--deep-indigo);margin-bottom:16px;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:10px}
   .social-cta p{font-size:1.1rem;line-height:1.7;color:var(--deep-indigo);margin-bottom:24px}
@@ -81,38 +82,37 @@
           <div style="font-size:.95rem; color:var(--gentle-lavender);">Thank you to everyone who made this happen—your presence matters. 💛</div>
       </div>
 
-      <!-- Media second: Gallery + Instagram -->
+      <!-- Media second: Gallery + Video -->
       <div class="media-grid">
         <div>
           <div class="gallery">
-            <a href="{{ url_for('static', filename='img/EOGH 1.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 1.jpg') }}" alt="EOGH 1"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 2.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 2.jpg') }}" alt="EOGH 2"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 3.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 3.jpg') }}" alt="EOGH 3"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 4.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 4.jpg') }}" alt="EOGH 4"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 5.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 5.jpg') }}" alt="EOGH 5"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 6.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 6.jpg') }}" alt="EOGH 6"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 7.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 7.jpg') }}" alt="EOGH 7"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 8.png') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 8.png') }}" alt="EOGH 8"></a>
-            <a href="{{ url_for('static', filename='img/EOGH 9.jpg') }}" target="_blank" rel="noopener"><img src="{{ url_for('static', filename='img/EOGH 9.jpg') }}" alt="EOGH 9"></a>
+            <img src="{{ url_for('static', filename='img/EOGH 1.jpg') }}" alt="EOGH 1" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 2.jpg') }}" alt="EOGH 2" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 3.jpg') }}" alt="EOGH 3" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 4.jpg') }}" alt="EOGH 4" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 5.jpg') }}" alt="EOGH 5" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 6.jpg') }}" alt="EOGH 6" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 7.jpg') }}" alt="EOGH 7" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 8.png') }}" alt="EOGH 8" class="no-save" oncontextmenu="return false" draggable="false">
+            <img src="{{ url_for('static', filename='img/EOGH 9.jpg') }}" alt="EOGH 9" class="no-save" oncontextmenu="return false" draggable="false">
           </div>
         </div>
         <div>
           <div class="video-embed">
-            <iframe src="https://www.instagram.com/reel/DQ2i5eqgX-S/embed" width="100%" height="620" frameborder="0" scrolling="no" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen title="Instagram Reel"></iframe>
+            <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}"
+                   playsinline controls
+                   controlsList="nodownload noplaybackrate noremoteplayback"
+                   disablepictureinpicture
+                   style="width:100%;height:auto;display:block;"
+                   oncontextmenu="return false">
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- More / Stay tuned -->
-    <div class="social-cta">
-      <h2><i class="fas fa-bullhorn"></i> See Our Upcoming Events</h2>
-      <p>Stay up-to-date with our latest in-person events, workshops, and community gatherings by following us on social media. Click the link below to explore all our channels and never miss an opportunity to connect!</p>
-      <a href="https://linktr.ee/echoehosa" target="_blank" rel="noopener" class="linktree-btn">
-        <i class="fas fa-link"></i>
-        Visit Our Linktree
-      </a>
-    </div>
+    <!-- Removed bottom dashed/CTA section as requested -->
 
     <div class="event-placeholder">
       <i class="fas fa-users"></i>

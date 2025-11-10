@@ -699,10 +699,82 @@ class LightInSilenceApp {
     renderEventsPage(container) {
         container.innerHTML = `
             <div class="events-page">
-                <main>
-                    <h1>Events</h1>
-                    <p>Stay tuned for upcoming mental health workshops, support groups, and community events.</p>
-                    <a href="/" data-route="/" class="cta-button">← Back to Home</a>
+                <main class="content" style="max-width:1100px;margin:0 auto;padding:20px;">
+                    <section class="events-hero" style="background:linear-gradient(135deg, rgba(179,156,208,.15), rgba(244,208,111,.15)); border-radius:18px; padding:28px 22px; text-align:center; margin-bottom:26px; box-shadow:0 8px 24px rgba(42,61,102,.08);">
+                        <h1 style="margin:0 0 10px 0; font-size:2.2rem; color:var(--deep-indigo);">E.C.H.O.E Events</h1>
+                        <p style="margin:0; color:var(--deep-indigo); opacity:.9;">Join our in-person gatherings where empathy, connection, hope, outreach, and empowerment come alive.</p>
+                    </section>
+
+                    <!-- Featured Event -->
+                    <section class="featured-event" style="background:#fff; border-radius:18px; box-shadow:0 10px 28px rgba(42,61,102,.10); padding:22px; margin-bottom:26px; border-left:4px solid var(--soft-yellow);">
+                        <div style="margin-bottom:14px;">
+                            <h2 style="margin:0 0 6px 0; font-size:1.8rem; color:var(--deep-indigo);">ECHOE of the Gifted Hearts</h2>
+                            <div style="color:var(--gentle-lavender); font-weight:600;">November 8, 2025 · Hosted by E.C.H.O.E</div>
+                        </div>
+                        <div class="event-layout" style="display:grid; grid-template-columns: 1.25fr .95fr; gap:18px; align-items:start;">
+                            <!-- Media column: Instagram + Gallery -->
+                            <div class="event-media">
+                                <div class="video-embed" style="background:#000; border-radius:12px; overflow:hidden; box-shadow:0 6px 16px rgba(0,0,0,.15); margin-bottom:14px;">
+                                    <iframe src="https://www.instagram.com/reel/DQ2i5eqgX-S/embed" width="100%" height="540" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen title="Instagram Reel"></iframe>
+                                </div>
+                                <div class="gallery" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                                    ${['EOGH 1.jpg','EOGH 2.jpg','EOGH 3.jpg','EOGH 4.jpg','EOGH 5.jpg','EOGH 6.jpg','EOGH 7.jpg','EOGH 8.png','EOGH 9.jpg']
+                                      .map((name, idx) => `
+                                        <a href="/static/img/${name}" target="_blank" rel="noopener" style="display:block; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(42,61,102,.10);">
+                                            <img src="/static/img/${name}" alt="ECHOE Event photo ${idx+1}" style="display:block; width:100%; height:140px; object-fit:cover;">
+                                        </a>
+                                      `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Description column -->
+                            <div class="event-description" style="background:linear-gradient(180deg, rgba(244,208,111,.08), rgba(179,156,208,.08)); border-radius:12px; padding:16px 16px 14px 16px; box-shadow:inset 0 0 0 1px rgba(42,61,102,.06);">
+                                <h3 style="margin:0 0 10px 0; color:var(--deep-indigo);">Event Highlights</h3>
+                                <p style="margin:0 0 10px 0; color:var(--deep-indigo); line-height:1.65;">
+                                    Our ECHOE of the Gifted Hearts event was a vibrant success, bringing teens together to fulfill our mission: breaking social isolation and fostering a supportive community.
+                                    As E.C.H.O.E—Empathy, Connection, Hope, Outreach, and Empowerment—we were proud to create a safe space for connection and understanding.
+                                </p>
+                                <div style="display:grid; gap:10px; margin:10px 0 12px 0;">
+                                    <div style="background:#fff; border-radius:10px; padding:12px; box-shadow:0 4px 14px rgba(42,61,102,.06);">
+                                        <strong style="color:var(--deep-indigo);">Guest Presentation:</strong>
+                                        <div style="color:var(--deep-indigo);">We hosted Dianna Jiang from Gifted People Services (GPS), who shared valuable insights on autism awareness and inclusion.</div>
+                                    </div>
+                                    <div style="background:#fff; border-radius:10px; padding:12px; box-shadow:0 4px 14px rgba(42,61,102,.06);">
+                                        <strong style="color:var(--deep-indigo);">Interactive Connections:</strong>
+                                        <div style="color:var(--deep-indigo);">Attendees connected through our lively “Social Circle Bingo” and the fast-paced “Social Circle Challenge,” which sparked new conversations.</div>
+                                    </div>
+                                    <div style="background:#fff; border-radius:10px; padding:12px; box-shadow:0 4px 14px rgba(42,61,102,.06);">
+                                        <strong style="color:var(--deep-indigo);">Fundraising:</strong>
+                                        <div style="color:var(--deep-indigo);">Our Bake Sale Café, Raffle Booth, and Art Wall Fundraiser were highlights of the event, with all donations supporting our charity partner, GPS.</div>
+                                    </div>
+                                    <div style="background:#fff; border-radius:10px; padding:12px; box-shadow:0 4px 14px rgba(42,61,102,.06);">
+                                        <strong style="color:var(--deep-indigo);">Community Closing:</strong>
+                                        <div style="color:var(--deep-indigo);">We concluded with a celebratory group photo and invited everyone to make a personal promise on our Connection Pledge Wall.</div>
+                                    </div>
+                                </div>
+                                <div style="font-size:.95rem; color:var(--gentle-lavender);">Thank you to everyone who made this happen—your presence matters. 💛</div>
+                            </div>
+                        </div>
+
+                        <!-- Responsive tweaks -->
+                        <style>
+                            @media (max-width: 980px) {
+                                .featured-event .event-layout { grid-template-columns: 1fr; }
+                                .featured-event .gallery img { height: 120px; }
+                            }
+                            @media (max-width: 620px) {
+                                .featured-event .gallery { grid-template-columns: repeat(2, 1fr); }
+                                .featured-event .gallery img { height: 110px; }
+                            }
+                        </style>
+                    </section>
+
+                    <!-- More Events / Stay tuned -->
+                    <section class="more-events" style="background:#fff; border-radius:14px; padding:18px; box-shadow:0 8px 22px rgba(42,61,102,.08); text-align:center;">
+                        <h3 style="margin:0 0 8px 0; color:var(--deep-indigo);">More Events Coming</h3>
+                        <p style="margin:0 0 14px 0; color:var(--deep-indigo); opacity:.85;">Check back soon for upcoming workshops and gatherings.</p>
+                        <a href="/" data-route="/" class="cta-button secondary">← Back to Home</a>
+                    </section>
                 </main>
             </div>
         `;

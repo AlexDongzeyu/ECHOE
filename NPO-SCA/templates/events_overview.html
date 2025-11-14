@@ -15,13 +15,14 @@
   .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .gallery a{display:block;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(42,61,102,.10)}
   .gallery img{display:block;width:100%;height:260px;object-fit:cover;-webkit-user-drag:none;user-select:none}
+  .gallery .video-embed{height:260px;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(42,61,102,.10);background:#000;display:flex;align-items:center;justify-content:center}
+  .gallery .video-embed video{width:100%;height:100%;object-fit:cover}
   .no-save{-webkit-user-drag:none;user-select:none}
   .event-desc{background:linear-gradient(180deg,rgba(244,208,111,.08),rgba(179,156,208,.08));border-radius:12px;padding:16px;box-shadow:inset 0 0 0 1px rgba(42,61,102,.06)}
   .event-desc h3{margin:0 0 10px 0;color:var(--deep-indigo)}
   .event-cardlet{background:#fff;border-radius:10px;padding:12px;box-shadow:0 4px 14px rgba(42,61,102,.06)}
-  .video-embed video{width:100%;max-width:380px;aspect-ratio:9/16;object-fit:contain;background:#000}
-  @media (max-width:1200px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery img{height:220px}.video-embed video{max-width:420px}}
-  @media (max-width:620px){.gallery{grid-template-columns:1fr}.gallery img{height:240px}.video-embed video{max-width:360px}}
+  @media (max-width:1200px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery img{height:220px}.gallery .video-embed{height:220px}}
+  @media (max-width:620px){.gallery{grid-template-columns:1fr}.gallery img{height:240px}.gallery .video-embed{height:240px}}
 
   /* Linktree CTA */
   .linktree-cta{background:#fff;border-radius:14px;box-shadow:0 8px 22px rgba(42,61,102,.08);padding:18px;margin-top:4px;text-align:center;border-left:4px solid var(--soft-yellow)}
@@ -87,10 +88,20 @@
           <div style="font-size:.95rem; color:var(--gentle-lavender);">Thank you to everyone who made this happen—your presence matters. 💛</div>
       </div>
 
-      <!-- Media second: Gallery + Video -->
+      <!-- Media second: Gallery with Video tile -->
       <div class="media-grid">
         <div>
           <div class="gallery">
+            <div class="video-embed">
+              <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}?v=2"
+                     playsinline controls
+                     controlsList="nodownload noplaybackrate noremoteplayback"
+                     disablepictureinpicture
+                     class="no-save"
+                     oncontextmenu="return false">
+                Your browser does not support the video tag.
+              </video>
+            </div>
             <img src="{{ url_for('static', filename='img/EOGH 1.jpg') }}" alt="EOGH 1" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
             <img src="{{ url_for('static', filename='img/EOGH 2.jpg') }}?v=2" alt="EOGH 2" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
             <img src="{{ url_for('static', filename='img/EOGH 3.jpg') }}" alt="EOGH 3" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
@@ -100,18 +111,6 @@
             <img src="{{ url_for('static', filename='img/EOGH 7.jpg') }}" alt="EOGH 7" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
             <img src="{{ url_for('static', filename='img/EOGH 8.png') }}" alt="EOGH 8" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
             <img src="{{ url_for('static', filename='img/EOGH 9.jpg') }}" alt="EOGH 9" class="no-save" oncontextmenu="return false" draggable="false" loading="lazy">
-          </div>
-        </div>
-        <div>
-          <div class="video-embed">
-            <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}"
-                   playsinline controls
-                   controlsList="nodownload noplaybackrate noremoteplayback"
-                   disablepictureinpicture
-                   style="width:100%;height:auto;display:block;"
-                   oncontextmenu="return false">
-              Your browser does not support the video tag.
-            </video>
           </div>
         </div>
       </div>

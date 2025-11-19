@@ -83,12 +83,10 @@
       <p>Watch our recap video to see how Recharge Week looks in action:</p>
       <div class="rw-video-wrap">
         <div class="rw-video">
-          <video src="{{ url_for('static', filename='img/RW 1.mp4') }}"
-                 playsinline controls
-                 controlsList="nodownload noplaybackrate noremoteplayback"
-                 disablepictureinpicture
-                 class="no-save"
-                 oncontextmenu="return false">
+          <video src="{{ url_for('static', filename='img/RW 1.mp4') }}?v=2"
+                 playsinline controls preload="auto"
+                 controlsList="nodownload"
+                 class="no-save">
             Your browser does not support the video tag.
           </video>
         </div>

@@ -1281,6 +1281,10 @@ try:
     def campaign_feel_good_friday():
         return render_template('campaigns/feel_good_friday.html')
 
+    @app.route('/campaigns/recharge-week')
+    def campaign_recharge_week():
+        return render_template('campaigns/recharge_week.html')
+
     @app.route('/campaigns/holiday-messages')
     def campaign_holiday_messages():
         return render_template('campaigns/holiday_messages.html')

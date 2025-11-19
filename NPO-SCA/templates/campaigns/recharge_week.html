@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Recharge Week - Campaigns{% endblock %}
+{% block styles %}
+<style>
+  .rw-hero{background:linear-gradient(135deg,rgba(179,156,208,.18),rgba(244,208,111,.18));padding:32px;border-radius:18px;text-align:center;margin-bottom:26px;box-shadow:0 8px 24px rgba(42,61,102,.08)}
+  .rw-hero h1{margin:0 0 8px 0;font-size:2.2rem;color:var(--deep-indigo)}
+  .rw-hero p{margin:0;color:var(--deep-indigo);opacity:.9}
+
+  .rw-section{background:#fff;border-radius:16px;box-shadow:0 8px 22px rgba(42,61,102,.08);padding:22px;margin-bottom:22px}
+  .rw-section h2{margin:0 0 10px 0;color:var(--deep-indigo);font-size:1.5rem}
+  .rw-section p{color:var(--deep-indigo);line-height:1.65;margin:8px 0}
+
+  .rw-days{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px}
+  .rw-card{background:#fff;border-radius:12px;padding:14px;border-left:4px solid var(--soft-yellow);box-shadow:0 6px 16px rgba(42,61,102,.08)}
+  .rw-card h3{margin:0 0 6px 0;font-size:1.1rem;color:var(--deep-indigo)}
+  .rw-card p{margin:0;color:var(--deep-indigo);opacity:.95;line-height:1.6}
+
+  .rw-video-wrap{margin-top:8px;display:flex;justify-content:center}
+  .rw-video{background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.15);width:100%;max-width:900px}
+  .rw-video video{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+  .rw-instagram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:10px}
+  .rw-ig-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 16px rgba(42,61,102,.08)}
+  .rw-ig-card h3{margin:0 0 6px 0;font-size:1.05rem;color:var(--deep-indigo)}
+  .rw-ig-card p{margin:0 0 8px 0;color:var(--deep-indigo);opacity:.9}
+  .rw-ig-card a{font-weight:600;color:var(--gentle-lavender)}
+
+  @media (max-width:900px){.rw-days{grid-template-columns:1fr}}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-container">
+    <section class="rw-hero">
+      <h1>Recharge Week</h1>
+      <p>A 7‑day challenge to reset your mental battery, one mode at a time.</p>
+    </section>
+
+    <section class="rw-section">
+      <h2>What is Recharge Week?</h2>
+      <p>This 7‑day series treats your mental energy like a battery that needs tending. Each day focuses on a different “mode” — from switching <strong>Sleep Mode ON</strong> for real rest to activating <strong>Airplane Mode</strong> for a digital detox — to help you consciously reset. Whether you are decluttering your mind during <strong>Clean Storage</strong>, moving your body for a <strong>Fast Charge</strong>, or connecting with friends during <strong>Battery Share</strong>, this week offers small, actionable steps to check your energy settings and fully power up again.</p>
+      <p>Recharge Week is designed to be accessible: you can follow along on social media, participate privately, or complete only the days that fit your schedule. The goal is not perfection — it’s noticing your needs, creating tiny moments of care, and reconnecting with yourself and others.</p>
+    </section>
+
+    <section class="rw-section">
+      <h2>7‑Day “Battery Modes”</h2>
+      <div class="rw-days">
+        <div class="rw-card">
+          <h3>Day 1 — Sleep Mode ON</h3>
+          <p>Prioritize real rest by setting a tech cut‑off time, softening your evening routine, and giving your body permission to power down.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 2 — Airplane Mode</h3>
+          <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 3 — Clean Storage</h3>
+          <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 4 — Fast Charge</h3>
+          <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 5 — Battery Share</h3>
+          <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a trusted friend.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 6 — Quiet Mode</h3>
+          <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.</p>
+        </div>
+        <div class="rw-card">
+          <h3>Day 7 — System Check</h3>
+          <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rw-section">
+      <h2>Recharge Week Highlight Video</h2>
+      <p>Watch our recap video to see how Recharge Week looks in action:</p>
+      <div class="rw-video-wrap">
+        <div class="rw-video">
+          <video src="{{ url_for('static', filename='img/RW 1.mp4') }}"
+                 playsinline controls
+                 controlsList="nodownload noplaybackrate noremoteplayback"
+                 disablepictureinpicture
+                 class="no-save"
+                 oncontextmenu="return false">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="rw-section">
+      <h2>Follow the 7‑Day Series on Instagram</h2>
+      <p>You can complete Recharge Week directly from our Instagram posts — each day includes a simple prompt and visual reminder.</p>
+      <div class="rw-instagram-grid">
+        <div class="rw-ig-card">
+          <h3>Day 1 — Sleep Mode ON</h3>
+          <p>Kick off the challenge by checking in with your sleep and rest habits.</p>
+          <a href="https://www.instagram.com/p/DQ48vPNgYgL/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 2 — Airplane Mode</h3>
+          <p>Unplug from constant notifications and give your brain some breathing room.</p>
+          <a href="https://www.instagram.com/p/DQ7qwCPAb57/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 3 — Clean Storage</h3>
+          <p>Declutter your space or mind so you have more room for what matters.</p>
+          <a href="https://www.instagram.com/p/DQ-OXDdki95/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 4 — Fast Charge</h3>
+          <p>Recharge through movement — big or small — that feels right for you.</p>
+          <a href="https://www.instagram.com/p/DRBC5gqjnjq/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 5 — Battery Share</h3>
+          <p>Share energy by checking in on a friend or joining a supportive space.</p>
+          <a href="https://www.instagram.com/p/DRDiDGwgcsp/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 6 — Quiet Mode</h3>
+          <p>Create calm with mindfulness, journaling, or quiet creative time.</p>
+          <a href="https://www.instagram.com/p/DRFxT61gVMX/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <div class="rw-ig-card">
+          <h3>Day 7 — System Check</h3>
+          <p>Reflect on what helped you most and how to carry those habits forward.</p>
+          <a href="https://www.instagram.com/p/DRIhti9ASeb/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+

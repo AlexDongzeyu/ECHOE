@@ -704,16 +704,21 @@
                     });
                     </script>
                 </div>
-                <!-- Middle: IG latest only -->
+                <!-- Middle: IG latest only (custom card, not embedded feed, to keep layout clean) -->
                 <div class="post-card social-equal" id="igLatestCard">
-                    <div class="card-scroll" style="display:flex;flex-direction:column;gap:12px;">
-                        {% if latest_ig and latest_ig.permalink %}
-                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
+                    <div class="card-scroll card-scroll-top" style="display:flex;flex-direction:column;gap:12px;align-items:stretch;">
+                        {% if latest_ig and (latest_ig.thumb or latest_ig.url) %}
+                        <a href="{{ latest_ig.permalink }}" target="_blank" rel="noopener" class="ig-item" style="text-decoration:none;">
+                            <img src="{{ latest_ig.thumb or latest_ig.url }}" alt="{{ latest_ig.caption or 'Latest Instagram post' }}" loading="lazy" style="display:block;width:100%;border-radius:14px;box-shadow:0 6px 16px rgba(42,61,102,0.08);">
+                        </a>
+                        <div style="text-align:center; font-size:.95rem; color:var(--deep-indigo); opacity:.9;">
+                            Latest from Instagram —
+                            <a href="{{ latest_ig.permalink }}" target="_blank" rel="noopener" style="font-weight:700;">view post</a>
+                        </div>
                         {% else %}
                         <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
                         {% endif %}
                     </div>
-                    <script async src="https://www.instagram.com/embed.js"></script>
                 </div>
                     <div class="post-card social-equal" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
                         <div id="igGalleryScroll" class="card-scroll card-scroll-top" style="height:100%;min-height:0;padding:8px;">

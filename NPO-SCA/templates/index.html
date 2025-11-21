@@ -380,39 +380,36 @@
         .social-scroll { height: 100%; overflow-y: auto; }
         .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
 
-        /* IG gallery - two columns, full posts (no crop), scroll within frame */
+        /* IG gallery - two-column flex grid with fixed slots so posts never overlap */
         .ig-gallery {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 50px 14px; /* ample vertical and horizontal spacing between posts */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 14px; /* vertical + horizontal spacing between tiles */
             width: 100%;
-            align-items: start;
-            justify-items: stretch;
-            padding: 4px 2px 30px 2px;
+            padding: 8px 4px 30px 4px;
+            box-sizing: border-box;
         }
         .ig-gallery .ig-item {
             position: relative;
-            display: block;
-            width: 100%;
-            overflow: hidden; /* keep rounded corners */
-            border-radius: 14px; /* keep rounded corners */
-            background: transparent; /* no surrounding frame */
+            flex: 0 0 calc(50% - 7px); /* two columns */
+            overflow: hidden;
+            border-radius: 14px;
+            background: transparent;
             box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            margin: 0; /* spacing handled by grid gap */
-            padding: 0; /* remove inner frame */
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
         .ig-gallery .ig-item img {
-            position: static;
             display: block;
             width: 100% !important;
-            height: auto !important; /* keep full image visible */
+            height: auto !important;
             max-height: none !important;
-            object-fit: contain !important;
+            object-fit: cover;
             object-position: center center;
         }
         @media (max-width: 640px) {
-            .ig-gallery { grid-template-columns: 1fr; }
+            .ig-gallery .ig-item { flex: 0 0 100%; }
         }
 
         /* Scroll container so users can scroll within the gallery card */

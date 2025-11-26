@@ -647,11 +647,25 @@ try:
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
             
             if form.validate_on_submit():
-                # Prepare submit context and de-duplicate recent identical posts
+                # Prepare submit context and de-duplicate / rate‑limit posts
                 content_clean = (form.content.data or '').strip()
                 anon_cookie = request.cookies.get('echoe_anon')
                 if not anon_cookie:
                     anon_cookie = str(uuid.uuid4()).replace('-', '')
+
+                # Soft rate‑limit: prevent macros from sending many letters in a short burst
+                # by the same anonymous user. This uses the existing anonymous ID cookie
+                # (no extra identifying info) and a short time window.
+                spam_window = datetime.utcnow() - timedelta(minutes=2)
+                recent_count = (
+                    Letter.query
+                    .filter(Letter.anon_user_id == anon_cookie)
+                    .filter(Letter.created_at >= spam_window)
+                    .count()
+                )
+                if recent_count >= 5:
+                    flash('You are sending letters very quickly. Please take a short break and try again in a few minutes.', 'info')
+                    return redirect(url_for('submit'))
 
                 # Block duplicates submitted within the last 3 minutes by same anon user and same content
                 recent_window = datetime.utcnow() - timedelta(minutes=3)

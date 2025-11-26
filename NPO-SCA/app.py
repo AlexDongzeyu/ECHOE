@@ -1046,6 +1046,23 @@ try:
         
         form = ResponseForm()
         if form.validate_on_submit():
+            # Basic duplicate‑submission guard: if the most recent human/hybrid
+            # response for this letter has identical content and was created very
+            # recently, treat this as an accidental re‑submit instead of creating
+            # another response (which can overload AI + UI).
+            cleaned_content = (form.content.data or '').strip()
+            recent_cutoff = datetime.utcnow() - timedelta(minutes=2)
+            last_same = (Response.query
+                         .filter(
+                             Response.letter_id == letter.id,
+                             Response.response_type.in_(['human', 'hybrid']),
+                             Response.created_at >= recent_cutoff)
+                         .order_by(Response.created_at.desc())
+                         .first())
+            if last_same and (last_same.content or '').strip() == cleaned_content:
+                flash('This response was just sent. To avoid duplicates, it was not sent again.', 'info')
+                return redirect(url_for('volunteer_dashboard'))
+
             # If it's AI-assisted or hybrid response
             ai_content = None
             if form.response_type.data in ['ai-assisted', 'hybrid']:

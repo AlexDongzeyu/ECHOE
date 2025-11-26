@@ -645,8 +645,38 @@ try:
             
             form = LetterForm()
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
+            hcaptcha_site_key = app.config.get('HCAPTCHA_SITE_KEY')
             
             if form.validate_on_submit():
+                # Verify hCaptcha when configured to reduce automated spam
+                h_secret = app.config.get('HCAPTCHA_SECRET')
+                if h_secret:
+                    token = request.form.get('h-captcha-response')
+                    if not token:
+                        flash('Please complete the spam protection check before sending your letter.', 'error')
+                        return render_template('submit.html', form=form, mailboxes=mailboxes,
+                                               hcaptcha_site_key=hcaptcha_site_key)
+                    try:
+                        verify_resp = requests.post(
+                            'https://hcaptcha.com/siteverify',
+                            data={'secret': h_secret, 'response': token},
+                            timeout=5
+                        )
+                        data = {}
+                        try:
+                            data = verify_resp.json()
+                        except Exception:
+                            data = {}
+                        if not data.get('success'):
+                            flash('We could not verify that you are a real person. Please try again.', 'error')
+                            return render_template('submit.html', form=form, mailboxes=mailboxes,
+                                                   hcaptcha_site_key=hcaptcha_site_key)
+                    except Exception as ce:
+                        logger.warning(f'hCaptcha verification error: {ce}')
+                        flash('Spam protection temporarily unavailable. Please try again in a moment.', 'error')
+                        return render_template('submit.html', form=form, mailboxes=mailboxes,
+                                               hcaptcha_site_key=hcaptcha_site_key)
+
                 # Prepare submit context and de-duplicate / rate‑limit posts
                 content_clean = (form.content.data or '').strip()
                 anon_cookie = request.cookies.get('echoe_anon')
@@ -731,10 +761,12 @@ try:
             anon_cookie = request.cookies.get('echoe_anon')
             if not anon_cookie:
                 anon_cookie = str(uuid.uuid4()).replace('-', '')
-                resp = make_response(render_template('submit.html', form=form, mailboxes=mailboxes))
+                resp = make_response(render_template('submit.html', form=form, mailboxes=mailboxes,
+                                                     hcaptcha_site_key=hcaptcha_site_key))
                 resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                 return resp
-            return render_template('submit.html', form=form, mailboxes=mailboxes)
+            return render_template('submit.html', form=form, mailboxes=mailboxes,
+                                  hcaptcha_site_key=hcaptcha_site_key)
         except Exception as e:
             logger.error(f"Error in submit route: {str(e)}")
             logger.error(traceback.format_exc())

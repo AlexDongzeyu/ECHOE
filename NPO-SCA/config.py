@@ -31,3 +31,7 @@ class Config:
     
     # AI API configuration
     GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
+
+    # Anti-abuse / CAPTCHA (optional)
+    HCAPTCHA_SITE_KEY = os.environ.get('HCAPTCHA_SITE_KEY')
+    HCAPTCHA_SECRET = os.environ.get('HCAPTCHA_SECRET')

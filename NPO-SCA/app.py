@@ -682,6 +682,7 @@ try:
             form = LetterForm()
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
             hcaptcha_site_key = app.config.get('HCAPTCHA_SITE_KEY')
+            hcaptcha_secret = app.config.get('HCAPTCHA_SECRET')
 
             # Basic IP-level rate limit to protect against automated abuse
             client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
@@ -691,9 +692,8 @@ try:
                                        hcaptcha_site_key=hcaptcha_site_key)
             
             if form.validate_on_submit():
-                # Verify hCaptcha when configured to reduce automated spam
-                h_secret = app.config.get('HCAPTCHA_SECRET')
-                if h_secret:
+                # Verify hCaptcha when fully configured (site key + secret)
+                if hcaptcha_site_key and hcaptcha_secret:
                     token = request.form.get('h-captcha-response')
                     if not token:
                         flash('Please complete the spam protection check before sending your letter.', 'error')
@@ -702,7 +702,7 @@ try:
                     try:
                         verify_resp = requests.post(
                             'https://hcaptcha.com/siteverify',
-                            data={'secret': h_secret, 'response': token},
+                            data={'secret': hcaptcha_secret, 'response': token},
                             timeout=5
                         )
                         data = {}

@@ -599,22 +599,36 @@
                 if (form.dataset.recaptchaDone === '1') {
                     return;
                 }
+
+                // If reCAPTCHA is unavailable for any reason, allow a normal submit;
+                // the server‑side check will handle missing/invalid tokens.
+                if (typeof grecaptcha === 'undefined' || !grecaptcha.execute) {
+                    form.dataset.recaptchaDone = '1';
+                    return;
+                }
+
                 e.preventDefault();
 
                 grecaptcha.ready(function () {
-                    grecaptcha.execute('{{ recaptcha_site_key }}', { action: 'submit_letter' }).then(function (token) {
-                        let input = document.getElementById('g-recaptcha-response');
-                        if (!input) {
-                            input = document.createElement('input');
-                            input.type = 'hidden';
-                            input.name = 'g-recaptcha-response';
-                            input.id = 'g-recaptcha-response';
-                            form.appendChild(input);
-                        }
-                        input.value = token;
-                        form.dataset.recaptchaDone = '1';
-                        form.submit();
-                    });
+                    grecaptcha.execute('{{ recaptcha_site_key }}', { action: 'submit_letter' })
+                        .then(function (token) {
+                            let input = document.getElementById('g-recaptcha-response');
+                            if (!input) {
+                                input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = 'g-recaptcha-response';
+                                input.id = 'g-recaptcha-response';
+                                form.appendChild(input);
+                            }
+                            input.value = token;
+                            form.dataset.recaptchaDone = '1';
+                            form.submit();
+                        })
+                        .catch(function (err) {
+                            console.error('reCAPTCHA v3 error:', err);
+                            // Fallback: let the form submit; backend will enforce checks.
+                            form.dataset.recaptchaDone = '1';
+                        });
                 });
             });
         });

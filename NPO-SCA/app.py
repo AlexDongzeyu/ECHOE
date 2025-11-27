@@ -1132,7 +1132,6 @@ try:
         db.session.commit()
 
         form = ResponseForm()
-        if form.validate_on_submit():
         recaptcha_site_key = app.config.get('RECAPTCHA_SITE_KEY')
         recaptcha_secret = app.config.get('RECAPTCHA_SECRET')
 

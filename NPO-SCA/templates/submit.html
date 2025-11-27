@@ -586,8 +586,38 @@
 {% endblock %}
 
 {% block scripts %}
-    {# reCAPTCHA v3 is now best-effort and handled server-side when a token is present.
-       The letter form submits normally to avoid blocking users if the script fails. #}
+    {% if recaptcha_site_key %}
+    {# Google reCAPTCHA v3: obtain a token on load and store it in a hidden input.
+       The form submission itself is not intercepted; the backend treats the token
+       as a best-effort anti‑abuse signal. #}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof grecaptcha === 'undefined') {
+                return;
+            }
+            grecaptcha.ready(function () {
+                grecaptcha.execute('{{ recaptcha_site_key }}', { action: 'submit_letter' })
+                    .then(function (token) {
+                        var form = document.getElementById('letterForm');
+                        if (!form) return;
+                        var input = document.getElementById('g-recaptcha-response');
+                        if (!input) {
+                            input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = 'g-recaptcha-response';
+                            input.id = 'g-recaptcha-response';
+                            form.appendChild(input);
+                        }
+                        input.value = token;
+                    })
+                    .catch(function (err) {
+                        console.error('reCAPTCHA v3 error on submit page (non‑blocking):', err);
+                    });
+            });
+        });
+    </script>
+    {% endif %}
     <script>
         // Show/hide email input based on reply method
         document.getElementById('reply-method').addEventListener('change', function() {

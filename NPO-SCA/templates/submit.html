@@ -564,11 +564,7 @@
                     {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't collect any personal information)") }}
                         </div>
                         
-                        <div class="form-group" style="margin-top: 10px;">
-                            {% if recaptcha_site_key %}
-                            <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
-                            {% endif %}
-                        </div>
+                        {# Google reCAPTCHA v3: no visible widget, token added on submit via JS #}
                         
                 {{ form.submit(class="submit-btn", id="submitBtn") }}
                     </form>
@@ -591,7 +587,38 @@
 
 {% block scripts %}
     {% if recaptcha_site_key %}
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {# Google reCAPTCHA v3: load with render parameter and attach token on submit #}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('letterForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function (e) {
+                // If we've already attached a token once, let the submit go through
+                if (form.dataset.recaptchaDone === '1') {
+                    return;
+                }
+                e.preventDefault();
+
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('{{ recaptcha_site_key }}', { action: 'submit_letter' }).then(function (token) {
+                        let input = document.getElementById('g-recaptcha-response');
+                        if (!input) {
+                            input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = 'g-recaptcha-response';
+                            input.id = 'g-recaptcha-response';
+                            form.appendChild(input);
+                        }
+                        input.value = token;
+                        form.dataset.recaptchaDone = '1';
+                        form.submit();
+                    });
+                });
+            });
+        });
+    </script>
     {% endif %}
     <script>
         // Show/hide email input based on reply method

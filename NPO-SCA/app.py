@@ -1136,9 +1136,54 @@ try:
                 if not user_reply.is_read:
                     user_reply.is_read = True
         db.session.commit()
+
+        recaptcha_site_key = app.config.get('RECAPTCHA_SITE_KEY')
+        recaptcha_secret = app.config.get('RECAPTCHA_SECRET')
         
         form = ResponseForm()
         if form.validate_on_submit():
+            # Verify Google reCAPTCHA v3 for volunteer responses when configured
+            if recaptcha_site_key and recaptcha_secret:
+                token = request.form.get('g-recaptcha-response')
+                if not token:
+                    flash('Please complete the spam protection check before sending your response.', 'error')
+                    return render_template('volunteer/respond.html',
+                                           letter=letter,
+                                           existing_responses=previous_responses,
+                                           form=form,
+                                           recaptcha_site_key=recaptcha_site_key)
+                client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
+                try:
+                    verify_resp = requests.post(
+                        'https://www.google.com/recaptcha/api/siteverify',
+                        data={
+                            'secret': recaptcha_secret,
+                            'response': token,
+                            'remoteip': client_ip,
+                        },
+                        timeout=5
+                    )
+                    data = {}
+                    try:
+                        data = verify_resp.json()
+                    except Exception:
+                        data = {}
+                    if not data.get('success'):
+                        flash('We could not verify that you are a real person. Please try again.', 'error')
+                        return render_template('volunteer/respond.html',
+                                               letter=letter,
+                                               existing_responses=previous_responses,
+                                               form=form,
+                                               recaptcha_site_key=recaptcha_site_key)
+                except Exception as ce:
+                    logger.warning(f'reCAPTCHA verification error (volunteer respond): {ce}')
+                    flash('Spam protection temporarily unavailable. Please try again in a moment.', 'error')
+                    return render_template('volunteer/respond.html',
+                                           letter=letter,
+                                           existing_responses=previous_responses,
+                                           form=form,
+                                           recaptcha_site_key=recaptcha_site_key)
+
             # Basic duplicate‑submission guard: if the most recent human/hybrid
             # response for this letter has identical content and was created very
             # recently, treat this as an accidental re‑submit instead of creating
@@ -1194,8 +1239,11 @@ try:
             flash('Your response has been sent!')
             return redirect(url_for('volunteer_dashboard'))
         
-        return render_template('volunteer/respond.html', letter=letter, 
-                              existing_responses=previous_responses, form=form)
+        return render_template('volunteer/respond.html',
+                               letter=letter,
+                               existing_responses=previous_responses,
+                               form=form,
+                               recaptcha_site_key=recaptcha_site_key)
 
     # Blog routes
     @app.route('/blog')

@@ -1,7 +1,7 @@
 import eventlet
 eventlet.monkey_patch()
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response
-from sqlalchemy import inspect, text
+from sqlalchemy import inspect, text, func
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 import os
@@ -61,6 +61,29 @@ try:
 
     socketio = SocketIO(app, async_mode='eventlet')
 
+    # In-memory, short-lived IP buckets for basic rate limiting (per process)
+    LETTER_IP_BUCKETS = {}
+    IP_WINDOW_SECONDS = 60
+    IP_MAX_REQUESTS = 30  # per minute per IP for /submit
+
+    def _ip_limited(ip: str) -> bool:
+        """Return True if IP exceeded short-term limit; keep only recent timestamps."""
+        if not ip:
+            return False
+        now = time.time()
+        bucket = LETTER_IP_BUCKETS.get(ip, [])
+        # keep only events within window
+        bucket = [t for t in bucket if now - t < IP_WINDOW_SECONDS]
+        if len(bucket) >= IP_MAX_REQUESTS:
+            LETTER_IP_BUCKETS[ip] = bucket
+            return True
+        bucket.append(now)
+        # cap stored history to avoid unbounded growth
+        if len(bucket) > IP_MAX_REQUESTS * 2:
+            bucket = bucket[-IP_MAX_REQUESTS * 2:]
+        LETTER_IP_BUCKETS[ip] = bucket
+        return False
+
     # Define anonymous names for chat
     ANONYMOUS_NAMES = ["QuietFox", "CalmRiver", "SilentWolf", "GentleBear", "PeacefulEagle"]
 
@@ -76,10 +99,23 @@ try:
             unprocessed_cnt = Letter.query.filter(
                 (Letter.is_processed == False) & ((Letter.is_flagged == False) | (Letter.is_flagged.is_(None)))
             ).count()
+            # Suspicious anon IDs: many letters in last 24h (for admin dashboard)
+            day_ago = datetime.utcnow() - timedelta(days=1)
+            suspicious_raw = (db.session.query(Letter.anon_user_id, func.count(Letter.id).label('cnt'))
+                              .filter(Letter.created_at >= day_ago)
+                              .filter(Letter.anon_user_id.isnot(None))
+                              .group_by(Letter.anon_user_id)
+                              .having(func.count(Letter.id) >= 10)
+                              .order_by(func.count(Letter.id).desc())
+                              .limit(20)
+                              .all())
+            suspicious_anon = [{'anon_id': row[0], 'count': row[1]} for row in suspicious_raw]
         except Exception:
             flagged_cnt = 0
             unprocessed_cnt = 0
-        return dict(flagged_count=flagged_cnt, unprocessed_count=unprocessed_cnt)
+            suspicious_anon = []
+        return dict(flagged_count=flagged_cnt, unprocessed_count=unprocessed_cnt,
+                    suspicious_anon=suspicious_anon)
     
     # Ensure instance folder exists and create database tables
     def _ensure_anon_inbox_schema():
@@ -646,6 +682,13 @@ try:
             form = LetterForm()
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
             hcaptcha_site_key = app.config.get('HCAPTCHA_SITE_KEY')
+
+            # Basic IP-level rate limit to protect against automated abuse
+            client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
+            if _ip_limited(client_ip):
+                flash('We are receiving a lot of traffic from your network. Please wait a minute and try again.', 'info')
+                return render_template('submit.html', form=form, mailboxes=mailboxes,
+                                       hcaptcha_site_key=hcaptcha_site_key)
             
             if form.validate_on_submit():
                 # Verify hCaptcha when configured to reduce automated spam

@@ -225,6 +225,31 @@
         color: #666;
         line-height: 1.4;
     }
+
+    .suspicious-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .suspicious-table th, .suspicious-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e5e5;
+        text-align: left;
+        font-size: 0.95rem;
+    }
+    .suspicious-table th {
+        color: var(--deep-indigo);
+        font-weight: 700;
+    }
+    .suspicious-badge {
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(231, 76, 60, 0.12);
+        color: #e74c3c;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
     
     @media (max-width: 768px) {
         .admin-container {
@@ -360,5 +385,33 @@
             </a>
         </div>
     </div>
+
+    {% if suspicious_anon and suspicious_anon|length > 0 %}
+    <div class="content-section" style="margin-top:30px;">
+        <h2 style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
+            Potential High-Volume Anonymous Senders (Last 24 Hours)
+        </h2>
+        <p style="opacity:0.85;margin-bottom:16px;">
+            These anonymous IDs sent a large number of letters recently. You can use this list to investigate patterns of abuse or macro use. IDs are random strings stored in the <code>echoe_anon</code> cookie; you may choose to block or reset specific IDs via content tools.
+        </p>
+        <table class="suspicious-table">
+            <thead>
+                <tr>
+                    <th>Anonymous ID</th>
+                    <th>Letters (24h)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in suspicious_anon %}
+                <tr>
+                    <td><code>{{ s.anon_id }}</code></td>
+                    <td><span class="suspicious-badge">{{ s.count }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

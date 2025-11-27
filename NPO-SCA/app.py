@@ -692,37 +692,31 @@ try:
                                        recaptcha_site_key=recaptcha_site_key)
             
             if form.validate_on_submit():
-                # Verify Google reCAPTCHA v2 when fully configured (site key + secret)
+                # Best-effort Google reCAPTCHA v3 verification. To avoid blocking
+                # legitimate letters when the widget/script fails, we treat missing
+                # or unverifiable tokens as a soft signal rather than a hard error.
                 if recaptcha_site_key and recaptcha_secret:
                     token = request.form.get('g-recaptcha-response')
-                    if not token:
-                        flash('Please complete the spam protection check before sending your letter.', 'error')
-                        return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                               recaptcha_site_key=recaptcha_site_key)
-                    try:
-                        verify_resp = requests.post(
-                            'https://www.google.com/recaptcha/api/siteverify',
-                            data={
-                                'secret': recaptcha_secret,
-                                'response': token,
-                                'remoteip': client_ip,
-                            },
-                            timeout=5
-                        )
-                        data = {}
+                    if token:
                         try:
-                            data = verify_resp.json()
-                        except Exception:
+                            verify_resp = requests.post(
+                                'https://www.google.com/recaptcha/api/siteverify',
+                                data={
+                                    'secret': recaptcha_secret,
+                                    'response': token,
+                                    'remoteip': client_ip,
+                                },
+                                timeout=5
+                            )
                             data = {}
-                        if not data.get('success'):
-                            flash('We could not verify that you are a real person. Please try again.', 'error')
-                            return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                                   recaptcha_site_key=recaptcha_site_key)
-                    except Exception as ce:
-                        logger.warning(f'reCAPTCHA verification error: {ce}')
-                        flash('Spam protection temporarily unavailable. Please try again in a moment.', 'error')
-                        return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                               recaptcha_site_key=recaptcha_site_key)
+                            try:
+                                data = verify_resp.json()
+                            except Exception:
+                                data = {}
+                            if not data.get('success'):
+                                logger.warning('reCAPTCHA check did not pass for submit; proceeding with other anti‑spam gates.')
+                        except Exception as ce:
+                            logger.warning(f'reCAPTCHA verification error (submit, non‑blocking): {ce}')
 
                 # Prepare submit context and de-duplicate / rate‑limit posts
                 content_clean = (form.content.data or '').strip()
@@ -1137,52 +1131,37 @@ try:
                     user_reply.is_read = True
         db.session.commit()
 
-        recaptcha_site_key = app.config.get('RECAPTCHA_SITE_KEY')
-        recaptcha_secret = app.config.get('RECAPTCHA_SECRET')
-        
         form = ResponseForm()
         if form.validate_on_submit():
-            # Verify Google reCAPTCHA v3 for volunteer responses when configured
+        recaptcha_site_key = app.config.get('RECAPTCHA_SITE_KEY')
+        recaptcha_secret = app.config.get('RECAPTCHA_SECRET')
+
+        if form.validate_on_submit():
+            # Best-effort reCAPTCHA v3 check for volunteer responses. Missing/failed
+            # tokens are logged but do not block responses; other guards still apply.
             if recaptcha_site_key and recaptcha_secret:
                 token = request.form.get('g-recaptcha-response')
-                if not token:
-                    flash('Please complete the spam protection check before sending your response.', 'error')
-                    return render_template('volunteer/respond.html',
-                                           letter=letter,
-                                           existing_responses=previous_responses,
-                                           form=form,
-                                           recaptcha_site_key=recaptcha_site_key)
-                client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
-                try:
-                    verify_resp = requests.post(
-                        'https://www.google.com/recaptcha/api/siteverify',
-                        data={
-                            'secret': recaptcha_secret,
-                            'response': token,
-                            'remoteip': client_ip,
-                        },
-                        timeout=5
-                    )
-                    data = {}
+                if token:
+                    client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
                     try:
-                        data = verify_resp.json()
-                    except Exception:
+                        verify_resp = requests.post(
+                            'https://www.google.com/recaptcha/api/siteverify',
+                            data={
+                                'secret': recaptcha_secret,
+                                'response': token,
+                                'remoteip': client_ip,
+                            },
+                            timeout=5
+                        )
                         data = {}
-                    if not data.get('success'):
-                        flash('We could not verify that you are a real person. Please try again.', 'error')
-                        return render_template('volunteer/respond.html',
-                                               letter=letter,
-                                               existing_responses=previous_responses,
-                                               form=form,
-                                               recaptcha_site_key=recaptcha_site_key)
-                except Exception as ce:
-                    logger.warning(f'reCAPTCHA verification error (volunteer respond): {ce}')
-                    flash('Spam protection temporarily unavailable. Please try again in a moment.', 'error')
-                    return render_template('volunteer/respond.html',
-                                           letter=letter,
-                                           existing_responses=previous_responses,
-                                           form=form,
-                                           recaptcha_site_key=recaptcha_site_key)
+                        try:
+                            data = verify_resp.json()
+                        except Exception:
+                            data = {}
+                        if not data.get('success'):
+                            logger.warning('reCAPTCHA check did not pass for volunteer response; proceeding with other guards.')
+                    except Exception as ce:
+                        logger.warning(f'reCAPTCHA verification error (volunteer respond, non‑blocking): {ce}')
 
             # Basic duplicate‑submission guard: if the most recent human/hybrid
             # response for this letter has identical content and was created very

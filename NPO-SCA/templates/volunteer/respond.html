@@ -114,39 +114,8 @@
 {% endblock %}
 
 {% block scripts %}
-{% if recaptcha_site_key %}
-{# Google reCAPTCHA v3: load with render parameter and attach token on submit for volunteer responses #}
-<script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('volunteerResponseForm');
-    if (!form) return;
-
-    form.addEventListener('submit', function (e) {
-      if (form.dataset.recaptchaDone === '1') {
-        return;
-      }
-      e.preventDefault();
-
-      grecaptcha.ready(function () {
-        grecaptcha.execute('{{ recaptcha_site_key }}', { action: 'volunteer_respond' }).then(function (token) {
-          let input = document.getElementById('g-recaptcha-response');
-          if (!input) {
-            input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'g-recaptcha-response';
-            input.id = 'g-recaptcha-response';
-            form.appendChild(input);
-          }
-          input.value = token;
-          form.dataset.recaptchaDone = '1';
-          form.submit();
-        });
-      });
-    });
-  });
-</script>
-{% endif %}
+{# Volunteer response form now submits normally; reCAPTCHA v3 is checked in a
+   non‑blocking way on the server when a token is present. #}
 <script>
 // Simple close interaction for checklist (no AI)
 document.addEventListener('DOMContentLoaded', () => {

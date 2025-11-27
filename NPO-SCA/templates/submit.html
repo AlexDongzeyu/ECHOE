@@ -600,10 +600,11 @@
                     return;
                 }
 
-                // If reCAPTCHA is unavailable for any reason, allow a normal submit;
+                // If reCAPTCHA is unavailable for any reason, fall back to a normal submit;
                 // the server‑side check will handle missing/invalid tokens.
                 if (typeof grecaptcha === 'undefined' || !grecaptcha.execute) {
                     form.dataset.recaptchaDone = '1';
+                    form.submit();
                     return;
                 }
 
@@ -628,6 +629,7 @@
                             console.error('reCAPTCHA v3 error:', err);
                             // Fallback: let the form submit; backend will enforce checks.
                             form.dataset.recaptchaDone = '1';
+                            form.submit();
                         });
                 });
             });

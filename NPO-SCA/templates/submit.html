@@ -566,7 +566,12 @@
                         
                         <div class="form-group" style="margin-top: 10px;">
                             {% if recaptcha_site_key %}
-                            <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                            {# Invisible reCAPTCHA v2: will trigger only when Send Letter is clicked #}
+                            <div class="g-recaptcha"
+                                 data-sitekey="{{ recaptcha_site_key }}"
+                                 data-size="invisible"
+                                 data-callback="onLetterRecaptchaSuccess"
+                                 data-error-callback="onLetterRecaptchaError"></div>
                             {% endif %}
                         </div>
                         
@@ -592,6 +597,43 @@
 {% block scripts %}
     {% if recaptcha_site_key %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onLetterRecaptchaSuccess(token) {
+            const form = document.getElementById('letterForm');
+            if (!form) return;
+            form.dataset.recaptchaDone = '1';
+            form.submit();
+        }
+        function onLetterRecaptchaError() {
+            const btn = document.getElementById('submitBtn');
+            if (btn) {
+                btn.disabled = false;
+                if (btn.dataset.original) btn.textContent = btn.dataset.original;
+            }
+            alert('The spam protection check did not complete. Please try again.');
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('letterForm');
+            const btn = document.getElementById('submitBtn');
+            if (!form || !btn) return;
+
+            form.addEventListener('submit', function (e) {
+                // If reCAPTCHA already solved, let the submit go through
+                if (form.dataset.recaptchaDone === '1') {
+                    return;
+                }
+
+                // Intercept first click to run invisible reCAPTCHA
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                    e.preventDefault();
+                    btn.disabled = true;
+                    btn.dataset.original = btn.textContent || 'Send Letter';
+                    btn.textContent = 'Checking…';
+                    grecaptcha.execute();
+                }
+            });
+        });
+    </script>
     {% endif %}
     <script>
         // Show/hide email input based on reply method

@@ -1199,8 +1199,7 @@ try:
         return render_template('volunteer/respond.html',
                                letter=letter,
                                existing_responses=previous_responses,
-                               form=form,
-                               recaptcha_site_key=recaptcha_site_key)
+                               form=form)
 
     # Blog routes
     @app.route('/blog')

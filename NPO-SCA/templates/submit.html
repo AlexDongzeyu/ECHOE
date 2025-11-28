@@ -565,8 +565,8 @@
                         </div>
                         
                         <div class="form-group" style="margin-top: 10px;">
-                            {% if hcaptcha_site_key %}
-                            <div class="h-captcha" data-sitekey="{{ hcaptcha_site_key }}"></div>
+                            {% if recaptcha_site_key %}
+                            <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                             {% endif %}
                         </div>
                         
@@ -590,8 +590,8 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if hcaptcha_site_key %}
-    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+    {% if recaptcha_site_key %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     {% endif %}
     <script>
         // Show/hide email input based on reply method

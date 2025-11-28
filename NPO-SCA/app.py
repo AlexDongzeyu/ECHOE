@@ -681,28 +681,32 @@ try:
             
             form = LetterForm()
             mailboxes = PhysicalMailbox.query.filter_by(status='active').all()
-            hcaptcha_site_key = app.config.get('HCAPTCHA_SITE_KEY')
-            hcaptcha_secret = app.config.get('HCAPTCHA_SECRET')
+            recaptcha_site_key = app.config.get('RECAPTCHA_SITE_KEY')
+            recaptcha_secret = app.config.get('RECAPTCHA_SECRET')
 
             # Basic IP-level rate limit to protect against automated abuse
             client_ip = (request.headers.get('X-Forwarded-For', request.remote_addr or '') or '').split(',')[0].strip()
             if _ip_limited(client_ip):
                 flash('We are receiving a lot of traffic from your network. Please wait a minute and try again.', 'info')
                 return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                       hcaptcha_site_key=hcaptcha_site_key)
+                                       recaptcha_site_key=recaptcha_site_key)
             
             if form.validate_on_submit():
-                # Verify hCaptcha when fully configured (site key + secret)
-                if hcaptcha_site_key and hcaptcha_secret:
-                    token = request.form.get('h-captcha-response')
+                # Verify Google reCAPTCHA v2 when fully configured (site key + secret)
+                if recaptcha_site_key and recaptcha_secret:
+                    token = request.form.get('g-recaptcha-response')
                     if not token:
                         flash('Please complete the spam protection check before sending your letter.', 'error')
                         return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                               hcaptcha_site_key=hcaptcha_site_key)
+                                               recaptcha_site_key=recaptcha_site_key)
                     try:
                         verify_resp = requests.post(
-                            'https://hcaptcha.com/siteverify',
-                            data={'secret': hcaptcha_secret, 'response': token},
+                            'https://www.google.com/recaptcha/api/siteverify',
+                            data={
+                                'secret': recaptcha_secret,
+                                'response': token,
+                                'remoteip': client_ip,
+                            },
                             timeout=5
                         )
                         data = {}
@@ -713,12 +717,12 @@ try:
                         if not data.get('success'):
                             flash('We could not verify that you are a real person. Please try again.', 'error')
                             return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                                   hcaptcha_site_key=hcaptcha_site_key)
+                                                   recaptcha_site_key=recaptcha_site_key)
                     except Exception as ce:
-                        logger.warning(f'hCaptcha verification error: {ce}')
+                        logger.warning(f'reCAPTCHA verification error: {ce}')
                         flash('Spam protection temporarily unavailable. Please try again in a moment.', 'error')
                         return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                               hcaptcha_site_key=hcaptcha_site_key)
+                                               recaptcha_site_key=recaptcha_site_key)
 
                 # Prepare submit context and de-duplicate / rate‑limit posts
                 content_clean = (form.content.data or '').strip()
@@ -801,15 +805,15 @@ try:
                 return resp
             
             # Ensure anon cookie even on GET so next submit links to inbox owner
-            anon_cookie = request.cookies.get('echoe_anon')
-            if not anon_cookie:
-                anon_cookie = str(uuid.uuid4()).replace('-', '')
+                anon_cookie = request.cookies.get('echoe_anon')
+                if not anon_cookie:
+                    anon_cookie = str(uuid.uuid4()).replace('-', '')
                 resp = make_response(render_template('submit.html', form=form, mailboxes=mailboxes,
-                                                     hcaptcha_site_key=hcaptcha_site_key))
+                                                     recaptcha_site_key=recaptcha_site_key))
                 resp.set_cookie('echoe_anon', anon_cookie, max_age=60*60*24*730, httponly=True, samesite='Lax', secure=True)
                 return resp
             return render_template('submit.html', form=form, mailboxes=mailboxes,
-                                  hcaptcha_site_key=hcaptcha_site_key)
+                                  recaptcha_site_key=recaptcha_site_key)
         except Exception as e:
             logger.error(f"Error in submit route: {str(e)}")
             logger.error(traceback.format_exc())

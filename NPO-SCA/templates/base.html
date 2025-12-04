@@ -639,58 +639,82 @@
         }
 
         /* ============================================================
-           GLOBAL ANIMATIONS - Applied to ALL pages
+           GLOBAL ANIMATIONS & STYLING - Applied to ALL pages
            ============================================================ */
         
-        /* --- Keyframe Definitions --- */
+        /* --- Theme Colors for Frames (soft, not white) --- */
+        :root {
+            --frame-cream: #FDFBF7;
+            --frame-pink: #FFF8F6;
+            --frame-blue: #F5F9FC;
+            --frame-green: #F7FAF5;
+            --frame-lavender: #FAF8FC;
+            --shadow-offset: rgba(159,197,203,0.35);
+            --shadow-deep: rgba(42,61,102,0.12);
+        }
+        
+        /* --- Keyframe Definitions (more noticeable) --- */
         @keyframes fade-up {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fade-down {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fade-scale {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.92); }
             to { opacity: 1; transform: scale(1); }
         }
         @keyframes slide-in-left {
-            from { opacity: 0; transform: translateX(-30px); }
+            from { opacity: 0; transform: translateX(-40px); }
             to { opacity: 1; transform: translateX(0); }
         }
         @keyframes slide-in-right {
-            from { opacity: 0; transform: translateX(30px); }
+            from { opacity: 0; transform: translateX(40px); }
             to { opacity: 1; transform: translateX(0); }
         }
         @keyframes slide-up-bounce {
-            0% { opacity: 0; transform: translateY(40px); }
-            60% { opacity: 1; transform: translateY(-8px); }
+            0% { opacity: 0; transform: translateY(50px); }
+            60% { opacity: 1; transform: translateY(-10px); }
+            80% { transform: translateY(4px); }
             100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pop-in {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
         }
         @keyframes float-gentle {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 4px 15px rgba(42,61,102,0.1); }
-            50% { box-shadow: 0 8px 25px rgba(42,61,102,0.2); }
+        @keyframes pulse-shadow {
+            0%, 100% { box-shadow: 6px 6px 0px var(--shadow-offset), 0 8px 25px var(--shadow-deep); }
+            50% { box-shadow: 8px 8px 0px var(--shadow-offset), 0 12px 35px var(--shadow-deep); }
         }
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        @keyframes shake-gentle {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px) rotate(-0.5deg); }
+            75% { transform: translateX(3px) rotate(0.5deg); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(248,210,156,0); }
+            50% { box-shadow: 0 0 20px 5px rgba(248,210,156,0.3); }
         }
         
         /* --- Animation Utility Classes --- */
-        .animate-fade-up { animation: fade-up 0.6s ease-out both; }
-        .animate-fade-down { animation: fade-down 0.6s ease-out both; }
-        .animate-fade-scale { animation: fade-scale 0.5s ease-out both; }
-        .animate-slide-left { animation: slide-in-left 0.6s ease-out both; }
-        .animate-slide-right { animation: slide-in-right 0.6s ease-out both; }
-        .animate-slide-up-bounce { animation: slide-up-bounce 0.7s ease-out both; }
-        .animate-float { animation: float-gentle 4s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-        .animate-breathe { animation: breathe 4s ease-in-out infinite; }
+        .animate-fade-up { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-fade-down { animation: fade-down 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-fade-scale { animation: fade-scale 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-slide-left { animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-slide-right { animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-slide-up-bounce { animation: slide-up-bounce 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-pop { animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .animate-float { animation: float-gentle 5s ease-in-out infinite; }
+        .animate-pulse-shadow { animation: pulse-shadow 3s ease-in-out infinite; }
+        .animate-shake { animation: shake-gentle 0.5s ease-in-out; }
+        .animate-glow { animation: glow-pulse 2s ease-in-out infinite; }
         
         /* --- Staggered Delays --- */
         .delay-1 { animation-delay: 0.1s; }
@@ -700,88 +724,155 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
         
-        /* --- Page Container Animation --- */
+        /* --- Page Container: Soft color + offset shadow --- */
         .page-container {
-            animation: fade-up 0.5s ease-out both;
-        }
-        
-        /* --- Content Section Animations --- */
-        .content-section {
-            animation: fade-up 0.6s ease-out both;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .content-section:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(42,61,102,0.12);
-        }
-        
-        /* --- Card Hover Effects --- */
-        .page-container, .content-section, .card {
+            background: var(--frame-cream) !important;
+            box-shadow: 6px 6px 0px var(--shadow-offset), 0 10px 30px var(--shadow-deep);
+            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .page-container:hover {
-            box-shadow: 0 14px 40px rgba(42,61,102,0.14);
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px var(--shadow-offset), 0 16px 40px var(--shadow-deep);
         }
         
-        /* --- Button Enhancements --- */
-        .btn-primary, .btn-secondary {
-            transition: all 0.25s ease;
+        /* --- Content Section: Alternating soft colors + shadows --- */
+        .content-section {
+            background: var(--frame-blue);
+            border-radius: 16px;
+            box-shadow: 5px 5px 0px rgba(216,226,208,0.5), 0 8px 24px var(--shadow-deep);
+            animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-section:nth-child(even) {
+            background: var(--frame-pink);
+            box-shadow: 5px 5px 0px rgba(244,210,200,0.5), 0 8px 24px var(--shadow-deep);
+            animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .content-section:nth-child(3n) {
+            background: var(--frame-green);
+            box-shadow: 5px 5px 0px rgba(173,203,164,0.4), 0 8px 24px var(--shadow-deep);
+        }
+        .content-section:nth-child(4n) {
+            background: var(--frame-lavender);
+            box-shadow: 5px 5px 0px rgba(179,156,208,0.35), 0 8px 24px var(--shadow-deep);
+        }
+        .content-section:hover {
+            transform: translateY(-6px) rotate(-0.3deg);
+            box-shadow: 7px 7px 0px var(--shadow-offset), 0 16px 40px var(--shadow-deep);
+        }
+        
+        /* --- Staggered Section Animations --- */
+        .content-section:nth-child(1) { animation-delay: 0.1s; }
+        .content-section:nth-child(2) { animation-delay: 0.2s; }
+        .content-section:nth-child(3) { animation-delay: 0.3s; }
+        .content-section:nth-child(4) { animation-delay: 0.4s; }
+        .content-section:nth-child(5) { animation-delay: 0.5s; }
+        .content-section:nth-child(n+6) { animation-delay: 0.55s; }
+        
+        /* --- Button Enhancements: Offset shadow style --- */
+        .btn-primary {
+            background: var(--soft-yellow) !important;
+            border: 2px solid var(--deep-indigo) !important;
+            border-radius: 50px !important;
+            box-shadow: 4px 4px 0px var(--shadow-offset);
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             overflow: hidden;
         }
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(42,61,102,0.2);
+        .btn-primary:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--shadow-offset), 0 8px 20px var(--shadow-deep);
         }
-        .btn-primary:active, .btn-secondary:active {
-            transform: translateY(0);
+        .btn-primary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--shadow-offset);
+        }
+        
+        .btn-secondary {
+            background: var(--gentle-lavender) !important;
+            border: 2px solid var(--deep-indigo) !important;
+            border-radius: 50px !important;
+            box-shadow: 4px 4px 0px rgba(173,203,164,0.5);
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .btn-secondary:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(173,203,164,0.5), 0 8px 20px var(--shadow-deep);
+        }
+        .btn-secondary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px rgba(173,203,164,0.5);
+        }
+        
+        /* --- Card / Generic Frame Styling --- */
+        .card, .post-card, .about-card {
+            background: var(--frame-cream);
+            box-shadow: 5px 5px 0px var(--shadow-offset), 0 8px 24px var(--shadow-deep);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover, .post-card:hover, .about-card:hover {
+            transform: translateY(-5px) rotate(-0.5deg);
+            box-shadow: 7px 7px 0px var(--shadow-offset), 0 14px 35px var(--shadow-deep);
         }
         
         /* --- Link Hover Animations --- */
         .content-section a, .page-container a {
             transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
         }
         .content-section a:hover {
-            transform: translateX(3px);
+            transform: translateX(4px);
+            color: var(--gentle-lavender);
         }
         
         /* --- Image Hover Effects --- */
         .content-section img, .page-container img {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+            border-radius: 12px;
         }
         .content-section img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(42,61,102,0.15);
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 12px 35px rgba(42,61,102,0.18);
         }
         
-        /* --- List Item Stagger Animation --- */
+        /* --- List Item Stagger Animation (more noticeable) --- */
         .content-section ul li, .content-section ol li {
-            animation: fade-up 0.4s ease-out both;
+            animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
-        .content-section ul li:nth-child(1), .content-section ol li:nth-child(1) { animation-delay: 0.1s; }
-        .content-section ul li:nth-child(2), .content-section ol li:nth-child(2) { animation-delay: 0.15s; }
-        .content-section ul li:nth-child(3), .content-section ol li:nth-child(3) { animation-delay: 0.2s; }
-        .content-section ul li:nth-child(4), .content-section ol li:nth-child(4) { animation-delay: 0.25s; }
-        .content-section ul li:nth-child(5), .content-section ol li:nth-child(5) { animation-delay: 0.3s; }
-        .content-section ul li:nth-child(n+6) { animation-delay: 0.35s; }
+        .content-section ul li:nth-child(1), .content-section ol li:nth-child(1) { animation-delay: 0.15s; }
+        .content-section ul li:nth-child(2), .content-section ol li:nth-child(2) { animation-delay: 0.25s; }
+        .content-section ul li:nth-child(3), .content-section ol li:nth-child(3) { animation-delay: 0.35s; }
+        .content-section ul li:nth-child(4), .content-section ol li:nth-child(4) { animation-delay: 0.45s; }
+        .content-section ul li:nth-child(5), .content-section ol li:nth-child(5) { animation-delay: 0.55s; }
+        .content-section ul li:nth-child(n+6) { animation-delay: 0.6s; }
         
-        /* --- Header Animation --- */
+        /* --- Header Animation (more dramatic) --- */
         .page-header {
-            animation: fade-down 0.5s ease-out both;
+            animation: fade-down 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .page-header h1 {
-            animation: slide-up-bounce 0.7s ease-out both;
+            animation: slide-up-bounce 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .page-header p {
-            animation: fade-up 0.5s ease-out 0.2s both;
+            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+        }
+        
+        /* --- Form Input Focus Effects --- */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--soft-yellow) !important;
+            box-shadow: 0 0 0 4px rgba(248,210,156,0.25), 4px 4px 0px var(--shadow-offset) !important;
+            transform: translateY(-2px);
+            transition: all 0.25s ease;
         }
         
         /* --- Footer Link Hover --- */
         footer a {
-            transition: transform 0.2s ease, color 0.2s ease;
+            transition: transform 0.25s ease, color 0.2s ease;
         }
         footer a:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         /* --- Smooth Scroll --- */
@@ -791,8 +882,16 @@
         
         /* --- Selection Color --- */
         ::selection {
-            background: rgba(248,210,156,0.4);
+            background: rgba(248,210,156,0.5);
             color: var(--deep-indigo);
+        }
+        
+        /* --- Heading Hover Effect --- */
+        h2, h3 {
+            transition: transform 0.2s ease;
+        }
+        .content-section h2:hover, .content-section h3:hover {
+            transform: translateX(4px);
         }
     </style>
 </head>

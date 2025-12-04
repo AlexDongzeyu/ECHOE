@@ -637,6 +637,163 @@
             font-weight: 400;
             font-style: normal;
         }
+
+        /* ============================================================
+           GLOBAL ANIMATIONS - Applied to ALL pages
+           ============================================================ */
+        
+        /* --- Keyframe Definitions --- */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-down {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-scale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slide-up-bounce {
+            0% { opacity: 0; transform: translateY(40px); }
+            60% { opacity: 1; transform: translateY(-8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(42,61,102,0.1); }
+            50% { box-shadow: 0 8px 25px rgba(42,61,102,0.2); }
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        /* --- Animation Utility Classes --- */
+        .animate-fade-up { animation: fade-up 0.6s ease-out both; }
+        .animate-fade-down { animation: fade-down 0.6s ease-out both; }
+        .animate-fade-scale { animation: fade-scale 0.5s ease-out both; }
+        .animate-slide-left { animation: slide-in-left 0.6s ease-out both; }
+        .animate-slide-right { animation: slide-in-right 0.6s ease-out both; }
+        .animate-slide-up-bounce { animation: slide-up-bounce 0.7s ease-out both; }
+        .animate-float { animation: float-gentle 4s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .animate-breathe { animation: breathe 4s ease-in-out infinite; }
+        
+        /* --- Staggered Delays --- */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        
+        /* --- Page Container Animation --- */
+        .page-container {
+            animation: fade-up 0.5s ease-out both;
+        }
+        
+        /* --- Content Section Animations --- */
+        .content-section {
+            animation: fade-up 0.6s ease-out both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(42,61,102,0.12);
+        }
+        
+        /* --- Card Hover Effects --- */
+        .page-container, .content-section, .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .page-container:hover {
+            box-shadow: 0 14px 40px rgba(42,61,102,0.14);
+        }
+        
+        /* --- Button Enhancements --- */
+        .btn-primary, .btn-secondary {
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(42,61,102,0.2);
+        }
+        .btn-primary:active, .btn-secondary:active {
+            transform: translateY(0);
+        }
+        
+        /* --- Link Hover Animations --- */
+        .content-section a, .page-container a {
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .content-section a:hover {
+            transform: translateX(3px);
+        }
+        
+        /* --- Image Hover Effects --- */
+        .content-section img, .page-container img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-section img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(42,61,102,0.15);
+        }
+        
+        /* --- List Item Stagger Animation --- */
+        .content-section ul li, .content-section ol li {
+            animation: fade-up 0.4s ease-out both;
+        }
+        .content-section ul li:nth-child(1), .content-section ol li:nth-child(1) { animation-delay: 0.1s; }
+        .content-section ul li:nth-child(2), .content-section ol li:nth-child(2) { animation-delay: 0.15s; }
+        .content-section ul li:nth-child(3), .content-section ol li:nth-child(3) { animation-delay: 0.2s; }
+        .content-section ul li:nth-child(4), .content-section ol li:nth-child(4) { animation-delay: 0.25s; }
+        .content-section ul li:nth-child(5), .content-section ol li:nth-child(5) { animation-delay: 0.3s; }
+        .content-section ul li:nth-child(n+6) { animation-delay: 0.35s; }
+        
+        /* --- Header Animation --- */
+        .page-header {
+            animation: fade-down 0.5s ease-out both;
+        }
+        .page-header h1 {
+            animation: slide-up-bounce 0.7s ease-out both;
+        }
+        .page-header p {
+            animation: fade-up 0.5s ease-out 0.2s both;
+        }
+        
+        /* --- Footer Link Hover --- */
+        footer a {
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        footer a:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* --- Smooth Scroll --- */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* --- Selection Color --- */
+        ::selection {
+            background: rgba(248,210,156,0.4);
+            color: var(--deep-indigo);
+        }
     </style>
 </head>
 <body class="{% if request.endpoint %}page-{{ request.endpoint|replace('.', '-') }}{% endif %}">

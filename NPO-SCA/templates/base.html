@@ -281,6 +281,15 @@
         header a, header a:hover, header a:focus, header a:active {
             text-decoration: none !important;
         }
+        /* Kill the animated underline line completely */
+        nav a::after, nav a::before,
+        header a::after, header a::before,
+        .nav-links a::after, .nav-links a::before {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
         
         .dropdown > a::after {
             content: ' ▼';

@@ -704,24 +704,10 @@
         background: var(--echoe-accent-green);
     }
 
-    /* === NAVBAR ANIMATED UNDERLINES === */
-    nav a, header a {
-        position: relative;
-        display: inline-block;
-    }
+    /* === NAVBAR - NO UNDERLINES === */
     nav a::after, header .nav-links a::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 3px;
-        background: var(--echoe-accent-pink);
-        border-radius: 2px;
-        transition: width 0.3s ease;
-    }
-    nav a:hover::after, header .nav-links a:hover::after {
-        width: 100%;
+        display: none !important;
+        content: none !important;
     }
 
     /* === ANIMATIONS (smooth transitions for all elements) === */

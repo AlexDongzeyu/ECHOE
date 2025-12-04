@@ -4,9 +4,35 @@
 
 {% block styles %}
 <style>
+    /* === GOOGLE FONTS (from React Reference) === */
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap');
+
+    /* === THEME TOKENS (matching React reference) === */
+    :root {
+        --echoe-bg: #FDFBF7;
+        --echoe-primary: #2B5F8C;
+        --echoe-secondary: #8FB8DE;
+        --echoe-accent-pink: #F4D2C8;
+        --echoe-accent-green: #D8E2D0;
+        --echoe-accent-yellow: #FDF4C5;
+        --echoe-text: #333333;
+    }
+
+    /* === TYPOGRAPHY CLASSES === */
+    .font-serif { font-family: 'DM Serif Display', serif; }
+    .font-sans { font-family: 'Nunito', sans-serif; }
+    .font-hand { font-family: 'Patrick Hand', cursive; }
+
+    /* === SELECTION STYLING === */
+    ::selection {
+        background: var(--echoe-accent-pink);
+        color: var(--echoe-primary);
+    }
+
     /* Homepage-specific styles */
     main {
         padding: 0; /* Remove default padding for homepage */
+        font-family: 'Nunito', sans-serif;
     }
     
     .hero {
@@ -636,13 +662,347 @@
             .post-card.equal-height { height: auto; }
             .two-col-grid { grid-template-columns: 1fr; }
         }
+
+    /* ==========================================================
+       MATERIAL 3 / ECHOE GRAPHIC DESIGN ENHANCEMENTS
+       (No new content — visual polish & animations only)
+       ========================================================== */
+
+    /* === BUTTON SHADOW & HOVER TRANSLATE EFFECTS === */
+    .btn-primary {
+        position: relative;
+        background: var(--soft-golden-yellow);
+        color: var(--deep-indigo);
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
+        border: 2px solid var(--deep-indigo);
+        border-radius: 14px;
+        padding: 12px 24px;
+        box-shadow: 4px 4px 0px var(--echoe-accent-pink);
+        transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    }
+    .btn-primary:hover {
+        box-shadow: 0px 0px 0px var(--echoe-accent-pink);
+        transform: translate(4px, 4px);
+        background: #f7db7a;
+    }
+    .btn-secondary {
+        position: relative;
+        background: #fff;
+        color: var(--deep-indigo);
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
+        border: 2px solid var(--deep-indigo);
+        border-radius: 14px;
+        padding: 12px 24px;
+        box-shadow: 4px 4px 0px var(--echoe-accent-green);
+        transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    }
+    .btn-secondary:hover {
+        box-shadow: 0px 0px 0px var(--echoe-accent-green);
+        transform: translate(4px, 4px);
+        background: var(--echoe-accent-green);
+    }
+
+    /* === NAVBAR ANIMATED UNDERLINES === */
+    nav a, header a {
+        position: relative;
+        display: inline-block;
+    }
+    nav a::after, header .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--echoe-accent-pink);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+    nav a:hover::after, header .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* === FLOATING DOODLE DECORATIONS (absolute positioned SVG-like elements) === */
+    .doodle-star {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        background: var(--echoe-accent-yellow);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        opacity: 0.85;
+        animation: twinkle 3s ease-in-out infinite;
+        pointer-events: none;
+    }
+    .doodle-squiggle {
+        position: absolute;
+        width: 100px;
+        height: 12px;
+        background: linear-gradient(90deg, var(--echoe-accent-pink), var(--echoe-accent-green));
+        mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q25 12 50 6 T100 6' stroke='black' stroke-width='6' fill='none'/%3E%3C/svg%3E");
+        -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6 Q25 12 50 6 T100 6' stroke='black' stroke-width='6' fill='none'/%3E%3C/svg%3E");
+        mask-size: contain;
+        -webkit-mask-size: contain;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    .doodle-circle-highlight {
+        position: absolute;
+        width: 180px;
+        height: 70px;
+        border: 3px dashed var(--echoe-accent-pink);
+        border-radius: 50%;
+        transform: rotate(-5deg);
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.85; transform: scale(1) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1.1) rotate(10deg); }
+    }
+    @keyframes float-slow {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    @keyframes float-reverse {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(-2deg); }
+    }
+    @keyframes draw-stroke {
+        from { stroke-dashoffset: 100; }
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes pulse-slow {
+        0%, 100% { box-shadow: 4px 4px 0px var(--echoe-accent-pink); }
+        50% { box-shadow: 6px 6px 0px var(--echoe-accent-green); }
+    }
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slide-in-left {
+        from { opacity: 0; transform: translateX(-24px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slide-in-right {
+        from { opacity: 0; transform: translateX(24px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+    .animate-float-reverse { animation: float-reverse 7s ease-in-out infinite; }
+    .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+    .animate-fade-up { animation: fade-up 0.6s ease-out both; }
+    .animate-slide-left { animation: slide-in-left 0.5s ease-out both; }
+    .animate-slide-right { animation: slide-in-right 0.5s ease-out both; }
+
+    /* Staggered animation delays */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    /* === CARD HOVER & TILT EFFECTS === */
+    .about-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .about-card:hover {
+        transform: translateY(-4px) rotate(-0.5deg);
+        box-shadow: 0 16px 40px rgba(42,61,102,0.16);
+    }
+    .tilt-left { transform: rotate(-1.5deg); }
+    .tilt-right { transform: rotate(1.5deg); }
+    .tilt-left:hover { transform: rotate(-1.5deg) translateY(-4px); }
+    .tilt-right:hover { transform: rotate(1.5deg) translateY(-4px); }
+
+    /* === PUSHPIN DECORATION === */
+    .pushpin {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    .pushpin::before {
+        content: '';
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    .pushpin::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 10px;
+        background: #888;
+        margin: -2px auto 0;
+        border-radius: 0 0 2px 2px;
+    }
+
+    /* === TAPE DECORATION ENHANCEMENTS === */
+    .hero-tape {
+        background: rgba(255,255,255,0.65);
+        backdrop-filter: blur(4px);
+        border-left: 2px solid rgba(255,255,255,0.4);
+        border-right: 2px solid rgba(255,255,255,0.4);
+    }
+
+    /* === HERO FLOATING DECORATION FRAMES === */
+    .hero-float-deco {
+        position: absolute;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .hero-float-deco .deco-card {
+        background: #fff;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(42,61,102,0.15);
+        border: 1px solid rgba(200,200,200,0.2);
+    }
+    .hero-float-deco .deco-tape {
+        position: absolute;
+        top: -6px;
+        left: 20%;
+        width: 50px;
+        height: 12px;
+        background: rgba(255,255,255,0.7);
+        transform: rotate(-8deg);
+        border-radius: 2px;
+    }
+    .hero-float-deco.left {
+        top: 80px;
+        left: 5%;
+        animation: float-slow 6s ease-in-out infinite;
+    }
+    .hero-float-deco.right {
+        bottom: 60px;
+        right: 5%;
+        animation: float-reverse 7s ease-in-out infinite;
+    }
+    @media (max-width: 1024px) {
+        .hero-float-deco { display: none; }
+    }
+
+    /* === SECTION DECORATIVE BACKGROUNDS === */
+    .section-cork {
+        position: relative;
+        background: #E8E1D9;
+        border-top: 6px solid #D7CCC8;
+        border-bottom: 6px solid #D7CCC8;
+    }
+    .section-cork::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.2;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+        pointer-events: none;
+    }
+    .section-grid-pattern {
+        position: relative;
+    }
+    .section-grid-pattern::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.03;
+        background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    /* === ZIGZAG/SCALLOP TOP EDGE FOR FOOTER === */
+    .zigzag-top {
+        position: relative;
+    }
+    .zigzag-top::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 100%;
+        height: 21px;
+        background-image: linear-gradient(135deg, transparent 33.333%, var(--echoe-primary, #2B5F8C) 33.333%, var(--echoe-primary, #2B5F8C) 66.667%, transparent 66.667%),
+                          linear-gradient(-135deg, transparent 33.333%, var(--echoe-primary, #2B5F8C) 33.333%, var(--echoe-primary, #2B5F8C) 66.667%, transparent 66.667%);
+        background-size: 40px 80px;
+        background-position: 0 10px;
+        pointer-events: none;
+    }
+
+    /* === IG GALLERY HOVER EFFECTS === */
+    .ig-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ig-item:hover {
+        transform: scale(1.03) rotate(-1deg);
+        box-shadow: 0 12px 28px rgba(42,61,102,0.18);
+    }
+
+    /* === HEADING TYPOGRAPHY ENHANCEMENTS === */
+    h1, h2 {
+        font-family: 'DM Serif Display', serif;
+    }
+    .hero-content h1 {
+        font-family: 'DM Serif Display', serif;
+        letter-spacing: -0.02em;
+    }
+
+    /* === QUOTE STYLING (hand font) === */
+    .hero .quote {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 1.3rem;
+        letter-spacing: 0.02em;
+    }
+
+    /* === SUBTLE BACKGROUND PATTERN FOR ABOUT SECTIONS === */
+    .about-section {
+        position: relative;
+    }
+    .about-section::after {
+        content: '';
+        position: absolute;
+        top: 10%;
+        right: 5%;
+        width: 60px;
+        height: 60px;
+        opacity: 0.15;
+        background: var(--echoe-accent-yellow);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        pointer-events: none;
+        animation: twinkle 4s ease-in-out infinite;
+    }
     </style>
 {% endblock %}
 
 {% block content %}
         <section class="hero">
+            <!-- Floating Doodle Decorations (visual only, no content) -->
+            <div class="hero-float-deco left" aria-hidden="true">
+                <div class="deco-tape"></div>
+                <div class="deco-card" style="transform: rotate(-6deg);">
+                    <span style="font-size: 2.5rem;">💜</span>
+                </div>
+            </div>
+            <div class="hero-float-deco right" aria-hidden="true">
+                <div class="deco-tape"></div>
+                <div class="deco-card" style="transform: rotate(6deg);">
+                    <span style="font-size: 2.5rem;">✨</span>
+                </div>
+            </div>
+            <!-- Star doodles -->
+            <div class="doodle-star" style="top: 15%; left: 8%;" aria-hidden="true"></div>
+            <div class="doodle-star" style="bottom: 20%; right: 12%; width: 24px; height: 24px; animation-delay: 1s;" aria-hidden="true"></div>
+            <div class="doodle-squiggle" style="bottom: 10%; left: 15%;" aria-hidden="true"></div>
+
             <div class="container">
-                <div class="hero-content">
+                <div class="hero-content animate-fade-up">
                     <h1>Welcome to E.C.H.O.E</h1>
                     <div class="acronym-subtitle">
                         <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
@@ -657,12 +1017,12 @@
                     </div>
                     <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
                     <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>
-                    <div class="hero-actions">
-                        <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
+                    <div class="hero-actions animate-fade-up delay-3">
+                        <a href="{{ url_for('submit') }}" class="btn-primary animate-pulse-slow">Share Your Story</a>
                         <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
                     </div>
                 </div>
-                <div class="hero-image">
+                <div class="hero-image animate-slide-right delay-2">
                     <div class="hero-polaroid">
                         <div class="hero-tape hero-tape-top"></div>
                         <div class="hero-tape hero-tape-side"></div>
@@ -683,8 +1043,8 @@
         <section class="about-section">
             <div class="container">
                 <div class="about-grid">
-                    <div class="about-card">
-                        <h2 style="margin-bottom:16px;">Who We Are</h2>
+                    <div class="about-card tilt-left">
+                        <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
                         <p style="font-size:1.05rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:16px; border-left:3px solid var(--soft-yellow); padding-left:16px;">
                             Where loneliness ends, empathy begins.
                         </p>
@@ -699,7 +1059,9 @@
                         </p>
                         <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
                         </div>
-                    <div class="about-card" style="display:flex; flex-direction:column; gap:12px; justify-content:flex-start; align-items:stretch;">
+                    <div class="about-card tilt-right" style="display:flex; flex-direction:column; gap:12px; justify-content:flex-start; align-items:stretch; position:relative;">
+                        <!-- Pushpin decoration -->
+                        <div class="pushpin" aria-hidden="true"></div>
                         <img src="{{ url_for('static', filename='img/Weixin Image_20251029224616_6598_474.jpg') }}" alt="E.C.H.O.E Team" class="photo-rect">
                         <img src="{{ url_for('static', filename='img/Weixin Image_20250918014235_1452_474.png') }}" alt="E.C.H.O.E banner" class="banner-rect">
                     </div>
@@ -709,9 +1071,13 @@
         
         <!-- Meet Echo the Cat! -->
         <section class="about-section">
+            <!-- Decorative squiggle -->
+            <div class="doodle-squiggle" style="top: 30px; right: 10%;" aria-hidden="true"></div>
             <div class="container">
-                <div class="about-card">
-                    <h2 style="margin-bottom:12px;">Meet Echo the Cat!</h2>
+                <div class="about-card" style="position:relative;">
+                    <!-- Pushpin -->
+                    <div class="pushpin" aria-hidden="true"></div>
+                    <h2 style="margin-bottom:12px;" class="font-serif">Meet Echo the Cat!</h2>
                     <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
                         Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of curiosity, tilting her head to every little ping and boop that floated through the digital air.
                     </p>
@@ -735,15 +1101,17 @@
         
         <!-- Mission/Vision/Values and How We Help side by side -->
         <section class="about-section">
+            <!-- Star doodle -->
+            <div class="doodle-star" style="top: 40px; left: 8%; width: 28px; height: 28px;" aria-hidden="true"></div>
             <div class="container">
-                <h2 style="text-align:center; margin-bottom:18px;">About Us</h2>
+                <h2 style="text-align:center; margin-bottom:18px;" class="font-serif">About Us</h2>
                 <div class="two-col-grid">
-                    <div class="about-card" style="text-align:center;">
-                        <h2 style="margin-bottom:10px;">Our Mission</h2>
+                    <div class="about-card tilt-left" style="text-align:center;">
+                        <h2 style="margin-bottom:10px;" class="font-serif">Our Mission</h2>
                         <p style="font-size:1.05rem; margin:0 0 16px;">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
-                        <h2 style="margin:10px 0;">Our Vision</h2>
+                        <h2 style="margin:10px 0;" class="font-serif">Our Vision</h2>
                         <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
-                        <h2 style="margin:10px 0;">Values</h2>
+                        <h2 style="margin:10px 0;" class="font-serif">Values</h2>
                         <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
                             <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
                             <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.</li>
@@ -752,14 +1120,14 @@
                             <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace their voice.</li>
                         </ul>
                     </div>
-                    <div class="about-card">
-                        <h2>How We Help</h2>
+                    <div class="about-card tilt-right">
+                        <h2 class="font-serif">How We Help</h2>
                         <ul style="margin:8px 0 0 18px; line-height:1.7;">
                             <li>Secure online platform for anonymous sharing and human replies</li>
                             <li>Physical mailboxes in local spaces for offline letters</li>
                             <li>Supportive community events that foster belonging</li>
                         </ul>
-                        <h2 style="margin-top:16px;">Your Privacy & Safety</h2>
+                        <h2 style="margin-top:16px;" class="font-serif">Your Privacy & Safety</h2>
                         <ul style="margin:8px 0 0 18px; line-height:1.7;">
                             <li>Anonymous letters and secure storage</li>
                             <li>Volunteer training and content moderation</li>
@@ -773,11 +1141,13 @@
         
         
         <section class="about-section">
+            <!-- Star decoration -->
+            <div class="doodle-star" style="bottom: 20%; right: 6%;" aria-hidden="true"></div>
             <div class="container">
-                <h2 style="text-align:center; margin-bottom:18px;">Our Partners</h2>
+                <h2 style="text-align:center; margin-bottom:18px;" class="font-serif">Our Partners</h2>
                 <div class="two-col-grid partners-grid">
-                    <div class="about-card">
-                        <h2 style="margin-bottom:10px;">Our Mental Health Consultant</h2>
+                    <div class="about-card tilt-left">
+                        <h2 style="margin-bottom:10px;" class="font-serif">Our Mental Health Consultant</h2>
                         <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
                             <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Leora Raphael-Berman" class="avatar-photo">
                             <div>
@@ -788,8 +1158,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about-card">
-                        <h2 style="margin-bottom:10px;">Collaborators</h2>
+                    <div class="about-card tilt-right" style="position:relative;">
+                        <div class="pushpin" aria-hidden="true"></div>
+                        <h2 style="margin-bottom:10px;" class="font-serif">Collaborators</h2>
                         <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                             <div style="text-align:center;">
                                 <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:220px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
@@ -801,9 +1172,9 @@
             </div>
         </section>
         
-        <section class="social-manual">
+        <section class="social-manual section-cork">
             <div class="container">
-                <h2 style="margin-bottom:18px;">From Our Community</h2>
+                <h2 style="margin-bottom:18px;" class="font-serif">From Our Community</h2>
                 
                 <div id="community-grid" class="post-grid">
                 <!-- Left: TikTok + YouTube stacked in one scrollable box -->

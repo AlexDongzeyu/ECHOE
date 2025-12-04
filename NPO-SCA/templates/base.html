@@ -645,12 +645,16 @@
         /* --- Theme Colors for Frames (soft, not white) --- */
         :root {
             --frame-cream: #FDFBF7;
-            --frame-pink: #FFF8F6;
-            --frame-blue: #F5F9FC;
-            --frame-green: #F7FAF5;
-            --frame-lavender: #FAF8FC;
-            --shadow-offset: rgba(159,197,203,0.35);
-            --shadow-deep: rgba(42,61,102,0.12);
+            --frame-pink: #FFF5F2;
+            --frame-blue: #EEF6F8;
+            --frame-green: #F2F7F0;
+            --frame-lavender: #F6F3FA;
+            --frame-peach: #FCF0E6;
+            /* HIGH CONTRAST shadows for obvious effect */
+            --shadow-offset: rgba(42,61,102,0.25);
+            --shadow-offset-dark: rgba(42,61,102,0.4);
+            --shadow-deep: rgba(42,61,102,0.15);
+            --border-strong: #2A3D66;
         }
         
         /* --- Keyframe Definitions (more noticeable) --- */
@@ -724,97 +728,123 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
         
-        /* --- Page Container: Soft color + offset shadow --- */
+        /* --- Page Container: Soft color + HIGH CONTRAST offset shadow --- */
         .page-container {
             background: var(--frame-cream) !important;
-            box-shadow: 6px 6px 0px var(--shadow-offset), 0 10px 30px var(--shadow-deep);
-            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+            border: 2px solid rgba(42,61,102,0.08);
+            box-shadow: 8px 8px 0px var(--shadow-offset-dark), 0 12px 35px var(--shadow-deep);
+            animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .page-container:hover {
-            transform: translateY(-4px);
-            box-shadow: 8px 8px 0px var(--shadow-offset), 0 16px 40px var(--shadow-deep);
+            transform: translateY(-5px);
+            box-shadow: 8px 13px 0px var(--shadow-offset-dark), 0 18px 45px var(--shadow-deep);
         }
         
-        /* --- Content Section: Alternating soft colors + shadows --- */
+        /* --- Content Section: Alternating soft colors + HIGH CONTRAST shadows --- */
         .content-section {
             background: var(--frame-blue);
-            border-radius: 16px;
-            box-shadow: 5px 5px 0px rgba(216,226,208,0.5), 0 8px 24px var(--shadow-deep);
+            border: 2px solid rgba(42,61,102,0.1);
+            border-radius: 18px;
+            box-shadow: 6px 6px 0px var(--shadow-offset-dark), 0 10px 28px var(--shadow-deep);
             animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .content-section:nth-child(even) {
             background: var(--frame-pink);
-            box-shadow: 5px 5px 0px rgba(244,210,200,0.5), 0 8px 24px var(--shadow-deep);
             animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .content-section:nth-child(3n) {
             background: var(--frame-green);
-            box-shadow: 5px 5px 0px rgba(173,203,164,0.4), 0 8px 24px var(--shadow-deep);
         }
         .content-section:nth-child(4n) {
             background: var(--frame-lavender);
-            box-shadow: 5px 5px 0px rgba(179,156,208,0.35), 0 8px 24px var(--shadow-deep);
+        }
+        .content-section:nth-child(5n) {
+            background: var(--frame-peach);
         }
         .content-section:hover {
-            transform: translateY(-6px) rotate(-0.3deg);
-            box-shadow: 7px 7px 0px var(--shadow-offset), 0 16px 40px var(--shadow-deep);
+            transform: translateY(-6px);
+            box-shadow: 6px 12px 0px var(--shadow-offset-dark), 0 18px 45px var(--shadow-deep);
         }
         
-        /* --- Staggered Section Animations --- */
-        .content-section:nth-child(1) { animation-delay: 0.1s; }
-        .content-section:nth-child(2) { animation-delay: 0.2s; }
-        .content-section:nth-child(3) { animation-delay: 0.3s; }
-        .content-section:nth-child(4) { animation-delay: 0.4s; }
-        .content-section:nth-child(5) { animation-delay: 0.5s; }
-        .content-section:nth-child(n+6) { animation-delay: 0.55s; }
+        /* --- Staggered Section Animations (more noticeable delays) --- */
+        .content-section:nth-child(1) { animation-delay: 0.08s; }
+        .content-section:nth-child(2) { animation-delay: 0.16s; }
+        .content-section:nth-child(3) { animation-delay: 0.24s; }
+        .content-section:nth-child(4) { animation-delay: 0.32s; }
+        .content-section:nth-child(5) { animation-delay: 0.40s; }
+        .content-section:nth-child(6) { animation-delay: 0.48s; }
+        .content-section:nth-child(n+7) { animation-delay: 0.52s; }
         
-        /* --- Button Enhancements: Offset shadow style --- */
+        /* --- Button Enhancements: Clean offset shadow like reference image --- */
+        .btn-primary, .btn-secondary, button, .submit-btn, [type="submit"] {
+            border: 2.5px solid var(--border-strong) !important;
+            border-radius: 50px !important;
+            box-shadow: 4px 4px 0px var(--shadow-offset-dark);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 600;
+            position: relative;
+        }
         .btn-primary {
             background: var(--soft-yellow) !important;
-            border: 2px solid var(--deep-indigo) !important;
-            border-radius: 50px !important;
-            box-shadow: 4px 4px 0px var(--shadow-offset);
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-            position: relative;
-            overflow: hidden;
+            color: var(--deep-indigo) !important;
         }
-        .btn-primary:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px var(--shadow-offset), 0 8px 20px var(--shadow-deep);
-        }
-        .btn-primary:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--shadow-offset);
-        }
-        
         .btn-secondary {
             background: var(--gentle-lavender) !important;
-            border: 2px solid var(--deep-indigo) !important;
-            border-radius: 50px !important;
-            box-shadow: 4px 4px 0px rgba(173,203,164,0.5);
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            color: #fff !important;
         }
-        .btn-secondary:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px rgba(173,203,164,0.5), 0 8px 20px var(--shadow-deep);
+        /* Simple clean hover - just lift up slightly */
+        .btn-primary:hover, .btn-secondary:hover, button:hover, .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 7px 0px var(--shadow-offset-dark), 0 8px 20px var(--shadow-deep);
         }
-        .btn-secondary:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px rgba(173,203,164,0.5);
+        /* Press down on active */
+        .btn-primary:active, .btn-secondary:active, button:active, .submit-btn:active {
+            transform: translateY(1px);
+            box-shadow: 2px 2px 0px var(--shadow-offset-dark);
         }
         
-        /* --- Card / Generic Frame Styling --- */
-        .card, .post-card, .about-card {
-            background: var(--frame-cream);
-            box-shadow: 5px 5px 0px var(--shadow-offset), 0 8px 24px var(--shadow-deep);
+        /* Floating action buttons (like Echo Options, Write a Letter) */
+        .fab, .floating-btn, .chat-toggle, .echo-fab {
+            background: var(--frame-cream) !important;
+            border: 2.5px solid var(--border-strong) !important;
+            border-radius: 30px !important;
+            box-shadow: 3px 5px 0px var(--shadow-offset-dark), 0 8px 20px var(--shadow-deep);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .fab:hover, .floating-btn:hover, .chat-toggle:hover {
+            transform: translateY(-4px);
+            box-shadow: 3px 9px 0px var(--shadow-offset-dark), 0 12px 25px var(--shadow-deep);
+        }
+        
+        /* --- Card / Generic Frame Styling with HIGH CONTRAST --- */
+        .card, .post-card, .about-card, .rp-card, .rp-section, .rp-hero {
+            background: var(--frame-cream) !important;
+            border: 2px solid rgba(42,61,102,0.1) !important;
+            border-radius: 16px !important;
+            box-shadow: 5px 5px 0px var(--shadow-offset-dark), 0 10px 28px var(--shadow-deep) !important;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
-        .card:hover, .post-card:hover, .about-card:hover {
-            transform: translateY(-5px) rotate(-0.5deg);
-            box-shadow: 7px 7px 0px var(--shadow-offset), 0 14px 35px var(--shadow-deep);
+        .card:hover, .post-card:hover, .about-card:hover, .rp-card:hover, .rp-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 5px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
         }
+        
+        /* Alternate card colors for variety */
+        .rp-card:nth-child(odd), .card:nth-child(odd) { background: var(--frame-blue) !important; }
+        .rp-card:nth-child(even), .card:nth-child(even) { background: var(--frame-pink) !important; }
+        .rp-card:nth-child(3n) { background: var(--frame-green) !important; }
+        .rp-card:nth-child(4n) { background: var(--frame-lavender) !important; }
+        
+        /* Staggered card animations */
+        .rp-card:nth-child(1), .card:nth-child(1) { animation-delay: 0.1s; }
+        .rp-card:nth-child(2), .card:nth-child(2) { animation-delay: 0.18s; }
+        .rp-card:nth-child(3), .card:nth-child(3) { animation-delay: 0.26s; }
+        .rp-card:nth-child(4), .card:nth-child(4) { animation-delay: 0.34s; }
+        .rp-card:nth-child(5), .card:nth-child(5) { animation-delay: 0.42s; }
+        .rp-card:nth-child(n+6), .card:nth-child(n+6) { animation-delay: 0.5s; }
         
         /* --- Link Hover Animations --- */
         .content-section a, .page-container a {
@@ -892,6 +922,162 @@
         }
         .content-section h2:hover, .content-section h3:hover {
             transform: translateX(4px);
+        }
+        
+        /* ============================================================
+           PAGE-SPECIFIC ANIMATIONS - Different feel per page
+           ============================================================ */
+        
+        /* --- Helplines page: cascade down animation --- */
+        .page-helplines .content-section {
+            animation: fade-down 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .page-helplines .content-section:nth-child(odd) {
+            animation-name: slide-in-left;
+        }
+        .page-helplines .content-section:nth-child(even) {
+            animation-name: slide-in-right;
+        }
+        
+        /* --- Resources page: pop-in animation --- */
+        .page-resources .content-section,
+        .page-risk_protective_factors .rp-section,
+        .page-risk_protective_factors .rp-card {
+            animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        
+        /* --- Team page: scale in from center --- */
+        .page-team .content-section,
+        .page-about .content-section {
+            animation: fade-scale 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        
+        /* --- Form pages: smooth slide up --- */
+        .page-submit .form-container,
+        .page-contact .form-container,
+        .page-join .form-container {
+            animation: slide-up-bounce 0.8s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+            background: var(--frame-cream) !important;
+            border: 2px solid rgba(42,61,102,0.1) !important;
+            box-shadow: 6px 6px 0px var(--shadow-offset-dark), 0 12px 35px var(--shadow-deep) !important;
+        }
+        .page-submit .form-container:hover,
+        .page-contact .form-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 6px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
+        }
+        
+        /* --- Blog posts: stagger fade with rotation --- */
+        .page-blog_index .post-card {
+            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .page-blog_index .post-card:nth-child(odd) {
+            transform-origin: left center;
+        }
+        .page-blog_index .post-card:nth-child(even) {
+            transform-origin: right center;
+        }
+        
+        /* --- Calendar page: fade scale --- */
+        .page-calendar_page .content-section {
+            animation: fade-scale 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        
+        /* --- Events page: bounce in --- */
+        .page-events_overview .content-section {
+            animation: slide-up-bounce 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        
+        /* ============================================================
+           ENHANCED FORM INPUTS - Clean frame style
+           ============================================================ */
+        
+        input, textarea, select {
+            background: var(--frame-cream) !important;
+            border: 2px solid rgba(42,61,102,0.15) !important;
+            border-radius: 12px !important;
+            box-shadow: 3px 3px 0px var(--shadow-offset);
+            transition: all 0.25s ease;
+        }
+        input:hover, textarea:hover, select:hover {
+            border-color: rgba(42,61,102,0.25) !important;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--soft-yellow) !important;
+            box-shadow: 0 0 0 3px rgba(248,210,156,0.3), 3px 3px 0px var(--shadow-offset-dark) !important;
+            transform: translateY(-2px);
+        }
+        
+        /* ============================================================
+           NAVIGATION LINK ANIMATIONS
+           ============================================================ */
+        
+        nav a, .dropdown-content a {
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+        nav a:hover {
+            transform: translateY(-2px);
+        }
+        .dropdown-content a:hover {
+            transform: translateX(4px);
+            background: var(--frame-peach) !important;
+        }
+        
+        /* ============================================================
+           ICON ANIMATIONS
+           ============================================================ */
+        
+        .fas, .fab, .far {
+            transition: transform 0.25s ease;
+        }
+        a:hover .fas, a:hover .fab, a:hover .far,
+        button:hover .fas, button:hover .fab {
+            transform: scale(1.15);
+        }
+        
+        /* ============================================================
+           GRID LAYOUTS WITH ANIMATION
+           ============================================================ */
+        
+        .rp-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .rp-grid .rp-card {
+            animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .rp-grid .rp-card:nth-child(1) { animation-delay: 0.1s; }
+        .rp-grid .rp-card:nth-child(2) { animation-delay: 0.2s; }
+        .rp-grid .rp-card:nth-child(3) { animation-delay: 0.3s; }
+        .rp-grid .rp-card:nth-child(4) { animation-delay: 0.4s; }
+        .rp-grid .rp-card:nth-child(5) { animation-delay: 0.5s; }
+        .rp-grid .rp-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* List items in rp-list */
+        .rp-list li {
+            animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .rp-list li:nth-child(1) { animation-delay: 0.1s; }
+        .rp-list li:nth-child(2) { animation-delay: 0.2s; }
+        .rp-list li:nth-child(3) { animation-delay: 0.3s; }
+        .rp-list li:nth-child(4) { animation-delay: 0.4s; }
+        .rp-list li:nth-child(5) { animation-delay: 0.5s; }
+        .rp-list li:nth-child(n+6) { animation-delay: 0.55s; }
+        
+        /* ============================================================
+           HERO SECTIONS
+           ============================================================ */
+        
+        .rp-hero, .hero-section, .page-header {
+            background: linear-gradient(135deg, var(--frame-peach), var(--frame-lavender)) !important;
+            border: 2px solid rgba(42,61,102,0.1) !important;
+            border-radius: 20px !important;
+            box-shadow: 6px 6px 0px var(--shadow-offset-dark), 0 12px 35px var(--shadow-deep) !important;
+            animation: fade-scale 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .rp-hero:hover, .hero-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 6px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
         }
     </style>
 </head>

@@ -687,49 +687,204 @@
             color: var(--soft-yellow);
         }
         
-        /* Responsive Design */
+        /* =========================================
+           RESPONSIVE DESIGN - MOBILE FIXES
+           ========================================= */
         @media (max-width: 768px) {
+            /* === HERO SECTION === */
+            .hero {
+                margin: 12px 12px;
+                max-width: calc(100% - 24px);
+                padding: 32px 12px 28px;
+                border-radius: 18px;
+            }
+            
             .hero .container {
                 flex-direction: column;
                 text-align: center;
+                padding: 0 8px;
             }
             
             .hero-content {
                 max-width: none;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
             }
             
             .hero-content h1 {
-                font-size: 2.4rem;
+                font-size: 1.8rem;
+                line-height: 1.2;
+                word-break: break-word;
             }
             
             .acronym-subtitle {
-                font-size: 0.95rem;
-                overflow-x: auto;
-                white-space: nowrap;
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px 8px;
+                white-space: normal;
             }
             
             .acronym-letter {
-                font-size: 1.05rem;
+                font-size: 0.9rem;
             }
             
             .hero .quote, .hero .mission {
-                font-size: 1.05rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                padding: 0 8px;
             }
             
             .hero-image {
-                width: 80%;
-                max-width: 360px;
+                width: 85%;
+                max-width: 300px;
                 margin: 0 auto;
             }
             
+            /* Hide word cloud on mobile for better readability */
+            .word-cloud {
+                opacity: 0.12;
+            }
+            .word-cloud span {
+                font-size: 0.75rem !important;
+            }
+            
+            /* === BUTTONS === */
+            .cta-buttons {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                padding: 0 12px;
+            }
+            .cta-buttons .btn-primary,
+            .cta-buttons .btn-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+            }
+            
+            /* === ABOUT SECTION === */
+            .about-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+            
+            .about-card {
+                padding: 18px;
+            }
+            
+            /* Images - prevent cropping */
+            .photo-rect {
+                height: auto !important;
+                min-height: 180px;
+                max-height: 280px;
+                width: 100%;
+                object-fit: contain;
+            }
+            
+            .banner-rect {
+                min-height: 140px;
+                max-height: 220px;
+                object-fit: contain;
+            }
+            
+            /* === CONSULTANT / TEAM SECTION === */
+            .consultant-card {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .consultant-card .avatar-photo {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+            
+            .consultant-card .info {
+                padding: 0 12px;
+            }
+            
+            .consultant-card .info h3 {
+                font-size: 1.3rem;
+            }
+            
+            .consultant-card .info p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            
+            /* === TWO COLUMN GRIDS === */
+            .two-col-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+            
+            .partners-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* === CARDS === */
             .step-card, .card, .testimonial {
                 width: 100%;
-                max-width: 400px;
+                max-width: none;
             }
-            /* On narrow screens, let cards auto-size */
-            .post-card.equal-height { height: auto; }
-            .two-col-grid { grid-template-columns: 1fr; }
+            
+            .post-card.equal-height {
+                height: auto;
+            }
+            
+            /* === SOCIAL GRID === */
+            #community-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+            
+            .post-card.social-equal {
+                height: auto;
+                min-height: 400px;
+            }
+            
+            /* === GENERAL SPACING === */
+            .content-section {
+                padding: 24px 16px !important;
+                margin: 12px !important;
+                border-radius: 16px !important;
+            }
+            
+            .container {
+                padding: 0 12px;
+            }
+            
+            h2 {
+                font-size: 1.6rem !important;
+            }
+            
+            h3 {
+                font-size: 1.2rem !important;
+            }
+            
+            p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .acronym-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .hero .quote {
+                font-size: 0.9rem;
+            }
+            
+            .word-cloud {
+                display: none; /* Hide completely on very small screens */
+            }
         }
 
     /* ==========================================================

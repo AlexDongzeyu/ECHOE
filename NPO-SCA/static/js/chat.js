@@ -408,11 +408,11 @@ async function fetchGeminiResponse(prompt, responseType = 'supportive') {
 
 function getRandomDefaultResponse() {
     const responses = [
-        "Thank you for sharing with me. Your feelings are valid, and it's important that you've reached out.",
-        "I hear you, and I want you to know that you're not alone in this. Many people struggle with similar feelings.",
-        "It takes courage to express what you're going through. How are you taking care of yourself right now?",
-        "Your wellbeing matters. Have you considered speaking with a mental health professional about these feelings?",
-        "I appreciate you trusting me with your thoughts. Remember that seeking support is a sign of strength."
+        "Thank you for sharing with me. Your feelings are valid. If you'd like more support, try writing an anonymous letter - our volunteers respond within 24-72 hours.",
+        "I hear you, and you're not alone. Many students feel similar pressures. Would you like me to help you find resources on our website?",
+        "It takes courage to reach out. If you need immediate support, Kids Help Phone is available 24/7 at 1-800-668-6868 or text HOME to 686868.",
+        "Your wellbeing matters to us at E.C.H.O.E. Our anonymous letter system lets you share more privately if you'd like personalized peer support.",
+        "I appreciate you trusting me with your thoughts. Remember, seeking support is a sign of strength. Check out our Helplines page for crisis resources."
     ];
     return responses[Math.floor(Math.random() * responses.length)];
 }
@@ -624,10 +624,10 @@ function selectChatMode(mode) {
     if (chatTitle) {
         if (mode === 'customer-service') {
             chatTitle.textContent = 'Website Help';
-            addSystemMessage("Hi! I'm here to help you navigate our website and find information. How can I assist you today?");
+            addSystemMessage("Hi! I'm Echo, here to help you navigate E.C.H.O.E. Looking for helplines, want to write a letter, or need help finding something? Just ask!");
         } else if (mode === 'companion') {
-            chatTitle.textContent = 'AI Companion';
-            addSystemMessage("Hello! I'm here to provide emotional support and have a conversation with you. How are you feeling today?");
+            chatTitle.textContent = 'Echo Companion';
+            addSystemMessage("Hey there! I'm Echo, your friendly peer support companion. I'm here to listen without judgment. How are you feeling today? 💜");
         }
     }
     

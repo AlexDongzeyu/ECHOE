@@ -12,17 +12,17 @@
     align-items: center;
     background-color: var(--deep-indigo, #2A3D66);
     color: white;
-    border: none;
+    border: 2.5px solid #1a2840 !important;
     border-radius: 30px;
     padding: 12px 20px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px rgba(42,61,102,0.45), 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
 }
 
 .chat-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    box-shadow: 4px 7px 0px rgba(42,61,102,0.45), 0 8px 18px rgba(0,0,0,0.2);
 }
 
 .chat-button.active {

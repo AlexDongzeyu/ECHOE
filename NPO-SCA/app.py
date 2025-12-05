@@ -1283,25 +1283,89 @@ try:
             api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
             
-            prompt_prefix = "You are a supportive AI companion for the E.C.H.O.E mental health platform (Empathy, Connection, Hope, Outreach, Empowerment). "
+            # Comprehensive E.C.H.O.E. website context for accurate responses
+            echoe_context = """
+You are Echo, the friendly AI assistant for E.C.H.O.E. (Empathy • Connection • Hope • Outreach • Empowerment), 
+a youth-led mental health organization based in Ontario, Canada. Our mission is to support students and young people 
+struggling with mental health through peer support and community connection.
+
+WEBSITE FEATURES & NAVIGATION:
+- Home: Welcome page with mission overview and latest updates
+- Write a Letter: Anonymous letter submission where users can share their feelings privately. Volunteers respond within 24-72 hours. Users can track replies via their Inbox.
+- Inbox: View responses to your anonymous letters
+- Risk & Protective Factors: Educational content about mental health warning signs and protective strategies
+- Helplines: Crisis resources including Kids Help Phone (1-800-668-6868), Crisis Text Line (text HOME to 686868), and local crisis numbers
+- Events: Information about our Mental Health Awareness events, workshops, and community activities
+- Calendar: Upcoming events and important dates
+- Team: Meet our dedicated volunteer team
+- Join Us: Information on how to become a volunteer
+- Blog: Articles and stories from our community
+- Social Media: Follow us on Instagram @echoe_hosa
+
+KEY SERVICES:
+1. Anonymous Letter System: Write about anything - stress, anxiety, relationships, school pressure. Our trained peer volunteers respond with empathy and support.
+2. Crisis Resources: We always recommend professional help for serious concerns. If someone is in crisis: Kids Help Phone 1-800-668-6868 or text HOME to 686868.
+3. Peer Support: We're not therapists, but caring peers who understand student struggles.
+4. Educational Content: Information about mental health, self-care, and wellness.
+
+IMPORTANT GUIDELINES:
+- Always be warm, supportive, and non-judgmental
+- For crisis situations, immediately provide crisis helpline numbers
+- Never provide medical diagnoses or professional clinical advice
+- Guide users to appropriate website features based on their needs
+- Keep responses concise and helpful (2-4 sentences for simple questions)
+"""
             
             if response_type == 'practical':
-                prompt_prefix += "Offer concrete, actionable advice while being supportive and compassionate. "
-                prompt_prefix += "Focus on small, manageable steps the user can take. "
+                # Customer service / website help mode
+                prompt = f"""{echoe_context}
+
+MODE: Website Help & Navigation
+You are helping someone navigate the E.C.H.O.E. website and find information.
+- Answer questions about website features clearly
+- Direct users to the right pages for their needs
+- Be friendly but efficient
+- If they seem to need emotional support, gently suggest they use the "Write a Letter" feature or provide helpline numbers
+
+User question: {message}
+
+Respond helpfully in 2-4 sentences."""
             elif response_type == 'reflective':
-                prompt_prefix += "Ask thoughtful questions to help the user explore their feelings and situation more deeply. "
-                prompt_prefix += "Help them gain insight through gentle reflection rather than direct advice. "
-            else:  # supportive
-                prompt_prefix += "Respond with empathy and care. Focus on emotional support and validation of feelings. "
-            
-            prompt_prefix += "Do not diagnose or provide medical advice. Keep responses supportive and relatively brief. "
+                prompt = f"""{echoe_context}
+
+MODE: Reflective Support
+Ask thoughtful questions to help the user explore their feelings more deeply.
+Help them gain insight through gentle reflection rather than direct advice.
+
+User message: {message}
+
+Respond with a thoughtful, reflective question or observation (2-3 sentences)."""
+            else:  # supportive - companion mode
+                prompt = f"""{echoe_context}
+
+MODE: Emotional Support Companion
+You are providing emotional support as a caring peer companion.
+- Validate their feelings
+- Be warm and empathetic
+- If they mention crisis or self-harm, immediately provide: Kids Help Phone 1-800-668-6868, text HOME to 686868
+- Suggest writing an anonymous letter if they want more personalized support
+- Do not diagnose or give clinical advice
+
+User message: {message}
+
+Respond with empathy and care (2-4 sentences)."""
             
             payload = {
                 "contents": [{
                     "parts": [{
-                        "text": f"{prompt_prefix} User message: {message}"
+                        "text": prompt
                     }]
-                }]
+                }],
+                "generationConfig": {
+                    "temperature": 0.7,
+                    "topP": 0.9,
+                    "maxOutputTokens": 300
+                }
             }
             
             with httpx.Client(timeout=15) as client:
@@ -1312,11 +1376,11 @@ try:
                 ai_response = " ".join([part['text'] for part in data['candidates'][0]['content']['parts']])
                 return ai_response
             else:
-                return "I'm sorry, I'm having trouble generating a response right now."
+                return "I'm sorry, I'm having trouble generating a response right now. If you need immediate support, please call Kids Help Phone at 1-800-668-6868 or text HOME to 686868."
         
         except Exception as e:
             app.logger.error(f"Error generating AI response: {str(e)}")
-            return "I'm sorry, I'm having trouble generating a response right now."
+            return "I'm sorry, I'm having trouble connecting right now. For immediate support, please call Kids Help Phone at 1-800-668-6868 or text HOME to 686868."
 
     # Internal function: Content moderation
     def moderate_content_internal(content):

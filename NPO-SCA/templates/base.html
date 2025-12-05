@@ -805,47 +805,76 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
         
-        /* --- Page Container: Soft color + HIGH CONTRAST offset shadow --- */
-        .page-container {
-            background: var(--frame-cream) !important;
-            border: 2px solid rgba(42,61,102,0.08);
-            box-shadow: 8px 8px 0px var(--shadow-offset-dark), 0 12px 35px var(--shadow-deep);
-            animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .page-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 8px 13px 0px var(--shadow-offset-dark), 0 18px 45px var(--shadow-deep);
+        /* === COLORFUL FRAME COLORS === */
+        :root {
+            --color-sunny: #FDF4C5;
+            --color-sky: #D4EAF7;
+            --color-mint: #D8F0D8;
+            --color-peach: #FFE5D9;
+            --color-lavender: #E8DCF4;
+            --color-coral: #FFDAD6;
+            --color-sage: #E2EFDA;
+            --color-blush: #FFE8F0;
         }
         
-        /* --- Content Section: Alternating soft colors + HIGH CONTRAST shadows --- */
+        /* --- Page Container: Colorful with dark border --- */
+        .page-container {
+            background: var(--color-sunny) !important;
+            border: 3px solid #2A3D66;
+            border-radius: 24px;
+            box-shadow: 8px 8px 0px rgba(42,61,102,0.45), 0 12px 35px var(--shadow-deep);
+            animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px;
+        }
+        .page-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 12px 0px rgba(42,61,102,0.45), 0 18px 45px var(--shadow-deep);
+        }
+        
+        /* --- Content Section: COLORFUL frames with different shapes --- */
         .content-section {
-            background: var(--frame-blue);
-            border: 2px solid rgba(42,61,102,0.1);
-            border-radius: 18px;
-            box-shadow: 6px 6px 0px var(--shadow-offset-dark), 0 10px 28px var(--shadow-deep);
+            border: 2.5px solid #2A3D66;
+            box-shadow: 6px 6px 0px rgba(42,61,102,0.4), 0 10px 28px var(--shadow-deep);
             animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .content-section:nth-child(even) {
-            background: var(--frame-pink);
-            animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        
+        /* Different colors and shapes for each section */
+        .content-section:nth-child(6n+1) {
+            background: var(--color-sky);
+            border-radius: 24px;
         }
-        .content-section:nth-child(3n) {
-            background: var(--frame-green);
+        .content-section:nth-child(6n+2) {
+            background: var(--color-peach);
+            border-radius: 20px 40px 20px 40px;
+            animation-name: slide-in-right;
         }
-        .content-section:nth-child(4n) {
-            background: var(--frame-lavender);
+        .content-section:nth-child(6n+3) {
+            background: var(--color-mint);
+            border-radius: 40px 20px 40px 20px;
         }
-        .content-section:nth-child(5n) {
-            background: var(--frame-peach);
+        .content-section:nth-child(6n+4) {
+            background: var(--color-lavender);
+            border-radius: 30px;
+            animation-name: slide-in-right;
         }
-        .content-section:hover {
-            transform: translateY(-6px);
-            box-shadow: 6px 12px 0px var(--shadow-offset-dark), 0 18px 45px var(--shadow-deep);
+        .content-section:nth-child(6n+5) {
+            background: var(--color-coral);
+            border-radius: 16px 32px 16px 32px;
+        }
+        .content-section:nth-child(6n+6) {
+            background: var(--color-sage);
+            border-radius: 32px 16px 32px 16px;
+            animation-name: slide-in-right;
         }
         
-        /* --- Staggered Section Animations (more noticeable delays) --- */
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 6px 11px 0px rgba(42,61,102,0.4), 0 16px 40px var(--shadow-deep);
+        }
+        
+        /* --- Staggered Section Animations --- */
         .content-section:nth-child(1) { animation-delay: 0.08s; }
         .content-section:nth-child(2) { animation-delay: 0.16s; }
         .content-section:nth-child(3) { animation-delay: 0.24s; }
@@ -895,25 +924,49 @@
             box-shadow: 3px 9px 0px var(--shadow-offset-dark), 0 12px 25px var(--shadow-deep);
         }
         
-        /* --- Card / Generic Frame Styling with HIGH CONTRAST --- */
+        /* --- Card / Generic Frame Styling - COLORFUL with dark borders --- */
         .card, .post-card, .about-card, .rp-card, .rp-section, .rp-hero {
-            background: var(--frame-cream) !important;
-            border: 2px solid rgba(42,61,102,0.1) !important;
-            border-radius: 16px !important;
-            box-shadow: 5px 5px 0px var(--shadow-offset-dark), 0 10px 28px var(--shadow-deep) !important;
+            border: 2.5px solid #2A3D66 !important;
+            box-shadow: 5px 5px 0px rgba(42,61,102,0.4), 0 10px 28px var(--shadow-deep) !important;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .card:hover, .post-card:hover, .about-card:hover, .rp-card:hover, .rp-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 5px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
+            transform: translateY(-4px);
+            box-shadow: 5px 9px 0px rgba(42,61,102,0.4), 0 14px 35px var(--shadow-deep) !important;
         }
         
-        /* Alternate card colors for variety */
-        .rp-card:nth-child(odd), .card:nth-child(odd) { background: var(--frame-blue) !important; }
-        .rp-card:nth-child(even), .card:nth-child(even) { background: var(--frame-pink) !important; }
-        .rp-card:nth-child(3n) { background: var(--frame-green) !important; }
-        .rp-card:nth-child(4n) { background: var(--frame-lavender) !important; }
+        /* Colorful cards with different shapes */
+        .rp-card:nth-child(6n+1), .card:nth-child(6n+1), .about-card:nth-child(3n+1) { 
+            background: var(--color-sky) !important; 
+            border-radius: 20px !important;
+        }
+        .rp-card:nth-child(6n+2), .card:nth-child(6n+2), .about-card:nth-child(3n+2) { 
+            background: var(--color-peach) !important; 
+            border-radius: 16px 28px 16px 28px !important;
+        }
+        .rp-card:nth-child(6n+3), .card:nth-child(6n+3), .about-card:nth-child(3n+3) { 
+            background: var(--color-mint) !important; 
+            border-radius: 28px 16px 28px 16px !important;
+        }
+        .rp-card:nth-child(6n+4), .card:nth-child(6n+4) { 
+            background: var(--color-lavender) !important; 
+            border-radius: 24px !important;
+        }
+        .rp-card:nth-child(6n+5), .card:nth-child(6n+5) { 
+            background: var(--color-coral) !important; 
+            border-radius: 18px 30px 18px 30px !important;
+        }
+        .rp-card:nth-child(6n+6), .card:nth-child(6n+6) { 
+            background: var(--color-sage) !important; 
+            border-radius: 30px 18px 30px 18px !important;
+        }
+        
+        /* Hero sections - sunny yellow */
+        .rp-hero {
+            background: var(--color-sunny) !important;
+            border-radius: 24px !important;
+        }
         
         /* Staggered card animations */
         .rp-card:nth-child(1), .card:nth-child(1) { animation-delay: 0.1s; }
@@ -1142,17 +1195,17 @@
         .rp-list li:nth-child(n+6) { animation-delay: 0.55s; }
         
         /* ============================================================
-           HERO SECTIONS
+           HERO SECTIONS - Solid colors, no gradients
            ============================================================ */
         
         .rp-hero, .hero-section, .page-header {
-            background: linear-gradient(135deg, var(--frame-peach), var(--frame-lavender)) !important;
-            border: 2px solid rgba(42,61,102,0.1) !important;
-            border-radius: 20px !important;
-            box-shadow: 6px 6px 0px var(--shadow-offset-dark), 0 12px 35px var(--shadow-deep) !important;
-            animation: fade-scale 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+            background: var(--color-sunny) !important;
+            border: 3px solid #2A3D66 !important;
+            border-radius: 24px !important;
+            box-shadow: 7px 7px 0px rgba(42,61,102,0.45), 0 12px 35px var(--shadow-deep) !important;
+            animation: slide-up-bounce 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
-        .rp-hero:hover, .hero-section:hover {
+        .rp-hero:hover, .hero-section:hover, .page-header:hover {
             transform: translateY(-4px);
             box-shadow: 6px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
         }

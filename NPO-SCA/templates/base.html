@@ -695,24 +695,208 @@
         body.mode-contrast .btn-primary, body.mode-contrast .a11y-btn{ background:#111 !important; color:#fff !important; border:2px solid #ffe066 !important; box-shadow:none !important; }
         body.mode-contrast .content-section, body.mode-contrast .page-container, body.mode-contrast .about-card{ background:#000 !important; border:2px solid #fff !important; box-shadow:none !important; }
 
-        /* Floating Echo Accessibility button - with dark border to match other FABs */
-        .a11y-fab{ position:fixed !important; right:20px !important; left:auto !important; bottom:168px; z-index:10000; display:flex; align-items:center; gap:8px; background:#fff; border:2.5px solid #2A3D66 !important; border-radius:24px; padding:8px 12px; box-shadow:4px 4px 0px rgba(42,61,102,.35), 0 10px 24px rgba(42,61,102,.15); cursor:pointer; transform:none !important; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .a11y-fab:hover{ transform:translateY(-3px) !important; box-shadow:4px 7px 0px rgba(42,61,102,.35), 0 14px 28px rgba(42,61,102,.2); }
-        .a11y-fab img{ width:28px; height:28px; border-radius:50%; }
-        .a11y-fab span{ font-weight:800; color:var(--deep-indigo); font-size:.95rem; }
-        @media(max-width:768px){ .a11y-fab span{ display:none; } .a11y-fab{ bottom:148px; } }
-        /* Panel */
-        .a11y-panel{ position:fixed !important; right:20px !important; left:auto !important; bottom:228px; z-index:10000; width:min(92vw, 360px); max-height:70vh; overflow:auto; background:#fff; border:1px solid rgba(159,197,203,.45); border-radius:16px; box-shadow:0 16px 36px rgba(42,61,102,.25); display:none; transform:none !important; }
-        .a11y-panel.open{ display:block; }
-        .a11y-panel header{ padding:10px 14px; border-bottom:1px solid rgba(159,197,203,.35); font-weight:800; color:var(--deep-indigo); display:flex; align-items:center; justify-content:space-between; }
-        .a11y-panel .body{ padding:12px 14px; display:grid; gap:10px; }
-        .a11y-panel .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-        .a11y-panel .row label{ font-weight:700; color:var(--deep-indigo); }
-        .a11y-panel .actions{ display:flex; gap:8px; flex-wrap:wrap; }
-        .a11y-btn{ background:var(--soft-yellow); color:var(--deep-indigo); border:none; border-radius:12px; padding:8px 12px; font-weight:800; cursor:pointer; }
-        .a11y-btn.secondary{ background:var(--gentle-lavender); color:#0f2233; }
-        .a11y-btn.active{ outline:3px solid rgba(42,61,102,.25); }
-        .a11y-small{ font-size:.85rem; color:#4b5b7a; }
+        /* ============================================
+           ECHO OPTIONS - Accessibility Controls
+           ============================================ */
+        
+        /* Floating Echo Button */
+        .a11y-fab {
+            position: fixed !important;
+            right: 20px !important;
+            left: auto !important;
+            bottom: 168px;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FDF4C5 0%, #F4D06F 100%);
+            border: 3px solid #2A3D66 !important;
+            border-radius: 50px;
+            padding: 10px 16px;
+            box-shadow: 4px 4px 0px rgba(42,61,102,0.4), 0 8px 20px rgba(42,61,102,0.15);
+            cursor: pointer;
+            transform: none !important;
+            transition: all 0.25s ease;
+        }
+        .a11y-fab:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 4px 8px 0px rgba(42,61,102,0.4), 0 12px 28px rgba(42,61,102,0.2);
+            background: linear-gradient(135deg, #F4D06F 0%, #E8C254 100%);
+        }
+        .a11y-fab img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #2A3D66;
+        }
+        .a11y-fab span {
+            font-weight: 800;
+            color: #2A3D66;
+            font-size: 0.95rem;
+        }
+        @media(max-width:768px) {
+            .a11y-fab span { display: none; }
+            .a11y-fab { bottom: 148px; padding: 8px 12px; }
+            .a11y-fab img { width: 28px; height: 28px; }
+        }
+        
+        /* Echo Options Panel */
+        .a11y-panel {
+            position: fixed !important;
+            right: 20px !important;
+            left: auto !important;
+            bottom: 230px;
+            z-index: 10002;
+            width: min(92vw, 340px);
+            max-height: 75vh;
+            overflow: auto;
+            background: #FDFBF7;
+            border: 3px solid #2A3D66;
+            border-radius: 20px;
+            box-shadow: 6px 6px 0px rgba(42,61,102,0.35), 0 20px 50px rgba(42,61,102,0.25);
+            display: none;
+            transform: none !important;
+            animation: panel-slide-up 0.3s ease-out;
+        }
+        @keyframes panel-slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .a11y-panel.open { display: block; }
+        
+        .a11y-panel header {
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #9FC5CB 0%, #8FB8DE 100%);
+            border-radius: 17px 17px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .a11y-panel header .a11y-title {
+            font-weight: 800;
+            color: #2A3D66;
+            font-size: 1.1rem;
+        }
+        
+        .a11y-panel .body {
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .a11y-panel .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid rgba(42,61,102,0.1);
+            transition: all 0.2s ease;
+        }
+        .a11y-panel .row:hover {
+            border-color: rgba(42,61,102,0.25);
+            background: #FEFEFE;
+        }
+        .a11y-panel .row label {
+            font-weight: 700;
+            color: #2A3D66;
+            font-size: 0.95rem;
+        }
+        .a11y-panel .row.has-actions {
+            flex-wrap: wrap;
+        }
+        .a11y-panel .row.has-actions label {
+            flex: 1;
+        }
+        .a11y-panel .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        /* Toggle Buttons - Clear ON/OFF States */
+        .a11y-btn {
+            background: #E8E8E8;
+            color: #5A6A7A;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 70px;
+            text-align: center;
+        }
+        .a11y-btn:hover {
+            background: #D8D8D8;
+            transform: translateY(-1px);
+        }
+        .a11y-btn.active {
+            background: linear-gradient(135deg, #98D8AA 0%, #7BC47F 100%);
+            color: #1A4D2E;
+            border-color: #5B9B6B;
+            box-shadow: 0 2px 8px rgba(91,155,107,0.3);
+        }
+        .a11y-btn.active::after {
+            content: " ✓";
+        }
+        
+        .a11y-btn.secondary {
+            background: var(--soft-yellow);
+            color: #2A3D66;
+            border-color: transparent;
+        }
+        .a11y-btn.secondary:hover {
+            background: #F4D06F;
+        }
+        
+        .a11y-btn.danger {
+            background: linear-gradient(135deg, #FF9F9F 0%, #E07B7B 100%);
+            color: #fff;
+        }
+        .a11y-btn.danger:hover {
+            background: linear-gradient(135deg, #E07B7B 0%, #C45A5A 100%);
+        }
+        
+        .a11y-close-btn {
+            background: #fff;
+            border: 2px solid #2A3D66;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 700;
+            color: #2A3D66;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .a11y-close-btn:hover {
+            background: #2A3D66;
+            color: #fff;
+        }
+        
+        .a11y-small {
+            font-size: 0.85rem;
+            color: #6B7B8B;
+            text-align: center;
+            padding: 8px 12px;
+            background: rgba(159,197,203,0.15);
+            border-radius: 10px;
+            line-height: 1.5;
+        }
+        
+        @media(max-width:768px) {
+            .a11y-panel {
+                bottom: 200px;
+                right: 12px !important;
+                width: calc(100vw - 24px);
+            }
+            .a11y-panel .row {
+                padding: 8px 12px;
+            }
+        }
         /* Ensure chat widget is fixed bottom-right across pages */
         .chat-widget{ position:fixed !important; right:20px !important; left:auto !important; bottom:20px; z-index:10000; transform:none !important; }
 
@@ -1553,23 +1737,23 @@
     </button>
     <div id="a11yPanel" class="a11y-panel" role="dialog" aria-labelledby="a11yTitle" aria-modal="false">
         <header>
-            <div id="a11yTitle">Accessibility & Comfort</div>
-            <button id="a11yClose" class="a11y-btn secondary" style="padding:4px 8px;">Close</button>
+            <div class="a11y-title">Comfort Settings</div>
+            <button id="a11yClose" class="a11y-close-btn">Close</button>
         </header>
         <div class="body">
             <div class="row">
-                <label for="calmToggle">Calm / Low‑Stimulus</label>
-                <button id="calmToggle" class="a11y-btn">Toggle</button>
+                <label>Calm Mode</label>
+                <button id="calmToggle" class="a11y-btn">OFF</button>
             </div>
             <div class="row">
-                <label for="focusToggle">Focus / Reader</label>
-                <button id="focusToggle" class="a11y-btn">Toggle</button>
+                <label>Focus Mode</label>
+                <button id="focusToggle" class="a11y-btn">OFF</button>
             </div>
             <div class="row">
-                <label for="contrastToggle">High Contrast</label>
-                <button id="contrastToggle" class="a11y-btn">Toggle</button>
+                <label>High Contrast</label>
+                <button id="contrastToggle" class="a11y-btn">OFF</button>
             </div>
-            <div class="row">
+            <div class="row has-actions">
                 <label>Text Size</label>
                 <div class="actions">
                     <button id="textSmaller" class="a11y-btn secondary">A−</button>
@@ -1578,10 +1762,10 @@
                 </div>
             </div>
             <div class="row">
-                <label>Quick Exit</label>
-                <button id="quickExit" class="a11y-btn" title="Leave this site immediately">Leave</button>
+                <label>Emergency Exit</label>
+                <button id="quickExit" class="a11y-btn danger" title="Leave this site immediately">Leave Site</button>
             </div>
-            <div class="a11y-small">Echo helps you adjust the page to reduce overwhelm and improve readability.</div>
+            <div class="a11y-small">Echo helps you customize your viewing experience for better comfort and focus.</div>
         </div>
     </div>
     
@@ -1603,6 +1787,12 @@
                 calm:'a11y:calm', focus:'a11y:focus', contrast:'a11y:contrast', scale:'a11y:fontScale'
             };
 
+            // Update button text to show ON/OFF state
+            function updateButtonState(btn, isActive) {
+                btn.classList.toggle('active', isActive);
+                btn.textContent = isActive ? 'ON' : 'OFF';
+            }
+
             function applyFromStorage(){
                 try{
                     const calmOn = localStorage.getItem(KEY.calm)==='1';
@@ -1613,18 +1803,27 @@
                     if(contrastOn) body.classList.add('mode-contrast');
                     const s = parseFloat(localStorage.getItem(KEY.scale)||'1');
                     if(!isNaN(s)) document.documentElement.style.setProperty('--font-scale', Math.min(1.6, Math.max(0.85, s)));
-                    calmBtn.classList.toggle('active', calmOn);
-                    focusBtn.classList.toggle('active', focusOn);
-                    contrastBtn.classList.toggle('active', contrastOn);
+                    updateButtonState(calmBtn, calmOn);
+                    updateButtonState(focusBtn, focusOn);
+                    updateButtonState(contrastBtn, contrastOn);
                 }catch(e){}
             }
 
             function toggle(key, cls){
                 const active = body.classList.toggle(cls);
-                // Calm and Focus should be mutually exclusive to avoid odd layouts
-                if(active && cls==='mode-calm'){ body.classList.remove('mode-focus'); try{ localStorage.setItem(KEY.focus,'0'); }catch(e){} }
-                if(active && cls==='mode-focus'){ body.classList.remove('mode-calm'); try{ localStorage.setItem(KEY.calm,'0'); }catch(e){} }
+                // Calm and Focus should be mutually exclusive
+                if(active && cls==='mode-calm'){ 
+                    body.classList.remove('mode-focus'); 
+                    try{ localStorage.setItem(KEY.focus,'0'); }catch(e){} 
+                    updateButtonState(focusBtn, false);
+                }
+                if(active && cls==='mode-focus'){ 
+                    body.classList.remove('mode-calm'); 
+                    try{ localStorage.setItem(KEY.calm,'0'); }catch(e){} 
+                    updateButtonState(calmBtn, false);
+                }
                 try{ localStorage.setItem(key, active? '1':'0'); }catch(e){}
+                return active;
             }
 
             function setScale(delta){
@@ -1634,18 +1833,52 @@
                 try{ localStorage.setItem(KEY.scale, String(next)); }catch(e){}
             }
 
+            // Panel toggle
             fab.addEventListener('click', ()=>{
                 const open = panel.classList.toggle('open');
                 fab.setAttribute('aria-expanded', open? 'true':'false');
             });
-            btnClose.addEventListener('click', ()=>{ panel.classList.remove('open'); fab.setAttribute('aria-expanded','false'); });
-            calmBtn.addEventListener('click', ()=> { toggle(KEY.calm, 'mode-calm'); calmBtn.classList.toggle('active'); focusBtn.classList.remove('active'); });
-            focusBtn.addEventListener('click', ()=> { toggle(KEY.focus, 'mode-focus'); focusBtn.classList.toggle('active'); calmBtn.classList.remove('active'); });
-            contrastBtn.addEventListener('click', ()=> { toggle(KEY.contrast, 'mode-contrast'); contrastBtn.classList.toggle('active'); });
+            
+            // Close panel
+            btnClose.addEventListener('click', ()=>{ 
+                panel.classList.remove('open'); 
+                fab.setAttribute('aria-expanded','false'); 
+            });
+            
+            // Close panel when clicking outside
+            document.addEventListener('click', (e) => {
+                if (panel.classList.contains('open') && !panel.contains(e.target) && !fab.contains(e.target)) {
+                    panel.classList.remove('open');
+                    fab.setAttribute('aria-expanded','false');
+                }
+            });
+            
+            // Toggle buttons
+            calmBtn.addEventListener('click', ()=> { 
+                const isActive = toggle(KEY.calm, 'mode-calm'); 
+                updateButtonState(calmBtn, isActive);
+            });
+            focusBtn.addEventListener('click', ()=> { 
+                const isActive = toggle(KEY.focus, 'mode-focus'); 
+                updateButtonState(focusBtn, isActive);
+            });
+            contrastBtn.addEventListener('click', ()=> { 
+                const isActive = toggle(KEY.contrast, 'mode-contrast'); 
+                updateButtonState(contrastBtn, isActive);
+            });
+            
+            // Text size controls
             smaller.addEventListener('click', ()=> setScale(-0.1));
             larger.addEventListener('click', ()=> setScale(+0.1));
-            reset.addEventListener('click', ()=>{ document.documentElement.style.setProperty('--font-scale', 1); try{localStorage.setItem(KEY.scale,'1');}catch(e){} });
-            quickExit.addEventListener('click', ()=>{ window.location.href='https://www.google.com'; });
+            reset.addEventListener('click', ()=>{ 
+                document.documentElement.style.setProperty('--font-scale', 1); 
+                try{localStorage.setItem(KEY.scale,'1');}catch(e){} 
+            });
+            
+            // Quick exit
+            quickExit.addEventListener('click', ()=>{ 
+                window.location.replace('https://www.google.com'); 
+            });
 
             applyFromStorage();
         })();

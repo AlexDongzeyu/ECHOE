@@ -35,10 +35,10 @@
         font-family: 'Nunito', sans-serif;
     }
     
-    .hero {
+        .hero {
         padding: 54px 0 48px;
-        position: relative;
-        overflow: hidden;
+            position: relative;
+            overflow: hidden;
         /* Solid light yellow background - NO gradient */
         background: #FDF4C5;
         /* Dark border */
@@ -142,28 +142,28 @@
     .word-cloud .w21 { top:72%; left:22%; font-size:1rem; color:#B39CD0; opacity:0.18; animation: float-word-2 10s ease-in-out infinite; }
     .word-cloud .w22 { top:2%; left:68%; font-size:0.95rem; color:#ADCBA4; opacity:0.2; animation: float-word-1 8s ease-in-out infinite 1.2s; }
     .word-cloud .w23 { top:56%; left:32%; font-size:1.1rem; color:#F8D29C; opacity:0.18; animation: float-word-3 11s ease-in-out infinite 0.4s; }
-    
-    .hero .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         gap: 3rem;
         position: relative;
         z-index: 1;
-    }
-    
-    .hero-content {
+        }
+        
+        .hero-content {
         max-width: 640px;
-        z-index: 2;
-    }
-
-    .hero-content h1 {
-        color: var(--deep-indigo);
-        font-size: 3.2rem;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            color: var(--deep-indigo);
+            font-size: 3.2rem;
         font-weight: 800;
         margin-bottom: 12px;
         line-height: 1.1;
-    }
+        }
         
         .acronym-subtitle {
             font-size: 1.15rem;
@@ -699,14 +699,14 @@
                 border-radius: 18px;
             }
             
-            .hero .container {
+        .hero .container {
                 flex-direction: column;
-                text-align: center;
+            text-align: center;
                 padding: 0 8px;
-            }
-            
-            .hero-content {
-                max-width: none;
+        }
+        
+        .hero-content {
+            max-width: none;
                 margin-bottom: 1.5rem;
             }
             
@@ -734,7 +734,7 @@
                 padding: 0 8px;
             }
             
-            .hero-image {
+        .hero-image {
                 width: 85%;
                 max-width: 300px;
                 margin: 0 auto;
@@ -823,8 +823,8 @@
             }
             
             /* === CARDS === */
-            .step-card, .card, .testimonial {
-                width: 100%;
+        .step-card, .card, .testimonial {
+            width: 100%;
                 max-width: none;
             }
             
@@ -1177,7 +1177,7 @@
     .photo-rect:hover, .banner-rect:hover {
         transform: scale(1.02);
         box-shadow: 0 12px 32px rgba(42,61,102,0.18);
-    }
+        }
     </style>
 {% endblock %}
 
@@ -1235,7 +1235,7 @@
                     <div class="hero-actions animate-fade-up delay-3">
                         <a href="{{ url_for('submit') }}" class="btn-primary animate-pulse-slow">Share Your Story</a>
                         <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
-                    </div>
+                </div>
                 </div>
                 <div class="hero-image animate-slide-right delay-2">
                     <div class="hero-polaroid">
@@ -1474,13 +1474,13 @@
                 
                 <!-- Social Icons Row -->
                 <div class="social-icons-row animate-fade-up">
-                    <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="social-icon-circle instagram">
+                    <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="social-icon-circle instagram-icon-btn">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
-                    <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="social-icon-circle tiktok">
+                    <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="social-icon-circle tiktok-icon-btn">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
                     </a>
-                    <a href="https://youtube.com/@echoe_hosa" target="_blank" class="social-icon-circle youtube">
+                    <a href="https://youtube.com/@echoe_hosa" target="_blank" class="social-icon-circle youtube-icon-btn">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
                 </div>
@@ -1491,16 +1491,11 @@
                     <div class="qr-card tiktok-card animate-slide-left">
                         <div class="qr-card-inner">
                             <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/118ffad1e102da6fb86d0678a6867efc.jpg') }}" alt="TikTok QR Code" class="qr-image">
+                                <img src="/static/img/118ffad1e102da6fb86d0678a6867efc.jpg" alt="TikTok QR Code" class="qr-image" loading="lazy">
                             </div>
-                            <div class="qr-label">
-                                <span class="platform-icon tiktok-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
-                                </span>
-                                TIKTOK
-                            </div>
+                            <div class="qr-label">TIKTOK</div>
                             <p class="qr-description">Watch our short videos, mental health tips, and behind-the-scenes content!</p>
-                            <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="qr-link">@echoe_hosa</a>
+                            <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="qr-link tiktok-link">@echoe_hosa</a>
                         </div>
                     </div>
 
@@ -1508,16 +1503,11 @@
                     <div class="qr-card instagram-card animate-fade-up">
                         <div class="qr-card-inner">
                             <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/echoe_hosa26_qr (3).png') }}" alt="Instagram QR Code" class="qr-image">
+                                <img src="/static/img/echoe_hosa26_qr%20(3).png" alt="Instagram QR Code" class="qr-image" loading="lazy">
                             </div>
-                            <div class="qr-label">
-                                <span class="platform-icon instagram-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                                </span>
-                                INSTAGRAM
-                            </div>
+                            <div class="qr-label">INSTAGRAM</div>
                             <p class="qr-description">Follow for engaging posts, reels, and community updates!</p>
-                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="qr-link">@echoe_hosa26</a>
+                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="qr-link instagram-link">@echoe_hosa26</a>
                         </div>
                     </div>
 
@@ -1525,16 +1515,11 @@
                     <div class="qr-card youtube-card animate-slide-right">
                         <div class="qr-card-inner">
                             <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/qrcode_www.youtube.com (1).png') }}" alt="YouTube QR Code" class="qr-image">
+                                <img src="/static/img/qrcode_www.youtube.com%20(1).png" alt="YouTube QR Code" class="qr-image" loading="lazy">
                             </div>
-                            <div class="qr-label">
-                                <span class="platform-icon youtube-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                </span>
-                                YOUTUBE
-                            </div>
+                            <div class="qr-label">YOUTUBE</div>
                             <p class="qr-description">Subscribe for longer videos, events, and mental health resources!</p>
-                            <a href="https://youtube.com/@echoe_hosa" target="_blank" class="qr-link">@echoe_hosa</a>
+                            <a href="https://youtube.com/@echoe_hosa" target="_blank" class="qr-link youtube-link">@echoe_hosa</a>
                         </div>
                     </div>
                 </div>
@@ -1544,29 +1529,19 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            background: linear-gradient(180deg, #5B7B6A 0%, #4A6A59 100%);
+            background: #9FC5CB;
             padding: 48px 0 56px;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-        .socials-qr-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #F4D06F, #9FC5CB, #B39CD0, #F4D06F);
+            border-top: 4px solid #2A3D66;
         }
         .socials-qr-section h2 {
-            color: #fff;
+            color: #2A3D66;
             font-size: 2.2rem;
             margin-bottom: 8px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .socials-subtitle {
-            color: rgba(255,255,255,0.85);
+            color: #3A4D66;
             font-size: 1.1rem;
             margin-bottom: 24px;
         }
@@ -1586,27 +1561,28 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid #2A3D66;
+            box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
         }
         .social-icon-circle svg {
             width: 24px;
             height: 24px;
         }
-        .social-icon-circle.instagram {
-            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        .social-icon-circle.instagram-icon-btn {
+            background: #E1306C;
             color: #fff;
         }
-        .social-icon-circle.tiktok {
+        .social-icon-circle.tiktok-icon-btn {
             background: #000;
             color: #fff;
         }
-        .social-icon-circle.youtube {
+        .social-icon-circle.youtube-icon-btn {
             background: #FF0000;
             color: #fff;
         }
         .social-icon-circle:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+            box-shadow: 3px 6px 0px rgba(42,61,102,0.3);
         }
 
         /* QR Cards Grid */
@@ -1621,45 +1597,34 @@
 
         .qr-card {
             background: #fff;
+            border: 3px solid #2A3D66;
             border-radius: 20px;
             padding: 24px 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 5px 5px 0px rgba(42,61,102,0.3);
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
-        .qr-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
+        .qr-card.tiktok-card {
+            border-top: 6px solid #000;
         }
-        .qr-card.tiktok-card::before {
-            background: linear-gradient(90deg, #25F4EE, #FE2C55, #000);
+        .qr-card.instagram-card {
+            border-top: 6px solid #E1306C;
         }
-        .qr-card.instagram-card::before {
-            background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-        }
-        .qr-card.youtube-card::before {
-            background: linear-gradient(90deg, #FF0000, #CC0000, #FF0000);
+        .qr-card.youtube-card {
+            border-top: 6px solid #FF0000;
         }
 
         .qr-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+            transform: translateY(-6px);
+            box-shadow: 5px 10px 0px rgba(42,61,102,0.3);
         }
 
         .qr-image-wrap {
-            background: #f8f8f8;
+            background: #F8F9FA;
+            border: 2px solid rgba(42,61,102,0.1);
             border-radius: 16px;
-            padding: 12px;
+            padding: 16px;
             margin-bottom: 16px;
-            transition: all 0.3s ease;
-        }
-        .qr-card:hover .qr-image-wrap {
-            transform: scale(1.02);
         }
         .qr-image {
             width: 100%;
@@ -1673,41 +1638,13 @@
         .qr-label {
             font-size: 1.3rem;
             font-weight: 800;
-            color: var(--deep-indigo);
+            color: #2A3D66;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .platform-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .platform-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-        .tiktok-icon {
-            background: #000;
-            color: #fff;
-        }
-        .instagram-icon {
-            background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%);
-            color: #fff;
-        }
-        .youtube-icon {
-            background: #FF0000;
-            color: #fff;
         }
 
         .qr-description {
             font-size: 0.95rem;
-            color: #666;
+            color: #5A6A7A;
             line-height: 1.5;
             margin-bottom: 12px;
         }
@@ -1716,33 +1653,38 @@
             display: inline-block;
             font-weight: 700;
             font-size: 1rem;
-            padding: 8px 20px;
+            padding: 10px 24px;
             border-radius: 50px;
             transition: all 0.3s ease;
             text-decoration: none !important;
+            border: 2px solid;
         }
-        .tiktok-card .qr-link {
+        .qr-link.tiktok-link {
             background: #000;
             color: #fff !important;
+            border-color: #000;
         }
-        .tiktok-card .qr-link:hover {
-            background: #25F4EE;
+        .qr-link.tiktok-link:hover {
+            background: #fff;
             color: #000 !important;
         }
-        .instagram-card .qr-link {
-            background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+        .qr-link.instagram-link {
+            background: #E1306C;
             color: #fff !important;
+            border-color: #E1306C;
         }
-        .instagram-card .qr-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(220,39,67,0.4);
+        .qr-link.instagram-link:hover {
+            background: #fff;
+            color: #E1306C !important;
         }
-        .youtube-card .qr-link {
+        .qr-link.youtube-link {
             background: #FF0000;
             color: #fff !important;
+            border-color: #FF0000;
         }
-        .youtube-card .qr-link:hover {
-            background: #CC0000;
+        .qr-link.youtube-link:hover {
+            background: #fff;
+            color: #FF0000 !important;
         }
 
         /* Mobile Responsive */

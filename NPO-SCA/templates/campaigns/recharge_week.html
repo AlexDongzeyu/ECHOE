@@ -12,11 +12,12 @@
 
   /* === INTERACTIVE BATTERY SECTION === */
   .battery-section {
-    background: linear-gradient(180deg, #1a2a4a 0%, #2A3D66 50%, #1a2a4a 100%);
-    border-radius: 20px;
-    padding: 32px 24px;
+    background: linear-gradient(180deg, #F6F3FA 0%, #EEF6F8 50%, #FDF4C5 100%);
+    border: 3px solid #2A3D66;
+    border-radius: 24px;
+    padding: 36px 28px;
     margin-bottom: 26px;
-    box-shadow: 0 12px 40px rgba(42,61,102,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    box-shadow: 6px 6px 0px rgba(42,61,102,0.3), 0 12px 40px rgba(42,61,102,0.12);
     overflow: hidden;
     position: relative;
   }
@@ -24,21 +25,20 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(244,208,111,0.15) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(159,197,203,0.25) 0%, transparent 60%);
     pointer-events: none;
   }
   .battery-section h2 {
-    color: #F4D06F;
+    color: #2A3D66;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     margin-bottom: 8px;
-    text-shadow: 0 2px 20px rgba(244,208,111,0.4);
   }
   .battery-section > p {
-    color: rgba(255,255,255,0.8);
+    color: #4A5A7A;
     text-align: center;
     margin-bottom: 28px;
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   /* Battery Container */
@@ -58,14 +58,14 @@
 
   .battery-frame {
     position: relative;
-    background: linear-gradient(180deg, #0d1526 0%, #162035 100%);
-    border: 4px solid #4a5a7a;
+    background: linear-gradient(180deg, #fff 0%, #F8F9FA 100%);
+    border: 3px solid #2A3D66;
     border-radius: 20px;
     padding: 12px;
     box-shadow: 
-      inset 0 4px 20px rgba(0,0,0,0.5),
-      0 0 30px rgba(74,90,122,0.3),
-      0 8px 32px rgba(0,0,0,0.4);
+      inset 0 2px 8px rgba(42,61,102,0.1),
+      4px 4px 0px rgba(42,61,102,0.3),
+      0 8px 24px rgba(42,61,102,0.15);
   }
 
   /* Battery tip */
@@ -76,9 +76,9 @@
     transform: translateX(-50%);
     width: 60px;
     height: 16px;
-    background: linear-gradient(180deg, #5a6a8a 0%, #3a4a6a 100%);
+    background: linear-gradient(180deg, #9FC5CB 0%, #7BA8AF 100%);
     border-radius: 6px 6px 0 0;
-    border: 3px solid #4a5a7a;
+    border: 3px solid #2A3D66;
     border-bottom: none;
   }
 
@@ -87,7 +87,7 @@
     display: flex;
     gap: 8px;
     padding: 8px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(42,61,102,0.08);
     border-radius: 12px;
   }
 
@@ -95,18 +95,19 @@
   .battery-segment {
     flex: 1;
     height: 120px;
-    background: linear-gradient(180deg, #1a2535 0%, #0d1520 100%);
+    background: linear-gradient(180deg, #E8ECF0 0%, #D8DDE5 100%);
     border-radius: 8px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid rgba(42,61,102,0.15);
   }
 
   .battery-segment:hover {
-    border-color: rgba(244,208,111,0.5);
-    transform: translateY(-2px);
+    border-color: #2A3D66;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(42,61,102,0.2);
   }
 
   /* Segment fill (the charging animation) */
@@ -154,13 +155,13 @@
     transform: translateX(-50%);
     font-weight: 800;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(42,61,102,0.5);
     z-index: 2;
     transition: all 0.3s ease;
   }
   .battery-segment.charged .segment-label {
-    color: rgba(255,255,255,0.9);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 
   /* Energy particles animation */
@@ -179,25 +180,14 @@
     animation: particle-rise 1s ease-out forwards;
   }
 
-  /* Charging bolt icon */
-  @keyframes bolt-flash {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1.2); }
+  /* Charging animation flash */
+  @keyframes segment-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
   }
 
-  .charging-bolt {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    opacity: 0;
-    z-index: 3;
-    filter: drop-shadow(0 0 10px rgba(244,208,111,0.8));
-  }
-
-  .battery-segment.charging .charging-bolt {
-    animation: bolt-flash 0.6s ease-out;
+  .battery-segment.charging {
+    animation: segment-flash 0.3s ease-out;
   }
 
   /* Percentage display */
@@ -205,14 +195,13 @@
     text-align: center;
     font-size: 2.5rem;
     font-weight: 800;
-    color: #F4D06F;
-    text-shadow: 0 0 30px rgba(244,208,111,0.5);
+    color: #2A3D66;
     margin-top: 12px;
     transition: all 0.3s ease;
   }
   .battery-percentage span {
     font-size: 1.2rem;
-    opacity: 0.7;
+    color: #5A6A7A;
   }
 
   /* Day selector buttons (below battery) */
@@ -225,9 +214,9 @@
   }
 
   .day-btn {
-    background: rgba(255,255,255,0.1);
-    border: 2px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.8);
+    background: #fff;
+    border: 2px solid rgba(42,61,102,0.2);
+    color: #2A3D66;
     padding: 10px 16px;
     border-radius: 12px;
     font-weight: 700;
@@ -239,16 +228,17 @@
   }
 
   .day-btn:hover {
-    background: rgba(244,208,111,0.2);
-    border-color: rgba(244,208,111,0.5);
+    background: #FDF4C5;
+    border-color: #2A3D66;
     transform: translateY(-2px);
+    box-shadow: 2px 2px 0px rgba(42,61,102,0.3);
   }
 
   .day-btn.active {
     background: linear-gradient(135deg, #F4D06F 0%, #E8C254 100%);
-    border-color: #F4D06F;
-    color: #1a2a4a;
-    box-shadow: 0 4px 20px rgba(244,208,111,0.4);
+    border-color: #2A3D66;
+    color: #2A3D66;
+    box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
   }
 
   /* Content display area */
@@ -260,12 +250,12 @@
 
   .day-content {
     display: none;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid rgba(255,255,255,0.15);
+    background: #fff;
+    border: 3px solid #2A3D66;
     border-radius: 16px;
     padding: 24px;
     animation: content-reveal 0.5s ease-out;
-    backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 0px rgba(42,61,102,0.25);
   }
 
   .day-content.active {
@@ -284,7 +274,7 @@
   }
 
   .day-content h3 {
-    color: #F4D06F;
+    color: #2A3D66;
     font-size: 1.4rem;
     margin: 0 0 12px 0;
     display: flex;
@@ -297,7 +287,7 @@
   }
 
   .day-content p {
-    color: rgba(255,255,255,0.9);
+    color: #4A5A7A;
     line-height: 1.7;
     margin: 0;
     font-size: 1.05rem;
@@ -306,37 +296,37 @@
   /* Prompt text */
   .battery-prompt {
     text-align: center;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.9rem;
+    color: #6B7B8B;
+    font-size: 0.95rem;
     margin-top: 16px;
     animation: pulse-text 2s ease-in-out infinite;
   }
 
   @keyframes pulse-text {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.8; }
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
   }
 
   /* Full charge celebration */
   @keyframes celebrate {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.03); }
     100% { transform: scale(1); }
   }
 
   .battery-frame.full-charge {
     animation: celebrate 0.5s ease;
     box-shadow: 
-      inset 0 4px 20px rgba(0,0,0,0.5),
-      0 0 50px rgba(244,208,111,0.5),
-      0 8px 32px rgba(0,0,0,0.4);
+      inset 0 2px 8px rgba(42,61,102,0.1),
+      6px 6px 0px rgba(42,61,102,0.4),
+      0 12px 40px rgba(98,216,170,0.3);
   }
 
   /* Charge All button */
   .charge-all-btn {
     background: linear-gradient(135deg, #F4D06F 0%, #E8C254 100%);
-    border: none;
-    color: #1a2a4a;
+    border: 3px solid #2A3D66;
+    color: #2A3D66;
     padding: 12px 24px;
     border-radius: 50px;
     font-weight: 800;
@@ -344,19 +334,19 @@
     cursor: pointer;
     margin-top: 16px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(244,208,111,0.3);
+    box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
   }
 
   .charge-all-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(244,208,111,0.5);
+    box-shadow: 3px 6px 0px rgba(42,61,102,0.3), 0 8px 20px rgba(244,208,111,0.3);
   }
 
   /* Reset button */
   .reset-btn {
     background: transparent;
-    border: 2px solid rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.6);
+    border: 2px solid rgba(42,61,102,0.3);
+    color: #5A6A7A;
     padding: 8px 16px;
     border-radius: 50px;
     font-weight: 600;
@@ -367,8 +357,9 @@
   }
 
   .reset-btn:hover {
-    border-color: rgba(255,255,255,0.5);
-    color: rgba(255,255,255,0.8);
+    border-color: #2A3D66;
+    color: #2A3D66;
+    background: rgba(42,61,102,0.05);
   }
 
   /* Mobile responsiveness */
@@ -388,15 +379,22 @@
   .rw-video{background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.15);width:100%;max-width:480px;display:flex;justify-content:center}
   .rw-video video{width:100%;height:auto;aspect-ratio:9/16;object-fit:contain}
 
-  .rw-instagram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));grid-auto-rows:auto;row-gap:22px;column-gap:16px;margin-top:14px}
-  .rw-ig-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 16px rgba(42,61,102,.08)}
+  .rw-instagram-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;row-gap:22px;column-gap:16px;margin-top:14px}
+  .rw-ig-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 16px rgba(42,61,102,.08);border:2px solid rgba(42,61,102,0.1)}
   .rw-ig-card a.block-link{display:block}
   .rw-ig-card img{width:100%;border-radius:10px;display:block;margin-bottom:8px;box-shadow:0 4px 12px rgba(42,61,102,.10)}
   .rw-ig-card h3{margin:0 0 6px 0;font-size:1.05rem;color:var(--deep-indigo)}
   .rw-ig-card p{margin:0 0 8px 0;color:var(--deep-indigo);opacity:.9}
   .rw-ig-card a{font-weight:600;color:var(--gentle-lavender)}
+  
+  /* Recap Video Card */
+  .rw-ig-card.rw-video-card{background:#FDF4C5;border:2px solid #2A3D66}
+  .rw-ig-card.rw-video-card h3{color:#2A3D66;font-size:1.15rem;margin-bottom:10px}
+  .rw-video-embed{width:100%;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#000}
+  .rw-recap-video{width:100%;height:auto;aspect-ratio:9/16;max-height:280px;object-fit:contain;display:block}
 
-  @media (max-width:900px){.rw-instagram-grid{grid-template-columns:1fr}}
+  @media (max-width:1100px){.rw-instagram-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.rw-instagram-grid{grid-template-columns:1fr}}
 </style>
 {% endblock %}
 {% block content %}
@@ -427,37 +425,30 @@
               <div class="battery-segment" data-day="1">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D1</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="2">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D2</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="3">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D3</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="4">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D4</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="5">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D5</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="6">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D6</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
               <div class="battery-segment" data-day="7">
                 <div class="segment-fill"></div>
                 <span class="segment-label">D7</span>
-                <span class="charging-bolt">&#9889;</span>
               </div>
             </div>
           </div>
@@ -481,34 +472,34 @@
         <!-- Day content display -->
         <div class="day-content-area">
           <div class="day-content" data-day="1">
-            <h3><span class="day-icon">&#127769;</span> Day 1 — Sleep Mode ON</h3>
+            <h3>Day 1 — Sleep Mode ON</h3>
             <p>Prioritize real rest by setting a tech cut-off time, softening your evening routine, and giving your body permission to power down.</p>
           </div>
           <div class="day-content" data-day="2">
-            <h3><span class="day-icon">&#9992;</span> Day 2 — Airplane Mode</h3>
+            <h3>Day 2 — Airplane Mode</h3>
             <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.</p>
           </div>
           <div class="day-content" data-day="3">
-            <h3><span class="day-icon">&#128451;</span> Day 3 — Clean Storage</h3>
+            <h3>Day 3 — Clean Storage</h3>
             <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.</p>
           </div>
           <div class="day-content" data-day="4">
-            <h3><span class="day-icon">&#9889;</span> Day 4 — Fast Charge</h3>
+            <h3>Day 4 — Fast Charge</h3>
             <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.</p>
           </div>
           <div class="day-content" data-day="5">
-            <h3><span class="day-icon">&#128279;</span> Day 5 — Battery Share</h3>
+            <h3>Day 5 — Battery Share</h3>
             <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a trusted friend.</p>
           </div>
           <div class="day-content" data-day="6">
-            <h3><span class="day-icon">&#128263;</span> Day 6 — Quiet Mode</h3>
+            <h3>Day 6 — Quiet Mode</h3>
             <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.</p>
           </div>
           <div class="day-content" data-day="7">
-            <h3><span class="day-icon">&#9881;</span> Day 7 — System Check</h3>
+            <h3>Day 7 — System Check</h3>
             <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
           </div>
-          <p class="battery-prompt" id="batteryPrompt">&#8593; Tap a day to begin charging &#8593;</p>
+          <p class="battery-prompt" id="batteryPrompt">Tap a day to begin charging</p>
         </div>
       </div>
     </section>
@@ -587,6 +578,20 @@
           </a>
           <p>Reflect on what helped you most and how to carry those habits forward.</p>
           <a href="https://www.instagram.com/p/DRIhti9ASeb/" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <!-- Recap Video Card -->
+        <div class="rw-ig-card rw-video-card">
+          <h3>Recharge Week Recap</h3>
+          <div class="rw-video-embed">
+            <video src="{{ url_for('static', filename='img/RW 1.mp4') }}?v=2"
+                   playsinline controls preload="auto"
+                   controlsList="nodownload"
+                   poster="{{ url_for('static', filename='img/RW D1.jpg') }}"
+                   class="no-save rw-recap-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p>Watch our full recap video to see how the 7-day challenge came together!</p>
         </div>
       </div>
     </section>

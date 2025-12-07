@@ -375,10 +375,6 @@
   }
 
   /* Rest of original styles */
-  .rw-video-wrap{margin-top:8px;display:flex;justify-content:center}
-  .rw-video{background:#000;border-radius:12px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.15);width:100%;max-width:480px;display:flex;justify-content:center}
-  .rw-video video{width:100%;height:auto;aspect-ratio:9/16;object-fit:contain}
-
   .rw-instagram-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;row-gap:22px;column-gap:16px;margin-top:14px}
   .rw-ig-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 16px rgba(42,61,102,.08);border:2px solid rgba(42,61,102,0.1)}
   .rw-ig-card a.block-link{display:block}
@@ -500,21 +496,6 @@
             <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
           </div>
           <p class="battery-prompt" id="batteryPrompt">Tap a day to begin charging</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="rw-section">
-      <h2>Recharge Week Highlight Video</h2>
-      <p>Watch our recap video to see how Recharge Week looks in action:</p>
-      <div class="rw-video-wrap">
-        <div class="rw-video">
-          <video src="{{ url_for('static', filename='img/RW 1.mp4') }}?v=2"
-                 playsinline controls preload="auto"
-                 controlsList="nodownload"
-                 class="no-save">
-            Your browser does not support the video tag.
-          </video>
         </div>
       </div>
     </section>

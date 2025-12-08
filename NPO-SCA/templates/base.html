@@ -11,6 +11,13 @@
     <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/jpeg">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20251012-2">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}?v=20251012-2">
+    
+    <!-- GSAP Core + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EasePack.min.js"></script>
+    
     {% block styles %}{% endblock %}
     <style>
         :root {
@@ -1963,6 +1970,578 @@
     <a class="fab-write" href="{{ url_for('submit') }}">✍️ Write a Letter</a>
     
     <script src="{{ url_for('static', filename='js/chat.js') }}?v=20251012-2"></script>
+    
+    <!-- ============================================
+         GSAP POWER ANIMATIONS - Makes everything fancy!
+         ============================================ -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+        
+        // =============================================
+        // 1. INITIAL PAGE LOAD ANIMATION
+        // =============================================
+        const masterTimeline = gsap.timeline();
+        
+        // Header slides down
+        masterTimeline.from('header', {
+            y: -100,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+        
+        // Logo bounces in
+        masterTimeline.from('.logo', {
+            scale: 0,
+            rotation: -180,
+            duration: 0.6,
+            ease: 'back.out(1.7)'
+        }, '-=0.4');
+        
+        // Nav items stagger in
+        masterTimeline.from('nav ul li', {
+            y: -30,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: 'power2.out'
+        }, '-=0.3');
+        
+        // =============================================
+        // 2. SCROLL-TRIGGERED SECTION REVEALS
+        // =============================================
+        
+        // Page containers reveal with dramatic effect
+        gsap.utils.toArray('.page-container').forEach((container, i) => {
+            gsap.from(container, {
+                scrollTrigger: {
+                    trigger: container,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 80,
+                opacity: 0,
+                scale: 0.95,
+                duration: 0.9,
+                ease: 'power3.out'
+            });
+        });
+        
+        // Content sections with alternating slide directions
+        gsap.utils.toArray('.content-section').forEach((section, i) => {
+            const direction = i % 2 === 0 ? -80 : 80;
+            const rotation = i % 2 === 0 ? -3 : 3;
+            
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                x: direction,
+                y: 50,
+                rotation: rotation,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                delay: i * 0.1
+            });
+        });
+        
+        // Cards with staggered pop-in effect
+        gsap.utils.toArray('.card, .post-card, .about-card, .rp-card, .qr-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 90%',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 60,
+                scale: 0.85,
+                opacity: 0,
+                duration: 0.6,
+                delay: (i % 4) * 0.1,
+                ease: 'back.out(1.4)'
+            });
+        });
+        
+        // =============================================
+        // 3. PAGE HEADER TEXT REVEAL
+        // =============================================
+        gsap.utils.toArray('.page-header h1').forEach(heading => {
+            gsap.from(heading, {
+                scrollTrigger: {
+                    trigger: heading,
+                    start: 'top 85%'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+        });
+        
+        gsap.utils.toArray('.page-header p').forEach(para => {
+            gsap.from(para, {
+                scrollTrigger: {
+                    trigger: para,
+                    start: 'top 85%'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.2,
+                ease: 'power2.out'
+            });
+        });
+        
+        // =============================================
+        // 4. LIST ITEMS STAGGER REVEAL
+        // =============================================
+        gsap.utils.toArray('.content-section ul, .content-section ol, .rp-list').forEach(list => {
+            const items = list.querySelectorAll('li');
+            gsap.from(items, {
+                scrollTrigger: {
+                    trigger: list,
+                    start: 'top 85%'
+                },
+                x: -40,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.08,
+                ease: 'power2.out'
+            });
+        });
+        
+        // =============================================
+        // 5. IMAGE REVEAL EFFECTS
+        // =============================================
+        gsap.utils.toArray('.content-section img, .card img, .about-card img').forEach(img => {
+            gsap.from(img, {
+                scrollTrigger: {
+                    trigger: img,
+                    start: 'top 90%'
+                },
+                scale: 0.8,
+                opacity: 0,
+                rotation: -5,
+                duration: 0.7,
+                ease: 'power2.out'
+            });
+        });
+        
+        // =============================================
+        // 6. MAGNETIC BUTTON EFFECT
+        // =============================================
+        const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-write, .fab-write, .a11y-fab');
+        
+        magneticButtons.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(btn, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'elastic.out(1, 0.3)'
+                });
+            });
+        });
+        
+        // =============================================
+        // 7. BUTTON HOVER ANIMATIONS
+        // =============================================
+        const allButtons = document.querySelectorAll('.btn-primary, .btn-secondary, button:not(.mobile-menu-toggle):not(.a11y-btn)');
+        
+        allButtons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    y: -4,
+                    boxShadow: '6px 10px 0px rgba(42,61,102,0.4), 0 15px 30px rgba(42,61,102,0.15)',
+                    duration: 0.25,
+                    ease: 'power2.out'
+                });
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    scale: 1,
+                    y: 0,
+                    boxShadow: '4px 4px 0px rgba(42,61,102,0.4)',
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            btn.addEventListener('mousedown', () => {
+                gsap.to(btn, {
+                    scale: 0.95,
+                    y: 2,
+                    boxShadow: '2px 2px 0px rgba(42,61,102,0.4)',
+                    duration: 0.1
+                });
+            });
+            
+            btn.addEventListener('mouseup', () => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    y: -4,
+                    boxShadow: '6px 10px 0px rgba(42,61,102,0.4)',
+                    duration: 0.2,
+                    ease: 'back.out(2)'
+                });
+            });
+        });
+        
+        // =============================================
+        // 8. PARALLAX FLOATING BLOBS
+        // =============================================
+        const blobs = document.querySelectorAll('.blob');
+        
+        window.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            
+            blobs.forEach((blob, i) => {
+                const speed = (i + 1) * 15;
+                gsap.to(blob, {
+                    x: mouseX * speed,
+                    y: mouseY * speed,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // =============================================
+        // 9. NAV LINK HOVER EFFECTS
+        // =============================================
+        const navLinks = document.querySelectorAll('nav ul li a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(link, {
+                    y: -3,
+                    scale: 1.05,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                gsap.to(link, {
+                    y: 0,
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // =============================================
+        // 10. FLOATING ACTION BUTTONS PULSE
+        // =============================================
+        gsap.to('.fab-write', {
+            y: -8,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+        
+        gsap.to('.a11y-fab', {
+            y: -6,
+            duration: 2.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: 0.5
+        });
+        
+        gsap.to('.chat-button', {
+            y: -5,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: 1
+        });
+        
+        // =============================================
+        // 11. FOOTER REVEAL
+        // =============================================
+        gsap.from('footer', {
+            scrollTrigger: {
+                trigger: 'footer',
+                start: 'top 95%'
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+        });
+        
+        gsap.from('.footer-section', {
+            scrollTrigger: {
+                trigger: 'footer',
+                start: 'top 90%'
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out'
+        });
+        
+        // =============================================
+        // 12. SCROLL PROGRESS INDICATOR
+        // =============================================
+        // Create progress bar
+        const progressBar = document.createElement('div');
+        progressBar.className = 'gsap-scroll-progress';
+        progressBar.style.cssText = 'position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,#F8D29C,#9FC5CB,#ADCBA4);z-index:99999;transform-origin:left;transform:scaleX(0);';
+        document.body.appendChild(progressBar);
+        
+        gsap.to(progressBar, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: document.body,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 0.3
+            }
+        });
+        
+        // =============================================
+        // 13. HERO SECTION SPECIAL ANIMATION
+        // =============================================
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            gsap.from('.hero', {
+                y: 100,
+                opacity: 0,
+                scale: 0.9,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.3
+            });
+            
+            gsap.from('.hero-content > *', {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out',
+                delay: 0.6
+            });
+            
+            // Hero image special entrance
+            const heroImg = document.querySelector('.hero-image, .hero img');
+            if (heroImg) {
+                gsap.from(heroImg, {
+                    x: 100,
+                    opacity: 0,
+                    rotation: 10,
+                    duration: 1,
+                    ease: 'power3.out',
+                    delay: 0.8
+                });
+            }
+        }
+        
+        // =============================================
+        // 14. CARD TILT ON HOVER
+        // =============================================
+        const tiltCards = document.querySelectorAll('.card, .post-card, .about-card, .qr-card, .rp-card');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                gsap.to(card, {
+                    rotateX: rotateX,
+                    rotateY: rotateY,
+                    transformPerspective: 1000,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // =============================================
+        // 15. TEXT HIGHLIGHT ON SCROLL
+        // =============================================
+        gsap.utils.toArray('.content-section h2, .content-section h3').forEach(heading => {
+            gsap.from(heading, {
+                scrollTrigger: {
+                    trigger: heading,
+                    start: 'top 85%'
+                },
+                backgroundPosition: '100% 0',
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+        });
+        
+        // =============================================
+        // 16. SMOOTH SCROLL TO ANCHORS
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    gsap.to(window, {
+                        scrollTo: target,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    });
+                }
+            });
+        });
+        
+        // =============================================
+        // 17. DROPDOWN MENU ANIMATION
+        // =============================================
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const content = dropdown.querySelector('.dropdown-content');
+            if (content) {
+                gsap.set(content, { opacity: 0, y: -10, display: 'none' });
+                
+                dropdown.addEventListener('mouseenter', () => {
+                    gsap.set(content, { display: 'block' });
+                    gsap.to(content, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.25,
+                        ease: 'power2.out'
+                    });
+                    
+                    // Stagger menu items
+                    gsap.from(content.querySelectorAll('a'), {
+                        x: -20,
+                        opacity: 0,
+                        duration: 0.3,
+                        stagger: 0.05,
+                        ease: 'power2.out'
+                    });
+                });
+                
+                dropdown.addEventListener('mouseleave', () => {
+                    gsap.to(content, {
+                        opacity: 0,
+                        y: -10,
+                        duration: 0.2,
+                        ease: 'power2.in',
+                        onComplete: () => gsap.set(content, { display: 'none' })
+                    });
+                });
+            }
+        });
+        
+        // =============================================
+        // 18. INPUT FOCUS ANIMATION
+        // =============================================
+        const inputs = document.querySelectorAll('input, textarea, select');
+        
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    scale: 1.02,
+                    y: -2,
+                    boxShadow: '0 0 0 4px rgba(248,210,156,0.3), 4px 4px 0px rgba(42,61,102,0.3)',
+                    duration: 0.25,
+                    ease: 'power2.out'
+                });
+            });
+            
+            input.addEventListener('blur', () => {
+                gsap.to(input, {
+                    scale: 1,
+                    y: 0,
+                    boxShadow: '3px 3px 0px rgba(42,61,102,0.25)',
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // =============================================
+        // 19. COUNTER ANIMATION FOR NUMBERS
+        // =============================================
+        gsap.utils.toArray('[data-count]').forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            gsap.from(counter, {
+                scrollTrigger: {
+                    trigger: counter,
+                    start: 'top 85%'
+                },
+                textContent: 0,
+                duration: 2,
+                ease: 'power2.out',
+                snap: { textContent: 1 },
+                onUpdate: function() {
+                    counter.textContent = Math.round(this.targets()[0].textContent);
+                }
+            });
+        });
+        
+        // =============================================
+        // 20. SPECIAL WORD CLOUD ANIMATION
+        // =============================================
+        const wordCloud = document.querySelector('.word-cloud');
+        if (wordCloud) {
+            const words = wordCloud.querySelectorAll('span');
+            
+            gsap.from(words, {
+                scale: 0,
+                opacity: 0,
+                duration: 0.6,
+                stagger: {
+                    each: 0.05,
+                    from: 'random'
+                },
+                ease: 'back.out(1.7)',
+                delay: 1
+            });
+        }
+        
+        console.log('🎨 GSAP Animations Initialized!');
+    });
+    </script>
+    
     {% block scripts %}{% endblock %}
 </body>
 </html> 

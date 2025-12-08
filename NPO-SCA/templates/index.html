@@ -1712,9 +1712,220 @@
 
 
 <script>
-// Include the chat widget
 document.addEventListener('DOMContentLoaded', function() {
-    // Chat widget will be loaded from the base template
+    // =============================================
+    // HOMEPAGE-SPECIFIC GSAP ANIMATIONS
+    // =============================================
+    
+    // Hero content dramatic entrance
+    const heroTL = gsap.timeline({ delay: 0.3 });
+    
+    heroTL
+        .from('.hero', {
+            scale: 0.8,
+            opacity: 0,
+            y: 100,
+            duration: 1,
+            ease: 'power3.out'
+        })
+        .from('.hero-content h1', {
+            y: 80,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, '-=0.5')
+        .from('.hero-content h1', {
+            text: '',
+            duration: 1.2,
+            ease: 'none'
+        }, '-=0.4')
+        .from('.acronym-subtitle', {
+            y: 40,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power2.out'
+        }, '-=0.8')
+        .from('.quote', {
+            y: 30,
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.6,
+            ease: 'back.out(1.4)'
+        }, '-=0.4')
+        .from('.hero .btn-primary', {
+            scale: 0,
+            rotation: -180,
+            duration: 0.6,
+            ease: 'back.out(2)'
+        }, '-=0.3')
+        .from('.hero-image', {
+            x: 150,
+            opacity: 0,
+            rotation: 15,
+            duration: 0.9,
+            ease: 'power3.out'
+        }, '-=0.7');
+    
+    // Word cloud special entrance
+    const wordCloudWords = document.querySelectorAll('.word-cloud span');
+    if (wordCloudWords.length) {
+        gsap.from(wordCloudWords, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            stagger: {
+                each: 0.03,
+                from: 'random'
+            },
+            ease: 'back.out(1.7)',
+            delay: 1.5
+        });
+    }
+    
+    // Homepage sections with special scroll animations
+    const homeSections = document.querySelectorAll('.home-section, .featured-section, .about-preview');
+    
+    homeSections.forEach((section, i) => {
+        const direction = i % 3;
+        let fromVars = { y: 80, opacity: 0, duration: 0.8, ease: 'power3.out' };
+        
+        if (direction === 1) {
+            fromVars.x = -100;
+            fromVars.rotation = -5;
+        } else if (direction === 2) {
+            fromVars.x = 100;
+            fromVars.rotation = 5;
+        }
+        
+        gsap.from(section, {
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            },
+            ...fromVars
+        });
+    });
+    
+    // Instagram grid cards
+    const igCards = document.querySelectorAll('.ig-card');
+    if (igCards.length) {
+        gsap.from(igCards, {
+            scrollTrigger: {
+                trigger: '.ig-grid',
+                start: 'top 85%'
+            },
+            y: 60,
+            opacity: 0,
+            scale: 0.85,
+            rotation: (i) => (i % 2 === 0 ? -5 : 5),
+            duration: 0.6,
+            stagger: 0.08,
+            ease: 'back.out(1.4)'
+        });
+    }
+    
+    // QR Cards special animation
+    const qrCards = document.querySelectorAll('.qr-card');
+    if (qrCards.length) {
+        gsap.from(qrCards, {
+            scrollTrigger: {
+                trigger: '.socials-qr-section',
+                start: 'top 80%'
+            },
+            y: 80,
+            opacity: 0,
+            scale: 0.8,
+            rotationY: 30,
+            duration: 0.7,
+            stagger: 0.15,
+            ease: 'back.out(1.4)'
+        });
+    }
+    
+    // Social icons bounce in
+    const socialIcons = document.querySelectorAll('.social-icon-circle');
+    if (socialIcons.length) {
+        gsap.from(socialIcons, {
+            scrollTrigger: {
+                trigger: '.social-icons-row',
+                start: 'top 85%'
+            },
+            scale: 0,
+            y: -50,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'back.out(2)'
+        });
+    }
+    
+    // Hero image continuous floating
+    gsap.to('.hero-image', {
+        y: -20,
+        rotation: 2,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+    });
+    
+    // Featured cards hover 3D effect
+    const featuredCards = document.querySelectorAll('.featured-card, .ig-card, .qr-card');
+    
+    featuredCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+            
+            gsap.to(card, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                scale: 1.02,
+                boxShadow: '8px 12px 0px rgba(42,61,102,0.35), 0 20px 40px rgba(42,61,102,0.15)',
+                transformPerspective: 1000,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                rotateX: 0,
+                rotateY: 0,
+                scale: 1,
+                boxShadow: '5px 5px 0px rgba(42,61,102,0.3)',
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+    });
+    
+    // Parallax on hero
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const hero = document.querySelector('.hero');
+        if (hero && scrollY < hero.offsetHeight + 200) {
+            gsap.to('.word-cloud', {
+                y: scrollY * 0.3,
+                duration: 0.1
+            });
+            gsap.to('.hero-content', {
+                y: scrollY * 0.1,
+                duration: 0.1
+            });
+            gsap.to('.hero-image', {
+                y: scrollY * -0.15,
+                duration: 0.1
+            });
+        }
+    });
+    
+    console.log('🏠 Homepage GSAP Animations Loaded!');
 });
 </script>
 {% endblock %} 

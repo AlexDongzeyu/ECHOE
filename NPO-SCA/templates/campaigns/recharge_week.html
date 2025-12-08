@@ -382,7 +382,7 @@
   .rw-ig-card h3{margin:0 0 6px 0;font-size:1.05rem;color:var(--deep-indigo)}
   .rw-ig-card p{margin:0 0 8px 0;color:var(--deep-indigo);opacity:.9}
   .rw-ig-card a{font-weight:600;color:var(--gentle-lavender)}
-  
+
   /* Recap Video Card */
   .rw-ig-card.rw-video-card{background:#FDF4C5;border:2px solid #2A3D66}
   .rw-ig-card.rw-video-card h3{color:#2A3D66;font-size:1.15rem;margin-bottom:10px}
@@ -472,29 +472,29 @@
             <p>Prioritize real rest by setting a tech cut-off time, softening your evening routine, and giving your body permission to power down.</p>
           </div>
           <div class="day-content" data-day="2">
-            <h3>Day 2 — Airplane Mode</h3>
-            <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.</p>
-          </div>
+          <h3>Day 2 — Airplane Mode</h3>
+          <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.</p>
+        </div>
           <div class="day-content" data-day="3">
-            <h3>Day 3 — Clean Storage</h3>
-            <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.</p>
-          </div>
+          <h3>Day 3 — Clean Storage</h3>
+          <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.</p>
+        </div>
           <div class="day-content" data-day="4">
-            <h3>Day 4 — Fast Charge</h3>
-            <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.</p>
-          </div>
+          <h3>Day 4 — Fast Charge</h3>
+          <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.</p>
+        </div>
           <div class="day-content" data-day="5">
-            <h3>Day 5 — Battery Share</h3>
-            <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a trusted friend.</p>
-          </div>
+          <h3>Day 5 — Battery Share</h3>
+          <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a trusted friend.</p>
+        </div>
           <div class="day-content" data-day="6">
-            <h3>Day 6 — Quiet Mode</h3>
-            <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.</p>
-          </div>
+          <h3>Day 6 — Quiet Mode</h3>
+          <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.</p>
+        </div>
           <div class="day-content" data-day="7">
-            <h3>Day 7 — System Check</h3>
-            <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
-          </div>
+          <h3>Day 7 — System Check</h3>
+          <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
+        </div>
           <p class="battery-prompt" id="batteryPrompt">Tap a day to begin charging</p>
         </div>
       </div>
@@ -696,184 +696,119 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // =============================================
-// GSAP ANIMATIONS FOR RECHARGE WEEK
+// GSAP ANIMATIONS FOR RECHARGE WEEK - FIXED
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure all elements are visible first!
+    gsap.set('.battery-section, .battery-frame, .battery-tip, .battery-segment, .day-btn, .rw-section, .rw-ig-card', {
+        opacity: 1,
+        visibility: 'visible',
+        scale: 1,
+        scaleY: 1,
+        x: 0,
+        y: 0,
+        rotation: 0
+    });
+    
     // Hero entrance
     const rwHero = document.querySelector('.rw-hero');
     if (rwHero) {
-        gsap.from(rwHero, {
-            y: -60,
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.8,
-            ease: 'power3.out'
-        });
+        gsap.fromTo(rwHero, 
+            { y: -40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+        );
     }
     
-    // Battery section dramatic reveal
+    // Battery section reveal
     const batterySection = document.querySelector('.battery-section');
     if (batterySection) {
-        gsap.from(batterySection, {
-            scrollTrigger: {
-                trigger: batterySection,
-                start: 'top 80%'
-            },
-            y: 100,
-            opacity: 0,
-            scale: 0.85,
-            duration: 1,
-            ease: 'power3.out'
+        gsap.fromTo(batterySection, 
+            { y: 50, opacity: 0 },
+            { scrollTrigger: { trigger: batterySection, start: 'top 85%' },
+              y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }
+        );
+        
+        // Battery frame
+        gsap.fromTo('.battery-frame', 
+            { y: 30, opacity: 0 },
+            { scrollTrigger: { trigger: '.battery-frame', start: 'top 88%' },
+              y: 0, opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out' }
+        );
+        
+        // Battery segments - gentle reveal, NO scaleY!
+        const segments = document.querySelectorAll('.battery-segment');
+        segments.forEach((seg, i) => {
+            gsap.fromTo(seg, 
+                { y: 20, opacity: 0 },
+                { scrollTrigger: { trigger: '.battery-segments', start: 'top 88%' },
+                  y: 0, opacity: 1, duration: 0.4, delay: 0.3 + i * 0.08, ease: 'back.out(1.3)' }
+            );
         });
         
-        // Battery frame slide up
-        gsap.from('.battery-frame', {
-            scrollTrigger: {
-                trigger: '.battery-frame',
-                start: 'top 85%'
-            },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            delay: 0.3,
-            ease: 'back.out(1.4)'
-        });
-        
-        // Battery tip pop in
-        gsap.from('.battery-tip', {
-            scrollTrigger: {
-                trigger: '.battery-tip',
-                start: 'top 85%'
-            },
-            scaleY: 0,
-            transformOrigin: 'bottom center',
-            duration: 0.5,
-            delay: 0.5,
-            ease: 'back.out(2)'
-        });
-        
-        // Battery segments stagger in
-        gsap.from('.battery-segment', {
-            scrollTrigger: {
-                trigger: '.battery-segments',
-                start: 'top 85%'
-            },
-            scaleY: 0,
-            transformOrigin: 'bottom center',
-            duration: 0.5,
-            stagger: 0.1,
-            delay: 0.6,
-            ease: 'back.out(1.7)'
-        });
-        
-        // Day buttons cascade
-        gsap.from('.day-btn', {
-            scrollTrigger: {
-                trigger: '.day-buttons',
-                start: 'top 90%'
-            },
-            y: 40,
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.4,
-            stagger: 0.08,
-            ease: 'back.out(1.4)'
-        });
-        
-        // Action buttons
-        gsap.from('.battery-actions button', {
-            scrollTrigger: {
-                trigger: '.battery-actions',
-                start: 'top 90%'
-            },
-            x: (i) => i === 0 ? -50 : 50,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.15,
-            ease: 'power2.out'
+        // Day buttons
+        const dayBtns = document.querySelectorAll('.day-btn');
+        dayBtns.forEach((btn, i) => {
+            gsap.fromTo(btn, 
+                { y: 25, opacity: 0 },
+                { scrollTrigger: { trigger: '.day-buttons', start: 'top 90%' },
+                  y: 0, opacity: 1, duration: 0.35, delay: i * 0.06, ease: 'power2.out' }
+            );
         });
     }
     
-    // Instagram grid cards
+    // Instagram grid cards with variety
     const rwIgCards = document.querySelectorAll('.rw-ig-card');
-    if (rwIgCards.length) {
-        gsap.from(rwIgCards, {
-            scrollTrigger: {
-                trigger: '.rw-instagram-grid',
-                start: 'top 85%'
-            },
-            y: 80,
-            opacity: 0,
-            scale: 0.8,
-            rotation: (i) => [-8, 8, -5, 5, -8, 8, -5, 5][i % 8],
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'back.out(1.4)'
-        });
-    }
+    rwIgCards.forEach((card, i) => {
+        const fromVars = [
+            { y: 40, rotation: -3 },
+            { y: 45, rotation: 3 },
+            { x: -30, rotation: -2 },
+            { x: 30, rotation: 2 },
+            { scale: 0.9 },
+            { y: 50, x: -20 },
+            { y: 50, x: 20 },
+            { y: 35 }
+        ][i % 8];
+        
+        gsap.fromTo(card, 
+            { ...fromVars, opacity: 0 },
+            { scrollTrigger: { trigger: card, start: 'top 90%' },
+              y: 0, x: 0, scale: 1, rotation: 0, opacity: 1,
+              duration: 0.5, delay: (i % 4) * 0.08, ease: 'back.out(1.2)' }
+        );
+    });
     
-    // Sections scroll reveal
+    // Sections with variety
     const rwSections = document.querySelectorAll('.rw-section');
+    const sectionAnims = [
+        { x: -50, rotation: -2 },
+        { x: 50, rotation: 2 },
+        { y: 50 },
+        { scale: 0.95, y: 30 }
+    ];
+    
     rwSections.forEach((section, i) => {
-        gsap.from(section, {
-            scrollTrigger: {
-                trigger: section,
-                start: 'top 85%'
-            },
-            x: i % 2 === 0 ? -80 : 80,
-            y: 40,
-            opacity: 0,
-            rotation: i % 2 === 0 ? -3 : 3,
-            duration: 0.7,
-            ease: 'power2.out'
-        });
+        const anim = sectionAnims[i % sectionAnims.length];
+        gsap.fromTo(section, 
+            { ...anim, opacity: 0 },
+            { scrollTrigger: { trigger: section, start: 'top 88%' },
+              x: 0, y: 0, scale: 1, rotation: 0, opacity: 1,
+              duration: 0.6, ease: 'power2.out' }
+        );
     });
     
-    // Add hover effects to battery segments with GSAP
-    document.querySelectorAll('.battery-segment').forEach(segment => {
-        segment.addEventListener('mouseenter', () => {
-            gsap.to(segment, {
-                scale: 1.05,
-                y: -5,
-                boxShadow: '0 8px 20px rgba(42,61,102,0.2)',
-                duration: 0.25,
-                ease: 'power2.out'
-            });
-        });
-        segment.addEventListener('mouseleave', () => {
-            gsap.to(segment, {
-                scale: 1,
-                y: 0,
-                boxShadow: 'none',
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
+    // Hover effects
+    document.querySelectorAll('.battery-segment').forEach(seg => {
+        seg.addEventListener('mouseenter', () => gsap.to(seg, { y: -3, duration: 0.2 }));
+        seg.addEventListener('mouseleave', () => gsap.to(seg, { y: 0, duration: 0.25 }));
     });
     
-    // Day button magnetic effect
     document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            gsap.to(btn, {
-                x: x * 0.2,
-                y: y * 0.2,
-                duration: 0.2
-            });
-        });
-        btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, {
-                x: 0,
-                y: 0,
-                duration: 0.4,
-                ease: 'elastic.out(1, 0.4)'
-            });
-        });
+        btn.addEventListener('mouseenter', () => gsap.to(btn, { y: -2, scale: 1.03, duration: 0.2 }));
+        btn.addEventListener('mouseleave', () => gsap.to(btn, { y: 0, scale: 1, duration: 0.25 }));
     });
     
-    console.log('🔋 Recharge Week GSAP Animations Loaded!');
+    console.log('🔋 Recharge Week Ready!');
 });
 </script>
 {% endblock %}

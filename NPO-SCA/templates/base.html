@@ -1651,7 +1651,7 @@
     
     <style>
     /* ============================================
-       REDESIGNED ECHO OPTIONS PANEL
+       COMPACT ECHO OPTIONS PANEL
        ============================================ */
     .a11y-panel {
         position: fixed !important;
@@ -1659,93 +1659,82 @@
         left: auto !important;
         bottom: 230px;
         z-index: 10002;
-        width: min(92vw, 320px);
-        max-height: 80vh;
-        overflow: auto;
+        width: 280px;
+        max-height: calc(100vh - 280px);
         background: #FDFBF7;
         border: 3px solid #2A3D66;
-        border-radius: 20px;
-        box-shadow: 6px 6px 0px rgba(42,61,102,0.35), 0 20px 50px rgba(42,61,102,0.25);
+        border-radius: 16px;
+        box-shadow: 5px 5px 0px rgba(42,61,102,0.35), 0 15px 40px rgba(42,61,102,0.2);
         display: none;
         transform-origin: bottom right;
+        overflow: hidden;
     }
-    .a11y-panel.open { display: block; }
+    .a11y-panel.open { display: flex; flex-direction: column; }
     
     .a11y-panel header {
-        padding: 16px 18px;
+        padding: 12px 14px;
         background: #9FC5CB;
-        border-radius: 17px 17px 0 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-bottom: 2px solid rgba(42,61,102,0.15);
+        flex-shrink: 0;
     }
     .a11y-panel .a11y-title {
         font-weight: 800;
         color: #2A3D66;
-        font-size: 1.05rem;
+        font-size: 0.95rem;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
     }
     .a11y-close-btn {
-        background: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.9);
         border: 2px solid #2A3D66;
         border-radius: 50%;
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all 0.2s ease;
         padding: 0;
+        font-size: 0.85rem;
     }
     .a11y-close-btn:hover {
         background: #2A3D66;
         color: #fff;
-        transform: rotate(90deg);
     }
     
     .a11y-panel .body {
-        padding: 16px;
+        padding: 12px;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
+        overflow-y: auto;
+        flex: 1;
     }
     
-    /* Mode Cards */
+    /* Compact Mode Cards */
     .mode-card {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 14px;
+        gap: 10px;
+        padding: 10px 12px;
         background: #fff;
-        border: 2px solid rgba(42,61,102,0.12);
-        border-radius: 14px;
+        border: 2px solid rgba(42,61,102,0.1);
+        border-radius: 12px;
         cursor: pointer;
-        transition: all 0.25s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    .mode-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, transparent 0%, rgba(42,61,102,0.03) 100%);
-        opacity: 0;
-        transition: opacity 0.25s ease;
+        transition: all 0.2s ease;
     }
     .mode-card:hover {
-        border-color: rgba(42,61,102,0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(42,61,102,0.1);
+        border-color: rgba(42,61,102,0.25);
+        background: #FAFAFA;
     }
-    .mode-card:hover::before { opacity: 1; }
-    
     .mode-card.active {
         border-color: #5B9B6B;
-        background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+        background: #F0F9F0;
     }
     .mode-card.active .mode-icon {
         background: #5B9B6B;
@@ -1753,15 +1742,15 @@
     }
     
     .mode-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
+        font-size: 1rem;
         flex-shrink: 0;
-        transition: all 0.25s ease;
+        transition: all 0.2s ease;
     }
     .calm-icon { background: #E8D4F0; color: #7B5B98; }
     .focus-icon { background: #D4EAF7; color: #2B5F8C; }
@@ -1769,49 +1758,39 @@
     
     .mode-info {
         flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+        min-width: 0;
     }
     .mode-name {
         font-weight: 700;
         color: #2A3D66;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+        line-height: 1.2;
     }
     .mode-desc {
-        font-size: 0.78rem;
-        color: #6B7B8B;
+        font-size: 0.7rem;
+        color: #7A8A9A;
+        line-height: 1.2;
     }
     
-    /* Toggle Switch */
+    /* Compact Toggle Switch */
     .mode-toggle {
         display: flex;
         align-items: center;
-        gap: 8px;
+        flex-shrink: 0;
     }
     .toggle-label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #8A9AAB;
-        min-width: 28px;
-        text-align: center;
-        transition: color 0.2s ease;
-    }
-    .mode-card.active .toggle-label {
-        color: #5B9B6B;
+        display: none;
     }
     .toggle-track {
-        width: 44px;
-        height: 24px;
-        background: #D8DDE5;
-        border-radius: 12px;
+        width: 38px;
+        height: 20px;
+        background: #D0D5DD;
+        border-radius: 10px;
         position: relative;
-        transition: background 0.25s ease;
-        border: 2px solid transparent;
+        transition: background 0.2s ease;
     }
     .mode-card.active .toggle-track {
-        background: #98D8AA;
-        border-color: #5B9B6B;
+        background: #7BC47F;
     }
     .toggle-thumb {
         position: absolute;
@@ -1821,40 +1800,38 @@
         height: 16px;
         background: #fff;
         border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        transition: transform 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease;
     }
     .mode-card.active .toggle-thumb {
-        transform: translateX(20px);
+        transform: translateX(18px);
     }
     
-    /* Text Size Control */
+    /* Compact Text Size Control */
     .text-size-control {
-        padding: 14px;
-        background: #F8F9FA;
-        border-radius: 14px;
-        border: 2px solid rgba(42,61,102,0.08);
+        padding: 10px 12px;
+        background: #F5F6F8;
+        border-radius: 12px;
     }
     .text-size-label {
         font-weight: 700;
         color: #2A3D66;
-        font-size: 0.9rem;
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
     }
     .text-size-buttons {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        margin-bottom: 8px;
+        gap: 10px;
     }
     .size-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
         border: 2px solid #2A3D66;
         background: #fff;
         color: #2A3D66;
@@ -1862,87 +1839,86 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s ease;
+        font-size: 0.9rem;
+        transition: all 0.15s ease;
     }
     .size-btn:hover {
         background: #F8D29C;
-        transform: scale(1.1);
     }
     .size-btn:active {
-        transform: scale(0.95);
+        transform: scale(0.92);
     }
     .size-display {
         font-weight: 800;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         color: #2A3D66;
-        min-width: 50px;
+        min-width: 44px;
         text-align: center;
     }
     .reset-size-btn {
         width: 100%;
-        padding: 8px;
+        padding: 6px;
+        margin-top: 6px;
         background: transparent;
-        border: 1px dashed rgba(42,61,102,0.3);
-        border-radius: 8px;
-        color: #6B7B8B;
-        font-size: 0.8rem;
+        border: 1px dashed rgba(42,61,102,0.25);
+        border-radius: 6px;
+        color: #7A8A9A;
+        font-size: 0.75rem;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.15s ease;
     }
     .reset-size-btn:hover {
         border-color: #2A3D66;
         color: #2A3D66;
-        background: rgba(42,61,102,0.05);
     }
     
-    /* Exit Button */
+    /* Compact Exit Button */
     .exit-btn {
-        padding: 12px 16px;
-        background: linear-gradient(135deg, #FFB4A2 0%, #E07B7B 100%);
+        padding: 10px 14px;
+        background: #E8847A;
         border: 2px solid #C45A5A;
-        border-radius: 12px;
+        border-radius: 10px;
         color: #fff;
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        transition: all 0.2s ease;
-        box-shadow: 0 3px 0 #B04A4A;
+        gap: 6px;
+        transition: all 0.15s ease;
+        box-shadow: 0 2px 0 #B04A4A;
     }
     .exit-btn:hover {
-        background: linear-gradient(135deg, #E07B7B 0%, #C45A5A 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 0 #B04A4A;
+        background: #D66B60;
     }
     .exit-btn:active {
         transform: translateY(1px);
-        box-shadow: 0 1px 0 #B04A4A;
+        box-shadow: none;
     }
     
     .a11y-footer {
         text-align: center;
-        font-size: 0.78rem;
-        color: #8A9AAB;
-        padding-top: 8px;
-        border-top: 1px solid rgba(42,61,102,0.08);
+        font-size: 0.7rem;
+        color: #9AA5B0;
+        padding: 8px 12px;
+        border-top: 1px solid rgba(42,61,102,0.06);
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 5px;
+        flex-shrink: 0;
     }
-    .a11y-footer i { color: #F8D29C; }
+    .a11y-footer i { color: #F8D29C; font-size: 0.8rem; }
     
     @media(max-width:768px) {
         .a11y-panel {
-            bottom: 200px;
+            bottom: 190px;
             right: 12px !important;
             width: calc(100vw - 24px);
+            max-width: 300px;
+            max-height: calc(100vh - 240px);
         }
-        .mode-card { padding: 12px; }
-        .mode-icon { width: 36px; height: 36px; font-size: 1rem; }
     }
     </style>
     
@@ -2011,15 +1987,6 @@
                 
                 try{ localStorage.setItem(key, active? '1':'0'); }catch(e){}
                 updateCardState(card, active);
-                
-                // GSAP feedback animation
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo(card, 
-                        { scale: 0.95 }, 
-                        { scale: 1, duration: 0.3, ease: 'back.out(2)' }
-                    );
-                }
-                
                 return active;
             }
 
@@ -2029,66 +1996,42 @@
                 document.documentElement.style.setProperty('--font-scale', next);
                 try{ localStorage.setItem(KEY.scale, String(next)); }catch(e){}
                 updateSizeDisplay();
-                
-                // GSAP feedback
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo(sizeDisplay, { scale: 1.2 }, { scale: 1, duration: 0.2, ease: 'power2.out' });
-                }
             }
 
-            // Panel toggle with GSAP
-            fab.addEventListener('click', ()=>{
-                const isOpen = panel.classList.contains('open');
-                
-                if (!isOpen) {
-                    panel.classList.add('open');
-                    fab.setAttribute('aria-expanded', 'true');
-                    
-                    if (typeof gsap !== 'undefined') {
-                        gsap.fromTo(panel, 
-                            { opacity: 0, scale: 0.9, y: 20 },
-                            { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: 'back.out(1.5)' }
-                        );
-                        
-                        // Stagger mode cards
-                        gsap.fromTo('.mode-card, .text-size-control, .exit-btn',
-                            { x: 20, opacity: 0 },
-                            { x: 0, opacity: 1, duration: 0.3, stagger: 0.05, delay: 0.1, ease: 'power2.out' }
-                        );
-                    }
-                } else {
-                    if (typeof gsap !== 'undefined') {
-                        gsap.to(panel, { 
-                            opacity: 0, scale: 0.9, y: 10, duration: 0.2, ease: 'power2.in',
-                            onComplete: () => {
-                                panel.classList.remove('open');
-                                fab.setAttribute('aria-expanded', 'false');
-                                gsap.set(panel, { opacity: 1, scale: 1, y: 0 });
-                            }
-                        });
-                    } else {
-                        panel.classList.remove('open');
-                        fab.setAttribute('aria-expanded', 'false');
-                    }
+            // Simple panel toggle
+            function openPanel() {
+                panel.classList.add('open');
+                fab.setAttribute('aria-expanded', 'true');
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo(panel, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' });
                 }
-            });
+            }
             
-            // Close panel
-            btnClose.addEventListener('click', ()=>{
+            function closePanel() {
                 if (typeof gsap !== 'undefined') {
                     gsap.to(panel, { 
-                        opacity: 0, scale: 0.9, duration: 0.2, ease: 'power2.in',
+                        opacity: 0, y: 10, duration: 0.15, ease: 'power2.in',
                         onComplete: () => {
                             panel.classList.remove('open');
-                            fab.setAttribute('aria-expanded','false');
-                            gsap.set(panel, { opacity: 1, scale: 1 });
+                            fab.setAttribute('aria-expanded', 'false');
+                            gsap.set(panel, { opacity: 1, y: 0 });
                         }
                     });
                 } else {
                     panel.classList.remove('open');
-                    fab.setAttribute('aria-expanded','false');
+                    fab.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
+            fab.addEventListener('click', () => {
+                if (panel.classList.contains('open')) {
+                    closePanel();
+                } else {
+                    openPanel();
                 }
             });
+            
+            btnClose.addEventListener('click', closePanel);
             
             // Close panel when clicking outside
             document.addEventListener('click', (e) => {

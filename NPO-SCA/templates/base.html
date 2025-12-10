@@ -1661,7 +1661,7 @@
         bottom: auto;
         z-index: 10002;
         width: 280px;
-        max-height: calc(100vh - 140px);
+        max-height: 80vh;
         background: #FDFBF7;
         border: 3px solid #2A3D66;
         border-radius: 16px;
@@ -1714,7 +1714,8 @@
         gap: 8px;
         overflow-y: auto;
         flex: 1;
-        max-height: calc(100vh - 240px);
+        min-height: 0; /* allow flex child to shrink for scrolling */
+        max-height: calc(80vh - 140px);
         padding-right: 10px;
     }
     
@@ -1920,7 +1921,7 @@
             right: 12px !important;
             width: calc(100vw - 24px);
             max-width: 300px;
-            max-height: calc(100vh - 120px);
+            max-height: 78vh;
         }
     }
     

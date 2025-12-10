@@ -1661,7 +1661,7 @@
         bottom: auto;
         z-index: 10002;
         width: 280px;
-        max-height: 80vh;
+        max-height: calc(100vh - 140px);
         background: #FDFBF7;
         border: 3px solid #2A3D66;
         border-radius: 16px;
@@ -1669,7 +1669,7 @@
         display: none;
         overflow: hidden;
     }
-    .a11y-panel.open { display: flex; flex-direction: column; }
+    .a11y-panel.open { display: flex; flex-direction: column; max-height: calc(100vh - 140px); }
     
     .a11y-panel header {
         padding: 12px 14px;
@@ -1715,7 +1715,7 @@
         overflow-y: auto;
         flex: 1;
         min-height: 0; /* allow flex child to shrink for scrolling */
-        max-height: calc(80vh - 140px);
+        max-height: calc(100vh - 220px);
         padding-right: 10px;
     }
     
@@ -1921,7 +1921,7 @@
             right: 12px !important;
             width: calc(100vw - 24px);
             max-width: 300px;
-            max-height: 78vh;
+            max-height: calc(100vh - 120px);
         }
     }
     

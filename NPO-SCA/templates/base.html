@@ -2328,7 +2328,7 @@
             flex: 1;
             min-height: 0;
             /* allow flex child to shrink for scrolling */
-            max-height: calc(100vh - 170px);
+            max-height: none !important;
             padding-right: 10px;
         }
 
@@ -2337,7 +2337,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
+            padding: 8px 10px;
             background: #fff;
             border: 2px solid rgba(42, 61, 102, 0.1);
             border-radius: 12px;
@@ -2450,16 +2450,19 @@
 
         /* Compact Text Size Control */
         .text-size-control {
-            padding: 10px 12px;
+            padding: 8px 10px;
             background: #F5F6F8;
             border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .text-size-label {
             font-weight: 700;
             color: #2A3D66;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 0;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -2523,7 +2526,7 @@
 
         /* Compact Exit Button */
         .exit-btn {
-            padding: 10px 14px;
+            padding: 8px 12px;
             background: #E8847A;
             border: 2px solid #C45A5A;
             border-radius: 10px;

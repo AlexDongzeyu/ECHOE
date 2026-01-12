@@ -5,7 +5,7 @@
 {% block styles %}
 <style>
     .event-header {
-        background: linear-gradient(135deg, var(--soft-yellow), #e6c960);
+        background: #F8D29C;
         color: var(--deep-indigo);
         padding: 50px;
         border-radius: 20px;
@@ -13,6 +13,8 @@
         text-align: center;
         position: relative;
         overflow: hidden;
+        border: 3px solid #2A3D66;
+        box-shadow: 6px 6px 0px rgba(42,61,102,0.18);
     }
     
     .event-header::before {
@@ -100,12 +102,14 @@
     }
     
     .event-objective {
-        background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo));
+        background: #2A3D66;
         color: white;
         padding: 40px;
         border-radius: 20px;
         margin-bottom: 40px;
         text-align: center;
+        border: 3px solid #F8D29C;
+        box-shadow: 6px 6px 0px rgba(42,61,102,0.18);
     }
     
     .event-objective h2 {
@@ -356,7 +360,7 @@
         {% endif %}
         
         <!-- Support Section -->
-        <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, var(--gentle-lavender), var(--deep-indigo)); border-radius: 20px; color: white; text-align: center;">
+        <div style="margin-top: 40px; padding: 30px; background: #2A3D66; border: 3px solid #F8D29C; border-radius: 20px; color: white; text-align: center; box-shadow: 6px 6px 0px rgba(42,61,102,0.18);">
             <h3 style="color: white; margin-bottom: 20px;"><i class="fas fa-users" style="margin-right: 10px;"></i>Join Our Community</h3>
             <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9; line-height: 1.6;">
                 Events are just one way to connect. Explore more ways to engage with our supportive community.

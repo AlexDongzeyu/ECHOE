@@ -4,8 +4,8 @@
 
 {% block styles %}
 <style>
-  .form-container{max-width:1100px;margin:1rem auto 3rem;padding:2.5rem;background:linear-gradient(180deg,rgba(159,197,203,.18),rgba(248,210,156,.18));border-radius:20px;box-shadow:0 10px 36px rgba(42,61,102,.14);position:relative}
-  .framed-inner{border:1px solid rgba(159,197,203,.35);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.92))}
+  .form-container{max-width:1100px;margin:1rem auto 3rem;padding:2.5rem;background:rgba(159,197,203,.14);border-radius:20px;box-shadow:0 10px 36px rgba(42,61,102,.14);position:relative}
+  .framed-inner{border:1px solid rgba(159,197,203,.35);border-radius:16px;padding:18px;background:rgba(255,255,255,.86)}
   .compose-wrap{position:relative;max-width:860px;margin:0 auto}
   .guide-rail{position:absolute;top:2px;bottom:2px;right:0;width:36%;pointer-events:auto;z-index:2}
   .suggestion-inline{position:absolute;right:12px;top:46%;transform:translateY(-50%);width:calc(100% - 24px);min-height:200px;font-family:'Sriracha','Brush Script MT',cursive;color:rgba(42,61,102,.9);pointer-events:auto;overflow-wrap:anywhere;word-break:break-word;background:rgba(255,255,255,0.96);border:2px solid var(--gentle-lavender);border-radius:16px;padding:14px;box-shadow:0 4px 10px rgba(244,208,111,.35);overflow-y:visible;z-index:3}
@@ -25,7 +25,7 @@
   .form-label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--deep-indigo)}
   .form-control{width:100%;padding:.8rem 1rem;border:2px solid var(--gentle-lavender);border-radius:10px;background:var(--warm-white);transition:all .3s ease}
   .form-control:focus{outline:none;border-color:var(--soft-yellow);box-shadow:0 0 0 3px rgba(244,208,111,.2);transform:translateY(-2px)}
-  textarea.form-control{min-height:420px;resize:vertical;font-family:'Sriracha','Georgia','Times New Roman',serif;font-size:1.15rem;line-height:1.8;background:linear-gradient(180deg, rgba(159,197,203,.12), rgba(255,255,255,.92));box-shadow:inset 0 2px 8px rgba(42,61,102,.06)}
+  textarea.form-control{min-height:420px;resize:vertical;font-family:'Sriracha','Georgia','Times New Roman',serif;font-size:1.15rem;line-height:1.8;background:rgba(255,255,255,.92);box-shadow:inset 0 2px 8px rgba(42,61,102,.06)}
 </style>
 {% endblock %}
 
@@ -33,7 +33,7 @@
 <div class="form-container">
   <h1>Respond to Letter</h1>
   {% if letter and (letter.anonymous_email or (letter.reply_method and letter.reply_method.startswith('anonymous'))) %}
-  <div class="framed-inner" style="margin-bottom:16px;background:linear-gradient(180deg, rgba(248,210,156,.15), rgba(255,255,255,.95));">
+  <div class="framed-inner" style="margin-bottom:16px;background:rgba(255,255,255,.92);">
     <div style="display:flex;align-items:center;gap:10px;">
       <i class="fas fa-envelope" style="color:var(--deep-indigo);"></i>
       <div>
@@ -50,7 +50,7 @@
   </div>
   
   {% if existing_responses %}
-  <div class="framed-inner" style="margin-bottom:16px;background:linear-gradient(180deg, rgba(173,203,164,.12), rgba(255,255,255,.95));">
+  <div class="framed-inner" style="margin-bottom:16px;background:rgba(255,255,255,.92);">
     <h3 style="margin-bottom:12px;color:var(--deep-indigo);display:flex;align-items:center;gap:8px">
       <i class="fas fa-history"></i> Previous Conversation
     </h3>

@@ -1,26 +1,22 @@
 :root {
-    --warm-pearl-white: #FAFAFA;
+    /* Align with E.C.H.O.E brand palette (source of truth is in base.html) */
     --deep-indigo: #2A3D66;
+    --brand-orange: #F8D29C;
+    --brand-blue: #9FC5CB;
+    --brand-green: #ADCBA4;
+    --warm-pearl-white: #FDFBF7;
     --dark-near-black: #1a1a1a;
-    --soft-golden-yellow: #F4D06F;
-    --gentle-lavender: #B39CD0;
 }
 
 body {
     background-color: var(--warm-pearl-white);
     color: var(--dark-near-black);
-    font-family: sans-serif;
     margin: 0;
-    /* Default site-wide background so all pages have an image */
-    background: url('/static/img/bg1.jpg') center/cover fixed no-repeat;
+    /* Let `base.html` own the global look (bg shapes, header, etc.) */
 }
 
-/* Backgrounds per page */
-.page-index { background: url('/static/img/bg1.jpg') center/cover fixed no-repeat; }
-.page-submit { background: url('/static/img/bg2.jpg') center/cover fixed no-repeat; }
-.page-contact { background: url('/static/img/bg3.jpg') center/cover fixed no-repeat; }
-.page-about { background: url('/static/img/bg4.jpg') center/cover fixed no-repeat; }
-.page-privacy, .page-terms { background: linear-gradient(180deg, rgba(179,156,208,0.15), rgba(244,208,111,0.15)); }
+/* Backgrounds per page (no gradients; backgrounds handled in templates/base) */
+.page-index, .page-submit, .page-contact, .page-about, .page-privacy, .page-terms { background: transparent; }
 
 /* Keep content readable on image backgrounds */
 .page-container { background-color: rgba(255,255,255,0.92); }
@@ -39,9 +35,7 @@ a {
     transition: color 0.3s ease;
 }
 
-a:hover {
-    color: var(--gentle-lavender);
-}
+a:hover { color: var(--deep-indigo); }
 
 /* Softer header/footer to match imagery */
 header, footer {
@@ -51,37 +45,8 @@ header, footer {
     backdrop-filter: saturate(120%) blur(6px);
 }
 
-.btn-primary {
-    background-color: var(--soft-golden-yellow);
-    color: var(--deep-indigo);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #eac95f; /* A slightly darker yellow */
-}
-
-.btn-secondary {
-    background-color: var(--gentle-lavender);
-    color: var(--warm-pearl-white);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-}
-
-.btn-secondary:hover {
-    background-color: #a28cc0; /* A slightly darker lavender */
-}
+/* Buttons are styled in `base.html` (keep these as harmless fallbacks) */
+.btn-primary, .btn-secondary { border: none; }
 
 /* Page and Content Containers */
 .container {
@@ -90,11 +55,7 @@ header, footer {
     padding: 2.5rem;
 }
 
-.page-container {
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
-}
+.page-container { background-color: transparent; }
 
 .page-header {
     text-align: center;
@@ -107,11 +68,7 @@ header, footer {
     margin-bottom: 1rem;
 }
 
-.page-header p {
-    font-size: 1.2rem;
-    color: var(--gentle-lavender);
-    font-style: italic;
-}
+.page-header p { font-style: italic; }
 
 .content-section {
     padding: 2rem;

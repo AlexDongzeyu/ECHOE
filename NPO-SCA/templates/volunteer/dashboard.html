@@ -20,7 +20,7 @@
 
   <!-- Letters with unread user replies -->
   {% if letters_with_unread_replies %}
-  <div class="content-section" style="background:linear-gradient(180deg, rgba(248,210,156,0.15), rgba(255,255,255,0.95));border-left:4px solid var(--soft-yellow);margin-bottom:2rem">
+  <div class="content-section" style="background:rgba(255,255,255,0.86);border-left:4px solid var(--soft-yellow);margin-bottom:2rem">
     <h2 style="display:flex;align-items:center;gap:10px">
       <i class="fas fa-reply"></i> Conversations with New Replies
       <span style="background:var(--soft-yellow);color:var(--deep-indigo);padding:4px 10px;border-radius:12px;font-size:0.85rem">{{ letters_with_unread_replies|length }}</span>

@@ -261,7 +261,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background: linear-gradient(180deg, #FDFBF7 0%, #FFF5F2 100%);
+            background: #FDFBF7;
             min-width: 220px;
             border: 2.5px solid rgba(42, 61, 102, 0.15);
             border-radius: 16px;
@@ -412,7 +412,7 @@
                 left: 0;
                 right: 0;
                 /* Solid opaque background - no see-through */
-                background: linear-gradient(180deg, #9FC5CB 0%, #A8C9D0 100%);
+                background: #9FC5CB;
                 flex-direction: column;
                 padding: 0.8rem;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
@@ -548,7 +548,7 @@
 
         /* Page Container - Soft cream, NO white! */
         .page-container {
-            background: linear-gradient(180deg, #FDFBF7 0%, #FCF0E6 100%);
+            background: #FDFBF7;
             border-radius: 24px;
             padding: 40px;
             border: 2.5px solid rgba(42, 61, 102, 0.1);
@@ -560,7 +560,7 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            background: linear-gradient(135deg, #FCF0E6 0%, #F6F3FA 50%, #EEF6F8 100%);
+            background: rgba(255, 255, 255, 0.86);
             border-radius: 20px;
             border: 2px solid rgba(42, 61, 102, 0.1);
             box-shadow: 5px 5px 0px rgba(42, 61, 102, 0.2), 0 10px 30px rgba(42, 61, 102, 0.08);
@@ -651,7 +651,7 @@
 
         /* Content Sections - Colorful, NO white! */
         .content-section {
-            background: linear-gradient(180deg, #EEF6F8 0%, #F5F9FC 100%);
+            background: rgba(255, 255, 255, 0.86);
             border-radius: 18px;
             padding: 30px;
             margin-bottom: 25px;
@@ -1112,7 +1112,7 @@
             }
 
             .fab-write::before {
-                content: "✍️";
+                content: "W";
                 font-size: 1.2rem;
             }
         }
@@ -2143,7 +2143,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; {{ now.year }} E.C.H.O.E. Made with ❤️ in Canada. All rights reserved.</p>
+            <p>&copy; {{ now.year }} E.C.H.O.E. Made in Canada. All rights reserved.</p>
             <p style="margin-top:6px; font-size:0.85rem; opacity:.85;"><a href="{{ url_for('login') }}"
                     style="color:inherit; text-decoration:none;">Version: IGGrid-20251011-2</a></p>
         </div>
@@ -2264,7 +2264,7 @@
             top: 18px;
             bottom: auto;
             z-index: 10002;
-            width: 320px;
+            width: 280px;
             max-height: calc(100vh - 36px);
             background: #FDFBF7;
             border: 3px solid #2A3D66;
@@ -2275,7 +2275,7 @@
         }
 
         .a11y-panel.open {
-            display: flex !important;
+            display: flex;
             flex-direction: column;
             max-height: calc(100vh - 36px);
         }
@@ -2328,7 +2328,7 @@
             flex: 1;
             min-height: 0;
             /* allow flex child to shrink for scrolling */
-            max-height: none !important;
+            max-height: calc(100vh - 170px);
             padding-right: 10px;
         }
 
@@ -2337,7 +2337,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 10px;
+            padding: 10px 12px;
             background: #fff;
             border: 2px solid rgba(42, 61, 102, 0.1);
             border-radius: 12px;
@@ -2393,19 +2393,16 @@
         }
 
         .mode-name {
-            display: block;
             font-weight: 700;
             color: #2A3D66;
-            font-size: 0.95rem;
-            line-height: 1.3;
-            margin-bottom: 2px;
+            font-size: 0.85rem;
+            line-height: 1.2;
         }
 
         .mode-desc {
-            display: block;
-            font-size: 0.75rem;
-            color: #5A6A7A;
-            line-height: 1.3;
+            font-size: 0.7rem;
+            color: #7A8A9A;
+            line-height: 1.2;
         }
 
         /* Compact Toggle Switch */
@@ -2450,19 +2447,16 @@
 
         /* Compact Text Size Control */
         .text-size-control {
-            padding: 8px 10px;
+            padding: 10px 12px;
             background: #F5F6F8;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
         .text-size-label {
             font-weight: 700;
             color: #2A3D66;
-            font-size: 0.85rem;
-            margin-bottom: 0;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -2526,7 +2520,7 @@
 
         /* Compact Exit Button */
         .exit-btn {
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: #E8847A;
             border: 2px solid #C45A5A;
             border-radius: 10px;
@@ -2575,7 +2569,7 @@
                 bottom: auto;
                 right: 12px !important;
                 width: calc(100vw - 24px);
-                max-width: 340px;
+                max-width: 300px;
                 max-height: calc(100vh - 24px);
             }
         }
@@ -2830,7 +2824,7 @@
             </div>
         </div>
     </div>
-    <a class="fab-write" href="{{ url_for('submit') }}">✍️ Write a Letter</a>
+    <a class="fab-write" href="{{ url_for('submit') }}">Write a Letter</a>
 
     <script src="{{ url_for('static', filename='js/chat.js') }}?v=20251012-2"></script>
 
@@ -3019,7 +3013,7 @@
             // 10. SCROLL PROGRESS BAR
             // =============================================
             const progressBar = document.createElement('div');
-            progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#F8D29C,#9FC5CB,#ADCBA4);z-index:99999;transform-origin:left;transform:scaleX(0);';
+            progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:#F8D29C;z-index:99999;transform-origin:left;transform:scaleX(0);';
             document.body.appendChild(progressBar);
             gsap.to(progressBar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.2 } });
 
@@ -3067,7 +3061,7 @@
                 input.addEventListener('blur', () => gsap.to(input, { y: 0, duration: 0.2, ease: 'power1.out' }));
             });
 
-            console.log('🎨 GSAP Ready - Varied Animations!');
+            console.log('GSAP Ready - Varied Animations!');
         });
     </script>
 

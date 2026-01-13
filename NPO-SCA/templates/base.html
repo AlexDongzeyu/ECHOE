@@ -67,15 +67,8 @@
             --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}");
         }
 
-        /* Soft readability veil over photo background (keeps image visible) */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(253, 251, 247, 0.28);
-            pointer-events: none;
-            z-index: -2;
-        }
+        /* No global veil — use the picture backgrounds directly */
+        body::before { display: none; }
 
         /* Soft floating shapes */
         .bg-shapes {

@@ -56,23 +56,12 @@
             background-size: cover;
             background-position: top center;
             background-repeat: no-repeat;
-            background-color: rgba(159, 197, 203, 0.12);
+            background-color: #9FC5CB; /* fallback */
             border-bottom: 1px solid rgba(42, 61, 102, 0.12);
-            /* "content covers banner" effect */
-            position: sticky;
-            top: 0;
-            z-index: 1;
         }
 
-        /* subtle veil (no gradients) so text/nav always readable */
-        .home-masthead::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(253, 251, 247, 0.06);
-            pointer-events: none;
-            z-index: 2;
-        }
+        /* No overlay/veil on banner (use the picture) */
+        .home-masthead::after { display: none; }
 
         /* === WELCOME HERO (appears after masthead) === */
         .hero {
@@ -85,13 +74,26 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            background: rgba(159, 197, 203, 0.18); /* brand blue, like selfcareapy section blocks */
+            /* Use a picture background (no translucent color blocks) */
+            background-image: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #9FC5CB;
             border-bottom: 1px solid rgba(42, 61, 102, 0.10);
             /* overlap the banner so it feels like it "covers" it on scroll */
             margin-top: -110px;
-            z-index: 3;
+            z-index: 2;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
+        }
+
+        /* Keep text readable on photo background using SOLID panel (not transparent) */
+        .hero-content {
+            background: #FDFBF7;
+            border: 1px solid rgba(42, 61, 102, 0.10);
+            border-radius: 18px;
+            padding: 22px 22px 18px;
         }
     
     /* Word cloud removed (banner + clean hero replaces it) */
@@ -1592,7 +1594,7 @@ document.addEventListener('DOMContentLoaded', function() {
         visibility: 'visible'
     });
     
-    // Masthead: subtle parallax via background position (no extra elements)
+    // Masthead: subtle parallax via background position
     gsap.to('.home-masthead', {
         backgroundPositionY: '35%',
         ease: 'none',

@@ -57,8 +57,14 @@
             font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.6;
             color: var(--deep-indigo);
-            /* Bring back the site background image (no gradients) */
-            background: url("{{ url_for('static', filename='img/bg3.jpg') }}") center/cover fixed no-repeat;
+            /* Site background image (no gradients) */
+            --site-bg: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+            background: var(--site-bg) center/cover fixed no-repeat;
+        }
+
+        /* Use provided bg set (bg1-4) — homepage uses a different one */
+        body.page-index {
+            --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}");
         }
 
         /* Soft readability veil over photo background (keeps image visible) */
@@ -66,7 +72,7 @@
             content: "";
             position: fixed;
             inset: 0;
-            background: rgba(253, 251, 247, 0.35);
+            background: rgba(253, 251, 247, 0.28);
             pointer-events: none;
             z-index: -2;
         }

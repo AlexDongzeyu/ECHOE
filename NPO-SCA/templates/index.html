@@ -36,17 +36,44 @@
     }
     
         .hero {
-            /* band-like hero (less boxy) */
+            /* Banner-style hero (inspired by Figma refs) */
             width: 100vw;
             margin-left: calc(50% - 50vw);
             margin-right: calc(50% - 50vw);
-            padding: 64px max(18px, calc((100vw - 1100px) / 2)) 54px;
+            padding: 76px max(18px, calc((100vw - 1100px) / 2)) 64px;
             position: relative;
             overflow: hidden;
-            background: rgba(248, 210, 156, 0.26); /* brand orange veil */
             border: none;
             border-radius: 0;
             box-shadow: none;
+            background-color: rgba(253, 251, 247, 0.72);
+            background-image: url("{{ url_for('static', filename='img/ECHOE Banner.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* readability veil over the banner image (no gradients) */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(253, 251, 247, 0.72);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* subtle inner border line like org sites */
+        .hero::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 1px;
+            background: rgba(42, 61, 102, 0.12);
+            pointer-events: none;
+            z-index: 1;
         }
     
     /* === ANIMATED WORD CLOUD BACKGROUND === */
@@ -141,9 +168,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-        gap: 3rem;
-        position: relative;
-        z-index: 1;
+            gap: 3rem;
+            position: relative;
+            z-index: 2; /* above veil */
+            padding: 0;
         }
         
         .hero-content {
@@ -151,6 +179,18 @@
             z-index: 2;
         }
         
+        .hero-kicker {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            color: rgba(42,61,102,0.78);
+            letter-spacing: 0.4px;
+            margin: 0 0 10px 0;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            text-decoration-thickness: 2px;
+            text-decoration-color: rgba(42,61,102,0.22);
+        }
+
         .hero-content h1 {
             color: var(--deep-indigo);
             font-size: 3.2rem;
@@ -234,68 +274,33 @@
             transform: translateX(0%);
         }
         
-        .hero-image {
+        .hero-media {
             width: 40%;
             max-width: 420px;
-            z-index: 1;
             display: flex;
             justify-content: center;
-        }
-        
-        .hero-polaroid {
-            position: relative;
-            background: #F8D29C;
-            border-radius: 26px;
-            padding: 2px;
-            box-shadow:
-                0 18px 40px rgba(42, 61, 102, 0.25),
-                0 0 0 1px rgba(250,250,250,0.5);
-            transform-origin: center;
-            animation: float-soft 7s ease-in-out infinite;
-        }
-
-        .hero-polaroid-inner {
-            background: rgba(250,250,250,0.98);
-            border-radius: 24px;
-            padding: 26px 20px 18px;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
+            pointer-events: none;
         }
 
-        .hero-polaroid-img {
-            width: 100%;
-            max-width: 220px;
-            border-radius: 18px;
-            object-fit: cover;
-            object-position: center;
-            box-shadow: 0 10px 24px rgba(42,61,102,0.22);
+        /* simple logo mark (less boxy than polaroid) */
+        .hero-logo-mark {
+            width: min(320px, 36vw);
+            max-width: 320px;
+            aspect-ratio: 1 / 1;
+            border-radius: 26px;
+            background: rgba(255,255,255,0.86);
+            border: 2px solid rgba(42,61,102,0.14);
+            box-shadow: 0 12px 30px rgba(42,61,102,0.18);
+            padding: 18px;
+            object-fit: contain;
         }
 
-        .hero-polaroid-caption { display:none; }
-        .hero-polaroid-tag { display:none; }
-
-        .hero-tape {
-            position: absolute;
-            height: 16px;
-            width: 82px;
-            background: rgba(255,255,255,0.75);
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-        }
-
-        .hero-tape-top {
-            top: -10px;
-            left: 22%;
-            transform: rotate(-9deg);
-        }
-
-        .hero-tape-side {
-            bottom: -12px;
-            right: 18%;
-            transform: rotate(8deg);
+        @media (max-width: 900px) {
+            .hero .container { flex-direction: column; text-align: left; gap: 22px; }
+            .hero-media { width: 100%; justify-content: flex-start; }
+            .hero-logo-mark { width: 220px; }
+            .hero-content h1 { font-size: 2.4rem; }
         }
 
         @keyframes float-soft {
@@ -711,7 +716,7 @@
                 padding: 0 8px;
             }
             
-        .hero-image {
+        .hero-media {
                 width: 85%;
                 max-width: 300px;
                 margin: 0 auto;
@@ -1191,6 +1196,7 @@
             </div>
             <div class="container">
                 <div class="hero-content animate-fade-up">
+                    <p class="hero-kicker">Every Voice Deserves to Echo.</p>
                     <h1>Welcome to E.C.H.O.E</h1>
                     <div class="acronym-subtitle">
                         <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
@@ -1210,14 +1216,8 @@
                         <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
                 </div>
                 </div>
-                <div class="hero-image animate-slide-right delay-2">
-                    <div class="hero-polaroid">
-                        <div class="hero-tape hero-tape-top"></div>
-                        <div class="hero-tape hero-tape-side"></div>
-                        <div class="hero-polaroid-inner">
-                            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" class="hero-polaroid-img">
-                        </div>
-                    </div>
+                <div class="hero-media animate-slide-right delay-2" aria-hidden="true">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-mark">
                 </div>
             </div>
         </section>
@@ -1691,7 +1691,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // =============================================
     
     // Ensure all elements are visible first
-    gsap.set('.hero, .hero-content, .hero-content h1, .acronym-subtitle, .quote, .mission, .hero-actions, .hero-image', {
+    gsap.set('.hero, .hero-content, .hero-content h1, .acronym-subtitle, .quote, .mission, .hero-actions, .hero-media', {
         opacity: 1,
         visibility: 'visible'
     });
@@ -1729,7 +1729,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' },
             '-=0.2'
         )
-        .fromTo('.hero-image, .hero-polaroid', 
+        .fromTo('.hero-media, .hero-logo-mark', 
             { x: 80, opacity: 0, rotation: 8 },
             { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: 'power2.out' },
             '-=0.5'
@@ -1870,7 +1870,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Gentle floating for hero image
-    gsap.to('.hero-image, .hero-polaroid', {
+    gsap.to('.hero-media, .hero-logo-mark', {
         y: -12,
         duration: 2.5,
         repeat: -1,

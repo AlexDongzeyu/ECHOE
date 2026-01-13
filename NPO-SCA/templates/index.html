@@ -51,11 +51,11 @@
             position: relative;
             overflow: hidden;
             /* full banner masthead */
-            height: clamp(340px, 44vw, 560px);
+            height: clamp(380px, 46vw, 620px);
             background-image: url("{{ url_for('static', filename='img/echoe-banner.png') }}");
             background-size: cover;
             /* frame to show the Helen Keller line area better */
-            background-position: center 74%;
+            background-position: center 82%;
             background-repeat: no-repeat;
             background-color: #9FC5CB; /* fallback */
             border-bottom: 1px solid rgba(42, 61, 102, 0.12);
@@ -83,8 +83,8 @@
             background-repeat: no-repeat;
             background-color: #9FC5CB;
             border-bottom: 1px solid rgba(42, 61, 102, 0.10);
-            /* overlap the banner; GSAP will animate this upward on scroll */
-            margin-top: -70px;
+            /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
+            margin-top: -24px;
             z-index: 2; /* sits above banner */
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;

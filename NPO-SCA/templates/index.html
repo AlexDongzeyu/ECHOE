@@ -54,8 +54,8 @@
             height: clamp(340px, 44vw, 560px);
             background-image: url("{{ url_for('static', filename='img/echoe-banner.png') }}");
             background-size: cover;
-            /* frame down a little (show lower part of the art) */
-            background-position: center 62%;
+            /* frame to show the Helen Keller line area better */
+            background-position: center 74%;
             background-repeat: no-repeat;
             background-color: #9FC5CB; /* fallback */
             border-bottom: 1px solid rgba(42, 61, 102, 0.12);
@@ -1601,44 +1601,49 @@ document.addEventListener('DOMContentLoaded', function() {
     // HOMEPAGE-SPECIFIC GSAP ANIMATIONS - IMPROVED
     // =============================================
     
+    // Ensure ScrollTrigger works on this page (index script runs before base footer scripts)
+    if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+
     // Ensure all elements are visible first
     gsap.set('.home-masthead, .hero, .hero-content, .hero-content h1, .acronym-subtitle, .quote, .mission, .hero-actions, .hero-media', {
         opacity: 1,
         visibility: 'visible'
     });
-    
-    // Masthead: subtle parallax via background position
-    gsap.to('.home-masthead', {
-        backgroundPositionY: '72%',
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '.home-masthead',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true
-        }
-    });
 
-    // The effect you asked for (more obvious):
-    // as you scroll down, the Welcome card slides UP and covers the banner.
-    gsap.fromTo(
-        '.hero-content',
-        { y: 220, scale: 0.98, boxShadow: '0 0 0 rgba(42,61,102,0)' },
-        {
-            y: -70,
-            scale: 1,
-            boxShadow: '0 18px 44px rgba(42,61,102,0.18)',
-            ease: 'none',
+    // Big, obvious "cover the banner" scroll sequence
+    // Pin the banner briefly, then slide the Welcome block upward over it.
+    if (window.ScrollTrigger) {
+        const coverTL = gsap.timeline({
             scrollTrigger: {
                 trigger: '.home-masthead',
                 start: 'top top',
-                end: 'bottom top',
-                scrub: true
+                end: '+=520',
+                scrub: true,
+                pin: true,
+                pinSpacing: false,
+                anticipatePin: 1
             }
-        }
-    );
+        });
 
-    // Hero content entrance triggers on scroll (banner stays at top)
+        coverTL
+            .to('.home-masthead', { backgroundPositionY: '82%', ease: 'none' }, 0)
+            .fromTo(
+                '.hero-content',
+                { y: 280, scale: 0.94, opacity: 0.15 },
+                { y: -120, scale: 1, opacity: 1, ease: 'none' },
+                0
+            )
+            .fromTo(
+                '.hero-media',
+                { y: 220, scale: 0.96, opacity: 0.1 },
+                { y: -80, scale: 1, opacity: 1, ease: 'none' },
+                0
+            );
+    }
+
+    // Hero content entrance triggers on scroll (after cover animation)
     const heroTL = gsap.timeline({
         scrollTrigger: {
             trigger: '.hero',

@@ -101,93 +101,7 @@
             border-bottom: 1px solid rgba(42, 61, 102, 0.10);
         }
     
-    /* === ANIMATED WORD CLOUD BACKGROUND === */
-    .word-cloud {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 0;
-    }
-    .word-cloud span {
-        position: absolute;
-        font-family: 'Nunito', sans-serif;
-        font-weight: 700;
-        white-space: nowrap;
-        user-select: none;
-    }
-    
-    /* Word animations - float + color change */
-    @keyframes float-word-1 { 
-        0%,100% { transform: translateY(0) rotate(-1deg); } 
-        50% { transform: translateY(-12px) rotate(1deg); } 
-    }
-    @keyframes float-word-2 { 
-        0%,100% { transform: translateY(0) rotate(0.5deg); } 
-        50% { transform: translateY(-15px) rotate(-0.5deg); } 
-    }
-    @keyframes float-word-3 { 
-        0%,100% { transform: translateY(0); } 
-        50% { transform: translateY(-10px); } 
-    }
-    /* Color changing animations */
-    @keyframes color-cycle-blue {
-        0%, 100% { color: #2B5F8C; }
-        33% { color: #5B8FB9; }
-        66% { color: #8FB8DE; }
-    }
-    @keyframes color-cycle-warm {
-        0%, 100% { color: #E8A87C; }
-        33% { color: #F8D29C; }
-        66% { color: #E07B39; }
-    }
-    @keyframes color-cycle-purple {
-        0%, 100% { color: #9B7BB8; }
-        33% { color: #B39CD0; }
-        66% { color: #7B5B98; }
-    }
-    @keyframes color-cycle-green {
-        0%, 100% { color: #7BA97A; }
-        33% { color: #ADCBA4; }
-        66% { color: #5B8B5A; }
-    }
-    @keyframes fade-change {
-        0%, 45% { opacity: 0.35; }
-        50% { opacity: 0.5; }
-        55%, 100% { opacity: 0.35; }
-    }
-    
-    /* Primary ECHOE words - more subtle/vague */
-    .word-cloud .w-empathy { top:6%; left:4%; font-size:1.5rem; opacity:0.25; animation: float-word-1 8s ease-in-out infinite, color-cycle-blue 12s ease-in-out infinite; }
-    .word-cloud .w-connection { top:10%; right:8%; font-size:1.4rem; opacity:0.22; animation: float-word-2 9s ease-in-out infinite, color-cycle-purple 10s ease-in-out infinite; }
-    .word-cloud .w-hope { bottom:18%; left:6%; font-size:1.6rem; opacity:0.25; animation: float-word-3 7s ease-in-out infinite, color-cycle-warm 11s ease-in-out infinite; }
-    .word-cloud .w-outreach { top:40%; right:4%; font-size:1.3rem; opacity:0.22; animation: float-word-1 10s ease-in-out infinite, color-cycle-green 13s ease-in-out infinite; }
-    .word-cloud .w-empowerment { bottom:8%; right:12%; font-size:1.4rem; opacity:0.25; animation: float-word-2 8s ease-in-out infinite, color-cycle-blue 9s ease-in-out infinite; }
-    
-    /* Wellness words - more subtle/vague */
-    .word-cloud .w1 { top:4%; left:22%; font-size:1rem; color:#2B5F8C; opacity:0.18; animation: float-word-2 11s ease-in-out infinite 0.5s; }
-    .word-cloud .w2 { top:10%; left:42%; font-size:1.1rem; color:#8FB8DE; opacity:0.2; animation: float-word-3 12s ease-in-out infinite; }
-    .word-cloud .w3 { top:6%; right:22%; font-size:0.95rem; color:#B39CD0; opacity:0.18; animation: float-word-1 9s ease-in-out infinite 1s; }
-    .word-cloud .w4 { top:20%; left:12%; font-size:1rem; color:#E8A87C; opacity:0.2; animation: float-word-2 8s ease-in-out infinite; }
-    .word-cloud .w5 { top:26%; right:18%; font-size:1rem; color:#7BA97A; opacity:0.18; animation: float-word-3 10s ease-in-out infinite 0.8s; }
-    .word-cloud .w6 { top:33%; left:2%; font-size:1.1rem; color:#F8D29C; opacity:0.22; animation: float-word-2 11s ease-in-out infinite 1.2s; }
-    .word-cloud .w7 { top:38%; left:18%; font-size:0.95rem; color:#5B8FB9; opacity:0.18; animation: float-word-1 9s ease-in-out infinite 0.3s; }
-    .word-cloud .w8 { top:48%; left:4%; font-size:1rem; color:#8FB8DE; opacity:0.2; animation: float-word-3 8s ease-in-out infinite 0.7s; }
-    .word-cloud .w9 { top:52%; right:6%; font-size:1.05rem; color:#9B7BB8; opacity:0.18; animation: float-word-2 10s ease-in-out infinite 1.5s; }
-    .word-cloud .w10 { top:60%; left:10%; font-size:0.95rem; color:#ADCBA4; opacity:0.2; animation: float-word-1 9s ease-in-out infinite; }
-    .word-cloud .w11 { bottom:32%; right:2%; font-size:1.1rem; color:#E07B39; opacity:0.18; animation: float-word-3 11s ease-in-out infinite 0.4s; }
-    .word-cloud .w12 { bottom:26%; left:1%; font-size:1rem; color:#F8D29C; opacity:0.2; animation: float-word-2 10s ease-in-out infinite 1s; }
-    .word-cloud .w13 { bottom:20%; right:22%; font-size:0.95rem; color:#2B5F8C; opacity:0.18; animation: float-word-1 8s ease-in-out infinite 0.6s; }
-    .word-cloud .w14 { bottom:14%; left:28%; font-size:1.05rem; color:#5B8FB9; opacity:0.2; animation: float-word-3 9s ease-in-out infinite 0.9s; }
-    .word-cloud .w15 { bottom:6%; left:16%; font-size:1rem; color:#B39CD0; opacity:0.18; animation: float-word-2 10s ease-in-out infinite 1.3s; }
-    .word-cloud .w16 { top:16%; left:58%; font-size:0.95rem; color:#7BA97A; opacity:0.2; animation: float-word-1 9s ease-in-out infinite; }
-    .word-cloud .w17 { top:30%; right:32%; font-size:1.1rem; color:#E8A87C; opacity:0.18; animation: float-word-3 11s ease-in-out infinite 0.8s; }
-    .word-cloud .w18 { bottom:38%; left:38%; font-size:1rem; color:#2B5F8C; opacity:0.2; animation: float-word-2 10s ease-in-out infinite 1.1s; }
-    .word-cloud .w19 { top:66%; right:28%; font-size:0.95rem; color:#9B7BB8; opacity:0.18; animation: float-word-1 8s ease-in-out infinite 0.5s; }
-    .word-cloud .w20 { bottom:4%; right:38%; font-size:1.05rem; color:#8FB8DE; opacity:0.2; animation: float-word-3 9s ease-in-out infinite 0.7s; }
-    .word-cloud .w21 { top:72%; left:22%; font-size:1rem; color:#B39CD0; opacity:0.18; animation: float-word-2 10s ease-in-out infinite; }
-    .word-cloud .w22 { top:2%; left:68%; font-size:0.95rem; color:#ADCBA4; opacity:0.2; animation: float-word-1 8s ease-in-out infinite 1.2s; }
-    .word-cloud .w23 { top:56%; left:32%; font-size:1.1rem; color:#F8D29C; opacity:0.18; animation: float-word-3 11s ease-in-out infinite 0.4s; }
+    /* Word cloud removed (banner + clean hero replaces it) */
         
         .home-masthead .container,
         .hero .container {
@@ -751,13 +665,7 @@
                 margin: 0 auto;
             }
             
-            /* Hide word cloud on mobile for better readability */
-            .word-cloud {
-                opacity: 0.12;
-            }
-            .word-cloud span {
-                font-size: 0.75rem !important;
-            }
+            /* Word cloud removed */
             
             /* === BUTTONS === */
             .cta-buttons {
@@ -893,9 +801,7 @@
                 font-size: 0.9rem;
             }
             
-            .word-cloud {
-                display: none; /* Hide completely on very small screens */
-            }
+            /* Word cloud removed */
         }
 
     /* ==========================================================
@@ -1191,44 +1097,11 @@
 {% block content %}
         <section class="home-masthead" aria-label="E.C.H.O.E banner">
             <div class="masthead-inner">
-                <img src="{{ url_for('static', filename='img/ECHOE Banner.png') }}" alt="E.C.H.O.E banner artwork" class="masthead-img">
+                <img src="{{ url_for('static', filename='img/echoe-banner.png') }}" alt="E.C.H.O.E banner artwork" class="masthead-img">
             </div>
         </section>
 
         <section class="hero">
-            <!-- Animated Word Cloud Background -->
-            <div class="word-cloud" aria-hidden="true">
-                <!-- Primary ECHOE words -->
-                <span class="w-empathy">Empathy</span>
-                <span class="w-connection">Connection</span>
-                <span class="w-hope">Hope</span>
-                <span class="w-outreach">Outreach</span>
-                <span class="w-empowerment">Empowerment</span>
-                <!-- Wellness words -->
-                <span class="w1">Balance</span>
-                <span class="w2">Resilience</span>
-                <span class="w3">Mindfulness</span>
-                <span class="w4">Calm</span>
-                <span class="w5">Joy</span>
-                <span class="w6">Gratitude</span>
-                <span class="w7">Acceptance</span>
-                <span class="w8">Clarity</span>
-                <span class="w9">Focus</span>
-                <span class="w10">Growth</span>
-                <span class="w11">Reflection</span>
-                <span class="w12">Creativity</span>
-                <span class="w13">Adaptability</span>
-                <span class="w14">Confidence</span>
-                <span class="w15">Perseverance</span>
-                <span class="w16">Support</span>
-                <span class="w17">Community</span>
-                <span class="w18">Belonging</span>
-                <span class="w19">Compassion</span>
-                <span class="w20">Trust</span>
-                <span class="w21">Rest</span>
-                <span class="w22">Harmony</span>
-                <span class="w23">Inner Peace</span>
-            </div>
             <div class="container">
                 <div class="hero-content animate-fade-up">
                     <p class="hero-kicker">Every Voice Deserves to Echo.</p>
@@ -1792,31 +1665,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '-=0.5'
         );
     
-    // Word cloud with varied animations
-    const wordCloudWords = document.querySelectorAll('.word-cloud span');
-    if (wordCloudWords.length) {
-        wordCloudWords.forEach((word, i) => {
-            const animations = ['scale', 'fade', 'slide', 'rotate'];
-            const type = animations[i % 4];
-            
-            let fromVars = { opacity: 0 };
-            if (type === 'scale') fromVars = { scale: 0, opacity: 0 };
-            else if (type === 'fade') fromVars = { opacity: 0, y: 20 };
-            else if (type === 'slide') fromVars = { x: i % 2 ? 30 : -30, opacity: 0 };
-            else if (type === 'rotate') fromVars = { rotation: i % 2 ? 15 : -15, opacity: 0 };
-            
-            gsap.fromTo(word, fromVars, {
-                scale: 1,
-                x: 0,
-                y: 0,
-                rotation: 0,
-                opacity: parseFloat(getComputedStyle(word).opacity) || 0.2,
-                duration: 0.4 + Math.random() * 0.3,
-                delay: 0.8 + i * 0.03,
-                ease: 'back.out(1.2)'
-            });
-        });
-    }
+    // Word cloud removed (banner + clean hero replaces it)
     
     // Homepage sections with VARIED scroll animations
     const homeSections = document.querySelectorAll('.home-section, .featured-section, .about-preview, .content-section');

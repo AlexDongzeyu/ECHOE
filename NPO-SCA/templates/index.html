@@ -43,8 +43,8 @@
             position: relative;
             overflow: hidden;
             /* leave space under fixed header */
-            padding: 118px max(18px, calc((100vw - 1100px) / 2)) 38px;
-            background: rgba(159, 197, 203, 0.22); /* brand blue */
+            padding: 92px 0 0;
+            background: rgba(159, 197, 203, 0.16); /* brand blue */
             border-bottom: 1px solid rgba(42, 61, 102, 0.12);
         }
 
@@ -56,7 +56,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.32;
+            opacity: 0.18;
             pointer-events: none;
             z-index: 0;
         }
@@ -66,7 +66,8 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(253, 251, 247, 0.55);
+            /* higher transparency so artwork is visible */
+            background: rgba(253, 251, 247, 0.22);
             pointer-events: none;
             z-index: 1;
         }
@@ -74,14 +75,14 @@
         .masthead-inner {
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         .masthead-img {
             width: 100%;
-            max-width: 1100px;
-            height: auto;
-            max-height: 360px;
-            object-fit: contain;
+            max-width: none;
+            height: clamp(220px, 36vw, 420px);
+            object-fit: cover;
             display: block;
             margin: 0 auto;
         }
@@ -238,8 +239,7 @@
         }
 
         @media (max-width: 900px) {
-            .home-masthead { padding: 106px 16px 28px; }
-            .masthead-img { max-height: 260px; }
+            .home-masthead { padding: 84px 0 0; }
             .hero .container { flex-direction: column; text-align: left; gap: 22px; }
             .hero-media { width: 100%; justify-content: flex-start; }
             .hero-logo-badge { width: 100px; height: 100px; }

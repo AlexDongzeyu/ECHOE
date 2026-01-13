@@ -46,8 +46,9 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            background-color: rgba(253, 251, 247, 0.72);
-            background-image: url("{{ url_for('static', filename='img/ECHOE Banner.png') }}");
+            /* Use a real photo background (less white) */
+            background-color: rgba(253, 251, 247, 0.45);
+            background-image: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -58,7 +59,8 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(253, 251, 247, 0.72);
+            /* warm brand-tinted veil so the hero doesn't look white */
+            background: rgba(248, 210, 156, 0.30);
             pointer-events: none;
             z-index: 0;
         }
@@ -281,25 +283,40 @@
             justify-content: center;
             align-items: center;
             pointer-events: none;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        /* simple logo mark (less boxy than polaroid) */
-        .hero-logo-mark {
-            width: min(320px, 36vw);
-            max-width: 320px;
-            aspect-ratio: 1 / 1;
-            border-radius: 26px;
-            background: rgba(255,255,255,0.86);
+        /* Show the actual org banner art in the hero (what you asked for) */
+        .hero-banner-art {
+            width: min(520px, 44vw);
+            max-width: 520px;
+            height: auto;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.78);
+            border: 2px solid rgba(42,61,102,0.12);
+            box-shadow: 0 14px 34px rgba(42,61,102,0.16);
+            padding: 10px;
+            object-fit: contain;
+        }
+
+        /* Small logo badge under the banner for identity */
+        .hero-logo-badge {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.9);
             border: 2px solid rgba(42,61,102,0.14);
-            box-shadow: 0 12px 30px rgba(42,61,102,0.18);
-            padding: 18px;
+            box-shadow: 0 10px 24px rgba(42,61,102,0.14);
+            padding: 10px;
             object-fit: contain;
         }
 
         @media (max-width: 900px) {
             .hero .container { flex-direction: column; text-align: left; gap: 22px; }
             .hero-media { width: 100%; justify-content: flex-start; }
-            .hero-logo-mark { width: 220px; }
+            .hero-banner-art { width: min(520px, 92vw); }
+            .hero-logo-badge { width: 100px; height: 100px; }
             .hero-content h1 { font-size: 2.4rem; }
         }
 
@@ -1217,7 +1234,8 @@
                 </div>
                 </div>
                 <div class="hero-media animate-slide-right delay-2" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-mark">
+                    <img src="{{ url_for('static', filename='img/ECHOE Banner.png') }}" alt="" class="hero-banner-art">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-badge">
                 </div>
             </div>
         </section>
@@ -1729,7 +1747,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' },
             '-=0.2'
         )
-        .fromTo('.hero-media, .hero-logo-mark', 
+        .fromTo('.hero-media, .hero-banner-art, .hero-logo-badge', 
             { x: 80, opacity: 0, rotation: 8 },
             { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: 'power2.out' },
             '-=0.5'
@@ -1870,7 +1888,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Gentle floating for hero image
-    gsap.to('.hero-media, .hero-logo-mark', {
+    gsap.to('.hero-media, .hero-banner-art, .hero-logo-badge', {
         y: -12,
         duration: 2.5,
         repeat: -1,

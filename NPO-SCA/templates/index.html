@@ -36,6 +36,11 @@
     }
     
         /* === TOP MASTHEAD BANNER (like selfcareapy) === */
+        /* On homepage, use a normal sticky header so there is NO dead space above banner */
+        body.page-index header {
+            position: sticky !important;
+        }
+
         .home-masthead {
             width: 100vw;
             margin-left: calc(50% - 50vw);
@@ -43,7 +48,7 @@
             position: relative;
             overflow: hidden;
             /* leave space under fixed header */
-            padding: 92px 0 0;
+            padding: 0;
             background: rgba(159, 197, 203, 0.16); /* brand blue */
             border-bottom: 1px solid rgba(42, 61, 102, 0.12);
         }
@@ -67,7 +72,7 @@
             position: absolute;
             inset: 0;
             /* higher transparency so artwork is visible */
-            background: rgba(253, 251, 247, 0.22);
+            background: rgba(253, 251, 247, 0.10);
             pointer-events: none;
             z-index: 1;
         }
@@ -98,7 +103,7 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            background: rgba(248, 210, 156, 0.16); /* brand orange, not white */
+            background: rgba(159, 197, 203, 0.18); /* brand blue, like selfcareapy section blocks */
             border-bottom: 1px solid rgba(42, 61, 102, 0.10);
         }
     
@@ -239,7 +244,7 @@
         }
 
         @media (max-width: 900px) {
-            .home-masthead { padding: 84px 0 0; }
+            .home-masthead { padding: 0; }
             .hero .container { flex-direction: column; text-align: left; gap: 22px; }
             .hero-media { width: 100%; justify-content: flex-start; }
             .hero-logo-badge { width: 100px; height: 100px; }

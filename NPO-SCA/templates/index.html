@@ -92,12 +92,15 @@
             will-change: transform;
         }
 
-        /* Keep text readable on photo background using SOLID panel (not transparent) */
+        /* Keep text readable on photo background using a soft panel (minimal “frame”) */
         .hero-content {
-            background: #FDFBF7;
-            border: 1px solid rgba(42, 61, 102, 0.10);
+            background: rgba(253, 251, 247, 0.94);
+            border: none;
             border-radius: 18px;
             padding: 22px 22px 18px;
+            box-shadow: 0 12px 28px rgba(42, 61, 102, 0.12);
+            backdrop-filter: blur(6px) saturate(110%);
+            -webkit-backdrop-filter: blur(6px) saturate(110%);
         }
     
     /* Word cloud removed (banner + clean hero replaces it) */
@@ -428,10 +431,13 @@
         }
 
         .about-card {
-            background: rgba(255,255,255,0.9);
+            background: rgba(253, 251, 247, 0.92);
             border-radius: 16px;
             padding: 24px; /* tighter card padding */
-            box-shadow: 0 10px 30px rgba(42,61,102,0.12);
+            border: 1px solid rgba(42, 61, 102, 0.10);
+            box-shadow: 0 10px 26px rgba(42, 61, 102, 0.10);
+            backdrop-filter: blur(6px) saturate(110%);
+            -webkit-backdrop-filter: blur(6px) saturate(110%);
         }
         /* Ensure equal heights within the about-grid */
         .about-grid .about-card { height: 100%; display: flex; flex-direction: column; }
@@ -465,10 +471,11 @@
             grid-template-columns: 260px 1fr;
             gap: 28px;
             align-items: center;
-            background: rgba(255,255,255,0.92);
+            background: rgba(253, 251, 247, 0.92);
             border-radius: 16px;
             padding: 24px 28px;
-            box-shadow: 0 10px 30px rgba(42,61,102,0.12);
+            border: 1px solid rgba(42, 61, 102, 0.10);
+            box-shadow: 0 10px 26px rgba(42, 61, 102, 0.10);
         }
 
         .avatar {
@@ -525,8 +532,8 @@
         .card-scroll-top { justify-content: flex-start; align-items: stretch; }
 
         .post-card {
-            background: rgba(255,255,255,0.88);
-            border: 1px solid rgba(159,197,203,0.35);
+            background: rgba(253, 251, 247, 0.92);
+            border: 1px solid rgba(42, 61, 102, 0.10);
             border-radius: 12px;
             overflow: hidden;
             padding: 8px;
@@ -1002,8 +1009,8 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .about-card:hover {
-        transform: translateY(-4px) rotate(-0.5deg);
-        box-shadow: 0 16px 40px rgba(42,61,102,0.16);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 34px rgba(42,61,102,0.14);
     }
     .tilt-left { transform: rotate(-1.5deg); }
     .tilt-right { transform: rotate(1.5deg); }
@@ -1417,12 +1424,25 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            background: #9FC5CB;
+            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #9FC5CB;
             padding: 48px 0 56px;
             text-align: center;
             position: relative;
-            border-top: 4px solid #2A3D66;
+            border-top: 1px solid rgba(42, 61, 102, 0.18);
         }
+        /* Soft veil for readability (no gradients) */
+        .socials-qr-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(159, 197, 203, 0.22);
+            pointer-events: none;
+        }
+        .socials-qr-section .container { position: relative; z-index: 1; }
         .socials-qr-section h2 {
             color: #2A3D66;
             font-size: 2.2rem;
@@ -1484,27 +1504,27 @@
         }
 
         .qr-card {
-            background: #fff;
-            border: 3px solid #2A3D66;
+            background: rgba(253, 251, 247, 0.92);
+            border: 1px solid rgba(42, 61, 102, 0.12);
             border-radius: 20px;
             padding: 24px 20px;
-            box-shadow: 5px 5px 0px rgba(42,61,102,0.3);
+            box-shadow: 0 14px 30px rgba(42,61,102,0.12);
             transition: all 0.3s ease;
             position: relative;
         }
         .qr-card.tiktok-card {
-            border-top: 6px solid #000;
+            border-top: 4px solid rgba(42,61,102,0.18);
         }
         .qr-card.instagram-card {
-            border-top: 6px solid #E1306C;
+            border-top: 4px solid rgba(42,61,102,0.18);
         }
         .qr-card.youtube-card {
-            border-top: 6px solid #FF0000;
+            border-top: 4px solid rgba(42,61,102,0.18);
         }
 
         .qr-card:hover {
             transform: translateY(-6px);
-            box-shadow: 5px 10px 0px rgba(42,61,102,0.3);
+            box-shadow: 0 18px 38px rgba(42,61,102,0.14);
         }
 
         .qr-image-wrap {
@@ -1600,7 +1620,7 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     // =============================================
     // HOMEPAGE-SPECIFIC GSAP ANIMATIONS - IMPROVED
     // =============================================
@@ -1632,11 +1652,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         coverTL
-            // Banner fades as content takes over (cooler + more obvious)
+            // Banner fades as content takes over (keep it colorful; no B&W look)
             .to('.home-masthead', {
                 backgroundPositionY: '86%',
-                opacity: 0.18,
-                filter: 'saturate(0.9) blur(1px)',
+                opacity: 0.42,
+                filter: 'blur(2px)',
                 ease: 'none'
             }, 0)
             .fromTo(
@@ -1843,7 +1863,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    console.log('🏠 Homepage GSAP Ready!');
+    console.log('Homepage GSAP Ready!');
 });
 </script>
 {% endblock %} 

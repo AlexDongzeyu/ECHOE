@@ -92,16 +92,28 @@
             will-change: transform;
         }
 
-        /* Keep text readable on photo background using a soft panel (minimal “frame”) */
+        /* No “panel/frame”: let text sit on the photo background */
         .hero-content {
-            background: rgba(253, 251, 247, 0.94);
+            background: transparent;
             border: none;
-            border-radius: 18px;
-            padding: 22px 22px 18px;
-            box-shadow: 0 12px 28px rgba(42, 61, 102, 0.12);
-            backdrop-filter: blur(6px) saturate(110%);
-            -webkit-backdrop-filter: blur(6px) saturate(110%);
+            border-radius: 0;
+            padding: 8px 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
+
+        /* Section-level soft veil for readability (NOT a box behind text) */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(253, 251, 247, 0.52);
+            pointer-events: none;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+        }
+        .hero .container { position: relative; z-index: 2; }
     
     /* Word cloud removed (banner + clean hero replaces it) */
         
@@ -431,22 +443,22 @@
         }
 
         .about-card {
-            background: rgba(253, 251, 247, 0.92);
-            border-radius: 16px;
-            padding: 24px; /* tighter card padding */
-            border: 1px solid rgba(42, 61, 102, 0.10);
-            box-shadow: 0 10px 26px rgba(42, 61, 102, 0.10);
-            backdrop-filter: blur(6px) saturate(110%);
-            -webkit-backdrop-filter: blur(6px) saturate(110%);
+            background: transparent;
+            border-radius: 0;
+            padding: 12px 0; /* spacing only, not a panel */
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
         /* Ensure equal heights within the about-grid */
         .about-grid .about-card { height: 100%; display: flex; flex-direction: column; }
 
         /* Reusable rounded rectangle photo with uniform height */
-        .photo-rect { width: 100%; height: 260px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: 0 8px 24px rgba(42,61,102,0.12); background:#fff; }
+        .photo-rect { width: 100%; height: 260px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: none; background: transparent; }
         @media (max-width: 768px){ .photo-rect { height: 220px; } }
         /* Banner tile: grows to fill leftover space under group photo */
-        .banner-rect { width:100%; height: auto; min-height: 200px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: 0 8px 24px rgba(42,61,102,0.12); background:#fff; flex: 1 1 auto; }
+        .banner-rect { width:100%; height: auto; min-height: 200px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: none; background: transparent; flex: 1 1 auto; }
         @media (max-width: 768px){ .banner-rect { min-height: 160px; } }
         /* Generic two-column grid for paired sections */
         .two-col-grid {
@@ -471,11 +483,11 @@
             grid-template-columns: 260px 1fr;
             gap: 28px;
             align-items: center;
-            background: rgba(253, 251, 247, 0.92);
-            border-radius: 16px;
-            padding: 24px 28px;
-            border: 1px solid rgba(42, 61, 102, 0.10);
-            box-shadow: 0 10px 26px rgba(42, 61, 102, 0.10);
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
         }
 
         .avatar {
@@ -490,7 +502,7 @@
             font-weight: 800;
             font-size: 1.4rem;
         }
-        .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:0 6px 18px rgba(42,61,102,0.12); }
+        .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
 
         .social-manual {
             background-image: url("{{ url_for('static', filename='img/bg3.jpg') }}");
@@ -1008,10 +1020,7 @@
     .about-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .about-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 34px rgba(42,61,102,0.14);
-    }
+    .about-card:hover { transform: none; box-shadow: none; }
     .tilt-left { transform: rotate(-1.5deg); }
     .tilt-right { transform: rotate(1.5deg); }
     .tilt-left:hover { transform: rotate(-1.5deg) translateY(-4px); }
@@ -1099,14 +1108,20 @@
         box-shadow: 0 12px 32px rgba(42,61,102,0.15);
     }
     
-    /* Photo hover effects */
-    .photo-rect, .banner-rect {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Photo hover effects (no frames) */
+    .photo-rect, .banner-rect { transition: transform 0.3s ease; }
+    .photo-rect:hover, .banner-rect:hover { transform: scale(1.01); }
+
+    /* About/partners blocks: section-level veil so content is readable without cards */
+    .about-section { position: relative; }
+    .about-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(253, 251, 247, 0.36);
+        pointer-events: none;
     }
-    .photo-rect:hover, .banner-rect:hover {
-        transform: scale(1.02);
-        box-shadow: 0 12px 32px rgba(42,61,102,0.18);
-        }
+    .about-section .container { position: relative; z-index: 2; }
     </style>
 {% endblock %}
 

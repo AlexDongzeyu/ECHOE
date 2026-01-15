@@ -58,7 +58,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-color: #9FC5CB; /* fallback */
-            border-bottom: 1px solid rgba(42, 61, 102, 0.12);
+            border-bottom: none;
             z-index: 0; /* keep banner behind */
             will-change: transform, opacity, filter;
         }
@@ -83,7 +83,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-color: #9FC5CB;
-            border-bottom: 1px solid rgba(42, 61, 102, 0.10);
+            border-bottom: none;
             /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
             margin-top: -24px;
             z-index: 2; /* sits above banner */
@@ -139,10 +139,20 @@
             color: rgba(42,61,102,0.78);
             letter-spacing: 0.4px;
             margin: 0 0 10px 0;
-            text-decoration: underline;
-            text-underline-offset: 6px;
-            text-decoration-thickness: 2px;
-            text-decoration-color: rgba(42,61,102,0.22);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        /* Blended underline (not a harsh rule) */
+        .hero-kicker::after{
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:2px;
+            width: 72%;
+            height: 2px;
+            background: rgba(248, 210, 156, 0.55); /* brand orange tint */
+            border-radius: 999px;
         }
 
         .hero-content h1 {
@@ -154,13 +164,15 @@
         }
         
         .acronym-subtitle {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--gentle-lavender);
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            overflow-x: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 12px;
+            align-items: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: rgba(42,61,102,0.78);
+            margin-bottom: 18px;
+            letter-spacing: 0.6px;
         }
         
         .acronym-subtitle span {
@@ -168,7 +180,7 @@
         }
         
         .acronym-letter {
-            color: var(--soft-yellow);
+            color: rgba(248, 210, 156, 0.95);
             font-weight: 700;
             font-size: 1.25rem;
         }
@@ -178,8 +190,8 @@
         }
         
         .acronym-dot {
-            color: var(--gentle-lavender);
-            opacity: 0.5;
+            color: rgba(159, 197, 203, 0.85);
+            opacity: 0.9;
         }
         
         .hero .quote {
@@ -426,6 +438,12 @@
             padding: 36px 0; /* tighter section spacing */
         }
 
+        /* Homepage: make sections feel “full but organized” (like Figma/selfcareapy) */
+        .about-section { padding: 54px 0; }
+        #section-echo-cat { padding-top: 44px; }
+        #section-about-us { padding-top: 52px; padding-bottom: 60px; }
+        #section-partners { padding-top: 52px; padding-bottom: 56px; }
+
         .about-section {
             /* picture background (no translucent color blocks) */
             background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
@@ -441,6 +459,10 @@
             gap: 24px;
             align-items: stretch; /* equalize heights between text and image card */
         }
+
+        /* Add breathing room without “frames” */
+        .about-grid > .about-card { padding: 6px 6px; }
+        .two-col-grid > .about-card { padding: 6px 6px; }
 
         .about-card {
             background: transparent;

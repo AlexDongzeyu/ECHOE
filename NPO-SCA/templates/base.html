@@ -717,6 +717,9 @@
             backdrop-filter: saturate(120%) blur(6px);
         }
 
+        /* Homepage: remove the extra gap above footer (prevents white band under socials) */
+        body.page-index footer { margin-top: 0 !important; }
+
         .footer-content {
             max-width: 1300px;
             margin: 0 auto;

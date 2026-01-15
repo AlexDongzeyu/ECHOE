@@ -67,6 +67,11 @@
             --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}");
         }
 
+        /* Homepage: remove global main padding (prevents gap under socials before footer) */
+        body.page-index main {
+            padding: 0 !important;
+        }
+
         /* No global veil — use the picture backgrounds directly */
         body::before { display: none; }
 

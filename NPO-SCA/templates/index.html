@@ -489,6 +489,11 @@
             gap: 20px;
             align-items: stretch; /* make children equal height */
         }
+
+        /* About Us (right column): center the section titles only */
+        #section-about-us .two-col-grid > .about-card:nth-child(2) h2 {
+            text-align: center;
+        }
         /* Wider left column specifically for partners block */
         .partners-grid { grid-template-columns: 1.4fr 1fr; }
         .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }

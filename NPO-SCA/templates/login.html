@@ -48,17 +48,17 @@
             </div>
         </div>
         
-        <!-- Volunteer Information Card -->
-        <div style="margin-top: 30px; padding: 25px; background: #2A3D66; border: 3px solid #F8D29C; border-radius: 15px; color: white; text-align: center; box-shadow: 6px 6px 0px rgba(42,61,102,0.18);">
-            <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-hands-helping" style="margin-right: 10px;"></i>Want to Help Others?</h3>
-            <p style="margin-bottom: 20px; opacity: 0.9; line-height: 1.6;">Join our volunteer community and make a difference in someone's life by providing compassionate support.</p>
-            <a href="{{ url_for('volunteer_info') }}" class="btn-secondary" style="background-color: rgba(255,255,255,0.2); color: white; border: 2px solid rgba(255,255,255,0.3);">
+        <!-- Volunteer Information Card (calm, no harsh frame) -->
+        <div class="page-container" style="margin-top: 30px; padding: 26px; text-align: center;">
+            <h3 style="margin-bottom: 15px;"><i class="fas fa-hands-helping" style="margin-right: 10px;"></i>Want to Help Others?</h3>
+            <p style="margin-bottom: 20px; line-height: 1.6;">Join our volunteer community and make a difference in someone's life by providing compassionate support.</p>
+            <a href="{{ url_for('volunteer_info') }}" class="btn-secondary">
                 Learn About Volunteering
             </a>
         </div>
         
-        <!-- Support Resources -->
-        <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.05); text-align: center;">
+        <!-- Support Resources (calm surface) -->
+        <div class="page-container" style="margin-top: 20px; padding: 20px; text-align: center;">
             <p style="color: var(--deep-indigo); margin-bottom: 15px; font-weight: 600;">Need support right now?</p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <a href="{{ url_for('submit') }}" style="color: var(--gentle-lavender); text-decoration: none; font-weight: 600; display: flex; align-items: center;">

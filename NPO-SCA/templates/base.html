@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Language" content="en-CA">
     <title>{% block title %}E.C.H.O.E — Empathy Connection Hope Outreach Empowerment{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Namdhinggo:wght@700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -54,7 +55,7 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Nunito', sans-serif;
             line-height: 1.6;
             color: var(--deep-indigo);
             /* Site background image (no gradients) */
@@ -66,6 +67,13 @@
         body.page-index {
             --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}");
         }
+        body.page-submit { --site-bg: url("{{ url_for('static', filename='img/bg4.jpg') }}"); }
+        body.page-helplines { --site-bg: url("{{ url_for('static', filename='img/bg3.jpg') }}"); }
+        body.page-resources { --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}"); }
+        body.page-calendar_page { --site-bg: url("{{ url_for('static', filename='img/bg2.jpg') }}"); }
+        body.page-events_overview { --site-bg: url("{{ url_for('static', filename='img/bg1.jpg') }}"); }
+        body.page-blog-index,
+        body.page-blog-post_detail { --site-bg: url("{{ url_for('static', filename='img/bg3.jpg') }}"); }
 
         /* Homepage: remove global main padding (prevents gap under socials before footer) */
         body.page-index main {
@@ -551,7 +559,7 @@
         /* Main Content Area */
         main {
             min-height: calc(100vh - 140px);
-            padding: 100px 0 40px 0;
+            padding: 100px 0 0 0; /* calmer, avoids large bottom whitespace */
             /* offset fixed header */
         }
 
@@ -1532,17 +1540,38 @@
             box-shadow: 3px 9px 0px var(--shadow-offset-dark), 0 12px 25px var(--shadow-deep);
         }
 
-        /* --- Card / Generic Frame Styling - COLORFUL with dark borders --- */
+        /* ============================================================
+           CALMING SITE STYLE (applies to all pages)
+           - no harsh frames/borders
+           - readable content over photo backgrounds
+           - consistent type hierarchy
+           ============================================================ */
+
+        h1, h2, h3 {
+            font-family: 'DM Serif Display', serif;
+            letter-spacing: -0.01em;
+        }
+        p, li, a, input, textarea, button { font-family: 'Nunito', sans-serif; }
+
+        /* A soft, page-wide readability veil (NOT a box) */
+        .page-container {
+            background: rgba(253, 251, 247, 0.60) !important;
+            backdrop-filter: blur(10px) saturate(110%);
+            -webkit-backdrop-filter: blur(10px) saturate(110%);
+        }
+
+        /* Default “no-frame” surfaces */
         .card,
         .post-card,
         .about-card,
         .rp-card,
         .rp-section,
         .rp-hero {
-            border: 2.5px solid #2A3D66 !important;
-            box-shadow: 5px 5px 0px rgba(42, 61, 102, 0.4), 0 10px 28px var(--shadow-deep) !important;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pop-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            transform: none !important;
         }
 
         .card:hover,
@@ -1550,54 +1579,85 @@
         .about-card:hover,
         .rp-card:hover,
         .rp-section:hover {
-            transform: translateY(-4px);
-            box-shadow: 5px 9px 0px rgba(42, 61, 102, 0.4), 0 14px 35px var(--shadow-deep) !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
-        /* Colorful cards with different shapes */
-        .rp-card:nth-child(6n+1),
-        .card:nth-child(6n+1),
-        .about-card:nth-child(3n+1) {
-            background: var(--color-sky) !important;
-            border-radius: 20px !important;
+        /* Typography rhythm */
+        .page-header h1 { font-weight: 800; }
+        .page-header p { opacity: 0.9; }
+
+        /* ============================================================
+           PAGE-SPECIFIC POLISH (targeted, not copy/paste)
+           ============================================================ */
+
+        /* Events overview: keep gallery + animations, remove heavy framing */
+        body.page-events_overview .events-hero,
+        body.page-events_overview .featured-event,
+        body.page-events_overview .video-frame,
+        body.page-events_overview .linktree-cta,
+        body.page-events_overview .event-placeholder,
+        body.page-events_overview .event-cardlet {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        body.page-events_overview .gallery img {
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .rp-card:nth-child(6n+2),
-        .card:nth-child(6n+2),
-        .about-card:nth-child(3n+2) {
-            background: var(--color-peach) !important;
-            border-radius: 16px 28px 16px 28px !important;
+        /* Event detail: remove thick borders and let the page veil do the work */
+        body.page-events-event_detail .event-header,
+        body.page-events-event_detail .detail-card,
+        body.page-events-event_detail .event-objective,
+        body.page-events-event_detail .back-link {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .rp-card:nth-child(6n+3),
-        .card:nth-child(6n+3),
-        .about-card:nth-child(3n+3) {
-            background: var(--color-mint) !important;
-            border-radius: 28px 16px 28px 16px !important;
+        /* Blog: calmer headers + content surfaces */
+        body.page-blog-index .blog-intro,
+        body.page-blog-post_detail .post-header,
+        body.page-blog-post_detail .support-section,
+        body.page-blog-post_detail .post-content,
+        body.page-blog-index .post-card {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .rp-card:nth-child(6n+4),
-        .card:nth-child(6n+4) {
-            background: var(--color-lavender) !important;
-            border-radius: 24px !important;
+        /* Reply/confirmation flows: calm, readable without frames */
+        body.page-check_reply .check-form-container,
+        body.page-check_reply .form-intro,
+        body.page-response .response-header,
+        body.page-response .letter-section,
+        body.page-response .responses-section,
+        body.page-confirmation .success-header,
+        body.page-confirmation .code-card,
+        body.page-confirmation .code-display {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .rp-card:nth-child(6n+5),
-        .card:nth-child(6n+5) {
-            background: var(--color-coral) !important;
-            border-radius: 18px 30px 18px 30px !important;
+        /* Recharge Week: keep interaction, remove heavy outlines */
+        body.page-campaigns-recharge_week .battery-section,
+        body.page-campaigns-recharge_week .battery-frame,
+        body.page-campaigns-recharge_week .battery-tip,
+        body.page-campaigns-recharge_week .rw-section {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .rp-card:nth-child(6n+6),
-        .card:nth-child(6n+6) {
-            background: var(--color-sage) !important;
-            border-radius: 30px 18px 30px 18px !important;
-        }
-
-        /* Hero sections - sunny yellow */
-        .rp-hero {
-            background: var(--color-sunny) !important;
-            border-radius: 24px !important;
+        /* Auth pages: soften the “header card” style */
+        body.page-login .login-card,
+        body.page-signup .signup-card {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
         /* ============================================================

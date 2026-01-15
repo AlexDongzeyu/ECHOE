@@ -1592,6 +1592,47 @@
             border-radius: 24px !important;
         }
 
+        /* ============================================================
+          OR ONLY: HOMEPAGE SHOULD FEEL OPEN (less "framed/boxed")
+           - keep all content the same; just soften borders/shadows
+           - inspired by the Figma reference pages (clean blocks on photo bg)
+           ============================================================ */
+        body.page-index .card,
+        body.page-index .post-card,
+        body.page-index .about-card {
+            border: 1px solid rgba(42, 61, 102, 0.10) !important;
+            box-shadow: 0 14px 30px rgba(42, 61, 102, 0.10) !important;
+            background: rgba(253, 251, 247, 0.92) !important;
+            border-radius: 18px !important;
+        }
+
+        body.page-index .card:hover,
+        body.page-index .post-card:hover,
+        body.page-index .about-card:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 18px 38px rgba(42, 61, 102, 0.12) !important;
+        }
+
+        /* Cancel the colorful alternating backgrounds on the homepage */
+        body.page-index .about-card:nth-child(3n+1),
+        body.page-index .about-card:nth-child(3n+2),
+        body.page-index .about-card:nth-child(3n+3),
+        body.page-index .card:nth-child(6n+1),
+        body.page-index .card:nth-child(6n+2),
+        body.page-index .card:nth-child(6n+3),
+        body.page-index .card:nth-child(6n+4),
+        body.page-index .card:nth-child(6n+5),
+        body.page-index .card:nth-child(6n+6) {
+            background: rgba(253, 251, 247, 0.92) !important;
+            border-radius: 18px !important;
+        }
+
+        /* Remove playful tilts on homepage to keep layout clean */
+        body.page-index .tilt-left,
+        body.page-index .tilt-right {
+            transform: none !important;
+        }
+
         /* Staggered card animations */
         .rp-card:nth-child(1),
         .card:nth-child(1) {

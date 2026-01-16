@@ -72,29 +72,71 @@
 
         /* ============================================================
            SECTION BAND SYSTEM (use ALL 3 paper colors)
-           - Each section gets:
-             - top strip (paper color)
-             - bottom strip (different paper color)
-             - photo background (original texture)
-             - light paper tint overlay (still shows photo texture)
+           - Photo remains the base background (keeps original texture).
+           - bg-r/bg-g/bg-b sits ON TOP with transparency (paper wash).
+           - Separation is done via a clear bottom divider strip + crisp lines.
            ============================================================ */
         .hero,
         .about-section,
         .consultant-section,
         .social-manual,
         .socials-qr-section {
-            /* Defaults; override per-section below */
-            --band-top: var(--band-b);
-            --band-bottom: var(--band-r);
-            --band-tint: var(--band-g);
-            --band-tint-opacity: 0.34;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
 
-            /* Layer order: top strip, bottom strip, photo */
-            background-image: var(--band-top), var(--band-bottom), var(--band-photo);
-            background-size: 100% 30px, 100% 30px, cover;
-            background-position: top center, bottom center, center;
-            background-repeat: no-repeat, no-repeat, no-repeat;
-            background-attachment: scroll, scroll, scroll;
+            /* Defaults; override per-section below */
+            --band-photo: none;
+            --band-overlay: var(--band-g);
+            --band-overlay-opacity: 0.30;
+            --band-divider: var(--band-b);
+
+            /* Base photo background only (overlay handled by ::before) */
+            background-image: var(--band-photo);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+        }
+
+        /* Paper wash overlay (lets photo texture show through) */
+        .hero::before,
+        .about-section::before,
+        .consultant-section::before,
+        .social-manual::before,
+        .socials-qr-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--band-overlay);
+            background-size: cover;
+            background-position: center;
+            opacity: var(--band-overlay-opacity);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Clear section separation (contrast + pattern strip, no gradients) */
+        .hero::after,
+        .about-section::after,
+        .consultant-section::after,
+        .social-manual::after,
+        .socials-qr-section::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 26px;
+            background-image: var(--band-divider);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.92;
+            pointer-events: none;
+            z-index: 3;
+            border-top: 2px solid rgba(42, 61, 102, 0.18);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.70);
+            box-shadow: 0 -14px 24px rgba(42, 61, 102, 0.10);
         }
 
         /* === WELCOME HERO (appears after masthead) === */
@@ -108,13 +150,11 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Photo background */
+            /* Photo background + paper wash overlay */
             --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            /* Make the top/bottom colors clearly different */
-            --band-top: var(--band-b);
-            --band-bottom: var(--band-g);
-            --band-tint: var(--band-r);
-            --band-tint-opacity: 0.40;
+            --band-overlay: var(--band-r);
+            --band-overlay-opacity: 0.34;
+            --band-divider: var(--band-g);
             background-color: #9FC5CB;
             border-bottom: none;
             /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
@@ -136,16 +176,8 @@
             -webkit-backdrop-filter: none;
         }
 
-        /* Section-level soft veil for readability (NOT a box behind text) */
+        /* Keep rounded top corners for the hero */
         .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: var(--band-tint);
-            background-size: cover;
-            background-position: center;
-            opacity: var(--band-tint-opacity); /* keep photo texture visible */
-            pointer-events: none;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
         }
@@ -482,33 +514,32 @@
 
         /* Make each section feel distinct (top/bottom strips must differ) */
         #section-who-we-are {
-            --band-top: var(--band-g);
-            --band-bottom: var(--band-b);
-            --band-tint: var(--band-g);
-            --band-tint-opacity: 0.34;
+            --band-overlay: var(--band-g);
+            --band-overlay-opacity: 0.28;
+            --band-divider: var(--band-b);
         }
         #section-echo-cat {
-            --band-top: var(--band-b);
-            --band-bottom: var(--band-r);
-            --band-tint: var(--band-b);
-            --band-tint-opacity: 0.28;
+            --band-overlay: var(--band-b);
+            --band-overlay-opacity: 0.26;
+            --band-divider: var(--band-r);
         }
         #section-about-us {
-            --band-top: var(--band-r);
-            --band-bottom: var(--band-g);
-            --band-tint: var(--band-r);
-            --band-tint-opacity: 0.30;
+            --band-overlay: var(--band-r);
+            --band-overlay-opacity: 0.26;
+            --band-divider: var(--band-g);
         }
         #section-partners {
-            --band-top: var(--band-g);
-            --band-bottom: var(--band-r);
-            --band-tint: var(--band-g);
-            --band-tint-opacity: 0.28;
+            --band-overlay: var(--band-g);
+            --band-overlay-opacity: 0.24;
+            --band-divider: var(--band-r);
         }
 
         .about-section {
             /* Photo background */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            --band-overlay: var(--band-g);
+            --band-overlay-opacity: 0.28;
+            --band-divider: var(--band-b);
             text-align: left;
         }
 
@@ -559,10 +590,9 @@
 
         .consultant-section {
             --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-top: var(--band-r);
-            --band-bottom: var(--band-b);
-            --band-tint: var(--band-g);
-            --band-tint-opacity: 0.30;
+            --band-overlay: var(--band-g);
+            --band-overlay-opacity: 0.26;
+            --band-divider: var(--band-r);
         }
 
         .consultant-card {
@@ -593,10 +623,9 @@
 
         .social-manual {
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-top: var(--band-b);
-            --band-bottom: var(--band-r);
-            --band-tint: var(--band-b);
-            --band-tint-opacity: 0.24;
+            --band-overlay: var(--band-b);
+            --band-overlay-opacity: 0.22;
+            --band-divider: var(--band-r);
             text-align: center;
         }
         /* Remove built-in margins inside embeds to avoid top gaps */
@@ -1202,18 +1231,7 @@
     .photo-rect, .banner-rect { transition: transform 0.3s ease; }
     .photo-rect:hover, .banner-rect:hover { transform: scale(1.01); }
 
-    /* About/partners blocks: readability veil (use section band tint, still shows photo texture) */
-    .about-section { position: relative; }
-    .about-section::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: var(--band-tint);
-        background-size: cover;
-        background-position: center;
-        opacity: var(--band-tint-opacity);
-        pointer-events: none;
-    }
+    /* About sections: keep content above the wash overlay */
     .about-section .container { position: relative; z-index: 2; }
     </style>
 {% endblock %}
@@ -1532,29 +1550,17 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            /* Photo background + obvious (different) top/bottom paper strips */
+            /* Photo background + paper wash overlay + clear divider strip */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-top: var(--band-b);
-            --band-bottom: var(--band-r);
-            --band-tint: var(--band-b);
-            --band-tint-opacity: 0.26;
+            --band-overlay: var(--band-b);
+            --band-overlay-opacity: 0.22;
+            --band-divider: var(--band-r);
 
             background-color: #9FC5CB;
             padding: 48px 0 56px;
             text-align: center;
             position: relative;
             border-top: 1px solid rgba(42, 61, 102, 0.18);
-        }
-        /* Soft veil for readability (no gradients) */
-        .socials-qr-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: var(--band-tint);
-            background-size: cover;
-            background-position: center;
-            opacity: var(--band-tint-opacity);
-            pointer-events: none;
         }
         .socials-qr-section .container { position: relative; z-index: 1; }
         .socials-qr-section h2 {

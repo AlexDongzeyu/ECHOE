@@ -86,19 +86,19 @@
             isolation: isolate;
 
             /* Defaults; override per-section below */
-            --band-photo: none;            /* bg1–bg4 paper texture (base) */
-            --band-overlay: var(--band-g); /* bg-r/bg-g/bg-b (main visible color on top) */
-            --band-overlay-opacity: 0.86;  /* make color dominate; texture subtly shows through */
+            --band-photo: none;            /* bg1–bg4 paper texture (faint overlay) */
+            --band-overlay: var(--band-g); /* bg-r/bg-g/bg-b (main visible color) */
+            --band-photo-opacity: 0.10;    /* texture is subtle; user mainly sees pure color */
             --band-divider: var(--band-b);
 
-            /* Base texture */
-            background-image: var(--band-photo);
+            /* Base = pure color */
+            background-image: var(--band-overlay);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* Pure color overlay on top (user mainly sees the color) */
+        /* Faint paper texture overlay (user mainly sees the pure color) */
         .hero::before,
         .about-section::before,
         .consultant-section::before,
@@ -107,13 +107,13 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: var(--band-overlay);
+            background-image: var(--band-photo);
             background-size: cover;
             background-position: center;
-            opacity: var(--band-overlay-opacity);
+            opacity: var(--band-photo-opacity);
             pointer-events: none;
             z-index: 1;
-            /* No blend modes — keep the color clean and predictable */
+            /* No blend modes — keep it clean and predictable */
         }
 
         /* Clear section separation (contrast + pattern strip, no gradients) */
@@ -150,10 +150,10 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Base texture + dominant color overlay */
-            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            /* Pure color + subtle paper texture */
             --band-overlay: var(--band-r);
-            --band-overlay-opacity: 0.88;
+            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-g);
             background-color: #9FC5CB;
             border-bottom: none;
@@ -515,22 +515,22 @@
         /* Make each section feel distinct (top/bottom strips must differ) */
         #section-who-we-are {
             --band-overlay: var(--band-g);
-            --band-overlay-opacity: 0.86;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-b);
         }
         #section-echo-cat {
             --band-overlay: var(--band-b);
-            --band-overlay-opacity: 0.84;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-r);
         }
         #section-about-us {
             --band-overlay: var(--band-r);
-            --band-overlay-opacity: 0.86;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-g);
         }
         #section-partners {
             --band-overlay: var(--band-g);
-            --band-overlay-opacity: 0.84;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-r);
         }
 
@@ -538,7 +538,7 @@
             /* Photo background */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --band-overlay: var(--band-g);
-            --band-overlay-opacity: 0.86;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-b);
             text-align: left;
         }
@@ -591,7 +591,7 @@
         .consultant-section {
             --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --band-overlay: var(--band-b);
-            --band-overlay-opacity: 0.86;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-r);
         }
 
@@ -624,7 +624,7 @@
         .social-manual {
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --band-overlay: var(--band-b);
-            --band-overlay-opacity: 0.84;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-r);
             text-align: center;
         }
@@ -1553,7 +1553,7 @@
             /* Photo background + paper wash overlay + clear divider strip */
             --band-overlay: var(--band-b);
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-overlay-opacity: 0.84;
+            --band-photo-opacity: 0.10;
             --band-divider: var(--band-r);
 
             background-color: #9FC5CB;

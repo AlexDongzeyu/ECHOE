@@ -1161,6 +1161,60 @@
         pointer-events: none;
     }
     .about-section .container { position: relative; z-index: 2; }
+
+    /* ============================================================
+       SECTION DIVIDERS (make separation obvious + beautiful)
+       - no gradients
+       - minimal brand usage (neutral ink + soft paper overlays)
+       ============================================================ */
+    .hero,
+    .about-section,
+    .consultant-section,
+    .social-manual,
+    .socials-qr-section {
+        position: relative;
+        isolation: isolate; /* keep divider effects contained */
+    }
+
+    /* a clear, soft “band edge” at top & bottom of each section */
+    .hero::after,
+    .about-section::after,
+    .consultant-section::after,
+    .social-manual::after,
+    .socials-qr-section::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 22px;
+        pointer-events: none;
+        z-index: 3;
+        /* two crisp lines + a soft shadow band (no gradients) */
+        background:
+            linear-gradient(transparent, transparent) no-repeat; /* placeholder for older browsers */
+        box-shadow: 0 -10px 18px rgba(42, 61, 102, 0.10);
+        border-top: 1px solid rgba(42, 61, 102, 0.18);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(2px);
+    }
+
+    /* add a top edge too, so sections read as distinct “bands” */
+    .hero::after,
+    .about-section::after,
+    .consultant-section::after,
+    .social-manual::after,
+    .socials-qr-section::after {
+        border-top-left-radius: 999px;
+        border-top-right-radius: 999px;
+    }
+
+    /* extra spacing rhythm so the divider has room to read */
+    .hero { padding-bottom: 64px; }
+    .about-section { padding-bottom: 64px; }
+    .consultant-section { padding-bottom: 64px; }
+    .social-manual { padding-bottom: 64px; }
+    .socials-qr-section { padding-bottom: 72px; }
     </style>
 {% endblock %}
 

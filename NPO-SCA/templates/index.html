@@ -70,6 +70,33 @@
         /* No overlay/veil on banner (use the picture) */
         .home-masthead::after { display: none; }
 
+        /* ============================================================
+           SECTION BAND SYSTEM (use ALL 3 paper colors)
+           - Each section gets:
+             - top strip (paper color)
+             - bottom strip (different paper color)
+             - photo background (original texture)
+             - light paper tint overlay (still shows photo texture)
+           ============================================================ */
+        .hero,
+        .about-section,
+        .consultant-section,
+        .social-manual,
+        .socials-qr-section {
+            /* Defaults; override per-section below */
+            --band-top: var(--band-b);
+            --band-bottom: var(--band-r);
+            --band-tint: var(--band-g);
+            --band-tint-opacity: 0.34;
+
+            /* Layer order: top strip, bottom strip, photo */
+            background-image: var(--band-top), var(--band-bottom), var(--band-photo);
+            background-size: 100% 30px, 100% 30px, cover;
+            background-position: top center, bottom center, center;
+            background-repeat: no-repeat, no-repeat, no-repeat;
+            background-attachment: scroll, scroll, scroll;
+        }
+
         /* === WELCOME HERO (appears after masthead) === */
         .hero {
             width: 100vw;
@@ -81,11 +108,13 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Use a picture background (no translucent color blocks) */
-            background-image: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Photo background */
+            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            /* Make the top/bottom colors clearly different */
+            --band-top: var(--band-b);
+            --band-bottom: var(--band-g);
+            --band-tint: var(--band-r);
+            --band-tint-opacity: 0.40;
             background-color: #9FC5CB;
             border-bottom: none;
             /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
@@ -112,10 +141,10 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: var(--band-r);
+            background-image: var(--band-tint);
             background-size: cover;
             background-position: center;
-            opacity: 0.56; /* let the photo show through */
+            opacity: var(--band-tint-opacity); /* keep photo texture visible */
             pointer-events: none;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
@@ -161,7 +190,7 @@
             background: rgba(248, 210, 156, 0.55); /* brand orange tint */
             border-radius: 999px;
         }
-
+        
         .hero-content h1 {
             color: var(--deep-indigo);
             font-size: 3.2rem;
@@ -451,12 +480,35 @@
         #section-about-us { padding-top: 52px; padding-bottom: 60px; }
         #section-partners { padding-top: 52px; padding-bottom: 56px; }
 
+        /* Make each section feel distinct (top/bottom strips must differ) */
+        #section-who-we-are {
+            --band-top: var(--band-g);
+            --band-bottom: var(--band-b);
+            --band-tint: var(--band-g);
+            --band-tint-opacity: 0.34;
+        }
+        #section-echo-cat {
+            --band-top: var(--band-b);
+            --band-bottom: var(--band-r);
+            --band-tint: var(--band-b);
+            --band-tint-opacity: 0.28;
+        }
+        #section-about-us {
+            --band-top: var(--band-r);
+            --band-bottom: var(--band-g);
+            --band-tint: var(--band-r);
+            --band-tint-opacity: 0.30;
+        }
+        #section-partners {
+            --band-top: var(--band-g);
+            --band-bottom: var(--band-r);
+            --band-tint: var(--band-g);
+            --band-tint-opacity: 0.28;
+        }
+
         .about-section {
-            /* picture background (no translucent color blocks) */
-            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Photo background */
+            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             text-align: left;
         }
 
@@ -506,10 +558,11 @@
         .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }
 
         .consultant-section {
-            background-image: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+            --band-top: var(--band-r);
+            --band-bottom: var(--band-b);
+            --band-tint: var(--band-g);
+            --band-tint-opacity: 0.30;
         }
 
         .consultant-card {
@@ -539,10 +592,11 @@
         .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
 
         .social-manual {
-            background-image: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
+            --band-top: var(--band-b);
+            --band-bottom: var(--band-r);
+            --band-tint: var(--band-b);
+            --band-tint-opacity: 0.24;
             text-align: center;
         }
         /* Remove built-in margins inside embeds to avoid top gaps */
@@ -1148,73 +1202,19 @@
     .photo-rect, .banner-rect { transition: transform 0.3s ease; }
     .photo-rect:hover, .banner-rect:hover { transform: scale(1.01); }
 
-    /* About/partners blocks: section-level veil so content is readable without cards */
+    /* About/partners blocks: readability veil (use section band tint, still shows photo texture) */
     .about-section { position: relative; }
     .about-section::before {
         content: "";
         position: absolute;
         inset: 0;
-        background-image: var(--band-g);
+        background-image: var(--band-tint);
         background-size: cover;
         background-position: center;
-        opacity: 0.44;
+        opacity: var(--band-tint-opacity);
         pointer-events: none;
     }
     .about-section .container { position: relative; z-index: 2; }
-
-    /* ============================================================
-       SECTION DIVIDERS (make separation obvious + beautiful)
-       - no gradients
-       - minimal brand usage (neutral ink + soft paper overlays)
-       ============================================================ */
-    .hero,
-    .about-section,
-    .consultant-section,
-    .social-manual,
-    .socials-qr-section {
-        position: relative;
-        isolation: isolate; /* keep divider effects contained */
-    }
-
-    /* a clear, soft “band edge” at top & bottom of each section */
-    .hero::after,
-    .about-section::after,
-    .consultant-section::after,
-    .social-manual::after,
-    .socials-qr-section::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -1px;
-        height: 22px;
-        pointer-events: none;
-        z-index: 3;
-        /* two crisp lines + a soft shadow band (no gradients) */
-        background:
-            linear-gradient(transparent, transparent) no-repeat; /* placeholder for older browsers */
-        box-shadow: 0 -10px 18px rgba(42, 61, 102, 0.10);
-        border-top: 1px solid rgba(42, 61, 102, 0.18);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-        backdrop-filter: blur(2px);
-    }
-
-    /* add a top edge too, so sections read as distinct “bands” */
-    .hero::after,
-    .about-section::after,
-    .consultant-section::after,
-    .social-manual::after,
-    .socials-qr-section::after {
-        border-top-left-radius: 999px;
-        border-top-right-radius: 999px;
-    }
-
-    /* extra spacing rhythm so the divider has room to read */
-    .hero { padding-bottom: 64px; }
-    .about-section { padding-bottom: 64px; }
-    .consultant-section { padding-bottom: 64px; }
-    .social-manual { padding-bottom: 64px; }
-    .socials-qr-section { padding-bottom: 72px; }
     </style>
 {% endblock %}
 
@@ -1532,10 +1532,13 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Photo background + obvious (different) top/bottom paper strips */
+            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            --band-top: var(--band-b);
+            --band-bottom: var(--band-r);
+            --band-tint: var(--band-b);
+            --band-tint-opacity: 0.26;
+
             background-color: #9FC5CB;
             padding: 48px 0 56px;
             text-align: center;
@@ -1547,10 +1550,10 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: var(--band-b);
+            background-image: var(--band-tint);
             background-size: cover;
             background-position: center;
-            opacity: 0.28;
+            opacity: var(--band-tint-opacity);
             pointer-events: none;
         }
         .socials-qr-section .container { position: relative; z-index: 1; }
@@ -1731,7 +1734,7 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // =============================================
     // HOMEPAGE-SPECIFIC GSAP ANIMATIONS - IMPROVED
     // =============================================

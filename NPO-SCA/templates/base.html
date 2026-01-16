@@ -46,6 +46,11 @@
             --gentle-lavender: var(--brand-blue);
             --dark-indigo: #1e2e4f;
             --light-yellow: #fbe6bf;
+
+            /* Soft band overlays (use for backgrounds, keep brand colors for UI elements) */
+            --band-b: url("{{ url_for('static', filename='img/bg-b.png') }}");
+            --band-g: url("{{ url_for('static', filename='img/bg-g.png') }}");
+            --band-r: url("{{ url_for('static', filename='img/bg-r.png') }}");
         }
 
         * {
@@ -83,13 +88,8 @@
         /* No global veil — use the picture backgrounds directly */
         body::before { display: none; }
 
-        /* Soft floating shapes */
-        .bg-shapes {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
+        /* Decorative blobs: disable to keep theme colors primarily on UI elements */
+        .bg-shapes { display: none !important; }
 
         .bg-shapes .blob {
             position: absolute;
@@ -673,25 +673,25 @@
             box-shadow: 2px 2px 0px rgba(42, 61, 102, 0.35);
         }
 
-        /* Content Sections - big calm blocks like selfcareapy (solid fills) */
+        /* Content Sections - calm spacing; avoid large brand-colored blocks */
         .content-section {
-            background: rgba(159, 197, 203, 0.18); /* brand blue tint */
+            background: rgba(253, 251, 247, 0.60);
             border-radius: 18px;
             padding: 30px;
             margin-bottom: 25px;
-            border: 2px solid rgba(42, 61, 102, 0.1);
-            border-left: 5px solid var(--soft-yellow);
-            box-shadow: 5px 5px 0px rgba(42, 61, 102, 0.25), 0 10px 28px rgba(42, 61, 102, 0.08);
+            border: 1px solid rgba(42, 61, 102, 0.08);
+            border-left: 0;
+            box-shadow: none;
         }
 
         /* Alternate section colors automatically inside a page-container */
         .page-container .content-section:nth-of-type(odd) {
-            background: rgba(159, 197, 203, 0.18); /* blue */
-            border-left-color: #F8D29C; /* orange */
+            background: rgba(253, 251, 247, 0.60);
+            border-left-color: transparent;
         }
         .page-container .content-section:nth-of-type(even) {
-            background: rgba(173, 203, 164, 0.18); /* green */
-            border-left-color: #9FC5CB; /* blue */
+            background: rgba(253, 251, 247, 0.60);
+            border-left-color: transparent;
         }
 
         /* Cards stay white for readability (like selfcareapy) */

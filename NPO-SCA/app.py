@@ -61,6 +61,23 @@ try:
 
     socketio = SocketIO(app, async_mode='eventlet')
 
+    @app.after_request
+    def add_no_cache_headers(response):
+        """
+        Prevent stale HTML being served from browser/CDN caches while iterating on UI.
+        Keep static assets cacheable via their filenames / query cache-busters.
+        """
+        try:
+            ct = (response.headers.get('Content-Type') or '').lower()
+            if 'text/html' in ct:
+                response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+                response.headers['Pragma'] = 'no-cache'
+                response.headers['Expires'] = '0'
+        except Exception:
+            # Never break responses due to header logic
+            pass
+        return response
+
     # In-memory, short-lived IP buckets for basic rate limiting (per process)
     LETTER_IP_BUCKETS = {}
     IP_WINDOW_SECONDS = 60

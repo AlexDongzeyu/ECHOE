@@ -88,7 +88,7 @@
             /* Defaults; override per-section below */
             --band-photo: none;            /* bg1–bg4 paper texture (base layer) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --section-bg-opacity: 0.85;    /* pure color at 85% opacity so paper shows through */
+            --section-bg-opacity: 0.30;    /* reduced from 0.85 to 0.30 to show paper texture better */
             --band-photo-opacity: 1.0;     /* texture is fully visible as base */
             --band-divider: var(--band-b);
 
@@ -616,39 +616,137 @@
         .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
 
         .social-manual {
-            --section-bg-color: #D4E8EC; /* blue at 85% opacity */
+            --section-bg-color: #D4E8EC; /* blue - reduced opacity to show paper texture */
+            --section-bg-opacity: 0.25; /* Reduced from 0.85 to 0.25 to show paper texture clearly */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --band-divider: var(--band-r);
             text-align: center;
+        }
+        
+        /* Ensure social-manual overlay doesn't blur or cover content */
+        body .social-manual::before {
+            opacity: 0.25 !important; /* Lower opacity to show paper texture clearly */
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            -moz-backdrop-filter: none !important;
+            filter: none !important;
+            z-index: 0 !important; /* Below content */
         }
         
         /* Ensure NO blur on social section content - override ALL possible blur sources */
         /* Use very high specificity to override base.html .page-container blur */
         body .social-manual,
         body .social-manual *,
+        body .social-manual *::before,
+        body .social-manual *::after,
         body .social-manual .container,
         body .social-manual .page-container,
         body .social-manual .post-card,
         body .social-manual .post-card *,
+        body .social-manual .post-card *::before,
+        body .social-manual .post-card *::after,
         body .social-manual .post-card .card-scroll,
         body .social-manual .post-card .card-scroll *,
+        body .social-manual .post-card .card-scroll *::before,
+        body .social-manual .post-card .card-scroll *::after,
         body .social-manual img,
         body .social-manual iframe,
         body .social-manual video,
         body .social-manual blockquote,
         body .social-manual blockquote *,
+        body .social-manual blockquote *::before,
+        body .social-manual blockquote *::after,
         body .social-manual embed,
         body .social-manual object,
+        body .social-manual canvas,
+        body .social-manual svg,
         body .socials-qr-section,
         body .socials-qr-section *,
+        body .socials-qr-section *::before,
+        body .socials-qr-section *::after,
         body .socials-qr-section .container,
         body .socials-qr-section .page-container,
         body .socials-qr-section .qr-card,
-        body .socials-qr-section .qr-card * {
+        body .socials-qr-section .qr-card *,
+        body .socials-qr-section .qr-card *::before,
+        body .socials-qr-section .qr-card *::after {
             filter: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
+            -moz-backdrop-filter: none !important;
         }
+        
+        /* Crisp image rendering - force sharp images */
+        body .social-manual img,
+        body .social-manual .ig-gallery img,
+        body .social-manual .ig-item img,
+        body .socials-qr-section img,
+        body .socials-qr-section .qr-image {
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: auto !important;
+            -ms-interpolation-mode: bicubic !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
+        }
+        
+        /* Crisp text rendering */
+        body .social-manual,
+        body .social-manual *,
+        body .socials-qr-section,
+        body .socials-qr-section * {
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            text-rendering: optimizeLegibility !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+        }
+        
+        /* Ensure embeds and iframes are crisp */
+        body .social-manual iframe,
+        body .social-manual embed,
+        body .social-manual object,
+        body .social-manual video,
+        body .social-manual blockquote {
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            will-change: auto !important;
+        }
+        
+        /* Ensure section background overlays don't blur content */
+        body .social-manual::before {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            -moz-backdrop-filter: none !important;
+            filter: none !important;
+            opacity: 0.45 !important; /* Lower opacity to show paper texture */
+            z-index: 0 !important; /* Behind content */
+        }
+        body .socials-qr-section::before {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            -moz-backdrop-filter: none !important;
+            filter: none !important;
+            opacity: 0.25 !important; /* Lower opacity to show paper texture clearly */
+            z-index: 0 !important; /* Behind content */
+        }
+        
+        /* Ensure socials-qr-section content is above overlay and crisp */
+        body .socials-qr-section > *,
+        body .socials-qr-section h2,
+        body .socials-qr-section .container,
+        body .socials-qr-section .qr-card,
+        body .socials-qr-section .qr-card *,
+        body .socials-qr-section img,
+        body .socials-qr-section svg,
+        body .socials-qr-section a,
+        body .socials-qr-section p,
+        body .socials-qr-section div {
+            position: relative !important;
+            z-index: 10 !important; /* Above overlay */
+        }
+        
         /* Remove built-in margins inside embeds to avoid top gaps */
         .social-manual blockquote.instagram-media,
         .social-manual blockquote.tiktok-embed{ margin:0 !important; }
@@ -661,7 +759,50 @@
             width: 100%;
         }
         .post-card { width: 100%; }
-        .social-manual .container { max-width: 1300px; }
+        .social-manual .container { 
+            max-width: 1300px;
+            position: relative;
+            z-index: 10 !important; /* Much higher to be above overlay */
+        }
+        
+        /* Ensure all content in social-manual is above overlay */
+        body .social-manual > *,
+        body .social-manual h2,
+        body .social-manual .font-serif,
+        body .social-manual .post-grid,
+        body .social-manual #community-grid,
+        body .social-manual .post-card,
+        body .social-manual .card-scroll,
+        body .social-manual blockquote,
+        body .social-manual iframe,
+        body .social-manual embed,
+        body .social-manual a,
+        body .social-manual p,
+        body .social-manual span,
+        body .social-manual div {
+            position: relative !important;
+            z-index: 10 !important; /* Above overlay */
+        }
+        
+        /* Ensure text elements are crisp and above overlay */
+        body .social-manual h2,
+        body .social-manual h2.font-serif,
+        body .social-manual p,
+        body .social-manual span,
+        body .social-manual div,
+        body .social-manual strong,
+        body .social-manual em {
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        
+        /* Ensure nested content is also above overlay */
+        body .social-manual .post-card *,
+        body .social-manual .card-scroll *,
+        body .social-manual #community-grid * {
+            position: relative !important;
+            z-index: 11 !important; /* Even higher for nested content */
+        }
         @media (max-width: 1024px) { #community-grid { grid-template-columns: 1fr; } }
         /* Equal height social cards with internal scroll (reduced excess space) */
         .post-card.social-equal { height: clamp(700px, 78vh, 900px); display: flex; }
@@ -695,6 +836,10 @@
             filter: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
+            -moz-backdrop-filter: none !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            will-change: auto !important;
         }
         /* Optional legacy helper (unused) */
         .post-card.equal-height { height: clamp(760px, 85vh, 1200px); }
@@ -731,6 +876,12 @@
             max-height: none !important;
             object-fit: cover;
             object-position: center center;
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: auto !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
         }
         @media (max-width: 640px) {
             .ig-gallery .ig-item { flex: 0 0 100%; }
@@ -1184,6 +1335,17 @@
         background-position: center;
         opacity: 0.30; /* subtle band texture/tint over the photo */
         pointer-events: none;
+        z-index: 0 !important; /* Behind content */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+        filter: none !important;
+    }
+    
+    /* Ensure social-manual section-cork doesn't cover content */
+    body .social-manual.section-cork::before {
+        z-index: 0 !important; /* Behind all content */
+        opacity: 0.30 !important;
     }
     .section-grid-pattern {
         position: relative;
@@ -1423,8 +1585,8 @@
         </section>
         
         <section class="social-manual section-cork" id="section-community">
-            <div class="container">
-                <h2 style="margin-bottom:18px;" class="font-serif animate-fade-up">From Our Community</h2>
+            <div class="container" style="position:relative; z-index:10;">
+                <h2 style="margin-bottom:18px; position:relative; z-index:10;" class="font-serif animate-fade-up">From Our Community</h2>
                 
                 <div id="community-grid" class="post-grid">
                 <!-- Left: TikTok + YouTube stacked in one scrollable box -->
@@ -1575,8 +1737,9 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            /* Pure blue at 85% opacity over paper texture */
+            /* Pure blue at reduced opacity over paper texture */
             --section-bg-color: #D4E8EC; /* blue */
+            --section-bg-opacity: 0.25; /* Reduced from 0.85 to 0.25 to show paper texture clearly */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --band-divider: var(--band-r);
 
@@ -1585,7 +1748,10 @@
             position: relative;
             border-top: 1px solid rgba(42, 61, 102, 0.18);
         }
-        .socials-qr-section .container { position: relative; z-index: 1; }
+        .socials-qr-section .container { 
+            position: relative; 
+            z-index: 10 !important; /* Above overlay */
+        }
         .socials-qr-section h2 {
             color: #2A3D66;
             font-size: 2.2rem;
@@ -1684,6 +1850,12 @@
             border-radius: 12px;
             display: block;
             margin: 0 auto;
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: auto !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
         }
 
         .qr-label {
@@ -1799,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .to('.home-masthead', {
                 backgroundPositionY: '86%',
                 opacity: 0.42,
-                filter: 'blur(2px)',
+                filter: 'blur(0px)',
                 ease: 'none'
             }, 0)
             .fromTo(

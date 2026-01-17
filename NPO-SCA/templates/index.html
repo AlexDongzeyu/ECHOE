@@ -86,9 +86,9 @@
             isolation: isolate;
 
             /* Defaults; override per-section below */
-            --band-photo: none;            /* bg1–bg4 paper texture (faint overlay) */
+            --band-photo: none;            /* bg1–bg4 paper texture (visible overlay) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --band-photo-opacity: 0.08;    /* texture is very subtle */
+            --band-photo-opacity: 0.22;    /* texture is visible but pure color still dominates */
             --band-divider: var(--band-b);
 
             /* Base = pure solid color (NOT an image, so it's guaranteed opaque) */
@@ -148,10 +148,10 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Pure beige/cream (bg-r dominant color) + very subtle paper texture */
+            /* Pure beige/cream (bg-r dominant color) + visible paper texture */
             --section-bg-color: #EDE6D9;
             --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-g);
             background-color: #9FC5CB;
             border-bottom: none;
@@ -513,22 +513,22 @@
         /* Make each section feel distinct (solid colors dominate; paper texture is subtle) */
         #section-who-we-are {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-b);
         }
         #section-echo-cat {
             --section-bg-color: #D4E8EC; /* blue from bg-b.png */
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-r);
         }
         #section-about-us {
             --section-bg-color: #EDE6D9; /* beige from bg-r.png */
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-g);
         }
         #section-partners {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-r);
         }
 
@@ -586,7 +586,7 @@
         .consultant-section {
             --section-bg-color: #EDE6D9; /* beige */
             --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-g);
         }
 
@@ -619,9 +619,21 @@
         .social-manual {
             --section-bg-color: #D4E8EC; /* blue */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-r);
             text-align: center;
+        }
+        
+        /* Ensure NO blur on social section content */
+        .social-manual *,
+        .social-manual .post-card,
+        .social-manual .post-card *,
+        .social-manual img,
+        .social-manual iframe,
+        .social-manual blockquote {
+            filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
         /* Remove built-in margins inside embeds to avoid top gaps */
         .social-manual blockquote.instagram-media,
@@ -1545,10 +1557,10 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            /* Pure blue solid color with subtle paper texture */
+            /* Pure blue solid color with visible paper texture */
             --section-bg-color: #D4E8EC; /* blue */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-photo-opacity: 0.08;
+            --band-photo-opacity: 0.22;
             --band-divider: var(--band-r);
 
             padding: 48px 0 56px;

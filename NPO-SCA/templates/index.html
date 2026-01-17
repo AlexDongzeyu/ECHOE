@@ -88,7 +88,7 @@
             /* Defaults; override per-section below */
             --band-photo: none;            /* bg1–bg4 paper texture (base layer) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --section-bg-opacity: 0.30;    /* reduced from 0.85 to 0.30 to show paper texture better */
+            --section-bg-opacity: 0.70;    /* balanced: color dominates but paper texture is visible */
             --band-photo-opacity: 1.0;     /* texture is fully visible as base */
             --band-divider: var(--band-b);
 
@@ -616,8 +616,8 @@
         .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
 
         .social-manual {
-            --section-bg-color: #D4E8EC; /* blue - reduced opacity to show paper texture */
-            --section-bg-opacity: 0.25; /* Reduced from 0.85 to 0.25 to show paper texture clearly */
+            --section-bg-color: #D4E8EC; /* blue - balanced opacity to show paper texture while color dominates */
+            --section-bg-opacity: 0.65; /* Balanced: color dominates but paper texture is visible */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --band-divider: var(--band-r);
             text-align: center;
@@ -625,7 +625,7 @@
         
         /* Ensure social-manual overlay doesn't blur or cover content */
         body .social-manual::before {
-            opacity: 0.25 !important; /* Lower opacity to show paper texture clearly */
+            opacity: 0.65 !important; /* Balanced: color dominates but paper texture is visible */
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;

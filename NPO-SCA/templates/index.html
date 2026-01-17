@@ -88,7 +88,7 @@
             /* Defaults; override per-section below */
             --band-photo: none;            /* bg1–bg4 paper texture (visible overlay) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --band-photo-opacity: 0.22;    /* texture is visible but pure color still dominates */
+            --band-photo-opacity: 0.35;    /* texture is clearly visible while pure color dominates */
             --band-divider: var(--band-b);
 
             /* Base = pure solid color (NOT an image, so it's guaranteed opaque) */
@@ -151,7 +151,7 @@
             /* Pure beige/cream (bg-r dominant color) + visible paper texture */
             --section-bg-color: #EDE6D9;
             --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-g);
             background-color: #9FC5CB;
             border-bottom: none;
@@ -513,22 +513,22 @@
         /* Make each section feel distinct (solid colors dominate; paper texture is subtle) */
         #section-who-we-are {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-b);
         }
         #section-echo-cat {
             --section-bg-color: #D4E8EC; /* blue from bg-b.png */
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
         }
         #section-about-us {
             --section-bg-color: #EDE6D9; /* beige from bg-r.png */
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-g);
         }
         #section-partners {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
         }
 
@@ -586,7 +586,7 @@
         .consultant-section {
             --section-bg-color: #EDE6D9; /* beige */
             --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-g);
         }
 
@@ -619,18 +619,29 @@
         .social-manual {
             --section-bg-color: #D4E8EC; /* blue */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
             text-align: center;
         }
         
-        /* Ensure NO blur on social section content */
+        /* Ensure NO blur on social section content - override ALL possible blur sources */
+        .social-manual,
         .social-manual *,
+        .social-manual .container,
         .social-manual .post-card,
         .social-manual .post-card *,
+        .social-manual .post-card .card-scroll,
+        .social-manual .post-card .card-scroll *,
         .social-manual img,
         .social-manual iframe,
-        .social-manual blockquote {
+        .social-manual video,
+        .social-manual blockquote,
+        .social-manual .page-container,
+        .socials-qr-section,
+        .socials-qr-section *,
+        .socials-qr-section .container,
+        .socials-qr-section .qr-card,
+        .socials-qr-section .qr-card * {
             filter: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -1560,7 +1571,7 @@
             /* Pure blue solid color with visible paper texture */
             --section-bg-color: #D4E8EC; /* blue */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-photo-opacity: 0.22;
+            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
 
             padding: 48px 0 56px;

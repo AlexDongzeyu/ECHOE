@@ -86,17 +86,21 @@
             isolation: isolate;
 
             /* Defaults; override per-section below */
-            --band-photo: none;            /* bg1–bg4 paper texture (visible overlay) */
+            --band-photo: none;            /* bg1–bg4 paper texture (base layer) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --band-photo-opacity: 0.35;    /* texture is clearly visible while pure color dominates */
+            --section-bg-opacity: 0.85;    /* pure color at 85% opacity so paper shows through */
+            --band-photo-opacity: 1.0;     /* texture is fully visible as base */
             --band-divider: var(--band-b);
 
-            /* Base = pure solid color (NOT an image, so it's guaranteed opaque) */
-            background-color: var(--section-bg-color);
-            background-image: none;
+            /* Base = paper texture (fully visible) */
+            background-image: var(--band-photo);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: transparent;
         }
 
-        /* Very faint paper texture overlay (user mainly sees the solid color) */
+        /* Pure color overlay (85% opacity) - dominates but paper texture shows through */
         .hero::before,
         .about-section::before,
         .consultant-section::before,
@@ -105,11 +109,8 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: var(--band-photo);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: var(--band-photo-opacity);
+            background-color: var(--section-bg-color);
+            opacity: var(--section-bg-opacity);
             pointer-events: none;
             z-index: 1;
         }
@@ -148,10 +149,9 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Pure beige/cream (bg-r dominant color) + visible paper texture */
+            /* Pure beige/cream (bg-r dominant color at 85% opacity over paper texture) */
             --section-bg-color: #EDE6D9;
             --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --band-photo-opacity: 0.35;
             --band-divider: var(--band-g);
             background-color: #9FC5CB;
             border-bottom: none;
@@ -510,25 +510,25 @@
         #section-about-us { padding-top: 52px; padding-bottom: 60px; }
         #section-partners { padding-top: 52px; padding-bottom: 56px; }
 
-        /* Make each section feel distinct (solid colors dominate; paper texture is subtle) */
+        /* Make each section feel distinct (pure color at 85% opacity over paper texture) */
         #section-who-we-are {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.35;
+            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --band-divider: var(--band-b);
         }
         #section-echo-cat {
             --section-bg-color: #D4E8EC; /* blue from bg-b.png */
-            --band-photo-opacity: 0.35;
+            --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --band-divider: var(--band-r);
         }
         #section-about-us {
             --section-bg-color: #EDE6D9; /* beige from bg-r.png */
-            --band-photo-opacity: 0.35;
+            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --band-divider: var(--band-g);
         }
         #section-partners {
             --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo-opacity: 0.35;
+            --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --band-divider: var(--band-r);
         }
 
@@ -584,9 +584,8 @@
         .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }
 
         .consultant-section {
-            --section-bg-color: #EDE6D9; /* beige */
+            --section-bg-color: #EDE6D9; /* beige at 85% opacity */
             --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-photo-opacity: 0.35;
             --band-divider: var(--band-g);
         }
 
@@ -617,31 +616,35 @@
         .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
 
         .social-manual {
-            --section-bg-color: #D4E8EC; /* blue */
+            --section-bg-color: #D4E8EC; /* blue at 85% opacity */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
             text-align: center;
         }
         
         /* Ensure NO blur on social section content - override ALL possible blur sources */
-        .social-manual,
-        .social-manual *,
-        .social-manual .container,
-        .social-manual .post-card,
-        .social-manual .post-card *,
-        .social-manual .post-card .card-scroll,
-        .social-manual .post-card .card-scroll *,
-        .social-manual img,
-        .social-manual iframe,
-        .social-manual video,
-        .social-manual blockquote,
-        .social-manual .page-container,
-        .socials-qr-section,
-        .socials-qr-section *,
-        .socials-qr-section .container,
-        .socials-qr-section .qr-card,
-        .socials-qr-section .qr-card * {
+        /* Use very high specificity to override base.html .page-container blur */
+        body .social-manual,
+        body .social-manual *,
+        body .social-manual .container,
+        body .social-manual .page-container,
+        body .social-manual .post-card,
+        body .social-manual .post-card *,
+        body .social-manual .post-card .card-scroll,
+        body .social-manual .post-card .card-scroll *,
+        body .social-manual img,
+        body .social-manual iframe,
+        body .social-manual video,
+        body .social-manual blockquote,
+        body .social-manual blockquote *,
+        body .social-manual embed,
+        body .social-manual object,
+        body .socials-qr-section,
+        body .socials-qr-section *,
+        body .socials-qr-section .container,
+        body .socials-qr-section .page-container,
+        body .socials-qr-section .qr-card,
+        body .socials-qr-section .qr-card * {
             filter: none !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -688,6 +691,10 @@
             flex-direction: column;
             justify-content: flex-start; /* top align */
             align-items: stretch;
+            /* Ensure NO blur on post-card */
+            filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
         /* Optional legacy helper (unused) */
         .post-card.equal-height { height: clamp(760px, 85vh, 1200px); }
@@ -1568,10 +1575,9 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            /* Pure blue solid color with visible paper texture */
+            /* Pure blue at 85% opacity over paper texture */
             --section-bg-color: #D4E8EC; /* blue */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-photo-opacity: 0.35;
             --band-divider: var(--band-r);
 
             padding: 48px 0 56px;

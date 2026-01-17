@@ -720,7 +720,7 @@
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;
             filter: none !important;
-            opacity: 0.45 !important; /* Lower opacity to show paper texture */
+            opacity: 0.65 !important; /* Balanced: color dominates but paper texture is visible */
             z-index: 0 !important; /* Behind content */
         }
         body .socials-qr-section::before {
@@ -728,7 +728,7 @@
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;
             filter: none !important;
-            opacity: 0.25 !important; /* Lower opacity to show paper texture clearly */
+            opacity: 0.65 !important; /* Balanced: color dominates but paper texture is visible */
             z-index: 0 !important; /* Behind content */
         }
         
@@ -1737,9 +1737,9 @@
         <style>
         /* ========== OUR SOCIALS QR CODE SECTION ========== */
         .socials-qr-section {
-            /* Pure blue at reduced opacity over paper texture */
+            /* Pure blue at balanced opacity over paper texture */
             --section-bg-color: #D4E8EC; /* blue */
-            --section-bg-opacity: 0.25; /* Reduced from 0.85 to 0.25 to show paper texture clearly */
+            --section-bg-opacity: 0.65; /* Balanced: color dominates but paper texture is visible */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --band-divider: var(--band-r);
 

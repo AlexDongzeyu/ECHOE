@@ -10,20 +10,20 @@
 .chat-button {
     display: flex;
     align-items: center;
-    background-color: #D8E2D0 !important; /* Lighter green - accent-green from theme */
+    background-color: rgba(216, 226, 208, 0.65) !important; /* Even lighter green with transparency */
     color: var(--deep-indigo, #2A3D66);
-    border: 2px solid rgba(42, 61, 102, 0.25) !important;
+    border: 2px solid rgba(42, 61, 102, 0.2) !important;
     border-radius: 30px;
     padding: 12px 20px;
     cursor: pointer;
-    box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.4), 0 4px 12px rgba(42, 61, 102, 0.08);
+    box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.35), 0 4px 12px rgba(42, 61, 102, 0.06);
     transition: all 0.25s ease;
 }
 
 .chat-button:hover {
-    box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.4), 0 6px 16px rgba(42, 61, 102, 0.12);
+    box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.35), 0 6px 16px rgba(42, 61, 102, 0.1);
     transform: translate(2px, 2px);
-    background: #C9D8C0 !important; /* Slightly darker green on hover */
+    background: rgba(216, 226, 208, 0.85) !important; /* Slightly more opaque on hover */
 }
 
 .chat-button.active {

@@ -719,6 +719,14 @@
         --band-divider: var(--band-r);
     }
 
+    /* Community section - add pure color overlay with paper texture */
+    #section-community {
+        --section-bg-color: #F4D2C8;
+        /* pink from accent-pink - pure color overlay */
+        --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+        --band-divider: var(--band-g);
+    }
+
     .about-section {
         /* Photo texture overlay */
         --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");

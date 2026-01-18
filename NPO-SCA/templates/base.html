@@ -740,28 +740,27 @@
 
         /* === GLOBAL HEADING ACCENT UNDERLINES === */
         /* Subtle decorative underlines for section headings - all pages */
-        .content-section h2,
-        .page-container h2:not(.page-header h1) {
-            position: relative;
-            display: inline-block;
-        }
 
-        .content-section h2::after {
-            content: "";
-            display: block;
-            width: 48px;
-            height: 2px;
-            background: var(--soft-yellow, #F8D29C);
-            margin: 8px 0 0 0;
-            border-radius: 1px;
-            opacity: 0.65;
-        }
-
+        /* First set base h2 styles with inline-block for ::after to work */
         .content-section h2 {
             color: var(--deep-indigo);
             margin-bottom: 20px;
             font-size: 1.8rem;
             font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Then add the decorative underline */
+        .content-section h2::after {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: var(--soft-yellow, #F8D29C);
+            margin: 10px 0 0 0;
+            border-radius: 2px;
+            opacity: 0.75;
         }
 
         .content-section h3 {

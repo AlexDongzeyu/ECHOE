@@ -115,7 +115,7 @@
             z-index: 1;
         }
 
-        /* Enhanced section separation - more obvious and visually appealing (inspired by selfcareapy) */
+        /* Premium section separation - sophisticated layered design (inspired by selfcareapy & modern web design) */
         .hero::after,
         .about-section::after,
         .consultant-section::after,
@@ -126,21 +126,38 @@
             left: 0;
             right: 0;
             bottom: -1px;
-            height: 32px; /* Increased from 26px for more prominence */
+            height: 44px; /* Increased for more visual prominence */
+            /* Base: Pattern texture layer */
             background-image: var(--band-divider);
             background-size: cover;
             background-position: center;
-            opacity: 1.0; /* Full opacity for pattern visibility */
+            background-repeat: no-repeat;
+            /* Gradient overlay for depth and visual interest */
+            background: 
+                linear-gradient(
+                    to bottom,
+                    rgba(42, 61, 102, 0.08) 0%,
+                    rgba(42, 61, 102, 0.04) 30%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.15) 70%,
+                    rgba(255, 255, 255, 0.25) 100%
+                ),
+                var(--band-divider);
+            background-size: 100% 100%, cover;
+            background-position: center, center;
+            opacity: 1.0;
             pointer-events: none;
             z-index: 3;
-            /* Enhanced borders - more obvious and contrasting */
-            border-top: 3px solid rgba(42, 61, 102, 0.35); /* Thicker, more visible top border */
-            border-bottom: 3px solid rgba(255, 255, 255, 0.85); /* Thicker, brighter bottom border */
-            /* Enhanced shadow for depth and separation */
+            /* Prominent borders - strong contrast for clear separation */
+            border-top: 4px solid rgba(42, 61, 102, 0.45); /* Stronger, more visible top border */
+            border-bottom: 4px solid rgba(255, 255, 255, 0.95); /* Bright, crisp bottom border */
+            /* Sophisticated shadow system for 3D depth */
             box-shadow: 
-                0 -2px 0 rgba(42, 61, 102, 0.12), /* Subtle inner shadow */
-                0 -8px 20px rgba(42, 61, 102, 0.15), /* Deeper shadow for separation */
-                0 2px 4px rgba(255, 255, 255, 0.3); /* Highlight shadow below */
+                inset 0 1px 2px rgba(255, 255, 255, 0.4), /* Inner highlight for depth */
+                0 -3px 0 rgba(42, 61, 102, 0.18), /* Strong top shadow line */
+                0 -12px 28px rgba(42, 61, 102, 0.22), /* Deep shadow above for separation */
+                0 4px 8px rgba(255, 255, 255, 0.4), /* Bright highlight below */
+                0 1px 0 rgba(42, 61, 102, 0.1); /* Subtle bottom edge definition */
         }
 
         /* === WELCOME HERO (appears after masthead) === */

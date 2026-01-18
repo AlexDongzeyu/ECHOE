@@ -2166,18 +2166,22 @@
         box-shadow: 0 4px 12px rgba(248, 210, 156, 0.15);
     }
 
-    /* === SOFTER CONSULTANT CARD (only if not explicitly transparent) === */
-    .consultant-card:not([style*="background:transparent"]):not([style*="background: transparent"]) {
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 18px;
-        padding: 28px;
-        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
-        border: 1px solid rgba(42, 61, 102, 0.08);
+    /* === SOFTER CONSULTANT CARD === */
+    /* Note: Respects inline styles where background is explicitly transparent */
+    .consultant-card:not([style*="box-shadow:none"]) {
         transition: all 0.3s ease;
     }
 
-    .consultant-card:not([style*="background:transparent"]):not([style*="background: transparent"]):hover {
-        box-shadow: 0 6px 20px rgba(42, 61, 102, 0.1);
+    .consultant-card:not([style*="box-shadow:none"]):hover {
+        transform: translateY(-2px);
+    }
+
+    /* Apply styling only to consultant cards without explicit inline background */
+    .consultant-section .consultant-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .consultant-section .consultant-card:hover {
         transform: translateY(-2px);
     }
 

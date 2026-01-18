@@ -235,7 +235,7 @@
         border-top-left-radius: 28px;
         border-top-right-radius: 28px;
     }
-    
+
     /* Decorative top wave transition from banner to hero section - complements rounded corners */
     .home-masthead::after {
         content: "";
@@ -401,7 +401,8 @@
         pointer-events: none;
         flex-direction: column;
         gap: 14px;
-        margin-left: 3vw; /* Move logo to the right a bit */
+        margin-left: 3vw;
+        /* Move logo to the right a bit */
     }
 
     /* Simple identity mark beside the welcome copy */
@@ -880,11 +881,11 @@
         text-align: center;
     }
 
-    /* Override for community section - use pink overlay */
+    /* Override for community section - use warm beige overlay for consistency */
     #section-community.social-manual {
-        --section-bg-color: #F4D2C8 !important;
-        /* pink from accent-pink - pure color overlay */
-        --section-bg-opacity: 0.48 !important;
+        --section-bg-color: #EDE6D9 !important;
+        /* warm beige matching other sections */
+        --section-bg-opacity: 0.55 !important;
         --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
         --band-divider: var(--band-g);
     }
@@ -1123,15 +1124,15 @@
     }
 
     .post-card {
-        background: rgba(253, 251, 247, 0.92);
-        border: 2px solid rgba(42, 61, 102, 0.12);
-        border-radius: 12px;
+        background: rgba(253, 251, 247, 0.95);
+        border: 2px solid rgba(42, 61, 102, 0.10);
+        border-radius: 14px;
         overflow: hidden;
-        padding: 8px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        box-shadow: 2px 2px 0px var(--echoe-accent-pink), 0 4px 12px rgba(42, 61, 102, 0.08);
+        box-shadow: 2px 2px 0px rgba(248, 210, 156, 0.35), 0 4px 14px rgba(42, 61, 102, 0.06);
         transition: all 0.25s ease;
         /* top align */
         align-items: stretch;
@@ -1472,8 +1473,10 @@
     .page-index .btn-primary,
     body .btn-primary {
         position: relative !important;
-        background: rgba(253, 244, 197, 0.65) !important; /* Lighter yellow with transparency - matching floating buttons */
-        color: var(--echoe-primary) !important; /* #2B5F8C - deep indigo */
+        background: rgba(253, 244, 197, 0.65) !important;
+        /* Lighter yellow with transparency - matching floating buttons */
+        color: var(--echoe-primary) !important;
+        /* #2B5F8C - deep indigo */
         font-family: 'Nunito', sans-serif !important;
         font-weight: 700 !important;
         font-size: 0.95rem !important;
@@ -1492,15 +1495,18 @@
     body .btn-primary:hover {
         box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.4), 0 6px 16px rgba(42, 61, 102, 0.1) !important;
         transform: translate(2px, 2px) !important;
-        background: rgba(253, 244, 197, 0.85) !important; /* Slightly more opaque on hover */
+        background: rgba(253, 244, 197, 0.85) !important;
+        /* Slightly more opaque on hover */
     }
 
     body.page-index .btn-secondary,
     .page-index .btn-secondary,
     body .btn-secondary {
         position: relative !important;
-        background: rgba(143, 184, 222, 0.65) !important; /* Lighter blue with transparency - matching floating buttons */
-        color: var(--echoe-primary) !important; /* #2B5F8C - deep indigo */
+        background: rgba(143, 184, 222, 0.65) !important;
+        /* Lighter blue with transparency - matching floating buttons */
+        color: var(--echoe-primary) !important;
+        /* #2B5F8C - deep indigo */
         font-family: 'Nunito', sans-serif !important;
         font-weight: 700 !important;
         font-size: 0.95rem !important;
@@ -1519,7 +1525,8 @@
     body .btn-secondary:hover {
         box-shadow: 0px 0px 0px rgba(216, 226, 208, 0.4), 0 6px 16px rgba(42, 61, 102, 0.1) !important;
         transform: translate(2px, 2px) !important;
-        background: rgba(143, 184, 222, 0.85) !important; /* Slightly more opaque on hover */
+        background: rgba(143, 184, 222, 0.85) !important;
+        /* Slightly more opaque on hover */
     }
 
     /* === NAVBAR - NO UNDERLINES === */
@@ -2035,6 +2042,38 @@
         position: relative;
         z-index: 2;
     }
+
+    /* === SUBTLE SECTION HEADING ACCENTS === */
+    /* Decorative underline for section titles - very subtle, professional */
+    .about-section h2.font-serif,
+    .social-manual h2.font-serif,
+    .socials-qr-section h2.font-serif {
+        position: relative;
+        display: inline-block;
+    }
+
+    .about-section h2.font-serif::after,
+    .social-manual h2.font-serif::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        background: var(--brand-orange, #F8D29C);
+        margin: 10px auto 0;
+        border-radius: 1px;
+        opacity: 0.7;
+    }
+
+    /* Center headings in social sections */
+    .social-manual h2.font-serif {
+        display: block;
+        text-align: center;
+    }
+
+    /* Slightly increase line-height for better readability in text sections */
+    .about-card p {
+        line-height: 1.85;
+    }
 </style>
 {% endblock %}
 
@@ -2237,7 +2276,7 @@
     </div>
 </section>
 
-<section class="social-manual section-cork" id="section-community">
+<section class="social-manual" id="section-community">
     <div class="container" style="position:relative; z-index:10;">
         <h2 style="margin-bottom:18px; position:relative; z-index:10;" class="font-serif animate-fade-up">From Our
             Community</h2>
@@ -2512,7 +2551,7 @@
         transition: all 0.25s ease;
         position: relative;
     }
-    
+
     .qr-card:hover {
         box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 10px 24px rgba(42, 61, 102, 0.12);
         transform: translate(3px, 3px);

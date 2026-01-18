@@ -16,12 +16,14 @@
     border-radius: 30px;
     padding: 12px 20px;
     cursor: pointer;
-    box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.35), 0 4px 12px rgba(42, 61, 102, 0.06);
+    box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.4), 0 4px 12px rgba(42, 61, 102, 0.06);
     transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .chat-button:hover {
-    box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.35), 0 6px 16px rgba(42, 61, 102, 0.1);
+    box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.4), 0 6px 16px rgba(42, 61, 102, 0.1);
     transform: translate(2px, 2px);
     background: rgba(216, 226, 208, 0.85) !important; /* Slightly more opaque on hover */
 }

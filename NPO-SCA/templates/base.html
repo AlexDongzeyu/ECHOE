@@ -936,7 +936,7 @@
            (Panel styles are in inline <style> tag)
            ============================================ */
 
-        /* Floating Echo Button - Even lighter yellow from theme */
+        /* Floating Echo Button - Even lighter yellow from theme with liquid glass */
         .a11y-fab {
             position: fixed !important;
             right: 20px !important;
@@ -953,6 +953,8 @@
             box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.4), 0 4px 12px rgba(42, 61, 102, 0.06);
             cursor: pointer;
             transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .a11y-fab:hover {
@@ -2819,7 +2821,7 @@
         })();
     </script>
     <style>
-        /* Floating Write button - Even lighter pink from theme */
+        /* Floating Write button - Even lighter pink from theme with liquid glass */
         .fab-write {
             position: fixed !important;
             right: 20px !important;
@@ -2836,6 +2838,8 @@
             z-index: 10000;
             text-decoration: none !important;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .fab-write:hover {

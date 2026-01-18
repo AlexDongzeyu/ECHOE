@@ -593,14 +593,39 @@
             padding: 0 20px;
         }
 
-        /* Page Container - Soft cream, NO white! */
+        /* Page Container - Colored background with paper texture like homepage */
         .page-container {
-            background: rgba(253, 251, 247, 0.88);
+            position: relative;
+            overflow: hidden;
             border-radius: 24px;
             padding: 40px;
             border: 2.5px solid rgba(42, 61, 102, 0.1);
             box-shadow: 8px 8px 0px rgba(42, 61, 102, 0.3), 0 15px 40px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
+
+            /* Paper texture background */
+            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Color overlay for page-container */
+        .page-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: #D8E8D0;
+            /* Soft green overlay */
+            opacity: 0.55;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 24px;
+        }
+
+        /* Ensure content appears above the overlay */
+        .page-container>* {
+            position: relative;
+            z-index: 1;
         }
 
         .page-header {
@@ -710,25 +735,43 @@
             box-shadow: 2px 2px 0px rgba(42, 61, 102, 0.35);
         }
 
-        /* Content Sections - calm spacing with subtle left accent */
+        /* Content Sections - colored backgrounds with left accent */
         .content-section {
-            background: rgba(253, 251, 247, 0.72);
+            background: rgba(237, 230, 217, 0.85);
+            /* Warm beige */
             border-radius: 18px;
             padding: 30px;
             margin-bottom: 25px;
             border: 1px solid rgba(42, 61, 102, 0.08);
             border-left: 3px solid var(--soft-yellow);
-            box-shadow: none;
+            box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
         }
 
         /* Alternate section colors automatically inside a page-container */
         .page-container .content-section:nth-of-type(odd) {
-            background: rgba(253, 251, 247, 0.72);
+            background: rgba(212, 232, 236, 0.75);
+            /* Soft blue */
+            border-left-color: var(--gentle-lavender);
         }
 
         .page-container .content-section:nth-of-type(even) {
-            background: rgba(253, 251, 247, 0.68);
-            border-left-color: var(--gentle-lavender);
+            background: rgba(237, 230, 217, 0.80);
+            /* Warm beige */
+            border-left-color: var(--soft-yellow);
+        }
+
+        /* Third variant for variety */
+        .page-container .content-section:nth-of-type(3n) {
+            background: rgba(216, 232, 208, 0.75);
+            /* Soft green */
+            border-left-color: var(--brand-green);
+        }
+
+        /* Fourth variant for variety */
+        .page-container .content-section:nth-of-type(4n) {
+            background: rgba(244, 210, 200, 0.65);
+            /* Soft pink */
+            border-left-color: var(--brand-orange);
         }
 
         /* Cards stay white for readability (like selfcareapy) */

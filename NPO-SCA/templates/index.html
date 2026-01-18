@@ -393,30 +393,28 @@
     }
 
     .hero-media {
-        width: 40%;
-        max-width: 420px;
+        width: 45%;
+        max-width: 480px;
         display: flex;
         justify-content: center;
         align-items: center;
         pointer-events: none;
         flex-direction: column;
         gap: 14px;
-        margin-left: 3vw;
-        /* Move logo to the right a bit */
+        margin-left: 2vw;
     }
 
-    /* Simple identity mark beside the welcome copy */
+    /* Circular logo - logo.jpg is already circular, just display large */
     .hero-logo-badge {
-        /* 3-4x bigger as requested */
-        width: clamp(480px, 48vw, 800px);
-        height: clamp(480px, 48vw, 800px);
+        width: clamp(280px, 38vw, 450px);
+        height: auto;
+        aspect-ratio: 1 / 1;
         border-radius: 50%;
-        /* Remove outer layer - just the circle, no background/border/padding */
         background: transparent;
         border: none;
-        box-shadow: none;
+        box-shadow: 0 8px 32px rgba(42, 61, 102, 0.15);
         padding: 0;
-        object-fit: contain;
+        object-fit: cover;
     }
 
     @media (max-width: 900px) {
@@ -436,14 +434,15 @@
         }
 
         .hero-logo-badge {
-            width: clamp(320px, 70vw, 550px);
-            height: clamp(320px, 70vw, 550px);
+            width: clamp(200px, 55vw, 350px);
+            height: auto;
+            aspect-ratio: 1 / 1;
             border-radius: 50%;
-            /* Remove outer layer - just the circle */
             background: transparent;
             border: none;
-            box-shadow: none;
+            box-shadow: 0 6px 24px rgba(42, 61, 102, 0.12);
             padding: 0;
+            object-fit: cover;
         }
 
         .hero-content h1 {

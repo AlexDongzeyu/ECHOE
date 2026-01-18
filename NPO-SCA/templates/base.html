@@ -599,28 +599,39 @@
            Each page gets its own unique color based on content type
            ============================================================ */
 
-        /* Base page-container with paper texture - NO OVERLAY like homepage */
+        /* Base page-container with paper texture - SEAMLESS DESIGN */
         .page-container {
             position: relative;
             overflow: hidden;
             border-radius: 20px;
             padding: 40px;
             border: none;
-            box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
+            box-shadow: 0 8px 32px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Paper texture background - no color overlay */
-            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            /* Default paper texture - very transparent like homepage */
+            --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            --page-overlay-color: #A8C99E;
+            --page-overlay-opacity: 0.10;
+
+            background-image: var(--page-texture);
             background-size: cover;
             background-position: center;
 
-            /* No blur - direct paper texture */
-            backdrop-filter: none;
+            /* Glass effect for modern look */
+            backdrop-filter: blur(2px);
         }
 
-        /* DISABLED - no color overlay, just paper texture like homepage */
+        /* Color overlay for page-container - more transparent */
         .page-container::before {
-            display: none;
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: var(--page-overlay-color);
+            opacity: var(--page-overlay-opacity);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 20px;
         }
 
         /* Ensure content appears above the overlay */
@@ -2511,7 +2522,7 @@
         <nav>
             <a href="{{ url_for('index') }}" class="logo" style="background:none; padding:0;">
                 <div class="logo-img">
-                    <img src="{{ url_for('static', filename='img/LOGO.png') }}" alt="E.C.H.O.E logo" loading="eager">
+                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
                 <span style="display:none">E.C.H.O.E</span>
             </a>

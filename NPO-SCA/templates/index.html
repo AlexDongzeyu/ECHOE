@@ -88,7 +88,7 @@
             /* Defaults; override per-section below */
             --band-photo: none;            /* bg1–bg4 paper texture (base layer) */
             --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --section-bg-opacity: 0.58;    /* reduced: color still dominant while paper texture is clearly visible */
+            --section-bg-opacity: 0.48;    /* further reduced: color still prominent while paper texture is clearly visible */
             --band-photo-opacity: 1.0;     /* texture is fully visible as base */
             --band-divider: var(--band-b);
 
@@ -115,7 +115,7 @@
             z-index: 1;
         }
 
-        /* Clear section separation (contrast + pattern strip, no gradients) */
+        /* Enhanced section separation - more obvious and visually appealing (inspired by selfcareapy) */
         .hero::after,
         .about-section::after,
         .consultant-section::after,
@@ -126,16 +126,21 @@
             left: 0;
             right: 0;
             bottom: -1px;
-            height: 26px;
+            height: 32px; /* Increased from 26px for more prominence */
             background-image: var(--band-divider);
             background-size: cover;
             background-position: center;
-            opacity: 0.92;
+            opacity: 1.0; /* Full opacity for pattern visibility */
             pointer-events: none;
             z-index: 3;
-            border-top: 2px solid rgba(42, 61, 102, 0.18);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.70);
-            box-shadow: 0 -14px 24px rgba(42, 61, 102, 0.10);
+            /* Enhanced borders - more obvious and contrasting */
+            border-top: 3px solid rgba(42, 61, 102, 0.35); /* Thicker, more visible top border */
+            border-bottom: 3px solid rgba(255, 255, 255, 0.85); /* Thicker, brighter bottom border */
+            /* Enhanced shadow for depth and separation */
+            box-shadow: 
+                0 -2px 0 rgba(42, 61, 102, 0.12), /* Subtle inner shadow */
+                0 -8px 20px rgba(42, 61, 102, 0.15), /* Deeper shadow for separation */
+                0 2px 4px rgba(255, 255, 255, 0.3); /* Highlight shadow below */
         }
 
         /* === WELCOME HERO (appears after masthead) === */
@@ -617,7 +622,7 @@
 
         .social-manual {
             --section-bg-color: #D4E8EC; /* blue - reduced opacity to show paper texture clearly */
-            --section-bg-opacity: 0.58; /* Reduced: color still dominant while paper texture is clearly visible */
+            --section-bg-opacity: 0.48; /* Further reduced: color still prominent while paper texture is clearly visible */
             --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --band-divider: var(--band-r);
             text-align: center;
@@ -625,7 +630,7 @@
         
         /* Ensure social-manual overlay doesn't blur or cover content */
         body .social-manual::before {
-            opacity: 0.58 !important; /* Reduced: color still dominant while paper texture is clearly visible */
+            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;
@@ -720,7 +725,7 @@
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;
             filter: none !important;
-            opacity: 0.58 !important; /* Reduced: color still dominant while paper texture is clearly visible */
+            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
             z-index: 0 !important; /* Behind content */
         }
         body .socials-qr-section::before {
@@ -728,7 +733,7 @@
             -webkit-backdrop-filter: none !important;
             -moz-backdrop-filter: none !important;
             filter: none !important;
-            opacity: 0.58 !important; /* Reduced: color still dominant while paper texture is clearly visible */
+            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
             z-index: 0 !important; /* Behind content */
         }
         
@@ -1739,7 +1744,7 @@
         .socials-qr-section {
             /* Pure blue at reduced opacity over paper texture */
             --section-bg-color: #D4E8EC; /* blue */
-            --section-bg-opacity: 0.58; /* Reduced: color still dominant while paper texture is clearly visible */
+            --section-bg-opacity: 0.48; /* Further reduced: color still prominent while paper texture is clearly visible */
             --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --band-divider: var(--band-r);
 

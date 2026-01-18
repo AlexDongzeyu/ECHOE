@@ -23,9 +23,17 @@
     }
 
     /* === TYPOGRAPHY CLASSES === */
-    .font-serif { font-family: 'DM Serif Display', serif; }
-    .font-sans { font-family: 'Nunito', sans-serif; }
-    .font-hand { font-family: 'Patrick Hand', cursive; }
+    .font-serif {
+        font-family: 'DM Serif Display', serif;
+    }
+
+    .font-sans {
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .font-hand {
+        font-family: 'Patrick Hand', cursive;
+    }
 
     /* === SELECTION STYLING === */
     ::selection {
@@ -35,354 +43,433 @@
 
     /* Homepage-specific styles */
     main {
-        padding: 0; /* Remove default padding for homepage */
+        padding: 0;
+        /* Remove default padding for homepage */
         font-family: 'Nunito', sans-serif;
     }
-    
-        /* === TOP MASTHEAD BANNER (like selfcareapy) === */
-        /* On homepage, do NOT use fixed header (selfcareapy-style) */
-        body.page-index header {
-            position: relative !important;
-        }
-        body.page-index main {
-            padding-top: 0 !important;
-        }
 
-        .home-masthead {
-            width: 100vw;
-            margin-left: calc(50% - 50vw);
-            margin-right: calc(50% - 50vw);
-            position: relative;
-            overflow: hidden;
-            /* full banner masthead */
-            height: clamp(380px, 46vw, 620px);
-            /* E.C.H.O.E banner (masthead) — v2 */
-            background-image: url("{{ url_for('static', filename='img/echoe-banner-v2.png') }}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #9FC5CB; /* fallback */
-            border-bottom: none;
-            z-index: 0; /* keep banner behind */
-            will-change: transform, opacity, filter;
-        }
+    /* === TOP MASTHEAD BANNER (like selfcareapy) === */
+    /* On homepage, do NOT use fixed header (selfcareapy-style) */
+    body.page-index header {
+        position: relative !important;
+    }
 
-        /* No overlay/veil on banner (use the picture) */
-        .home-masthead::after { display: none; }
+    body.page-index main {
+        padding-top: 0 !important;
+    }
 
-        /* ============================================================
+    .home-masthead {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        position: relative;
+        overflow: hidden;
+        /* full banner masthead */
+        height: clamp(380px, 46vw, 620px);
+        /* E.C.H.O.E banner (masthead) — v2 */
+        background-image: url("{{ url_for('static', filename='img/echoe-banner-v2.png') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #9FC5CB;
+        /* fallback */
+        border-bottom: none;
+        z-index: 0;
+        /* keep banner behind */
+        will-change: transform, opacity, filter;
+    }
+
+    /* No overlay/veil on banner (use the picture) */
+    .home-masthead::after {
+        display: none;
+    }
+
+    /* ============================================================
            SECTION BAND SYSTEM (use ALL 3 paper colors)
            - Photo remains the base background (keeps original texture).
            - bg-r/bg-g/bg-b sits ON TOP with transparency (paper wash).
            - Separation is done via a clear bottom divider strip + crisp lines.
            ============================================================ */
-        .hero,
-        .about-section,
-        .consultant-section,
-        .social-manual,
-        .socials-qr-section {
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
+    .hero,
+    .about-section,
+    .consultant-section,
+    .social-manual,
+    .socials-qr-section {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
 
-            /* Defaults; override per-section below */
-            --band-photo: none;            /* bg1–bg4 paper texture (base layer) */
-            --section-bg-color: #ADCBA4;   /* default green (overridden per section) */
-            --section-bg-opacity: 0.48;    /* further reduced: color still prominent while paper texture is clearly visible */
-            --band-photo-opacity: 1.0;     /* texture is fully visible as base */
-            --band-divider: var(--band-b);
+        /* Defaults; override per-section below */
+        --band-photo: none;
+        /* bg1–bg4 paper texture (base layer) */
+        --section-bg-color: #ADCBA4;
+        /* default green (overridden per section) */
+        --section-bg-opacity: 0.48;
+        /* further reduced: color still prominent while paper texture is clearly visible */
+        --band-photo-opacity: 1.0;
+        /* texture is fully visible as base */
+        --band-divider: var(--band-b);
 
-            /* Base = paper texture (fully visible) */
-            background-image: var(--band-photo);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: transparent;
-        }
+        /* Base = paper texture (fully visible) */
+        background-image: var(--band-photo);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+    }
 
-        /* Pure color overlay (85% opacity) - dominates but paper texture shows through */
-        .hero::before,
-        .about-section::before,
-        .consultant-section::before,
-        .social-manual::before,
-        .socials-qr-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: var(--section-bg-color);
-            opacity: var(--section-bg-opacity);
-            pointer-events: none;
-            z-index: 1;
-        }
+    /* Pure color overlay (85% opacity) - dominates but paper texture shows through */
+    .hero::before,
+    .about-section::before,
+    .consultant-section::before,
+    .social-manual::before,
+    .socials-qr-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--section-bg-color);
+        opacity: var(--section-bg-opacity);
+        pointer-events: none;
+        z-index: 1;
+    }
 
-        /* Premium section separation - sophisticated layered design (inspired by selfcareapy & modern web design) */
-        .hero::after,
-        .about-section::after,
-        .consultant-section::after,
-        .social-manual::after,
-        .socials-qr-section::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -1px;
-            height: 44px; /* Increased for more visual prominence */
-            /* Base: Pattern texture layer */
-            background-image: var(--band-divider);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            /* Gradient overlay for depth and visual interest */
-            background: 
-                linear-gradient(
-                    to bottom,
-                    rgba(42, 61, 102, 0.08) 0%,
-                    rgba(42, 61, 102, 0.04) 30%,
-                    transparent 50%,
-                    rgba(255, 255, 255, 0.15) 70%,
-                    rgba(255, 255, 255, 0.25) 100%
-                ),
-                var(--band-divider);
-            background-size: 100% 100%, cover;
-            background-position: center, center;
-            opacity: 1.0;
-            pointer-events: none;
-            z-index: 3;
-            /* Prominent borders - strong contrast for clear separation */
-            border-top: 4px solid rgba(42, 61, 102, 0.45); /* Stronger, more visible top border */
-            border-bottom: 4px solid rgba(255, 255, 255, 0.95); /* Bright, crisp bottom border */
-            /* Sophisticated shadow system for 3D depth */
-            box-shadow: 
-                inset 0 1px 2px rgba(255, 255, 255, 0.4), /* Inner highlight for depth */
-                0 -3px 0 rgba(42, 61, 102, 0.18), /* Strong top shadow line */
-                0 -12px 28px rgba(42, 61, 102, 0.22), /* Deep shadow above for separation */
-                0 4px 8px rgba(255, 255, 255, 0.4), /* Bright highlight below */
-                0 1px 0 rgba(42, 61, 102, 0.1); /* Subtle bottom edge definition */
-        }
+    /* ============================================================
+           ENHANCED SECTION DIVIDERS - Artistic & Calming
+           Clear visual separation with organic wave design
+           ============================================================ */
 
-        /* === WELCOME HERO (appears after masthead) === */
-        .hero {
-            width: 100vw;
-            margin-left: calc(50% - 50vw);
-            margin-right: calc(50% - 50vw);
-            padding: 56px max(18px, calc((100vw - 1100px) / 2)) 52px;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-            /* Pure beige/cream (bg-r dominant color at 85% opacity over paper texture) */
-            --section-bg-color: #EDE6D9;
-            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --band-divider: var(--band-g);
-            background-color: #9FC5CB;
-            border-bottom: none;
-            /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
-            margin-top: -24px;
-            z-index: 2; /* sits above banner */
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            will-change: transform;
-        }
+    /* Main section divider - organic wave pattern */
+    .hero::after,
+    .about-section::after,
+    .consultant-section::after,
+    .social-manual::after,
+    .socials-qr-section::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 60px;
+        /* Taller for more prominence */
+        pointer-events: none;
+        z-index: 5;
 
-        /* No “panel/frame”: let text sit on the photo background */
-        .hero-content {
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 8px 0;
-            box-shadow: none;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
+        /* Organic wave SVG pattern - calm, flowing curves */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.35'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: bottom center;
 
-        /* Keep rounded top corners for the hero */
-        .hero::before {
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-        }
-        .hero .container { position: relative; z-index: 2; }
-    
+        /* Elegant shadow for depth */
+        filter: drop-shadow(0 -4px 12px rgba(42, 61, 102, 0.15));
+    }
+
+
+    /* Top border for section separation */
+    .about-section,
+    .consultant-section,
+    .social-manual,
+    .socials-qr-section {
+        border-top: 3px solid rgba(42, 61, 102, 0.12);
+        margin-top: 30px;
+        /* Space for wave to breathe */
+    }
+
+    /* Decorative separator dots between sections */
+    .about-section::after,
+    .social-manual::after {
+        /* Enhanced wave with center dot accent */
+        background-image:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.35'/%3E%3Ccircle cx='600' cy='35' r='6' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='560' cy='37' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='640' cy='37' r='3' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
+    }
+
+    /* Hero gets a special decorative divider matching the brand */
+    .hero::after {
+        height: 70px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 70' preserveAspectRatio='none'%3E%3Cpath d='M0,35 C150,55 350,15 600,35 C850,55 1050,15 1200,35 L1200,70 L0,70 Z' fill='%23FDFBF7' fill-opacity='0.90'/%3E%3Cpath d='M0,38 C200,58 400,18 600,38 C800,58 1000,18 1200,38' stroke='%232A3D66' stroke-width='2.5' fill='none' stroke-opacity='0.4'/%3E%3Cpath d='M0,42 C200,62 400,22 600,42 C800,62 1000,22 1200,42' stroke='%23F8D29C' stroke-width='1.5' fill='none' stroke-opacity='0.6'/%3E%3C/svg%3E");
+        filter: drop-shadow(0 -6px 16px rgba(42, 61, 102, 0.18));
+    }
+
+    /* Partners section gets leaf-inspired subtle accent */
+    .consultant-section::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%23ADCBA4' stroke-width='2.5' fill='none' stroke-opacity='0.6'/%3E%3Cpath d='M0,38 C200,58 400,18 600,38 C800,58 1000,18 1200,38' stroke='%232A3D66' stroke-width='1' fill='none' stroke-opacity='0.25'/%3E%3C/svg%3E");
+    }
+
+    /* QR/Socials section - blue accent wave */
+    .socials-qr-section::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%239FC5CB' stroke-width='2.5' fill='none' stroke-opacity='0.7'/%3E%3C/svg%3E");
+    }
+
+
+    /* === WELCOME HERO (appears after masthead) === */
+    .hero {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        padding: 56px max(18px, calc((100vw - 1100px) / 2)) 52px;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        /* Pure beige/cream (bg-r dominant color at 85% opacity over paper texture) */
+        --section-bg-color: #EDE6D9;
+        --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+        --band-divider: var(--band-g);
+        background-color: #9FC5CB;
+        border-bottom: none;
+        /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
+        margin-top: -24px;
+        z-index: 2;
+        /* sits above banner */
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+        will-change: transform;
+    }
+
+    /* No “panel/frame”: let text sit on the photo background */
+    .hero-content {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 8px 0;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Keep rounded top corners for the hero */
+    .hero::before {
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+    }
+
+    .hero .container {
+        position: relative;
+        z-index: 2;
+    }
+
     /* Word cloud removed (banner + clean hero replaces it) */
-        
-        .home-masthead .container,
-        .hero .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 3rem;
-            position: relative;
-            z-index: 2; /* above veil */
-            padding: 0;
-        }
-        
-        .hero-content {
+
+    .home-masthead .container,
+    .hero .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 3rem;
+        position: relative;
+        z-index: 2;
+        /* above veil */
+        padding: 0;
+    }
+
+    .hero-content {
         max-width: 640px;
-            z-index: 2;
-        }
-        
-        .hero-kicker {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.15rem;
-            color: rgba(42,61,102,0.78);
-            letter-spacing: 0.4px;
-            margin: 0 0 10px 0;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        /* Blended underline (not a harsh rule) */
-        .hero-kicker::after{
-            content:"";
-            position:absolute;
-            left:0;
-            bottom:2px;
-            width: 72%;
-            height: 2px;
-            background: rgba(248, 210, 156, 0.55); /* brand orange tint */
-            border-radius: 999px;
-        }
-        
-        .hero-content h1 {
-            color: var(--deep-indigo);
-            font-size: 3.2rem;
+        z-index: 2;
+    }
+
+    .hero-kicker {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.15rem;
+        color: rgba(42, 61, 102, 0.78);
+        letter-spacing: 0.4px;
+        margin: 0 0 10px 0;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    /* Blended underline (not a harsh rule) */
+    .hero-kicker::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 2px;
+        width: 72%;
+        height: 2px;
+        background: rgba(248, 210, 156, 0.55);
+        /* brand orange tint */
+        border-radius: 999px;
+    }
+
+    .hero-content h1 {
+        color: var(--deep-indigo);
+        font-size: 3.2rem;
         font-weight: 800;
         margin-bottom: 12px;
         line-height: 1.1;
-        }
-        
-        .acronym-subtitle {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 12px;
-            align-items: center;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: rgba(42,61,102,0.78);
-            margin-bottom: 18px;
-            letter-spacing: 0.6px;
-        }
-        
-        .acronym-subtitle span {
-            display: inline-block;
-        }
-        
-        .acronym-letter {
-            color: rgba(248, 210, 156, 0.95);
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-        
-        .acronym-word {
-            color: var(--deep-indigo);
-        }
-        
-        .acronym-dot {
-            color: rgba(159, 197, 203, 0.85);
-            opacity: 0.9;
-        }
-        
-        .hero .quote {
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--deep-indigo);
-            opacity: 0.92;
-            margin-bottom: 18px;
-            padding-left: 15px;
-            border-left: 3px solid var(--soft-yellow);
-            animation: fade-up 0.7s 0.25s ease-out both;
-        }
-        
-        .hero .mission {
-            font-size: 1.2rem;
-            margin-bottom: 26px;
-            color: var(--deep-indigo);
-            line-height: 1.6;
-            animation: fade-up 0.7s 0.35s ease-out both;
+    }
+
+    .acronym-subtitle {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 12px;
+        align-items: center;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: rgba(42, 61, 102, 0.78);
+        margin-bottom: 18px;
+        letter-spacing: 0.6px;
+    }
+
+    .acronym-subtitle span {
+        display: inline-block;
+    }
+
+    .acronym-letter {
+        color: rgba(248, 210, 156, 0.95);
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+    .acronym-word {
+        color: var(--deep-indigo);
+    }
+
+    .acronym-dot {
+        color: rgba(159, 197, 203, 0.85);
+        opacity: 0.9;
+    }
+
+    .hero .quote {
+        font-style: italic;
+        font-size: 1.15rem;
+        color: var(--deep-indigo);
+        opacity: 0.92;
+        margin-bottom: 18px;
+        padding-left: 15px;
+        border-left: 3px solid var(--soft-yellow);
+        animation: fade-up 0.7s 0.25s ease-out both;
+    }
+
+    .hero .mission {
+        font-size: 1.2rem;
+        margin-bottom: 26px;
+        color: var(--deep-indigo);
+        line-height: 1.6;
+        animation: fade-up 0.7s 0.35s ease-out both;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .hero-actions .btn-primary {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-actions .btn-primary::before {
+        content: '';
+        position: absolute;
+        inset: -40%;
+        background: rgba(255, 255, 255, 0.55);
+        opacity: 0;
+        transform: translateX(-30%);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .hero-actions .btn-primary:hover::before {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+
+    .hero-media {
+        width: 40%;
+        max-width: 420px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    /* Simple identity mark beside the welcome copy */
+    .hero-logo-badge {
+        /* much bigger (requested 3.5–4x), responsive */
+        width: clamp(320px, 34vw, 560px);
+        height: clamp(320px, 34vw, 560px);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(42, 61, 102, 0.14);
+        box-shadow: 0 10px 24px rgba(42, 61, 102, 0.14);
+        padding: 18px;
+        object-fit: contain;
+    }
+
+    @media (max-width: 900px) {
+        .home-masthead {
+            padding: 0;
         }
 
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
-        }
-
-        .hero-actions .btn-primary {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-actions .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: -40%;
-            background: rgba(255,255,255,0.55);
-            opacity: 0;
-            transform: translateX(-30%);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-        }
-
-        .hero-actions .btn-primary:hover::before {
-            opacity: 1;
-            transform: translateX(0%);
-        }
-        
-        .hero-media {
-            width: 40%;
-            max-width: 420px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
+        .hero .container {
             flex-direction: column;
-            gap: 14px;
+            text-align: left;
+            gap: 22px;
         }
 
-        /* Simple identity mark beside the welcome copy */
+        .hero-media {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
         .hero-logo-badge {
-            /* much bigger (requested 3.5–4x), responsive */
-            width: clamp(320px, 34vw, 560px);
-            height: clamp(320px, 34vw, 560px);
-            border-radius: 28px;
-            background: rgba(255,255,255,0.9);
-            border: 2px solid rgba(42,61,102,0.14);
-            box-shadow: 0 10px 24px rgba(42,61,102,0.14);
-            padding: 18px;
-            object-fit: contain;
+            width: clamp(240px, 62vw, 420px);
+            height: clamp(240px, 62vw, 420px);
         }
 
-        @media (max-width: 900px) {
-            .home-masthead { padding: 0; }
-            .hero .container { flex-direction: column; text-align: left; gap: 22px; }
-            .hero-media { width: 100%; justify-content: flex-start; }
-            .hero-logo-badge { width: clamp(240px, 62vw, 420px); height: clamp(240px, 62vw, 420px); }
-            .hero-content h1 { font-size: 2.4rem; }
+        .hero-content h1 {
+            font-size: 2.4rem;
+        }
+    }
+
+    @keyframes float-soft {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
         }
 
-        @keyframes float-soft {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(1.5deg); }
+        50% {
+            transform: translateY(-10px) rotate(1.5deg);
+        }
+    }
+
+    @keyframes float-up {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
         }
 
-        @keyframes float-up {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes draw-underline {
+        from {
+            transform: scaleX(0);
         }
 
-        @keyframes draw-underline {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
+        to {
+            transform: scaleX(1);
         }
-        .hero .mission {
-            font-size: 1.3rem;
-            margin-bottom: 35px;
-            color: var(--deep-indigo);
-            line-height: 1.6;
-        }
-        
-        
-    
+    }
+
+    .hero .mission {
+        font-size: 1.3rem;
+        margin-bottom: 35px;
+        color: var(--deep-indigo);
+        line-height: 1.6;
+    }
+
+
+
     /* Healing Transition Styles */
     .healing-transition {
         position: relative;
@@ -391,7 +478,7 @@
         overflow: hidden;
         background: rgba(159, 197, 203, 0.22);
     }
-    
+
     .grass-layer {
         position: absolute;
         bottom: 0;
@@ -402,7 +489,7 @@
         border-radius: 50% 50% 0 0;
         transform: scaleX(1.2);
     }
-    
+
     .garden-elements {
         position: absolute;
         bottom: 0;
@@ -412,7 +499,7 @@
         pointer-events: none;
         background: transparent;
     }
-    
+
     .flowers-front {
         position: absolute;
         bottom: 5px;
@@ -421,7 +508,7 @@
         justify-content: space-around;
         z-index: 3;
     }
-    
+
     .flowers-middle {
         position: absolute;
         bottom: 15px;
@@ -430,7 +517,7 @@
         justify-content: space-evenly;
         z-index: 2;
     }
-    
+
     .flowers-back {
         position: absolute;
         bottom: 25px;
@@ -439,17 +526,25 @@
         justify-content: space-around;
         z-index: 1;
     }
-    
+
     .flower {
         font-size: 28px;
         opacity: 0.95;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     }
-    
-    .flower-small { font-size: 22px; }
-    .flower-medium { font-size: 28px; }
-    .flower-large { font-size: 34px; }
-    
+
+    .flower-small {
+        font-size: 22px;
+    }
+
+    .flower-medium {
+        font-size: 28px;
+    }
+
+    .flower-large {
+        font-size: 34px;
+    }
+
     .garden-details {
         position: absolute;
         bottom: 10px;
@@ -459,43 +554,67 @@
         padding: 0 5%;
         z-index: 2;
     }
-    
+
     .garden-detail {
         font-size: 22px;
         opacity: 0.9;
     }
-    
+
     /* Removed emoji animations; we'll render a static meadow strip */
-    .cats-container { display: none; }
-    
+    .cats-container {
+        display: none;
+    }
+
     .butterflies {
         position: absolute;
         width: 100%;
         height: 100%;
         pointer-events: none;
     }
-    
+
     .butterfly {
         position: absolute;
         font-size: 22px;
         opacity: 0.9;
-        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
     }
-    
+
     @keyframes butterflyPath1 {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        33% { transform: translate(30vw, -30px) rotate(10deg); }
-        66% { transform: translate(60vw, -15px) rotate(-10deg); }
-        100% { transform: translate(100vw, -25px) rotate(0deg); }
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+
+        33% {
+            transform: translate(30vw, -30px) rotate(10deg);
+        }
+
+        66% {
+            transform: translate(60vw, -15px) rotate(-10deg);
+        }
+
+        100% {
+            transform: translate(100vw, -25px) rotate(0deg);
+        }
     }
-    
+
     @keyframes butterflyPath2 {
-        0% { transform: translate(100vw, 0) rotate(0deg); }
-        33% { transform: translate(60vw, -25px) rotate(-10deg); }
-        66% { transform: translate(30vw, -15px) rotate(10deg); }
-        100% { transform: translate(0, -20px) rotate(0deg); }
+        0% {
+            transform: translate(100vw, 0) rotate(0deg);
+        }
+
+        33% {
+            transform: translate(60vw, -25px) rotate(-10deg);
+        }
+
+        66% {
+            transform: translate(30vw, -15px) rotate(10deg);
+        }
+
+        100% {
+            transform: translate(0, -20px) rotate(0deg);
+        }
     }
-    
+
     .light-rays {
         position: absolute;
         top: 0;
@@ -505,647 +624,800 @@
         background: rgba(255, 255, 255, 0.25);
         animation: glowPulse 8s ease-in-out infinite;
     }
-    
+
     @keyframes glowPulse {
-        0%, 100% {
+
+        0%,
+        100% {
             opacity: 0.5;
             transform: scale(1);
         }
+
         50% {
             opacity: 0.7;
             transform: scale(1.05);
         }
     }
-        
-        /* (Old how-it-works removed) */
-        
-        /* About / Consultant / Instagram (manual) Sections */
-        .about-section,
-        .consultant-section,
-        .social-manual {
-            padding: 36px 0; /* tighter section spacing */
-        }
 
-        /* Homepage: make sections feel “full but organized” (like Figma/selfcareapy) */
-        .about-section { padding: 54px 0; }
-        #section-echo-cat { padding-top: 44px; }
-        #section-about-us { padding-top: 52px; padding-bottom: 60px; }
-        #section-partners { padding-top: 52px; padding-bottom: 56px; }
+    /* (Old how-it-works removed) */
 
-        /* Make each section feel distinct (pure color at 85% opacity over paper texture) */
-        #section-who-we-are {
-            --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-divider: var(--band-b);
-        }
-        #section-echo-cat {
-            --section-bg-color: #D4E8EC; /* blue from bg-b.png */
-            --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-divider: var(--band-r);
-        }
-        #section-about-us {
-            --section-bg-color: #EDE6D9; /* beige from bg-r.png */
-            --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --band-divider: var(--band-g);
-        }
-        #section-partners {
-            --section-bg-color: #D8E8D0; /* green from bg-g.png */
-            --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-divider: var(--band-r);
-        }
-
-        .about-section {
-            /* Photo texture overlay */
-            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            text-align: left;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 24px;
-            align-items: stretch; /* equalize heights between text and image card */
-        }
-
-        /* Add breathing room without “frames” */
-        .about-grid > .about-card { padding: 6px 6px; }
-        .two-col-grid > .about-card { padding: 6px 6px; }
-
-        .about-card {
-            background: transparent;
-            border-radius: 0;
-            padding: 12px 0; /* spacing only, not a panel */
-            border: none;
-            box-shadow: none;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-        /* Ensure equal heights within the about-grid */
-        .about-grid .about-card { height: 100%; display: flex; flex-direction: column; }
-
-        /* Reusable rounded rectangle photo with uniform height */
-        .photo-rect { width: 100%; height: 260px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: none; background: transparent; }
-        @media (max-width: 768px){ .photo-rect { height: 220px; } }
-        /* Banner tile: grows to fill leftover space under group photo */
-        .banner-rect { width:100%; height: auto; min-height: 200px; object-fit: cover; object-position: center; border-radius: 14px; box-shadow: none; background: transparent; flex: 1 1 auto; }
-        @media (max-width: 768px){ .banner-rect { min-height: 160px; } }
-        /* Generic two-column grid for paired sections */
-        .two-col-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: stretch; /* make children equal height */
-        }
-
-        /* About Us (right column): center the section titles only */
-        #section-about-us .two-col-grid > .about-card:nth-child(2) h2 {
-            text-align: center;
-        }
-        /* Wider left column specifically for partners block */
-        .partners-grid { grid-template-columns: 1.4fr 1fr; }
-        .two-col-grid .about-card { height: 100%; display: flex; flex-direction: column; }
-
-        .consultant-section {
-            --section-bg-color: #EDE6D9; /* beige at 85% opacity */
-            --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --band-divider: var(--band-g);
-        }
-
-        .consultant-card {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 28px;
-            align-items: center;
-            background: transparent;
-            border-radius: 0;
-            padding: 0;
-            border: none;
-            box-shadow: none;
-        }
-
-        .avatar {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: #F8D29C;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0f2233;
-            font-weight: 800;
-            font-size: 1.4rem;
-        }
-        .avatar-photo { width:100%; height:auto; border-radius:14px; object-fit:contain; object-position:center; box-shadow:none; }
-
-        .social-manual {
-            --section-bg-color: #D4E8EC; /* blue - reduced opacity to show paper texture clearly */
-            --section-bg-opacity: 0.48; /* Further reduced: color still prominent while paper texture is clearly visible */
-            --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --band-divider: var(--band-r);
-            text-align: center;
-        }
-        
-        /* Ensure social-manual overlay doesn't blur or cover content */
-        body .social-manual::before {
-            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            -moz-backdrop-filter: none !important;
-            filter: none !important;
-            z-index: 0 !important; /* Below content */
-        }
-        
-        /* Ensure NO blur on social section content - override ALL possible blur sources */
-        /* Use very high specificity to override base.html .page-container blur */
-        body .social-manual,
-        body .social-manual *,
-        body .social-manual *::before,
-        body .social-manual *::after,
-        body .social-manual .container,
-        body .social-manual .page-container,
-        body .social-manual .post-card,
-        body .social-manual .post-card *,
-        body .social-manual .post-card *::before,
-        body .social-manual .post-card *::after,
-        body .social-manual .post-card .card-scroll,
-        body .social-manual .post-card .card-scroll *,
-        body .social-manual .post-card .card-scroll *::before,
-        body .social-manual .post-card .card-scroll *::after,
-        body .social-manual img,
-        body .social-manual iframe,
-        body .social-manual video,
-        body .social-manual blockquote,
-        body .social-manual blockquote *,
-        body .social-manual blockquote *::before,
-        body .social-manual blockquote *::after,
-        body .social-manual embed,
-        body .social-manual object,
-        body .social-manual canvas,
-        body .social-manual svg,
-        body .socials-qr-section,
-        body .socials-qr-section *,
-        body .socials-qr-section *::before,
-        body .socials-qr-section *::after,
-        body .socials-qr-section .container,
-        body .socials-qr-section .page-container,
-        body .socials-qr-section .qr-card,
-        body .socials-qr-section .qr-card *,
-        body .socials-qr-section .qr-card *::before,
-        body .socials-qr-section .qr-card *::after {
-            filter: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            -moz-backdrop-filter: none !important;
-        }
-        
-        /* Crisp image rendering - force sharp images */
-        body .social-manual img,
-        body .social-manual .ig-gallery img,
-        body .social-manual .ig-item img,
-        body .socials-qr-section img,
-        body .socials-qr-section .qr-image {
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: auto !important;
-            -ms-interpolation-mode: bicubic !important;
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
-        }
-        
-        /* Crisp text rendering */
-        body .social-manual,
-        body .social-manual *,
-        body .socials-qr-section,
-        body .socials-qr-section * {
-            -webkit-font-smoothing: antialiased !important;
-            -moz-osx-font-smoothing: grayscale !important;
-            text-rendering: optimizeLegibility !important;
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-        }
-        
-        /* Ensure embeds and iframes are crisp */
-        body .social-manual iframe,
-        body .social-manual embed,
-        body .social-manual object,
-        body .social-manual video,
-        body .social-manual blockquote {
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-            will-change: auto !important;
-        }
-        
-        /* Ensure section background overlays don't blur content */
-        body .social-manual::before {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            -moz-backdrop-filter: none !important;
-            filter: none !important;
-            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
-            z-index: 0 !important; /* Behind content */
-        }
-        body .socials-qr-section::before {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            -moz-backdrop-filter: none !important;
-            filter: none !important;
-            opacity: 0.48 !important; /* Further reduced: color still prominent while paper texture is clearly visible */
-            z-index: 0 !important; /* Behind content */
-        }
-        
-        /* Ensure socials-qr-section content is above overlay and crisp */
-        body .socials-qr-section > *,
-        body .socials-qr-section h2,
-        body .socials-qr-section .container,
-        body .socials-qr-section .qr-card,
-        body .socials-qr-section .qr-card *,
-        body .socials-qr-section img,
-        body .socials-qr-section svg,
-        body .socials-qr-section a,
-        body .socials-qr-section p,
-        body .socials-qr-section div {
-            position: relative !important;
-            z-index: 10 !important; /* Above overlay */
-        }
-        
-        /* Remove built-in margins inside embeds to avoid top gaps */
-        .social-manual blockquote.instagram-media,
-        .social-manual blockquote.tiktok-embed{ margin:0 !important; }
-        
-        #community-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* force three equal columns */
-            gap: 12px; /* tighter spacing between frames */
-            align-items: stretch;
-            width: 100%;
-        }
-        .post-card { width: 100%; }
-        .social-manual .container { 
-            max-width: 1300px;
-            position: relative;
-            z-index: 10 !important; /* Much higher to be above overlay */
-        }
-        
-        /* Ensure all content in social-manual is above overlay */
-        body .social-manual > *,
-        body .social-manual h2,
-        body .social-manual .font-serif,
-        body .social-manual .post-grid,
-        body .social-manual #community-grid,
-        body .social-manual .post-card,
-        body .social-manual .card-scroll,
-        body .social-manual blockquote,
-        body .social-manual iframe,
-        body .social-manual embed,
-        body .social-manual a,
-        body .social-manual p,
-        body .social-manual span,
-        body .social-manual div {
-            position: relative !important;
-            z-index: 10 !important; /* Above overlay */
-        }
-        
-        /* Ensure text elements are crisp and above overlay */
-        body .social-manual h2,
-        body .social-manual h2.font-serif,
-        body .social-manual p,
-        body .social-manual span,
-        body .social-manual div,
-        body .social-manual strong,
-        body .social-manual em {
-            position: relative !important;
-            z-index: 10 !important;
-        }
-        
-        /* Ensure nested content is also above overlay */
-        body .social-manual .post-card *,
-        body .social-manual .card-scroll *,
-        body .social-manual #community-grid * {
-            position: relative !important;
-            z-index: 11 !important; /* Even higher for nested content */
-        }
-        @media (max-width: 1024px) { #community-grid { grid-template-columns: 1fr; } }
-        /* Equal height social cards with internal scroll (reduced excess space) */
-        .post-card.social-equal { height: clamp(700px, 78vh, 900px); display: flex; }
-        /* Center content when there is extra space; still scrolls when overflow */
-        .post-card .card-scroll {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* top align to remove large blanks */
-            align-items: stretch;
-            gap: 12px;
-            padding: 6px;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-        }
-        /* Ensure top-aligned content in all cards */
-        .card-scroll-top { justify-content: flex-start; align-items: stretch; }
-
-        .post-card {
-            background: rgba(253, 251, 247, 0.92);
-            border: 1px solid rgba(42, 61, 102, 0.10);
-            border-radius: 12px;
-            overflow: hidden;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* top align */
-            align-items: stretch;
-            /* Ensure NO blur on post-card */
-            filter: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            -moz-backdrop-filter: none !important;
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-            will-change: auto !important;
-        }
-        /* Optional legacy helper (unused) */
-        .post-card.equal-height { height: clamp(760px, 85vh, 1200px); }
-
-        /* Center helper for the left Instagram embed */
-        .embed-center { flex: 1 1 auto; display: block; }
-        .social-scroll { height: 100%; overflow-y: auto; }
-        .post-card a { color: var(--deep-indigo); text-decoration: none; font-weight: 700; }
-
-        /* IG gallery - two-column flex grid with fixed slots so posts never overlap */
-        .ig-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px 14px; /* vertical + horizontal spacing between tiles */
-            width: 100%;
-            padding: 8px 4px 30px 4px;
-            box-sizing: border-box;
-        }
-        .ig-gallery .ig-item {
-            position: relative;
-            flex: 0 0 calc(50% - 7px); /* two columns */
-            overflow: hidden;
-            border-radius: 14px;
-            background: transparent;
-            box-shadow: 0 6px 16px rgba(42,61,102,0.08);
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .ig-gallery .ig-item img {
-            display: block;
-            width: 100% !important;
-            height: auto !important;
-            max-height: none !important;
-            object-fit: cover;
-            object-position: center center;
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: auto !important;
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
-        }
-        @media (max-width: 640px) {
-            .ig-gallery .ig-item { flex: 0 0 100%; }
-        }
-
-        /* Scroll container so users can scroll within the gallery card */
-        #igGalleryScroll {
-            /* Fill the card height so the grid starts at the top */
-            height: 100%;
-            max-height: none;
-            overflow-y: auto;
-            padding: 8px; /* slight increase to avoid gap clipping at edges */
-            overscroll-behavior: contain; /* keep page from scrolling when inside */
-            min-height: 0; /* allow flex child to shrink and enable scroll */
-        }
-        /* Ensure the IG gallery card top-aligns content and allows the scroller to expand */
-        #igGalleryCard {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+    /* About / Consultant / Instagram (manual) Sections */
+    .about-section,
+    .consultant-section,
+    .social-manual {
+        padding: 36px 0;
+        /* tighter section spacing */
     }
-    
-    
-    
-    /* Footer styles for homepage */
-        footer {
-        margin-top: 0; /* Remove top margin for homepage */
+
+    /* Homepage: make sections feel “full but organized” (like Figma/selfcareapy) */
+    .about-section {
+        padding: 54px 0;
+    }
+
+    #section-echo-cat {
+        padding-top: 44px;
+    }
+
+    #section-about-us {
+        padding-top: 52px;
+        padding-bottom: 60px;
+    }
+
+    #section-partners {
+        padding-top: 52px;
+        padding-bottom: 56px;
+    }
+
+    /* Make each section feel distinct (pure color at 85% opacity over paper texture) */
+    #section-who-we-are {
+        --section-bg-color: #D8E8D0;
+        /* green from bg-g.png */
+        --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+        --band-divider: var(--band-b);
+    }
+
+    #section-echo-cat {
+        --section-bg-color: #D4E8EC;
+        /* blue from bg-b.png */
+        --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+        --band-divider: var(--band-r);
+    }
+
+    #section-about-us {
+        --section-bg-color: #EDE6D9;
+        /* beige from bg-r.png */
+        --band-photo: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+        --band-divider: var(--band-g);
+    }
+
+    #section-partners {
+        --section-bg-color: #D8E8D0;
+        /* green from bg-g.png */
+        --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
+        --band-divider: var(--band-r);
+    }
+
+    .about-section {
+        /* Photo texture overlay */
+        --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+        text-align: left;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 24px;
+        align-items: stretch;
+        /* equalize heights between text and image card */
+    }
+
+    /* Add breathing room without “frames” */
+    .about-grid>.about-card {
+        padding: 6px 6px;
+    }
+
+    .two-col-grid>.about-card {
+        padding: 6px 6px;
+    }
+
+    .about-card {
+        background: transparent;
+        border-radius: 0;
+        padding: 12px 0;
+        /* spacing only, not a panel */
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Ensure equal heights within the about-grid */
+    .about-grid .about-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Reusable rounded rectangle photo with uniform height */
+    .photo-rect {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 14px;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    @media (max-width: 768px) {
+        .photo-rect {
+            height: 220px;
         }
-        
-        .footer-content {
+    }
+
+    /* Banner tile: grows to fill leftover space under group photo */
+    .banner-rect {
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 14px;
+        box-shadow: none;
+        background: transparent;
+        flex: 1 1 auto;
+    }
+
+    @media (max-width: 768px) {
+        .banner-rect {
+            min-height: 160px;
+        }
+    }
+
+    /* Generic two-column grid for paired sections */
+    .two-col-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: stretch;
+        /* make children equal height */
+    }
+
+    /* About Us (right column): center the section titles only */
+    #section-about-us .two-col-grid>.about-card:nth-child(2) h2 {
+        text-align: center;
+    }
+
+    /* Wider left column specifically for partners block */
+    .partners-grid {
+        grid-template-columns: 1.4fr 1fr;
+    }
+
+    .two-col-grid .about-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .consultant-section {
+        --section-bg-color: #EDE6D9;
+        /* beige at 85% opacity */
+        --band-photo: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+        --band-divider: var(--band-g);
+    }
+
+    .consultant-card {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 28px;
+        align-items: center;
+        background: transparent;
+        border-radius: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: #F8D29C;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f2233;
+        font-weight: 800;
+        font-size: 1.4rem;
+    }
+
+    .avatar-photo {
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+        object-fit: contain;
+        object-position: center;
+        box-shadow: none;
+    }
+
+    .social-manual {
+        --section-bg-color: #D4E8EC;
+        /* blue - reduced opacity to show paper texture clearly */
+        --section-bg-opacity: 0.48;
+        /* Further reduced: color still prominent while paper texture is clearly visible */
+        --band-photo: url("{{ url_for('static', filename='img/bg3.jpg') }}");
+        --band-divider: var(--band-r);
+        text-align: center;
+    }
+
+    /* Ensure social-manual overlay doesn't blur or cover content */
+    body .social-manual::before {
+        opacity: 0.48 !important;
+        /* Further reduced: color still prominent while paper texture is clearly visible */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+        filter: none !important;
+        z-index: 0 !important;
+        /* Below content */
+    }
+
+    /* Ensure NO blur on social section content - override ALL possible blur sources */
+    /* Use very high specificity to override base.html .page-container blur */
+    body .social-manual,
+    body .social-manual *,
+    body .social-manual *::before,
+    body .social-manual *::after,
+    body .social-manual .container,
+    body .social-manual .page-container,
+    body .social-manual .post-card,
+    body .social-manual .post-card *,
+    body .social-manual .post-card *::before,
+    body .social-manual .post-card *::after,
+    body .social-manual .post-card .card-scroll,
+    body .social-manual .post-card .card-scroll *,
+    body .social-manual .post-card .card-scroll *::before,
+    body .social-manual .post-card .card-scroll *::after,
+    body .social-manual img,
+    body .social-manual iframe,
+    body .social-manual video,
+    body .social-manual blockquote,
+    body .social-manual blockquote *,
+    body .social-manual blockquote *::before,
+    body .social-manual blockquote *::after,
+    body .social-manual embed,
+    body .social-manual object,
+    body .social-manual canvas,
+    body .social-manual svg,
+    body .socials-qr-section,
+    body .socials-qr-section *,
+    body .socials-qr-section *::before,
+    body .socials-qr-section *::after,
+    body .socials-qr-section .container,
+    body .socials-qr-section .page-container,
+    body .socials-qr-section .qr-card,
+    body .socials-qr-section .qr-card *,
+    body .socials-qr-section .qr-card *::before,
+    body .socials-qr-section .qr-card *::after {
+        filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+    }
+
+    /* Crisp image rendering - force sharp images */
+    body .social-manual img,
+    body .social-manual .ig-gallery img,
+    body .social-manual .ig-item img,
+    body .socials-qr-section img,
+    body .socials-qr-section .qr-image {
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: auto !important;
+        -ms-interpolation-mode: bicubic !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+    }
+
+    /* Crisp text rendering */
+    body .social-manual,
+    body .social-manual *,
+    body .socials-qr-section,
+    body .socials-qr-section * {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+    }
+
+    /* Ensure embeds and iframes are crisp */
+    body .social-manual iframe,
+    body .social-manual embed,
+    body .social-manual object,
+    body .social-manual video,
+    body .social-manual blockquote {
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+        will-change: auto !important;
+    }
+
+    /* Ensure section background overlays don't blur content */
+    body .social-manual::before {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+        filter: none !important;
+        opacity: 0.48 !important;
+        /* Further reduced: color still prominent while paper texture is clearly visible */
+        z-index: 0 !important;
+        /* Behind content */
+    }
+
+    body .socials-qr-section::before {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+        filter: none !important;
+        opacity: 0.48 !important;
+        /* Further reduced: color still prominent while paper texture is clearly visible */
+        z-index: 0 !important;
+        /* Behind content */
+    }
+
+    /* Ensure socials-qr-section content is above overlay and crisp */
+    body .socials-qr-section>*,
+    body .socials-qr-section h2,
+    body .socials-qr-section .container,
+    body .socials-qr-section .qr-card,
+    body .socials-qr-section .qr-card *,
+    body .socials-qr-section img,
+    body .socials-qr-section svg,
+    body .socials-qr-section a,
+    body .socials-qr-section p,
+    body .socials-qr-section div {
+        position: relative !important;
+        z-index: 10 !important;
+        /* Above overlay */
+    }
+
+    /* Remove built-in margins inside embeds to avoid top gaps */
+    .social-manual blockquote.instagram-media,
+    .social-manual blockquote.tiktok-embed {
+        margin: 0 !important;
+    }
+
+    #community-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* force three equal columns */
+        gap: 12px;
+        /* tighter spacing between frames */
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .post-card {
+        width: 100%;
+    }
+
+    .social-manual .container {
+        max-width: 1300px;
+        position: relative;
+        z-index: 10 !important;
+        /* Much higher to be above overlay */
+    }
+
+    /* Ensure all content in social-manual is above overlay */
+    body .social-manual>*,
+    body .social-manual h2,
+    body .social-manual .font-serif,
+    body .social-manual .post-grid,
+    body .social-manual #community-grid,
+    body .social-manual .post-card,
+    body .social-manual .card-scroll,
+    body .social-manual blockquote,
+    body .social-manual iframe,
+    body .social-manual embed,
+    body .social-manual a,
+    body .social-manual p,
+    body .social-manual span,
+    body .social-manual div {
+        position: relative !important;
+        z-index: 10 !important;
+        /* Above overlay */
+    }
+
+    /* Ensure text elements are crisp and above overlay */
+    body .social-manual h2,
+    body .social-manual h2.font-serif,
+    body .social-manual p,
+    body .social-manual span,
+    body .social-manual div,
+    body .social-manual strong,
+    body .social-manual em {
+        position: relative !important;
+        z-index: 10 !important;
+    }
+
+    /* Ensure nested content is also above overlay */
+    body .social-manual .post-card *,
+    body .social-manual .card-scroll *,
+    body .social-manual #community-grid * {
+        position: relative !important;
+        z-index: 11 !important;
+        /* Even higher for nested content */
+    }
+
+    @media (max-width: 1024px) {
+        #community-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Equal height social cards with internal scroll (reduced excess space) */
+    .post-card.social-equal {
+        height: clamp(700px, 78vh, 900px);
+        display: flex;
+    }
+
+    /* Center content when there is extra space; still scrolls when overflow */
+    .post-card .card-scroll {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* top align to remove large blanks */
+        align-items: stretch;
+        gap: 12px;
+        padding: 6px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    /* Ensure top-aligned content in all cards */
+    .card-scroll-top {
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    .post-card {
+        background: rgba(253, 251, 247, 0.92);
+        border: 1px solid rgba(42, 61, 102, 0.10);
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* top align */
+        align-items: stretch;
+        /* Ensure NO blur on post-card */
+        filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        -moz-backdrop-filter: none !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+        will-change: auto !important;
+    }
+
+    /* Optional legacy helper (unused) */
+    .post-card.equal-height {
+        height: clamp(760px, 85vh, 1200px);
+    }
+
+    /* Center helper for the left Instagram embed */
+    .embed-center {
+        flex: 1 1 auto;
+        display: block;
+    }
+
+    .social-scroll {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .post-card a {
+        color: var(--deep-indigo);
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    /* IG gallery - two-column flex grid with fixed slots so posts never overlap */
+    .ig-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px 14px;
+        /* vertical + horizontal spacing between tiles */
+        width: 100%;
+        padding: 8px 4px 30px 4px;
+        box-sizing: border-box;
+    }
+
+    .ig-gallery .ig-item {
+        position: relative;
+        flex: 0 0 calc(50% - 7px);
+        /* two columns */
+        overflow: hidden;
+        border-radius: 14px;
+        background: transparent;
+        box-shadow: 0 6px 16px rgba(42, 61, 102, 0.08);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .ig-gallery .ig-item img {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: cover;
+        object-position: center center;
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: auto !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+    }
+
+    @media (max-width: 640px) {
+        .ig-gallery .ig-item {
+            flex: 0 0 100%;
+        }
+    }
+
+    /* Scroll container so users can scroll within the gallery card */
+    #igGalleryScroll {
+        /* Fill the card height so the grid starts at the top */
+        height: 100%;
+        max-height: none;
+        overflow-y: auto;
+        padding: 8px;
+        /* slight increase to avoid gap clipping at edges */
+        overscroll-behavior: contain;
+        /* keep page from scrolling when inside */
+        min-height: 0;
+        /* allow flex child to shrink and enable scroll */
+    }
+
+    /* Ensure the IG gallery card top-aligns content and allows the scroller to expand */
+    #igGalleryCard {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+
+
+    /* Footer styles for homepage */
+    footer {
+        margin-top: 0;
+        /* Remove top margin for homepage */
+    }
+
+    .footer-content {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 40px;
-        }
-        
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background-color: var(--soft-yellow);
-            bottom: 0;
-            left: 0;
-        }
-        
-        .tagline {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: var(--soft-yellow);
-        }
-        
-        /* =========================================
+    }
+
+    .footer-section h3::after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 2px;
+        background-color: var(--soft-yellow);
+        bottom: 0;
+        left: 0;
+    }
+
+    .tagline {
+        font-style: italic;
+        margin-bottom: 1rem;
+        color: var(--soft-yellow);
+    }
+
+    /* =========================================
            RESPONSIVE DESIGN - MOBILE FIXES
            ========================================= */
-        @media (max-width: 768px) {
-            /* === HERO SECTION === */
-            .hero {
-                margin: 12px 12px;
-                max-width: calc(100% - 24px);
-                padding: 32px 12px 28px;
-                border-radius: 18px;
-            }
-            
-        .hero .container {
-                flex-direction: column;
-            text-align: center;
-                padding: 0 8px;
+    @media (max-width: 768px) {
+
+        /* === HERO SECTION === */
+        .hero {
+            margin: 12px 12px;
+            max-width: calc(100% - 24px);
+            padding: 32px 12px 28px;
+            border-radius: 18px;
         }
-        
+
+        .hero .container {
+            flex-direction: column;
+            text-align: center;
+            padding: 0 8px;
+        }
+
         .hero-content {
             max-width: none;
-                margin-bottom: 1.5rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 1.8rem;
-                line-height: 1.2;
-                word-break: break-word;
-            }
-            
-            .acronym-subtitle {
-                font-size: 0.85rem;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 4px 8px;
-                white-space: normal;
-            }
-            
-            .acronym-letter {
-                font-size: 0.9rem;
-            }
-            
-            .hero .quote, .hero .mission {
-                font-size: 0.95rem;
-                line-height: 1.5;
-                padding: 0 8px;
-            }
-            
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 1.8rem;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .acronym-subtitle {
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 8px;
+            white-space: normal;
+        }
+
+        .acronym-letter {
+            font-size: 0.9rem;
+        }
+
+        .hero .quote,
+        .hero .mission {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            padding: 0 8px;
+        }
+
         .hero-media {
-                width: 85%;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-            
-            /* Word cloud removed */
-            
-            /* === BUTTONS === */
-            .cta-buttons {
-                flex-direction: column;
-                gap: 12px;
-                width: 100%;
-                padding: 0 12px;
-            }
-            .cta-buttons .btn-primary,
-            .cta-buttons .btn-secondary {
-                width: 100%;
-                text-align: center;
-                padding: 14px 20px;
-            }
-            
-            /* === ABOUT SECTION === */
-            .about-grid {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-            
-            .about-card {
-                padding: 18px;
-            }
-            
-            /* Images - prevent cropping */
-            .photo-rect {
-                height: auto !important;
-                min-height: 180px;
-                max-height: 280px;
-                width: 100%;
-                object-fit: contain;
-            }
-            
-            .banner-rect {
-                min-height: 140px;
-                max-height: 220px;
-                object-fit: contain;
-            }
-            
-            /* === CONSULTANT / TEAM SECTION === */
-            .consultant-card {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-                text-align: center;
-            }
-            
-            .consultant-card .avatar-photo {
-                max-width: 200px;
-                margin: 0 auto;
-            }
-            
-            .consultant-card .info {
-                padding: 0 12px;
-            }
-            
-            .consultant-card .info h3 {
-                font-size: 1.3rem;
-            }
-            
-            .consultant-card .info p {
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
-            
-            /* === TWO COLUMN GRIDS === */
-            .two-col-grid {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-            
-            .partners-grid {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* === CARDS === */
-        .step-card, .card, .testimonial {
+            width: 85%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Word cloud removed */
+
+        /* === BUTTONS === */
+        .cta-buttons {
+            flex-direction: column;
+            gap: 12px;
             width: 100%;
-                max-width: none;
-            }
-            
-            .post-card.equal-height {
-                height: auto;
-            }
-            
-            /* === SOCIAL GRID === */
-            #community-grid {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-            
-            .post-card.social-equal {
-                height: auto;
-                min-height: 400px;
-            }
-            
-            /* === GENERAL SPACING === */
-            .content-section {
-                padding: 24px 16px !important;
-                margin: 12px !important;
-                border-radius: 16px !important;
-            }
-            
-            .container {
-                padding: 0 12px;
-            }
-            
-            h2 {
-                font-size: 1.6rem !important;
-            }
-            
-            h3 {
-                font-size: 1.2rem !important;
-            }
-            
-            p {
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
+            padding: 0 12px;
         }
-        
-        /* Extra small screens */
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 1.5rem;
-            }
-            
-            .acronym-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .hero .quote {
-                font-size: 0.9rem;
-            }
-            
-            /* Word cloud removed */
+
+        .cta-buttons .btn-primary,
+        .cta-buttons .btn-secondary {
+            width: 100%;
+            text-align: center;
+            padding: 14px 20px;
         }
+
+        /* === ABOUT SECTION === */
+        .about-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px;
+        }
+
+        .about-card {
+            padding: 18px;
+        }
+
+        /* Images - prevent cropping */
+        .photo-rect {
+            height: auto !important;
+            min-height: 180px;
+            max-height: 280px;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .banner-rect {
+            min-height: 140px;
+            max-height: 220px;
+            object-fit: contain;
+        }
+
+        /* === CONSULTANT / TEAM SECTION === */
+        .consultant-card {
+            grid-template-columns: 1fr !important;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .consultant-card .avatar-photo {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .consultant-card .info {
+            padding: 0 12px;
+        }
+
+        .consultant-card .info h3 {
+            font-size: 1.3rem;
+        }
+
+        .consultant-card .info p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* === TWO COLUMN GRIDS === */
+        .two-col-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px;
+        }
+
+        .partners-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        /* === CARDS === */
+        .step-card,
+        .card,
+        .testimonial {
+            width: 100%;
+            max-width: none;
+        }
+
+        .post-card.equal-height {
+            height: auto;
+        }
+
+        /* === SOCIAL GRID === */
+        #community-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px;
+        }
+
+        .post-card.social-equal {
+            height: auto;
+            min-height: 400px;
+        }
+
+        /* === GENERAL SPACING === */
+        .content-section {
+            padding: 24px 16px !important;
+            margin: 12px !important;
+            border-radius: 16px !important;
+        }
+
+        .container {
+            padding: 0 12px;
+        }
+
+        h2 {
+            font-size: 1.6rem !important;
+        }
+
+        h3 {
+            font-size: 1.2rem !important;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+        .hero-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .acronym-subtitle {
+            font-size: 0.75rem;
+        }
+
+        .hero .quote {
+            font-size: 0.9rem;
+        }
+
+        /* Word cloud removed */
+    }
 
     /* ==========================================================
        MATERIAL 3 / ECHOE GRAPHIC DESIGN ENHANCEMENTS
@@ -1165,11 +1437,13 @@
         box-shadow: 4px 4px 0px var(--echoe-accent-pink);
         transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
     }
+
     .btn-primary:hover {
         box-shadow: 0px 0px 0px var(--echoe-accent-pink);
         transform: translate(4px, 4px);
         background: #f7db7a;
     }
+
     .btn-secondary {
         position: relative;
         background: #fff;
@@ -1182,6 +1456,7 @@
         box-shadow: 4px 4px 0px var(--echoe-accent-green);
         transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
     }
+
     .btn-secondary:hover {
         box-shadow: 0px 0px 0px var(--echoe-accent-green);
         transform: translate(4px, 4px);
@@ -1189,157 +1464,394 @@
     }
 
     /* === NAVBAR - NO UNDERLINES === */
-    nav a::after, header .nav-links a::after {
+    nav a::after,
+    header .nav-links a::after {
         display: none !important;
         content: none !important;
     }
 
     /* === ANIMATIONS (smooth transitions for all elements) === */
-    
+
     /* Twinkle for stars */
     @keyframes twinkle {
-        0%, 100% { opacity: 0.85; transform: scale(1) rotate(0deg); }
-        50% { opacity: 1; transform: scale(1.15) rotate(15deg); }
+
+        0%,
+        100% {
+            opacity: 0.85;
+            transform: scale(1) rotate(0deg);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.15) rotate(15deg);
+        }
     }
-    
+
     /* Gentle float */
     @keyframes float-slow {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(2deg); }
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(2deg);
+        }
     }
+
     @keyframes float-reverse {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-15px) rotate(-2deg); }
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-15px) rotate(-2deg);
+        }
     }
-    
+
     /* Heartbeat pulse (for heart decoration) */
     @keyframes heartbeat {
-        0%, 100% { transform: scale(1); }
-        15% { transform: scale(1.15); }
-        30% { transform: scale(1); }
-        45% { transform: scale(1.1); }
-        60% { transform: scale(1); }
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        15% {
+            transform: scale(1.15);
+        }
+
+        30% {
+            transform: scale(1);
+        }
+
+        45% {
+            transform: scale(1.1);
+        }
+
+        60% {
+            transform: scale(1);
+        }
     }
-    
+
     /* Sparkle burst (for sparkles decoration) */
     @keyframes sparkle-burst {
-        0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-        25% { transform: scale(1.2) rotate(5deg); opacity: 1; }
-        50% { transform: scale(0.95) rotate(-3deg); opacity: 0.85; }
-        75% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+
+        0%,
+        100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 0.9;
+        }
+
+        25% {
+            transform: scale(1.2) rotate(5deg);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(0.95) rotate(-3deg);
+            opacity: 0.85;
+        }
+
+        75% {
+            transform: scale(1.1) rotate(2deg);
+            opacity: 1;
+        }
     }
-    
+
     /* Wobble (for cards) */
     @keyframes wobble {
-        0%, 100% { transform: rotate(-1deg); }
-        50% { transform: rotate(1deg); }
+
+        0%,
+        100% {
+            transform: rotate(-1deg);
+        }
+
+        50% {
+            transform: rotate(1deg);
+        }
     }
-    
+
     /* Bounce subtle */
     @keyframes bounce-subtle {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
     }
-    
+
     /* Sway (for organic feel) */
     @keyframes sway {
-        0%, 100% { transform: rotate(-2deg) translateX(0); }
-        50% { transform: rotate(2deg) translateX(4px); }
+
+        0%,
+        100% {
+            transform: rotate(-2deg) translateX(0);
+        }
+
+        50% {
+            transform: rotate(2deg) translateX(4px);
+        }
     }
-    
+
     /* Glow pulse (for buttons) */
     @keyframes glow-pulse {
-        0%, 100% { box-shadow: 4px 4px 0px var(--echoe-accent-pink), 0 0 0 0 rgba(244,210,200,0); }
-        50% { box-shadow: 4px 4px 0px var(--echoe-accent-green), 0 0 20px 4px rgba(244,210,200,0.3); }
+
+        0%,
+        100% {
+            box-shadow: 4px 4px 0px var(--echoe-accent-pink), 0 0 0 0 rgba(244, 210, 200, 0);
+        }
+
+        50% {
+            box-shadow: 4px 4px 0px var(--echoe-accent-green), 0 0 20px 4px rgba(244, 210, 200, 0.3);
+        }
     }
-    
+
     /* Shimmer (left to right shine) */
     @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
+        0% {
+            background-position: -200% 0;
+        }
+
+        100% {
+            background-position: 200% 0;
+        }
     }
-    
+
     /* Scale breathe */
     @keyframes breathe {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.02); }
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.02);
+        }
     }
-    
+
     /* Stroke draw */
     @keyframes draw-stroke {
-        from { stroke-dashoffset: 100; }
-        to { stroke-dashoffset: 0; }
+        from {
+            stroke-dashoffset: 100;
+        }
+
+        to {
+            stroke-dashoffset: 0;
+        }
     }
-    
+
     /* Legacy pulse-slow */
     @keyframes pulse-slow {
-        0%, 100% { box-shadow: 4px 4px 0px var(--echoe-accent-pink); }
-        50% { box-shadow: 6px 6px 0px var(--echoe-accent-green); }
+
+        0%,
+        100% {
+            box-shadow: 4px 4px 0px var(--echoe-accent-pink);
+        }
+
+        50% {
+            box-shadow: 6px 6px 0px var(--echoe-accent-green);
+        }
     }
-    
+
     /* Fade variants */
     @keyframes fade-up {
-        from { opacity: 0; transform: translateY(16px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-down {
-        from { opacity: 0; transform: translateY(-16px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-scale {
-        from { opacity: 0; transform: scale(0.9); }
-        to { opacity: 1; transform: scale(1); }
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
-    
+
     /* Slide variants */
     @keyframes slide-in-left {
-        from { opacity: 0; transform: translateX(-24px); }
-        to { opacity: 1; transform: translateX(0); }
+        from {
+            opacity: 0;
+            transform: translateX(-24px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
+
     @keyframes slide-in-right {
-        from { opacity: 0; transform: translateX(24px); }
-        to { opacity: 1; transform: translateX(0); }
+        from {
+            opacity: 0;
+            transform: translateX(24px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
+
     @keyframes slide-up-bounce {
-        0% { opacity: 0; transform: translateY(30px); }
-        60% { opacity: 1; transform: translateY(-5px); }
-        100% { opacity: 1; transform: translateY(0); }
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        60% {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-    
+
     /* Animation utility classes */
-    .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
-    .animate-float-reverse { animation: float-reverse 7s ease-in-out infinite; }
-    .animate-heartbeat { animation: heartbeat 2s ease-in-out infinite; }
-    .animate-sparkle { animation: sparkle-burst 3s ease-in-out infinite; }
-    .animate-wobble { animation: wobble 4s ease-in-out infinite; }
-    .animate-bounce { animation: bounce-subtle 2s ease-in-out infinite; }
-    .animate-sway { animation: sway 5s ease-in-out infinite; }
-    .animate-glow { animation: glow-pulse 3s ease-in-out infinite; }
-    .animate-breathe { animation: breathe 4s ease-in-out infinite; }
-    .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
-    .animate-fade-up { animation: fade-up 0.6s ease-out both; }
-    .animate-fade-down { animation: fade-down 0.6s ease-out both; }
-    .animate-fade-scale { animation: fade-scale 0.5s ease-out both; }
-    .animate-slide-left { animation: slide-in-left 0.5s ease-out both; }
-    .animate-slide-right { animation: slide-in-right 0.5s ease-out both; }
-    .animate-slide-up-bounce { animation: slide-up-bounce 0.7s ease-out both; }
+    .animate-float-slow {
+        animation: float-slow 6s ease-in-out infinite;
+    }
+
+    .animate-float-reverse {
+        animation: float-reverse 7s ease-in-out infinite;
+    }
+
+    .animate-heartbeat {
+        animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    .animate-sparkle {
+        animation: sparkle-burst 3s ease-in-out infinite;
+    }
+
+    .animate-wobble {
+        animation: wobble 4s ease-in-out infinite;
+    }
+
+    .animate-bounce {
+        animation: bounce-subtle 2s ease-in-out infinite;
+    }
+
+    .animate-sway {
+        animation: sway 5s ease-in-out infinite;
+    }
+
+    .animate-glow {
+        animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    .animate-breathe {
+        animation: breathe 4s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+    }
+
+    .animate-fade-up {
+        animation: fade-up 0.6s ease-out both;
+    }
+
+    .animate-fade-down {
+        animation: fade-down 0.6s ease-out both;
+    }
+
+    .animate-fade-scale {
+        animation: fade-scale 0.5s ease-out both;
+    }
+
+    .animate-slide-left {
+        animation: slide-in-left 0.5s ease-out both;
+    }
+
+    .animate-slide-right {
+        animation: slide-in-right 0.5s ease-out both;
+    }
+
+    .animate-slide-up-bounce {
+        animation: slide-up-bounce 0.7s ease-out both;
+    }
 
     /* Staggered animation delays */
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
+    .delay-1 {
+        animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+        animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+        animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+        animation-delay: 0.4s;
+    }
+
+    .delay-5 {
+        animation-delay: 0.5s;
+    }
 
     /* === CARD HOVER & TILT EFFECTS === */
     .about-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .about-card:hover { transform: none; box-shadow: none; }
-    .tilt-left { transform: rotate(-1.5deg); }
-    .tilt-right { transform: rotate(1.5deg); }
-    .tilt-left:hover { transform: rotate(-1.5deg) translateY(-4px); }
-    .tilt-right:hover { transform: rotate(1.5deg) translateY(-4px); }
+
+    .about-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .tilt-left {
+        transform: rotate(-1.5deg);
+    }
+
+    .tilt-right {
+        transform: rotate(1.5deg);
+    }
+
+    .tilt-left:hover {
+        transform: rotate(-1.5deg) translateY(-4px);
+    }
+
+    .tilt-right:hover {
+        transform: rotate(1.5deg) translateY(-4px);
+    }
 
     /* === SECTION DECORATIVE BACKGROUNDS === */
     .section-cork {
@@ -1348,6 +1860,7 @@
         border-top: 1px solid rgba(42, 61, 102, 0.12);
         border-bottom: 1px solid rgba(42, 61, 102, 0.12);
     }
+
     .section-cork::before {
         content: '';
         position: absolute;
@@ -1355,23 +1868,28 @@
         background-image: var(--band-b);
         background-size: cover;
         background-position: center;
-        opacity: 0.30; /* subtle band texture/tint over the photo */
+        opacity: 0.30;
+        /* subtle band texture/tint over the photo */
         pointer-events: none;
-        z-index: 0 !important; /* Behind content */
+        z-index: 0 !important;
+        /* Behind content */
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         -moz-backdrop-filter: none !important;
         filter: none !important;
     }
-    
+
     /* Ensure social-manual section-cork doesn't cover content */
     body .social-manual.section-cork::before {
-        z-index: 0 !important; /* Behind all content */
+        z-index: 0 !important;
+        /* Behind all content */
         opacity: 0.30 !important;
     }
+
     .section-grid-pattern {
         position: relative;
     }
+
     .section-grid-pattern::before {
         content: '';
         position: absolute;
@@ -1385,6 +1903,7 @@
     .zigzag-top {
         position: relative;
     }
+
     .zigzag-top::before {
         content: '';
         position: absolute;
@@ -1400,15 +1919,18 @@
     .ig-item {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .ig-item:hover {
         transform: scale(1.03) rotate(-1deg);
-        box-shadow: 0 12px 28px rgba(42,61,102,0.18);
+        box-shadow: 0 12px 28px rgba(42, 61, 102, 0.18);
     }
 
     /* === HEADING TYPOGRAPHY ENHANCEMENTS === */
-    h1, h2 {
+    h1,
+    h2 {
         font-family: 'DM Serif Display', serif;
     }
+
     .hero-content h1 {
         font-family: 'DM Serif Display', serif;
         letter-spacing: -0.02em;
@@ -1424,783 +1946,885 @@
     /* === ABOUT SECTIONS STYLING === */
     .about-section {
         position: relative;
-        overflow: hidden; /* contain decorations */
+        overflow: hidden;
+        /* contain decorations */
     }
-    
+
     /* Post card animations */
     .post-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .post-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(42,61,102,0.15);
+        box-shadow: 0 12px 32px rgba(42, 61, 102, 0.15);
     }
-    
+
     /* Photo hover effects (no frames) */
-    .photo-rect, .banner-rect { transition: transform 0.3s ease; }
-    .photo-rect:hover, .banner-rect:hover { transform: scale(1.01); }
+    .photo-rect,
+    .banner-rect {
+        transition: transform 0.3s ease;
+    }
+
+    .photo-rect:hover,
+    .banner-rect:hover {
+        transform: scale(1.01);
+    }
 
     /* About sections: keep content above the wash overlay */
-    .about-section .container { position: relative; z-index: 2; }
-    </style>
+    .about-section .container {
+        position: relative;
+        z-index: 2;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-        <section class="home-masthead" aria-label="E.C.H.O.E banner"></section>
+<section class="home-masthead" aria-label="E.C.H.O.E banner"></section>
 
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content animate-fade-up">
-                    <p class="hero-kicker">Every Voice Deserves to Echo.</p>
-                    <h1>Welcome to E.C.H.O.E</h1>
-                    <div class="acronym-subtitle">
-                        <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
-                        <span class="acronym-dot">•</span>
-                        <span><span class="acronym-letter">C</span><span class="acronym-word">onnection</span></span>
-                        <span class="acronym-dot">•</span>
-                        <span><span class="acronym-letter">H</span><span class="acronym-word">ope</span></span>
-                        <span class="acronym-dot">•</span>
-                        <span><span class="acronym-letter">O</span><span class="acronym-word">utreach</span></span>
-                        <span class="acronym-dot">•</span>
-                        <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
-                    </div>
-                    <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
-                    <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and inclusive events — so no one feels alone.</p>
-                    <div class="hero-actions animate-fade-up delay-3">
-                        <a href="{{ url_for('submit') }}" class="btn-primary animate-pulse-slow">Share Your Story</a>
-                        <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
-                </div>
-                </div>
-                <div class="hero-media animate-slide-right delay-2" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-badge">
-                </div>
+<section class="hero">
+    <div class="container">
+        <div class="hero-content animate-fade-up">
+            <p class="hero-kicker">Every Voice Deserves to Echo.</p>
+            <h1>Welcome to E.C.H.O.E</h1>
+            <div class="acronym-subtitle">
+                <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
+                <span class="acronym-dot">•</span>
+                <span><span class="acronym-letter">C</span><span class="acronym-word">onnection</span></span>
+                <span class="acronym-dot">•</span>
+                <span><span class="acronym-letter">H</span><span class="acronym-word">ope</span></span>
+                <span class="acronym-dot">•</span>
+                <span><span class="acronym-letter">O</span><span class="acronym-word">utreach</span></span>
+                <span class="acronym-dot">•</span>
+                <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
             </div>
-        </section>
-        
-        
+            <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
+            <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and
+                inclusive events — so no one feels alone.</p>
+            <div class="hero-actions animate-fade-up delay-3">
+                <a href="{{ url_for('submit') }}" class="btn-primary animate-pulse-slow">Share Your Story</a>
+                <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
+            </div>
+        </div>
+        <div class="hero-media animate-slide-right delay-2" aria-hidden="true">
+            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-badge">
+        </div>
+    </div>
+</section>
 
-        
-        
-        
-        
-        <section class="about-section" id="section-who-we-are">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-card tilt-left animate-fade-up">
-                        <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
-                        <p style="font-size:1.05rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:16px; border-left:3px solid var(--soft-yellow); padding-left:16px;">
-                            Where loneliness ends, empathy begins.
-                        </p>
-                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                            We are a student-led organization committed to breaking down social isolation among teens and building a collaborative community. In a world where silence can feel heavy, we believe no one should go through their journey alone.
-                        </p>
-                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                            Our movement creates a bridge between solitude and belongingness. Teens can express themselves through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers who care. We also share resources, insights, and guidance by holding in-person events, ensuring that support is always within reach.
-                        </p>
-                        <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                            We don’t just listen — we inspire, uplift, and help embrace new paths toward healing and resilience. Because every voice deserves to be echoed.
-                        </p>
-                        <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach • Empowerment.</p>
-                        </div>
-                    <div class="about-card tilt-right animate-slide-right delay-2" style="display:flex; flex-direction:column; gap:12px; justify-content:center; align-items:center; text-align:center;">
-                        <img src="{{ url_for('static', filename='img/Weixin Image_20251029224616_6598_474.jpg') }}"
-                             alt="E.C.H.O.E Team"
-                             class="photo-rect"
-                             style="height:auto; max-height:420px; object-fit:contain; background:transparent;">
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Meet Echo the Cat! -->
-        <section class="about-section" id="section-echo-cat">
-            <div class="container">
-                <div class="about-card animate-slide-up-bounce">
-                    <h2 style="margin-bottom:12px;" class="font-serif">Meet Echo the Cat!</h2>
-                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                        Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of curiosity, tilting her head to every little ping and boop that floated through the digital air.
-                    </p>
-                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                        Echo adores unraveling mysterious tangles of code, napping on forgotten story scrolls, and sipping warm imaginary tea. Her shimmering monocle helps her see clearly, and her little green scarf keeps her snug for adventures.
-                    </p>
-                    <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo); margin:0;">
-                        Most of all, Echo loves making friends. She listens quietly, offers gentle presence, and reminds us that our online world can be warm, welcoming, and wonderfully curious. If you look closely, you might catch a friendly wink from behind her monocle — she’s happy you’re here.
-                    </p>
-                </div>
-                <div class="about-card animate-fade-scale delay-2" style="margin-top:18px;">
-                    <div class="echo-photos" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
-                        <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_ushjnxushjnxushj.png') }}" alt="Meet our mascot - Echo the Cat" class="photo-rect" style="animation: fade-up 0.5s ease-out 0.1s both;">
-                        <img src="{{ url_for('static', filename='img/IMG_5417 (1).GIF') }}" alt="Echo animation" class="photo-rect" style="animation: fade-up 0.5s ease-out 0.2s both;">
-                        <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_e1m1z5e1m1z5e1m1.png') }}" alt="Echo sketches board" class="photo-rect" style="animation: fade-up 0.5s ease-out 0.3s both;">
-                        <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_svegnwsvegnwsveg.png') }}" alt="Echo the Cat's favorite things" class="photo-rect" style="animation: fade-up 0.5s ease-out 0.4s both;">
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Mission/Vision/Values and How We Help side by side -->
-        <section class="about-section" id="section-about-us">
-            <div class="container">
-                <h2 style="text-align:center; margin-bottom:18px;" class="font-serif animate-fade-down">About Us</h2>
-                <div class="two-col-grid">
-                    <div class="about-card tilt-left animate-slide-left" style="text-align:center;">
-                        <h2 style="margin-bottom:10px;" class="font-serif">Our Mission</h2>
-                        <p style="font-size:1.05rem; margin:0 0 16px;">To amplify the voices that are often unheard and stand against social isolation by creating safe, supportive spaces where teens can connect, share, and heal together.</p>
-                        <h2 style="margin:10px 0;" class="font-serif">Our Vision</h2>
-                        <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
-                        <h2 style="margin:10px 0;" class="font-serif">Values</h2>
-                        <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
-                            <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
-                            <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.</li>
-                            <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
-                            <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
-                            <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace their voice.</li>
-                        </ul>
-                    </div>
-                    <div class="about-card tilt-right animate-slide-right delay-1">
-                        <h2 class="font-serif">How We Help</h2>
-                        <ul style="margin:8px 0 0 18px; line-height:1.7;">
-                            <li>Secure online platform for anonymous sharing and human replies</li>
-                            <li>Physical mailboxes in local spaces for offline letters</li>
-                            <li>Supportive community events that foster belonging</li>
-                        </ul>
-                        <h2 style="margin-top:16px;" class="font-serif">Your Privacy & Safety</h2>
-                        <ul style="margin:8px 0 0 18px; line-height:1.7;">
-                            <li>Anonymous letters and secure storage</li>
-                            <li>Volunteer training and content moderation</li>
-                            <li>Clear safety guidelines to protect all users</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        
-        
-        <section class="about-section" id="section-partners">
-            <div class="container">
-                <h2 style="text-align:center; margin-bottom:18px;" class="font-serif animate-fade-up">Our Partners</h2>
-                <div class="two-col-grid partners-grid">
-                    <div class="about-card tilt-left animate-slide-left">
-                        <h2 style="margin-bottom:10px;" class="font-serif">Our Mental Health Consultant</h2>
-                        <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
-                            <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Leora Raphael-Berman" class="avatar-photo">
-                            <div>
-                                <p style="margin:0 0 8px 0; line-height:1.7; font-weight:800; color:var(--deep-indigo);">Leora Raphael-Berman, RN</p>
-                                <p style="margin:0; line-height:1.75; opacity:.9;">
-                                    Leora Raphael-Berman is a Registered Nurse with over a decade of experience in public and community health. She is deeply passionate about mental health and empowering young people to care for their well-being and support one another. Alongside her clinical and community work, she has proudly served as the staff lead for her school’s JACK chapter for the past three years. This year, she is excited to support the HOSA team as the Mental Health Consultant, helping students build a project that promotes awareness, empathy, and meaningful conversations about mental wellness.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="about-card tilt-right animate-slide-right delay-2">
-                        <h2 style="margin-bottom:10px;" class="font-serif">Collaborators</h2>
-                        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-                            <div style="text-align:center;">
-                                <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}" alt="Gifted People Services" style="max-width:220px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
-                                <p style="margin-top:8px; font-weight:700; color:var(--deep-indigo);">Gifted People Services</p>
-                            </div>
-                        </div>
+
+
+
+
+
+<section class="about-section" id="section-who-we-are">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-card tilt-left animate-fade-up">
+                <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
+                <p
+                    style="font-size:1.05rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:16px; border-left:3px solid var(--soft-yellow); padding-left:16px;">
+                    Where loneliness ends, empathy begins.
+                </p>
+                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                    We are a student-led organization committed to breaking down social isolation among teens and
+                    building a collaborative community. In a world where silence can feel heavy, we believe no one
+                    should go through their journey alone.
+                </p>
+                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                    Our movement creates a bridge between solitude and belongingness. Teens can express themselves
+                    through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers
+                    who care. We also share resources, insights, and guidance by holding in-person events, ensuring that
+                    support is always within reach.
+                </p>
+                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
+                    We don’t just listen — we inspire, uplift, and help embrace new paths toward healing and resilience.
+                    Because every voice deserves to be echoed.
+                </p>
+                <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach •
+                    Empowerment.</p>
+            </div>
+            <div class="about-card tilt-right animate-slide-right delay-2"
+                style="display:flex; flex-direction:column; gap:12px; justify-content:center; align-items:center; text-align:center;">
+                <img src="{{ url_for('static', filename='img/Weixin Image_20251029224616_6598_474.jpg') }}"
+                    alt="E.C.H.O.E Team" class="photo-rect"
+                    style="height:auto; max-height:420px; object-fit:contain; background:transparent;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Meet Echo the Cat! -->
+<section class="about-section" id="section-echo-cat">
+    <div class="container">
+        <div class="about-card animate-slide-up-bounce">
+            <h2 style="margin-bottom:12px;" class="font-serif">Meet Echo the Cat!</h2>
+            <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
+                Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a
+                lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of
+                curiosity, tilting her head to every little ping and boop that floated through the digital air.
+            </p>
+            <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
+                Echo adores unraveling mysterious tangles of code, napping on forgotten story scrolls, and sipping warm
+                imaginary tea. Her shimmering monocle helps her see clearly, and her little green scarf keeps her snug
+                for adventures.
+            </p>
+            <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo); margin:0;">
+                Most of all, Echo loves making friends. She listens quietly, offers gentle presence, and reminds us that
+                our online world can be warm, welcoming, and wonderfully curious. If you look closely, you might catch a
+                friendly wink from behind her monocle — she’s happy you’re here.
+            </p>
+        </div>
+        <div class="about-card animate-fade-scale delay-2" style="margin-top:18px;">
+            <div class="echo-photos"
+                style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+                <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_ushjnxushjnxushj.png') }}"
+                    alt="Meet our mascot - Echo the Cat" class="photo-rect"
+                    style="animation: fade-up 0.5s ease-out 0.1s both;">
+                <img src="{{ url_for('static', filename='img/IMG_5417 (1).GIF') }}" alt="Echo animation"
+                    class="photo-rect" style="animation: fade-up 0.5s ease-out 0.2s both;">
+                <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_e1m1z5e1m1z5e1m1.png') }}"
+                    alt="Echo sketches board" class="photo-rect" style="animation: fade-up 0.5s ease-out 0.3s both;">
+                <img src="{{ url_for('static', filename='img/Gemini_Generated_Image_svegnwsvegnwsveg.png') }}"
+                    alt="Echo the Cat's favorite things" class="photo-rect"
+                    style="animation: fade-up 0.5s ease-out 0.4s both;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission/Vision/Values and How We Help side by side -->
+<section class="about-section" id="section-about-us">
+    <div class="container">
+        <h2 style="text-align:center; margin-bottom:18px;" class="font-serif animate-fade-down">About Us</h2>
+        <div class="two-col-grid">
+            <div class="about-card tilt-left animate-slide-left" style="text-align:center;">
+                <h2 style="margin-bottom:10px;" class="font-serif">Our Mission</h2>
+                <p style="font-size:1.05rem; margin:0 0 16px;">To amplify the voices that are often unheard and stand
+                    against social isolation by creating safe, supportive spaces where teens can connect, share, and
+                    heal together.</p>
+                <h2 style="margin:10px 0;" class="font-serif">Our Vision</h2>
+                <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is
+                    valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and
+                    belonging — where every voice deserves to echo.</p>
+                <h2 style="margin:10px 0;" class="font-serif">Values</h2>
+                <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
+                    <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
+                    <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.
+                    </li>
+                    <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
+                    <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
+                    <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace
+                        their voice.</li>
+                </ul>
+            </div>
+            <div class="about-card tilt-right animate-slide-right delay-1">
+                <h2 class="font-serif">How We Help</h2>
+                <ul style="margin:8px 0 0 18px; line-height:1.7;">
+                    <li>Secure online platform for anonymous sharing and human replies</li>
+                    <li>Physical mailboxes in local spaces for offline letters</li>
+                    <li>Supportive community events that foster belonging</li>
+                </ul>
+                <h2 style="margin-top:16px;" class="font-serif">Your Privacy & Safety</h2>
+                <ul style="margin:8px 0 0 18px; line-height:1.7;">
+                    <li>Anonymous letters and secure storage</li>
+                    <li>Volunteer training and content moderation</li>
+                    <li>Clear safety guidelines to protect all users</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="about-section" id="section-partners">
+    <div class="container">
+        <h2 style="text-align:center; margin-bottom:18px;" class="font-serif animate-fade-up">Our Partners</h2>
+        <div class="two-col-grid partners-grid">
+            <div class="about-card tilt-left animate-slide-left">
+                <h2 style="margin-bottom:10px;" class="font-serif">Our Mental Health Consultant</h2>
+                <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
+                    <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Leora Raphael-Berman"
+                        class="avatar-photo">
+                    <div>
+                        <p style="margin:0 0 8px 0; line-height:1.7; font-weight:800; color:var(--deep-indigo);">Leora
+                            Raphael-Berman, RN</p>
+                        <p style="margin:0; line-height:1.75; opacity:.9;">
+                            Leora Raphael-Berman is a Registered Nurse with over a decade of experience in public and
+                            community health. She is deeply passionate about mental health and empowering young people
+                            to care for their well-being and support one another. Alongside her clinical and community
+                            work, she has proudly served as the staff lead for her school’s JACK chapter for the past
+                            three years. This year, she is excited to support the HOSA team as the Mental Health
+                            Consultant, helping students build a project that promotes awareness, empathy, and
+                            meaningful conversations about mental wellness.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
-        
-        <section class="social-manual section-cork" id="section-community">
-            <div class="container" style="position:relative; z-index:10;">
-                <h2 style="margin-bottom:18px; position:relative; z-index:10;" class="font-serif animate-fade-up">From Our Community</h2>
-                
-                <div id="community-grid" class="post-grid">
-                <!-- Left: TikTok + YouTube stacked in one scrollable box -->
-                <div class="post-card social-equal">
-                    <div class="card-scroll card-scroll-top">
-                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa" data-unique-id="echoe_hosa" data-embed-type="creator" style="max-width: 605px;min-width: 325px;">
-                          <section>Loading TikTok…</section>
-                        </blockquote>
-                        <div id="ytLatestHome">
-                            <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube video…</div>
-                        </div>
+            <div class="about-card tilt-right animate-slide-right delay-2">
+                <h2 style="margin-bottom:10px;" class="font-serif">Collaborators</h2>
+                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                    <div style="text-align:center;">
+                        <img src="{{ url_for('static', filename='img/36772216_229088281046822_4982479371248861184_n.jpg') }}"
+                            alt="Gifted People Services"
+                            style="max-width:220px; width:100%; border-radius:12px; box-shadow:0 6px 20px rgba(42,61,102,0.1);">
+                        <p style="margin-top:8px; font-weight:700; color:var(--deep-indigo);">Gifted People Services</p>
                     </div>
-                    <script async src="https://www.tiktok.com/embed.js"></script>
-                    <script>
-                    document.addEventListener('DOMContentLoaded', async function(){
-                        try{
-                            const r2 = await fetch('/api/youtube-latest', {cache:'no-store'});
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="social-manual section-cork" id="section-community">
+    <div class="container" style="position:relative; z-index:10;">
+        <h2 style="margin-bottom:18px; position:relative; z-index:10;" class="font-serif animate-fade-up">From Our
+            Community</h2>
+
+        <div id="community-grid" class="post-grid">
+            <!-- Left: TikTok + YouTube stacked in one scrollable box -->
+            <div class="post-card social-equal">
+                <div class="card-scroll card-scroll-top">
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa"
+                        data-unique-id="echoe_hosa" data-embed-type="creator"
+                        style="max-width: 605px;min-width: 325px;">
+                        <section>Loading TikTok…</section>
+                    </blockquote>
+                    <div id="ytLatestHome">
+                        <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube
+                            video…</div>
+                    </div>
+                </div>
+                <script async src="https://www.tiktok.com/embed.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', async function () {
+                        try {
+                            const r2 = await fetch('/api/youtube-latest', { cache: 'no-store' });
                             const yt = await r2.json();
                             const yb = document.getElementById('ytLatestHome');
-                            if(yb){
-                                if(yt && yt.embed_url){
+                            if (yb) {
+                                if (yt && yt.embed_url) {
                                     yb.innerHTML = `<div class=\"embed\"><iframe width=\"100%\" height=\"315\" src=\"${yt.embed_url}\" title=\"Latest YouTube video\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></div>`;
                                 } else {
                                     yb.innerHTML = '<div class=\"embed\"><iframe width=\"100%\" height=\"315\" src=\"https://www.youtube.com/embed/0lwx3_8T7SE\" title=\"Latest YouTube video\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></div>'
                                 }
                             }
-                        }catch(e){ /* ignore */ }
+                        } catch (e) { /* ignore */ }
                     });
-                    </script>
+                </script>
+            </div>
+            <!-- Middle: IG latest only (original Instagram embed) -->
+            <div class="post-card social-equal" id="igLatestCard">
+                <div class="card-scroll card-scroll-top">
+                    {% if latest_ig and latest_ig.permalink %}
+                    <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}"
+                        data-instgrm-captioned data-instgrm-version="14"
+                        style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;">
+                    </blockquote>
+                    {% else %}
+                    <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
+                    {% endif %}
                 </div>
-                <!-- Middle: IG latest only (original Instagram embed) -->
-                <div class="post-card social-equal" id="igLatestCard">
-                    <div class="card-scroll card-scroll-top">
-                        {% if latest_ig and latest_ig.permalink %}
-                        <blockquote class="instagram-media" data-instgrm-permalink="{{ latest_ig.permalink }}" data-instgrm-captioned data-instgrm-version="14" style="background:#fff; border:0; margin:0 auto; max-width:540px; min-width:326px; width:100%;"></blockquote>
-                        {% else %}
-                        <div style="padding:12px; text-align:center; opacity:.8;">Latest Instagram post unavailable.</div>
-                        {% endif %}
+                <script async src="https://www.instagram.com/embed.js"></script>
+            </div>
+            <div class="post-card social-equal" id="igGalleryCard"
+                style="display:flex;flex-direction:column;justify-content:flex-start;">
+                <div id="igGalleryScroll" class="card-scroll card-scroll-top"
+                    style="height:100%;min-height:0;padding:8px;">
+                    <div id="igGallery" class="ig-gallery" style="min-height:110px;">
+                        <!-- populated by /api/instagram-feed -->
                     </div>
-                    <script async src="https://www.instagram.com/embed.js"></script>
                 </div>
-                    <div class="post-card social-equal" id="igGalleryCard" style="display:flex;flex-direction:column;justify-content:flex-start;">
-                        <div id="igGalleryScroll" class="card-scroll card-scroll-top" style="height:100%;min-height:0;padding:8px;">
-                            <div id="igGallery" class="ig-gallery" style="min-height:110px;">
-                                <!-- populated by /api/instagram-feed -->
-                    </div>
-                </div>
-                        <script>
-                        document.addEventListener('DOMContentLoaded', async function(){
-                          try{
-                            const r = await fetch('/api/instagram-feed', {cache:'no-store'});
+                <script>
+                    document.addEventListener('DOMContentLoaded', async function () {
+                        try {
+                            const r = await fetch('/api/instagram-feed', { cache: 'no-store' });
                             const data = await r.json();
                             let items = (data && Array.isArray(data.items)) ? data.items : [];
                             // Deduplicate by permalink
                             const seen = new Set();
-                            items = items.filter(it=>{ if(!it || !it.permalink || seen.has(it.permalink)) return false; seen.add(it.permalink); return true; });
+                            items = items.filter(it => { if (!it || !it.permalink || seen.has(it.permalink)) return false; seen.add(it.permalink); return true; });
                             const g = document.getElementById('igGallery');
-                            if(!g) return;
+                            if (!g) return;
                             g.innerHTML = '';
-                            if(items.length === 0){
-                              g.innerHTML = '<div style="grid-column:1/-1;opacity:.7;text-align:center;">No posts found.</div>';
-                              return;
+                            if (items.length === 0) {
+                                g.innerHTML = '<div style="grid-column:1/-1;opacity:.7;text-align:center;">No posts found.</div>';
+                                return;
                             }
-                            items.forEach(it=>{
-                              const a = document.createElement('a');
-                              a.href = it.permalink;
-                              a.target = '_blank';
-                              a.rel = 'noopener';
-                              a.className = 'ig-item';
-                              const img = document.createElement('img');
-                              img.src = it.thumb || it.url;
-                              img.alt = (it.caption||'Instagram');
-                              img.loading='lazy';
-                              a.appendChild(img);
-                              g.appendChild(a);
+                            items.forEach(it => {
+                                const a = document.createElement('a');
+                                a.href = it.permalink;
+                                a.target = '_blank';
+                                a.rel = 'noopener';
+                                a.className = 'ig-item';
+                                const img = document.createElement('img');
+                                img.src = it.thumb || it.url;
+                                img.alt = (it.caption || 'Instagram');
+                                img.loading = 'lazy';
+                                a.appendChild(img);
+                                g.appendChild(a);
                             });
                             // ensure the scroll container starts from the top after render
                             const scroller = document.getElementById('igGalleryScroll');
                             if (scroller) scroller.scrollTop = 0;
-                          }catch(e){console.log('ig gallery error',e)}
-                        });
-                        </script>
+                        } catch (e) { console.log('ig gallery error', e) }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== OUR SOCIALS QR CODE SECTION ========== -->
+<section class="socials-qr-section">
+    <div class="container">
+        <h2 class="font-serif animate-fade-up">Our Socials</h2>
+        <p class="socials-subtitle animate-fade-up">Scan to follow us on your favorite platform!</p>
+
+        <!-- Social Icons Row -->
+        <div class="social-icons-row animate-fade-up">
+            <a href="https://www.instagram.com/echoe_hosa26" target="_blank"
+                class="social-icon-circle instagram-icon-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            </a>
+            <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="social-icon-circle tiktok-icon-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                </svg>
+            </a>
+            <a href="https://youtube.com/@echoe_hosa" target="_blank" class="social-icon-circle youtube-icon-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- QR Cards Grid -->
+        <div class="qr-cards-grid">
+            <!-- TikTok Card -->
+            <div class="qr-card tiktok-card animate-slide-left">
+                <div class="qr-card-inner">
+                    <div class="qr-image-wrap">
+                        <img src="{{ url_for('static', filename='img/118ffad1e102da6fb86d0678a6867efc.jpg') }}"
+                            alt="TikTok QR Code" class="qr-image" loading="lazy">
                     </div>
+                    <div class="qr-label">TIKTOK</div>
+                    <p class="qr-description">Watch our short videos, mental health tips, and behind-the-scenes content!
+                    </p>
+                    <a href="https://www.tiktok.com/@echoe_hosa" target="_blank"
+                        class="qr-link tiktok-link">@echoe_hosa</a>
                 </div>
             </div>
-        </section>
 
-        <!-- ========== OUR SOCIALS QR CODE SECTION ========== -->
-        <section class="socials-qr-section">
-            <div class="container">
-                <h2 class="font-serif animate-fade-up">Our Socials</h2>
-                <p class="socials-subtitle animate-fade-up">Scan to follow us on your favorite platform!</p>
-                
-                <!-- Social Icons Row -->
-                <div class="social-icons-row animate-fade-up">
-                    <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="social-icon-circle instagram-icon-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="social-icon-circle tiktok-icon-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
-                    </a>
-                    <a href="https://youtube.com/@echoe_hosa" target="_blank" class="social-icon-circle youtube-icon-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    </a>
-                </div>
-
-                <!-- QR Cards Grid -->
-                <div class="qr-cards-grid">
-                    <!-- TikTok Card -->
-                    <div class="qr-card tiktok-card animate-slide-left">
-                        <div class="qr-card-inner">
-                            <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/118ffad1e102da6fb86d0678a6867efc.jpg') }}" alt="TikTok QR Code" class="qr-image" loading="lazy">
-                            </div>
-                            <div class="qr-label">TIKTOK</div>
-                            <p class="qr-description">Watch our short videos, mental health tips, and behind-the-scenes content!</p>
-                            <a href="https://www.tiktok.com/@echoe_hosa" target="_blank" class="qr-link tiktok-link">@echoe_hosa</a>
-                        </div>
+            <!-- Instagram Card -->
+            <div class="qr-card instagram-card animate-fade-up">
+                <div class="qr-card-inner">
+                    <div class="qr-image-wrap">
+                        <img src="{{ url_for('static', filename='img/echoe_hosa26_qr (3).png') }}"
+                            alt="Instagram QR Code" class="qr-image" loading="lazy">
                     </div>
-
-                    <!-- Instagram Card -->
-                    <div class="qr-card instagram-card animate-fade-up">
-                        <div class="qr-card-inner">
-                            <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/echoe_hosa26_qr (3).png') }}" alt="Instagram QR Code" class="qr-image" loading="lazy">
-                            </div>
-                            <div class="qr-label">INSTAGRAM</div>
-                            <p class="qr-description">Follow for engaging posts, reels, and community updates!</p>
-                            <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="qr-link instagram-link">@echoe_hosa26</a>
-                        </div>
-                    </div>
-
-                    <!-- YouTube Card -->
-                    <div class="qr-card youtube-card animate-slide-right">
-                        <div class="qr-card-inner">
-                            <div class="qr-image-wrap">
-                                <img src="{{ url_for('static', filename='img/qrcode_www.youtube.com (1).png') }}" alt="YouTube QR Code" class="qr-image" loading="lazy">
-                            </div>
-                            <div class="qr-label">YOUTUBE</div>
-                            <p class="qr-description">Subscribe for longer videos, events, and mental health resources!</p>
-                            <a href="https://youtube.com/@echoe_hosa" target="_blank" class="qr-link youtube-link">@echoe_hosa</a>
-                        </div>
-                    </div>
+                    <div class="qr-label">INSTAGRAM</div>
+                    <p class="qr-description">Follow for engaging posts, reels, and community updates!</p>
+                    <a href="https://www.instagram.com/echoe_hosa26" target="_blank"
+                        class="qr-link instagram-link">@echoe_hosa26</a>
                 </div>
             </div>
-        </section>
 
-        <style>
-        /* ========== OUR SOCIALS QR CODE SECTION ========== */
-        .socials-qr-section {
-            /* Pure blue at reduced opacity over paper texture */
-            --section-bg-color: #D4E8EC; /* blue */
-            --section-bg-opacity: 0.48; /* Further reduced: color still prominent while paper texture is clearly visible */
-            --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --band-divider: var(--band-r);
+            <!-- YouTube Card -->
+            <div class="qr-card youtube-card animate-slide-right">
+                <div class="qr-card-inner">
+                    <div class="qr-image-wrap">
+                        <img src="{{ url_for('static', filename='img/qrcode_www.youtube.com (1).png') }}"
+                            alt="YouTube QR Code" class="qr-image" loading="lazy">
+                    </div>
+                    <div class="qr-label">YOUTUBE</div>
+                    <p class="qr-description">Subscribe for longer videos, events, and mental health resources!</p>
+                    <a href="https://youtube.com/@echoe_hosa" target="_blank"
+                        class="qr-link youtube-link">@echoe_hosa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            padding: 48px 0 56px;
-            text-align: center;
-            position: relative;
-            border-top: 1px solid rgba(42, 61, 102, 0.18);
-        }
-        .socials-qr-section .container { 
-            position: relative; 
-            z-index: 10 !important; /* Above overlay */
-        }
-        .socials-qr-section h2 {
-            color: #2A3D66;
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-        }
-        .socials-subtitle {
-            color: #3A4D66;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-        }
+<style>
+    /* ========== OUR SOCIALS QR CODE SECTION ========== */
+    .socials-qr-section {
+        /* Pure blue at reduced opacity over paper texture */
+        --section-bg-color: #D4E8EC;
+        /* blue */
+        --section-bg-opacity: 0.48;
+        /* Further reduced: color still prominent while paper texture is clearly visible */
+        --band-photo: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+        --band-divider: var(--band-r);
 
-        /* Social Icons Row */
-        .social-icons-row {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .social-icon-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 2px solid #2A3D66;
-            box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
-        }
-        .social-icon-circle svg {
-            width: 24px;
-            height: 24px;
-        }
-        .social-icon-circle.instagram-icon-btn {
-            background: #E1306C;
-            color: #fff;
-        }
-        .social-icon-circle.tiktok-icon-btn {
-            background: #000;
-            color: #fff;
-        }
-        .social-icon-circle.youtube-icon-btn {
-            background: #FF0000;
-            color: #fff;
-        }
-        .social-icon-circle:hover {
-            transform: translateY(-4px);
-            box-shadow: 3px 6px 0px rgba(42,61,102,0.3);
-        }
+        padding: 48px 0 56px;
+        text-align: center;
+        position: relative;
+        border-top: 1px solid rgba(42, 61, 102, 0.18);
+    }
 
-        /* QR Cards Grid */
+    .socials-qr-section .container {
+        position: relative;
+        z-index: 10 !important;
+        /* Above overlay */
+    }
+
+    .socials-qr-section h2 {
+        color: #2A3D66;
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+    }
+
+    .socials-subtitle {
+        color: #3A4D66;
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+    }
+
+    /* Social Icons Row */
+    .social-icons-row {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+
+    .social-icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border: 2px solid #2A3D66;
+        box-shadow: 3px 3px 0px rgba(42, 61, 102, 0.3);
+    }
+
+    .social-icon-circle svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .social-icon-circle.instagram-icon-btn {
+        background: #E1306C;
+        color: #fff;
+    }
+
+    .social-icon-circle.tiktok-icon-btn {
+        background: #000;
+        color: #fff;
+    }
+
+    .social-icon-circle.youtube-icon-btn {
+        background: #FF0000;
+        color: #fff;
+    }
+
+    .social-icon-circle:hover {
+        transform: translateY(-4px);
+        box-shadow: 3px 6px 0px rgba(42, 61, 102, 0.3);
+    }
+
+    /* QR Cards Grid */
+    .qr-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .qr-card {
+        background: rgba(253, 251, 247, 0.92);
+        border: 1px solid rgba(42, 61, 102, 0.12);
+        border-radius: 20px;
+        padding: 24px 20px;
+        box-shadow: 0 14px 30px rgba(42, 61, 102, 0.12);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .qr-card.tiktok-card {
+        border-top: 4px solid rgba(42, 61, 102, 0.18);
+    }
+
+    .qr-card.instagram-card {
+        border-top: 4px solid rgba(42, 61, 102, 0.18);
+    }
+
+    .qr-card.youtube-card {
+        border-top: 4px solid rgba(42, 61, 102, 0.18);
+    }
+
+    .qr-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 38px rgba(42, 61, 102, 0.14);
+    }
+
+    .qr-image-wrap {
+        background: #F8F9FA;
+        border: 2px solid rgba(42, 61, 102, 0.1);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .qr-image {
+        width: 100%;
+        max-width: 180px;
+        height: auto;
+        border-radius: 12px;
+        display: block;
+        margin: 0 auto;
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: auto !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+    }
+
+    .qr-label {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #2A3D66;
+        margin-bottom: 8px;
+    }
+
+    .qr-description {
+        font-size: 0.95rem;
+        color: #5A6A7A;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .qr-link {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 10px 24px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none !important;
+        border: 2px solid;
+    }
+
+    .qr-link.tiktok-link {
+        background: #000;
+        color: #fff !important;
+        border-color: #000;
+    }
+
+    .qr-link.tiktok-link:hover {
+        background: #fff;
+        color: #000 !important;
+    }
+
+    .qr-link.instagram-link {
+        background: #E1306C;
+        color: #fff !important;
+        border-color: #E1306C;
+    }
+
+    .qr-link.instagram-link:hover {
+        background: #fff;
+        color: #E1306C !important;
+    }
+
+    .qr-link.youtube-link {
+        background: #FF0000;
+        color: #fff !important;
+        border-color: #FF0000;
+    }
+
+    .qr-link.youtube-link:hover {
+        background: #fff;
+        color: #FF0000 !important;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
         .qr-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
+            grid-template-columns: 1fr;
+            max-width: 350px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .socials-qr-section {
+            padding: 32px 0 40px;
+        }
+
+        .socials-qr-section h2 {
+            font-size: 1.8rem;
         }
 
         .qr-card {
-            background: rgba(253, 251, 247, 0.92);
-            border: 1px solid rgba(42, 61, 102, 0.12);
-            border-radius: 20px;
-            padding: 24px 20px;
-            box-shadow: 0 14px 30px rgba(42,61,102,0.12);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .qr-card.tiktok-card {
-            border-top: 4px solid rgba(42,61,102,0.18);
-        }
-        .qr-card.instagram-card {
-            border-top: 4px solid rgba(42,61,102,0.18);
-        }
-        .qr-card.youtube-card {
-            border-top: 4px solid rgba(42,61,102,0.18);
+            padding: 20px 16px;
         }
 
-        .qr-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 38px rgba(42,61,102,0.14);
-        }
-
-        .qr-image-wrap {
-            background: #F8F9FA;
-            border: 2px solid rgba(42,61,102,0.1);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
         .qr-image {
-            width: 100%;
-            max-width: 180px;
-            height: auto;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto;
-            image-rendering: -webkit-optimize-contrast !important;
-            image-rendering: auto !important;
-            transform: translateZ(0) !important;
-            -webkit-transform: translateZ(0) !important;
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
+            max-width: 150px;
         }
-
-        .qr-label {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #2A3D66;
-            margin-bottom: 8px;
-        }
-
-        .qr-description {
-            font-size: 0.95rem;
-            color: #5A6A7A;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .qr-link {
-            display: inline-block;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 10px 24px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            text-decoration: none !important;
-            border: 2px solid;
-        }
-        .qr-link.tiktok-link {
-            background: #000;
-            color: #fff !important;
-            border-color: #000;
-        }
-        .qr-link.tiktok-link:hover {
-            background: #fff;
-            color: #000 !important;
-        }
-        .qr-link.instagram-link {
-            background: #E1306C;
-            color: #fff !important;
-            border-color: #E1306C;
-        }
-        .qr-link.instagram-link:hover {
-            background: #fff;
-            color: #E1306C !important;
-        }
-        .qr-link.youtube-link {
-            background: #FF0000;
-            color: #fff !important;
-            border-color: #FF0000;
-        }
-        .qr-link.youtube-link:hover {
-            background: #fff;
-            color: #FF0000 !important;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 900px) {
-            .qr-cards-grid {
-                grid-template-columns: 1fr;
-                max-width: 350px;
-            }
-        }
-        @media (max-width: 480px) {
-            .socials-qr-section {
-                padding: 32px 0 40px;
-            }
-            .socials-qr-section h2 {
-                font-size: 1.8rem;
-            }
-            .qr-card {
-                padding: 20px 16px;
-            }
-            .qr-image {
-                max-width: 150px;
-            }
-        }
-        </style>
+    }
+</style>
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // =============================================
-    // HOMEPAGE-SPECIFIC GSAP ANIMATIONS - IMPROVED
-    // =============================================
-    
-    // Ensure ScrollTrigger works on this page (index script runs before base footer scripts)
-    if (window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        // =============================================
+        // HOMEPAGE-SPECIFIC GSAP ANIMATIONS - IMPROVED
+        // =============================================
 
-    // Ensure all elements are visible first
-    gsap.set('.home-masthead, .hero, .hero-content, .hero-content h1, .acronym-subtitle, .quote, .mission, .hero-actions, .hero-media', {
-        opacity: 1,
-        visibility: 'visible'
-    });
+        // Ensure ScrollTrigger works on this page (index script runs before base footer scripts)
+        if (window.ScrollTrigger) {
+            gsap.registerPlugin(ScrollTrigger);
+        }
 
-    // Big, obvious "cover the banner" scroll sequence
-    // Pin the banner briefly, then slide the Welcome block upward over it.
-    if (window.ScrollTrigger) {
-        const coverTL = gsap.timeline({
+        // Ensure all elements are visible first
+        gsap.set('.home-masthead, .hero, .hero-content, .hero-content h1, .acronym-subtitle, .quote, .mission, .hero-actions, .hero-media', {
+            opacity: 1,
+            visibility: 'visible'
+        });
+
+        // Big, obvious "cover the banner" scroll sequence
+        // Pin the banner briefly, then slide the Welcome block upward over it.
+        if (window.ScrollTrigger) {
+            const coverTL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.home-masthead',
+                    start: 'top top',
+                    end: '+=520',
+                    scrub: true,
+                    pin: true,
+                    pinSpacing: false,
+                    anticipatePin: 1
+                }
+            });
+
+            coverTL
+                // Banner fades as content takes over (keep it colorful; no B&W look)
+                .to('.home-masthead', {
+                    backgroundPositionY: '86%',
+                    opacity: 0.42,
+                    filter: 'blur(0px)',
+                    ease: 'none'
+                }, 0)
+                .fromTo(
+                    '.hero-content',
+                    { y: 280, scale: 0.94, opacity: 0.15 },
+                    { y: -120, scale: 1, opacity: 1, ease: 'none' },
+                    0
+                )
+                .fromTo(
+                    '.hero-media',
+                    { y: 220, scale: 0.96, opacity: 0.1 },
+                    { y: -80, scale: 1, opacity: 1, ease: 'none' },
+                    0
+                );
+        }
+
+        // Hero content entrance triggers on scroll (after cover animation)
+        const heroTL = gsap.timeline({
             scrollTrigger: {
-                trigger: '.home-masthead',
-                start: 'top top',
-                end: '+=520',
-                scrub: true,
-                pin: true,
-                pinSpacing: false,
-                anticipatePin: 1
+                trigger: '.hero',
+                start: 'top 75%'
             }
         });
 
-        coverTL
-            // Banner fades as content takes over (keep it colorful; no B&W look)
-            .to('.home-masthead', {
-                backgroundPositionY: '86%',
-                opacity: 0.42,
-                filter: 'blur(0px)',
-                ease: 'none'
-            }, 0)
-            .fromTo(
-                '.hero-content',
-                { y: 280, scale: 0.94, opacity: 0.15 },
-                { y: -120, scale: 1, opacity: 1, ease: 'none' },
-                0
+        heroTL
+            .fromTo('.hero-content h1',
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' },
+                '-=0.4'
             )
-            .fromTo(
-                '.hero-media',
-                { y: 220, scale: 0.96, opacity: 0.1 },
-                { y: -80, scale: 1, opacity: 1, ease: 'none' },
-                0
+            .fromTo('.acronym-subtitle',
+                { y: 25, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+                '-=0.3'
+            )
+            .fromTo('.quote',
+                { x: -30, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.2)' },
+                '-=0.2'
+            )
+            .fromTo('.mission',
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+                '-=0.2'
+            )
+            .fromTo('.hero-actions .btn-primary',
+                { scale: 0.8, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' },
+                '-=0.2'
+            )
+            .fromTo('.hero-media, .hero-logo-badge',
+                { x: 80, opacity: 0, rotation: 8 },
+                { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: 'power2.out' },
+                '-=0.5'
             );
-    }
 
-    // Hero content entrance triggers on scroll (after cover animation)
-    const heroTL = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.hero',
-            start: 'top 75%'
-        }
-    });
-    
-    heroTL
-        .fromTo('.hero-content h1', 
-            { y: 40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' },
-            '-=0.4'
-        )
-        .fromTo('.acronym-subtitle', 
-            { y: 25, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
-            '-=0.3'
-        )
-        .fromTo('.quote', 
-            { x: -30, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.2)' },
-            '-=0.2'
-        )
-        .fromTo('.mission', 
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
-            '-=0.2'
-        )
-        .fromTo('.hero-actions .btn-primary', 
-            { scale: 0.8, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' },
-            '-=0.2'
-        )
-        .fromTo('.hero-media, .hero-logo-badge', 
-            { x: 80, opacity: 0, rotation: 8 },
-            { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: 'power2.out' },
-            '-=0.5'
-        );
-    
-    // Word cloud removed (banner + clean hero replaces it)
-    
-    // Homepage sections with VARIED scroll animations
-    const homeSections = document.querySelectorAll('.home-section, .featured-section, .about-preview, .content-section');
-    const sectionAnimations = [
-        { y: 60, opacity: 0, ease: 'power3.out' },
-        { x: -80, opacity: 0, rotation: -3, ease: 'power2.out' },
-        { x: 80, opacity: 0, rotation: 3, ease: 'power2.out' },
-        { scale: 0.9, opacity: 0, ease: 'back.out(1.3)' },
-        { y: 80, x: -40, opacity: 0, ease: 'power2.out' },
-        { y: 80, x: 40, opacity: 0, ease: 'power2.out' }
-    ];
-    
-    homeSections.forEach((section, i) => {
-        const anim = sectionAnimations[i % sectionAnimations.length];
-        gsap.fromTo(section, 
-            anim,
-            {
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 88%',
-                    toggleActions: 'play none none none'
-                },
-                y: 0,
-                x: 0,
-                scale: 1,
-                rotation: 0,
-                opacity: 1,
-                duration: 0.7,
-                ease: anim.ease
-            }
-        );
-    });
-    
-    // Instagram grid cards with varied entrance
-    const igCards = document.querySelectorAll('.ig-card');
-    if (igCards.length) {
-        igCards.forEach((card, i) => {
-            const directions = [
-                { y: 50, rotation: -5 },
-                { y: 60, rotation: 5 },
-                { x: -40, rotation: -3 },
-                { x: 40, rotation: 3 },
-                { scale: 0.8, rotation: 0 }
-            ];
-            const dir = directions[i % directions.length];
-            
-            gsap.fromTo(card, 
-                { ...dir, opacity: 0 },
+        // Word cloud removed (banner + clean hero replaces it)
+
+        // Homepage sections with VARIED scroll animations
+        const homeSections = document.querySelectorAll('.home-section, .featured-section, .about-preview, .content-section');
+        const sectionAnimations = [
+            { y: 60, opacity: 0, ease: 'power3.out' },
+            { x: -80, opacity: 0, rotation: -3, ease: 'power2.out' },
+            { x: 80, opacity: 0, rotation: 3, ease: 'power2.out' },
+            { scale: 0.9, opacity: 0, ease: 'back.out(1.3)' },
+            { y: 80, x: -40, opacity: 0, ease: 'power2.out' },
+            { y: 80, x: 40, opacity: 0, ease: 'power2.out' }
+        ];
+
+        homeSections.forEach((section, i) => {
+            const anim = sectionAnimations[i % sectionAnimations.length];
+            gsap.fromTo(section,
+                anim,
                 {
                     scrollTrigger: {
-                        trigger: card,
-                        start: 'top 90%'
+                        trigger: section,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
                     },
                     y: 0,
                     x: 0,
                     scale: 1,
                     rotation: 0,
                     opacity: 1,
-                    duration: 0.5,
-                    delay: i * 0.08,
-                    ease: 'back.out(1.3)'
+                    duration: 0.7,
+                    ease: anim.ease
                 }
             );
         });
-    }
-    
-    // QR Cards with flip effect
-    const qrCards = document.querySelectorAll('.qr-card');
-    if (qrCards.length) {
-        qrCards.forEach((card, i) => {
-            gsap.fromTo(card, 
-                { y: 60, opacity: 0, rotationY: 20 },
-                {
-                    scrollTrigger: {
-                        trigger: '.socials-qr-section',
-                        start: 'top 82%'
-                    },
-                    y: 0,
-                    opacity: 1,
-                    rotationY: 0,
-                    duration: 0.6,
-                    delay: i * 0.12,
-                    ease: 'power2.out'
-                }
-            );
+
+        // Instagram grid cards with varied entrance
+        const igCards = document.querySelectorAll('.ig-card');
+        if (igCards.length) {
+            igCards.forEach((card, i) => {
+                const directions = [
+                    { y: 50, rotation: -5 },
+                    { y: 60, rotation: 5 },
+                    { x: -40, rotation: -3 },
+                    { x: 40, rotation: 3 },
+                    { scale: 0.8, rotation: 0 }
+                ];
+                const dir = directions[i % directions.length];
+
+                gsap.fromTo(card,
+                    { ...dir, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 90%'
+                        },
+                        y: 0,
+                        x: 0,
+                        scale: 1,
+                        rotation: 0,
+                        opacity: 1,
+                        duration: 0.5,
+                        delay: i * 0.08,
+                        ease: 'back.out(1.3)'
+                    }
+                );
+            });
+        }
+
+        // QR Cards with flip effect
+        const qrCards = document.querySelectorAll('.qr-card');
+        if (qrCards.length) {
+            qrCards.forEach((card, i) => {
+                gsap.fromTo(card,
+                    { y: 60, opacity: 0, rotationY: 20 },
+                    {
+                        scrollTrigger: {
+                            trigger: '.socials-qr-section',
+                            start: 'top 82%'
+                        },
+                        y: 0,
+                        opacity: 1,
+                        rotationY: 0,
+                        duration: 0.6,
+                        delay: i * 0.12,
+                        ease: 'power2.out'
+                    }
+                );
+            });
+        }
+
+        // Social icons pop in
+        const socialIcons = document.querySelectorAll('.social-icon-circle');
+        if (socialIcons.length) {
+            socialIcons.forEach((icon, i) => {
+                gsap.fromTo(icon,
+                    { scale: 0, y: -30 },
+                    {
+                        scrollTrigger: {
+                            trigger: '.social-icons-row',
+                            start: 'top 88%'
+                        },
+                        scale: 1,
+                        y: 0,
+                        duration: 0.4,
+                        delay: i * 0.1,
+                        ease: 'back.out(2)'
+                    }
+                );
+            });
+        }
+
+        // Gentle floating for hero badge
+        gsap.to('.hero-media, .hero-logo-badge', {
+            y: -12,
+            duration: 2.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
         });
-    }
-    
-    // Social icons pop in
-    const socialIcons = document.querySelectorAll('.social-icon-circle');
-    if (socialIcons.length) {
-        socialIcons.forEach((icon, i) => {
-            gsap.fromTo(icon,
-                { scale: 0, y: -30 },
-                {
-                    scrollTrigger: {
-                        trigger: '.social-icons-row',
-                        start: 'top 88%'
-                    },
-                    scale: 1,
-                    y: 0,
+
+        // Card 3D hover effects
+        const hoverCards = document.querySelectorAll('.featured-card, .ig-card, .qr-card');
+        hoverCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 18;
+                const rotateY = (centerX - x) / 18;
+
+                gsap.to(card, {
+                    rotateX: rotateX,
+                    rotateY: rotateY,
+                    transformPerspective: 1000,
+                    duration: 0.25,
+                    ease: 'power1.out'
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
                     duration: 0.4,
-                    delay: i * 0.1,
-                    ease: 'back.out(2)'
-                }
-            );
-        });
-    }
-    
-    // Gentle floating for hero badge
-    gsap.to('.hero-media, .hero-logo-badge', {
-        y: -12,
-        duration: 2.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-    });
-    
-    // Card 3D hover effects
-    const hoverCards = document.querySelectorAll('.featured-card, .ig-card, .qr-card');
-    hoverCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 18;
-            const rotateY = (centerX - x) / 18;
-            
-            gsap.to(card, {
-                rotateX: rotateX,
-                rotateY: rotateY,
-                transformPerspective: 1000,
-                duration: 0.25,
-                ease: 'power1.out'
+                    ease: 'power2.out'
+                });
             });
         });
-        
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                rotateX: 0,
-                rotateY: 0,
-                duration: 0.4,
-                ease: 'power2.out'
-            });
-        });
+
+        console.log('Homepage GSAP Ready!');
     });
-    
-    console.log('Homepage GSAP Ready!');
-});
 </script>
-{% endblock %} 
+{% endblock %}

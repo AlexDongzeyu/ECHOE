@@ -392,9 +392,10 @@
         transform: translateX(0%);
     }
 
+    /* Container for hero logo - narrower to avoid oversized appearance */
     .hero-media {
-        width: 45%;
-        max-width: 480px;
+        width: 30%;
+        max-width: 350px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -404,17 +405,16 @@
         margin-left: 2vw;
     }
 
-    /* Circular logo - logo.jpg is already circular, just display large */
+    /* Circular logo badge - sized to fit nicely */
     .hero-logo-badge {
-        width: clamp(280px, 38vw, 450px);
-        height: auto;
-        aspect-ratio: 1 / 1;
+        width: clamp(220px, 28vw, 380px);
+        height: clamp(220px, 28vw, 380px);
         border-radius: 50%;
         background: transparent;
         border: none;
-        box-shadow: 0 8px 32px rgba(42, 61, 102, 0.15);
+        box-shadow: none;
         padding: 0;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     @media (max-width: 900px) {
@@ -434,15 +434,13 @@
         }
 
         .hero-logo-badge {
-            width: clamp(200px, 55vw, 350px);
-            height: auto;
-            aspect-ratio: 1 / 1;
+            width: clamp(180px, 50vw, 320px);
+            height: clamp(180px, 50vw, 320px);
             border-radius: 50%;
             background: transparent;
             border: none;
-            box-shadow: 0 6px 24px rgba(42, 61, 102, 0.12);
+            box-shadow: none;
             padding: 0;
-            object-fit: cover;
         }
 
         .hero-content h1 {
@@ -2103,7 +2101,7 @@
             </div>
         </div>
         <div class="hero-media animate-slide-right delay-2" aria-hidden="true">
-            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hero-logo-badge">
+            <img src="{{ url_for('static', filename='img/LOGO.png') }}" alt="" class="hero-logo-badge">
         </div>
     </div>
 </section>

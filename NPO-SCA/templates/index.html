@@ -407,11 +407,12 @@
         /* much bigger (requested 3.5–4x), responsive */
         width: clamp(320px, 34vw, 560px);
         height: clamp(320px, 34vw, 560px);
-        border-radius: 28px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid rgba(42, 61, 102, 0.14);
-        box-shadow: 0 10px 24px rgba(42, 61, 102, 0.14);
-        padding: 18px;
+        border-radius: 50%;
+        /* Remove outer layer - just the circle, no background/border/padding */
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
         object-fit: contain;
     }
 
@@ -434,6 +435,12 @@
         .hero-logo-badge {
             width: clamp(240px, 62vw, 420px);
             height: clamp(240px, 62vw, 420px);
+            border-radius: 50%;
+            /* Remove outer layer - just the circle */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
         }
 
         .hero-content h1 {
@@ -2819,14 +2826,7 @@
             });
         }
 
-        // Gentle floating for hero badge
-        gsap.to('.hero-media, .hero-logo-badge', {
-            y: -12,
-            duration: 2.5,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-        });
+        // Logo animation removed - no bobbing/shaking
 
         // Card 3D hover effects
         const hoverCards = document.querySelectorAll('.featured-card, .ig-card, .qr-card');

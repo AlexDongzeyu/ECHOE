@@ -936,7 +936,7 @@
            (Panel styles are in inline <style> tag)
            ============================================ */
 
-        /* Floating Echo Button */
+        /* Floating Echo Button - Lighter colors aligned with page design */
         .a11y-fab {
             position: fixed !important;
             right: 20px !important;
@@ -946,31 +946,33 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: #F4D06F;
-            border: 3px solid #2A3D66 !important;
+            background: rgba(253, 251, 247, 0.92); /* Light cream matching page background */
+            border: 2px solid rgba(42, 61, 102, 0.18) !important; /* Lighter border */
             border-radius: 50px;
             padding: 10px 16px;
-            box-shadow: 4px 4px 0px rgba(42, 61, 102, 0.4), 0 8px 20px rgba(42, 61, 102, 0.15);
+            box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.4), 0 4px 12px rgba(42, 61, 102, 0.08);
             cursor: pointer;
             transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .a11y-fab:hover {
-            transform: translateY(-4px);
-            box-shadow: 4px 8px 0px rgba(42, 61, 102, 0.4), 0 12px 28px rgba(42, 61, 102, 0.2);
-            background: #E8C254;
+            box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.4), 0 6px 16px rgba(42, 61, 102, 0.12);
+            transform: translate(2px, 2px);
+            background: rgba(253, 251, 247, 0.98);
         }
 
         .a11y-fab img {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: 2px solid #2A3D66;
+            border: 2px solid rgba(42, 61, 102, 0.15);
         }
 
         .a11y-fab span {
-            font-weight: 800;
-            color: #2A3D66;
+            font-weight: 700;
+            color: var(--deep-indigo);
             font-size: 0.95rem;
         }
 
@@ -2819,28 +2821,31 @@
         })();
     </script>
     <style>
-        /* Floating Write button - matching Echo Options style */
+        /* Floating Write button - Lighter colors aligned with page design */
         .fab-write {
             position: fixed !important;
             right: 20px !important;
             left: auto !important;
             bottom: 90px;
-            background: var(--soft-yellow);
+            background: rgba(253, 251, 247, 0.92); /* Light cream matching page background */
             color: var(--deep-indigo);
-            border: 2.5px solid #2A3D66 !important;
+            border: 2px solid rgba(42, 61, 102, 0.18) !important; /* Lighter border */
             border-radius: 28px;
             padding: 12px 18px;
-            font-weight: 800;
-            box-shadow: 4px 4px 0px rgba(42, 61, 102, 0.35), 0 10px 24px rgba(244, 208, 111, .35);
+            font-weight: 700;
+            box-shadow: 2px 2px 0px rgba(253, 244, 197, 0.5), 0 4px 12px rgba(42, 61, 102, 0.08);
             cursor: pointer;
             z-index: 10000;
             text-decoration: none !important;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .fab-write:hover {
-            transform: translateY(-3px);
-            box-shadow: 4px 7px 0px rgba(42, 61, 102, 0.35), 0 14px 28px rgba(244, 208, 111, .4);
+            box-shadow: 0px 0px 0px rgba(253, 244, 197, 0.5), 0 6px 16px rgba(42, 61, 102, 0.12);
+            transform: translate(2px, 2px);
+            background: rgba(253, 251, 247, 0.98);
         }
 
         @media (max-width:768px) {
@@ -3056,11 +3061,9 @@
             });
 
             // =============================================
-            // 6. FLOATING BUTTONS - Gentle bob
+            // 6. FLOATING BUTTONS - No bobbing/shaking animations
             // =============================================
-            gsap.to('.fab-write', { y: -6, duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-            gsap.to('.a11y-fab', { y: -5, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.3 });
-            gsap.to('.chat-button', { y: -4, duration: 1.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.6 });
+            // Animation removed - buttons remain still for calmer experience
 
             // =============================================
             // 7. BACKGROUND BLOBS - Mouse parallax

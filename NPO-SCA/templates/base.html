@@ -608,11 +608,10 @@
             box-shadow: 8px 8px 0px rgba(42, 61, 102, 0.3), 0 15px 40px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Default paper texture */
+            /* Default paper texture - darker green for clarity */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
-            --page-overlay-color: #D8E8D0;
-            /* Default: soft green */
-            --page-overlay-opacity: 0.55;
+            --page-overlay-color: #A8C99E;
+            --page-overlay-opacity: 0.38;
 
             background-image: var(--page-texture);
             background-size: cover;
@@ -639,59 +638,59 @@
 
         /* === PAGE-SPECIFIC COLORS === */
 
-        /* Helplines - Calming Blue */
+        /* Helplines - Calming Blue-Teal (darker, more visible) */
         body.page-helplines .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
-            --page-overlay-color: #D4E8EC;
-            --page-overlay-opacity: 0.58;
-        }
-
-        body.page-helplines .page-header {
-            background: rgba(159, 197, 203, 0.45);
-        }
-
-        /* Resources - Soft Lavender/Blue */
-        body.page-resources .page-container {
-            --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
-            --page-overlay-color: #9FC5CB;
-            --page-overlay-opacity: 0.50;
-        }
-
-        body.page-resources .page-header {
-            background: rgba(159, 197, 203, 0.40);
-        }
-
-        /* Submit/Write a Letter - Warm Beige/Peach */
-        body.page-submit .page-container {
-            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --page-overlay-color: #EDE6D9;
-            --page-overlay-opacity: 0.52;
-        }
-
-        body.page-submit .page-header {
-            background: rgba(248, 210, 156, 0.40);
-        }
-
-        /* Events - Vibrant Pink/Coral */
-        body.page-events_overview .page-container {
-            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --page-overlay-color: #F4D2C8;
-            --page-overlay-opacity: 0.48;
-        }
-
-        body.page-events_overview .page-header {
-            background: rgba(244, 210, 200, 0.45);
-        }
-
-        /* About - Warm Orange/Peach */
-        body.page-about .page-container {
-            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
-            --page-overlay-color: #F8D29C;
+            --page-overlay-color: #7EB5C0;
             --page-overlay-opacity: 0.38;
         }
 
+        body.page-helplines .page-header {
+            background: rgba(126, 181, 192, 0.55);
+        }
+
+        /* Resources - Deeper Lavender (darker for clarity) */
+        body.page-resources .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
+            --page-overlay-color: #8DAEB5;
+            --page-overlay-opacity: 0.35;
+        }
+
+        body.page-resources .page-header {
+            background: rgba(141, 174, 181, 0.50);
+        }
+
+        /* Submit/Write a Letter - Warm Orange/Peach (darker) */
+        body.page-submit .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #E8C99B;
+            --page-overlay-opacity: 0.40;
+        }
+
+        body.page-submit .page-header {
+            background: rgba(232, 201, 155, 0.55);
+        }
+
+        /* Events - Rose/Coral (richer, more saturated) */
+        body.page-events_overview .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #E8B5A8;
+            --page-overlay-opacity: 0.38;
+        }
+
+        body.page-events_overview .page-header {
+            background: rgba(232, 181, 168, 0.55);
+        }
+
+        /* About - Warm Amber/Orange (richer) */
+        body.page-about .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #E8B864;
+            --page-overlay-opacity: 0.32;
+        }
+
         body.page-about .page-header {
-            background: rgba(248, 210, 156, 0.50);
+            background: rgba(232, 184, 100, 0.55);
         }
 
         /* Blog - Fresh Green */
@@ -2805,10 +2804,10 @@
             z-index: 10002;
             width: 280px;
             max-height: calc(100vh - 36px);
-            background: #FDFBF7;
+            background: linear-gradient(180deg, #FDFBF7 0%, #F8F4EE 100%);
             border: 3px solid #2A3D66;
-            border-radius: 16px;
-            box-shadow: 5px 5px 0px rgba(42, 61, 102, 0.35), 0 15px 40px rgba(42, 61, 102, 0.2);
+            border-radius: 18px;
+            box-shadow: 6px 6px 0px rgba(42, 61, 102, 0.35), 0 15px 40px rgba(42, 61, 102, 0.2);
             display: none;
             overflow: hidden;
         }
@@ -2820,12 +2819,12 @@
         }
 
         .a11y-panel header {
-            padding: 12px 14px;
-            background: #9FC5CB;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #F8D29C 0%, #E8C99B 100%);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid rgba(42, 61, 102, 0.15);
+            border-bottom: 2px solid rgba(42, 61, 102, 0.12);
             flex-shrink: 0;
         }
 
@@ -2890,13 +2889,13 @@
         }
 
         .mode-card.active {
-            border-color: #5B9B6B;
-            background: #F0F9F0;
+            border-color: #9FC5CB;
+            background: rgba(159, 197, 203, 0.15);
         }
 
         .mode-card.active .mode-icon {
-            background: #5B9B6B;
-            color: #fff;
+            background: #9FC5CB;
+            color: #2A3D66;
         }
 
         .mode-icon {

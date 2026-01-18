@@ -936,7 +936,7 @@
            (Panel styles are in inline <style> tag)
            ============================================ */
 
-        /* Floating Echo Button - Lighter colors aligned with page design */
+        /* Floating Echo Button - Lighter yellow from theme */
         .a11y-fab {
             position: fixed !important;
             right: 20px !important;
@@ -946,28 +946,26 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(253, 251, 247, 0.92); /* Light cream matching page background */
-            border: 2px solid rgba(42, 61, 102, 0.18) !important; /* Lighter border */
+            background: #FDF4C5 !important; /* Lighter yellow - accent-yellow from theme */
+            border: 2px solid rgba(42, 61, 102, 0.25) !important;
             border-radius: 50px;
             padding: 10px 16px;
-            box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.4), 0 4px 12px rgba(42, 61, 102, 0.08);
+            box-shadow: 2px 2px 0px rgba(244, 210, 200, 0.5), 0 4px 12px rgba(42, 61, 102, 0.08);
             cursor: pointer;
             transition: all 0.25s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
         }
 
         .a11y-fab:hover {
-            box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.4), 0 6px 16px rgba(42, 61, 102, 0.12);
+            box-shadow: 0px 0px 0px rgba(244, 210, 200, 0.5), 0 6px 16px rgba(42, 61, 102, 0.12);
             transform: translate(2px, 2px);
-            background: rgba(253, 251, 247, 0.98);
+            background: #F8E8A8 !important; /* Slightly darker yellow on hover */
         }
 
         .a11y-fab img {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: 2px solid rgba(42, 61, 102, 0.15);
+            border: 2px solid rgba(42, 61, 102, 0.2);
         }
 
         .a11y-fab span {
@@ -2821,31 +2819,29 @@
         })();
     </script>
     <style>
-        /* Floating Write button - Lighter colors aligned with page design */
+        /* Floating Write button - Lighter pink from theme */
         .fab-write {
             position: fixed !important;
             right: 20px !important;
             left: auto !important;
             bottom: 90px;
-            background: rgba(253, 251, 247, 0.92); /* Light cream matching page background */
+            background: #F4D2C8 !important; /* Lighter pink - accent-pink from theme */
             color: var(--deep-indigo);
-            border: 2px solid rgba(42, 61, 102, 0.18) !important; /* Lighter border */
+            border: 2px solid rgba(42, 61, 102, 0.25) !important;
             border-radius: 28px;
             padding: 12px 18px;
             font-weight: 700;
-            box-shadow: 2px 2px 0px rgba(253, 244, 197, 0.5), 0 4px 12px rgba(42, 61, 102, 0.08);
+            box-shadow: 2px 2px 0px rgba(216, 226, 208, 0.5), 0 4px 12px rgba(42, 61, 102, 0.08);
             cursor: pointer;
             z-index: 10000;
             text-decoration: none !important;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
         }
 
         .fab-write:hover {
-            box-shadow: 0px 0px 0px rgba(253, 244, 197, 0.5), 0 6px 16px rgba(42, 61, 102, 0.12);
+            box-shadow: 0px 0px 0px rgba(216, 226, 208, 0.5), 0 6px 16px rgba(42, 61, 102, 0.12);
             transform: translate(2px, 2px);
-            background: rgba(253, 251, 247, 0.98);
+            background: #F0C5B8 !important; /* Slightly darker pink on hover */
         }
 
         @media (max-width:768px) {

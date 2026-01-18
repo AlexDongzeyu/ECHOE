@@ -593,7 +593,12 @@
             padding: 0 20px;
         }
 
-        /* Page Container - Colored background with paper texture like homepage */
+        /* ============================================================
+           PAGE-SPECIFIC COLOR THEMES
+           Each page gets its own unique color based on content type
+           ============================================================ */
+
+        /* Base page-container with paper texture */
         .page-container {
             position: relative;
             overflow: hidden;
@@ -603,8 +608,13 @@
             box-shadow: 8px 8px 0px rgba(42, 61, 102, 0.3), 0 15px 40px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Paper texture background */
-            background-image: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            /* Default paper texture */
+            --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            --page-overlay-color: #D8E8D0;
+            /* Default: soft green */
+            --page-overlay-opacity: 0.55;
+
+            background-image: var(--page-texture);
             background-size: cover;
             background-position: center;
         }
@@ -614,9 +624,8 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-color: #D8E8D0;
-            /* Soft green overlay */
-            opacity: 0.55;
+            background-color: var(--page-overlay-color);
+            opacity: var(--page-overlay-opacity);
             pointer-events: none;
             z-index: 0;
             border-radius: 24px;
@@ -628,21 +637,140 @@
             z-index: 1;
         }
 
+        /* === PAGE-SPECIFIC COLORS === */
+
+        /* Helplines - Calming Blue */
+        body.page-helplines .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+            --page-overlay-color: #D4E8EC;
+            --page-overlay-opacity: 0.58;
+        }
+
+        body.page-helplines .page-header {
+            background: rgba(159, 197, 203, 0.45);
+        }
+
+        /* Resources - Soft Lavender/Blue */
+        body.page-resources .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
+            --page-overlay-color: #9FC5CB;
+            --page-overlay-opacity: 0.50;
+        }
+
+        body.page-resources .page-header {
+            background: rgba(159, 197, 203, 0.40);
+        }
+
+        /* Submit/Write a Letter - Warm Beige/Peach */
+        body.page-submit .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #EDE6D9;
+            --page-overlay-opacity: 0.52;
+        }
+
+        body.page-submit .page-header {
+            background: rgba(248, 210, 156, 0.40);
+        }
+
+        /* Events - Vibrant Pink/Coral */
+        body.page-events_overview .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #F4D2C8;
+            --page-overlay-opacity: 0.48;
+        }
+
+        body.page-events_overview .page-header {
+            background: rgba(244, 210, 200, 0.45);
+        }
+
+        /* About - Warm Orange/Peach */
+        body.page-about .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #F8D29C;
+            --page-overlay-opacity: 0.38;
+        }
+
+        body.page-about .page-header {
+            background: rgba(248, 210, 156, 0.50);
+        }
+
+        /* Blog - Fresh Green */
+        body.page-blog-index .page-container,
+        body.page-blog-post_detail .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
+            --page-overlay-color: #ADCBA4;
+            --page-overlay-opacity: 0.48;
+        }
+
+        body.page-blog-index .page-header,
+        body.page-blog-post_detail .page-header {
+            background: rgba(173, 203, 164, 0.45);
+        }
+
+        /* Calendar - Soft Blue */
+        body.page-calendar_page .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+            --page-overlay-color: #9FC5CB;
+            --page-overlay-opacity: 0.45;
+        }
+
+        body.page-calendar_page .page-header {
+            background: rgba(159, 197, 203, 0.40);
+        }
+
+        /* Risk + Protective Factors - Deeper Blue (like selfcareapy) */
+        body.page-risk_protective .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
+            --page-overlay-color: #8FB8DE;
+            --page-overlay-opacity: 0.50;
+        }
+
+        body.page-risk_protective .page-header {
+            background: rgba(42, 61, 102, 0.75);
+        }
+
+        body.page-risk_protective .page-header h1,
+        body.page-risk_protective .page-header p {
+            color: #FFFFFF;
+        }
+
+        body.page-risk_protective .page-header h1::after {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Join/Volunteer - Cheerful Yellow */
+        body.page-join .page-container,
+        body.page-volunteer_info .page-container {
+            --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
+            --page-overlay-color: #FDF4C5;
+            --page-overlay-opacity: 0.50;
+        }
+
+        body.page-join .page-header,
+        body.page-volunteer_info .page-header {
+            background: rgba(248, 210, 156, 0.55);
+        }
+
+        /* ============================================================
+           ENHANCED PAGE HEADER (inspired by selfcareapy)
+           ============================================================ */
+
         .page-header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(248, 210, 156, 0.30);
+            padding: 36px 30px;
+            background: rgba(248, 210, 156, 0.35);
             border-radius: 20px;
-            border: 1px solid rgba(42, 61, 102, 0.10);
-            box-shadow: none;
+            border: 2px solid rgba(42, 61, 102, 0.08);
+            box-shadow: 0 4px 20px rgba(42, 61, 102, 0.08);
         }
 
         .page-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             color: var(--deep-indigo);
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.5px;
             position: relative;
             display: inline-block;
         }
@@ -651,12 +779,12 @@
         .page-header h1::after {
             content: "";
             display: block;
-            width: 60px;
-            height: 3px;
+            width: 80px;
+            height: 4px;
             background: var(--soft-yellow, #F8D29C);
-            margin: 12px auto 0;
+            margin: 14px auto 0;
             border-radius: 2px;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .page-header p {

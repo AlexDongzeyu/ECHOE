@@ -235,6 +235,23 @@
         border-top-left-radius: 28px;
         border-top-right-radius: 28px;
     }
+    
+    /* Decorative top wave transition from banner to hero section - complements rounded corners */
+    .home-masthead::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 36px;
+        pointer-events: none;
+        z-index: 1;
+        /* Elegant wave pattern transitioning from banner to hero */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0,24 C200,16 400,32 600,24 C800,16 1000,32 1200,24 L1200,36 L0,36 Z' fill='%23EDE6D9' fill-opacity='0.98'/%3E%3Cpath d='M0,24 C200,16 400,32 600,24 C800,16 1000,32 1200,24' stroke='%232A3D66' stroke-width='2.5' fill='none' stroke-opacity='0.35' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+    }
 
     .hero .container {
         position: relative;
@@ -1082,13 +1099,15 @@
 
     .post-card {
         background: rgba(253, 251, 247, 0.92);
-        border: 1px solid rgba(42, 61, 102, 0.10);
+        border: 2px solid rgba(42, 61, 102, 0.12);
         border-radius: 12px;
         overflow: hidden;
         padding: 8px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        box-shadow: 2px 2px 0px var(--echoe-accent-pink), 0 4px 12px rgba(42, 61, 102, 0.08);
+        transition: all 0.25s ease;
         /* top align */
         align-items: stretch;
         /* Ensure NO blur on post-card */
@@ -1424,45 +1443,44 @@
     /* === CALMING BUTTON STYLES - Soft, Professional, Mental Health Appropriate === */
     .btn-primary {
         position: relative;
-        background: var(--brand-orange);
-        color: var(--deep-indigo);
+        background: var(--echoe-accent-yellow); /* #FDF4C5 - soft yellow from theme */
+        color: var(--echoe-primary); /* #2B5F8C - deep indigo */
         font-family: 'Nunito', sans-serif;
         font-weight: 700;
         font-size: 0.95rem;
-        border: 2px solid rgba(42, 61, 102, 0.2);
+        border: 2.5px solid var(--echoe-primary);
         border-radius: 24px;
         padding: 14px 28px;
-        box-shadow: 0 4px 12px rgba(42, 61, 102, 0.15);
-        transition: all 0.3s ease;
+        box-shadow: 4px 4px 0px var(--echoe-accent-pink), 0 6px 16px rgba(42, 61, 102, 0.12);
+        transition: all 0.25s ease;
         text-decoration: none;
     }
 
     .btn-primary:hover {
-        box-shadow: 0 6px 18px rgba(42, 61, 102, 0.22);
-        transform: translateY(-2px);
-        background: #f7d494;
+        box-shadow: 0px 0px 0px var(--echoe-accent-pink), 0 8px 20px rgba(42, 61, 102, 0.15);
+        transform: translate(4px, 4px);
+        background: #F8E8A8; /* Slightly darker yellow on hover */
     }
 
     .btn-secondary {
         position: relative;
-        background: rgba(255, 255, 255, 0.85);
-        color: var(--deep-indigo);
+        background: var(--echoe-secondary); /* #8FB8DE - light blue from theme */
+        color: var(--echoe-primary); /* #2B5F8C - deep indigo */
         font-family: 'Nunito', sans-serif;
         font-weight: 700;
         font-size: 0.95rem;
-        border: 2px solid rgba(42, 61, 102, 0.25);
+        border: 2.5px solid var(--echoe-primary);
         border-radius: 24px;
         padding: 14px 28px;
-        box-shadow: 0 4px 12px rgba(42, 61, 102, 0.1);
-        transition: all 0.3s ease;
+        box-shadow: 4px 4px 0px var(--echoe-accent-green), 0 6px 16px rgba(42, 61, 102, 0.12);
+        transition: all 0.25s ease;
         text-decoration: none;
     }
 
     .btn-secondary:hover {
-        box-shadow: 0 6px 18px rgba(42, 61, 102, 0.18);
-        transform: translateY(-2px);
-        background: var(--brand-blue);
-        border-color: var(--brand-blue);
+        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 8px 20px rgba(42, 61, 102, 0.15);
+        transform: translate(4px, 4px);
+        background: #7AA8D4; /* Slightly darker blue on hover */
     }
 
     /* === NAVBAR - NO UNDERLINES === */
@@ -1958,8 +1976,8 @@
     }
 
     .post-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(42, 61, 102, 0.15);
+        box-shadow: 0px 0px 0px var(--echoe-accent-pink), 0 6px 16px rgba(42, 61, 102, 0.1);
+        transform: translate(2px, 2px);
     }
 
     /* Photo hover effects (no frames) */
@@ -1977,238 +1995,6 @@
     .about-section .container {
         position: relative;
         z-index: 2;
-    }
-
-    /* ============================================================
-       CALM, CUTE & PROFESSIONAL DESIGN ENHANCEMENTS
-       Subtle touches for a gentle, welcoming feel
-       ============================================================ */
-
-    /* === SOFTER LIST STYLING - Gentle & Calming === */
-    .about-section ul,
-    .about-section ol,
-    .consultant-section ul,
-    .consultant-section ol {
-        list-style: none;
-        padding-left: 0;
-        margin: 1.2rem 0;
-    }
-
-    .about-section ul li,
-    .about-section ol li,
-    .consultant-section ul li,
-    .consultant-section ol li {
-        position: relative;
-        padding-left: 2rem;
-        margin-bottom: 0.9rem;
-        line-height: 1.75;
-        color: var(--deep-indigo);
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-    }
-
-    /* Soft, rounded bullet points for lists */
-    .about-section ul li::before,
-    .consultant-section ul li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.65rem;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(248, 210, 156, 0.6);
-        box-shadow: 0 0 0 2px rgba(248, 210, 156, 0.25);
-        transition: all 0.3s ease;
-    }
-
-    /* Numbered lists get soft, rounded numbers */
-    .about-section ol,
-    .consultant-section ol {
-        counter-reset: list-item;
-    }
-
-    .about-section ol li::before,
-    .consultant-section ol li::before {
-        content: counter(list-item);
-        counter-increment: list-item;
-        position: absolute;
-        left: 0;
-        top: 0.1rem;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: rgba(248, 210, 156, 0.2);
-        color: rgba(42, 61, 102, 0.85);
-        font-size: 0.85rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-        border: 1.5px solid rgba(248, 210, 156, 0.4);
-        transition: all 0.3s ease;
-    }
-
-    .about-section ul li:hover::before,
-    .consultant-section ul li:hover::before,
-    .about-section ol li:hover::before,
-    .consultant-section ol li:hover::before {
-        background: rgba(248, 210, 156, 0.8);
-        transform: scale(1.15);
-    }
-
-    /* === GENTLER LINK HOVER STATES === */
-    .about-section a,
-    .consultant-section a,
-    .hero a,
-    .social-manual a:not(.social-icon-circle):not(.qr-link),
-    .socials-qr-section a:not(.social-icon-circle):not(.qr-link) {
-        color: rgba(42, 61, 102, 0.88);
-        text-decoration: none;
-        position: relative;
-        transition: all 0.25s ease;
-        border-bottom: 1.5px solid transparent;
-    }
-
-    .about-section a:hover,
-    .consultant-section a:hover,
-    .hero a:hover:not(.btn-primary):not(.btn-secondary),
-    .social-manual a:hover:not(.social-icon-circle):not(.qr-link),
-    .socials-qr-section a:hover:not(.social-icon-circle):not(.qr-link) {
-        color: rgba(42, 61, 102, 1);
-        border-bottom-color: rgba(248, 210, 156, 0.5);
-        padding-bottom: 1px;
-    }
-
-    /* === ENHANCED PARAGRAPH SPACING - More Breathing Room === */
-    .about-section p,
-    .consultant-section p,
-    .hero p:not(.quote):not(.mission) {
-        margin-bottom: 1.3rem;
-        line-height: 1.75;
-        color: rgba(42, 61, 102, 0.92);
-    }
-
-    /* === SOFTER IMAGE BORDERS === */
-    .photo-rect,
-    .banner-rect,
-    .avatar-photo {
-        border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(42, 61, 102, 0.08);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .photo-rect:hover,
-    .banner-rect:hover,
-    .avatar-photo:hover {
-        box-shadow: 0 8px 20px rgba(42, 61, 102, 0.12);
-        transform: translateY(-2px);
-    }
-
-    /* === GENTLE HEADING DECORATIONS === */
-    .about-section h2.font-serif,
-    .consultant-section h2.font-serif,
-    .social-manual h2.font-serif,
-    .socials-qr-section h2.font-serif {
-        position: relative;
-        display: inline-block;
-        padding-bottom: 0.5rem;
-    }
-
-    .about-section h2.font-serif::after,
-    .consultant-section h2.font-serif::after,
-    .social-manual h2.font-serif::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 3px;
-        background: linear-gradient(90deg, rgba(248, 210, 156, 0.7), rgba(248, 210, 156, 0.2));
-        border-radius: 2px;
-        transition: width 0.4s ease;
-    }
-
-    .about-section h2.font-serif:hover::after,
-    .consultant-section h2.font-serif:hover::after,
-    .social-manual h2.font-serif:hover::after {
-        width: 70px;
-    }
-
-    /* === SOFTER QUOTE STYLING === */
-    .hero .quote {
-        background: rgba(248, 210, 156, 0.1);
-        border-left: 4px solid rgba(248, 210, 156, 0.5);
-        border-radius: 0 12px 12px 0;
-        padding: 20px 24px 20px 28px;
-        margin: 1.5rem 0;
-        position: relative;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    }
-
-    /* === GENTLE VALUES BOX ENHANCEMENT === */
-    #section-who-we-are p:last-child,
-    #section-about-us .about-card p:last-child {
-        background: rgba(248, 210, 156, 0.15);
-        border: 1.5px solid rgba(248, 210, 156, 0.3);
-        border-radius: 14px;
-        padding: 16px 20px;
-        margin-top: 16px;
-        box-shadow: 0 2px 8px rgba(248, 210, 156, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    #section-who-we-are p:last-child:hover,
-    #section-about-us .about-card p:last-child:hover {
-        background: rgba(248, 210, 156, 0.2);
-        border-color: rgba(248, 210, 156, 0.4);
-        box-shadow: 0 4px 12px rgba(248, 210, 156, 0.15);
-    }
-
-    /* === SOFTER CONSULTANT CARD === */
-    /* Note: Respects inline styles where background is explicitly transparent */
-    .consultant-card:not([style*="box-shadow:none"]) {
-        transition: all 0.3s ease;
-    }
-
-    .consultant-card:not([style*="box-shadow:none"]):hover {
-        transform: translateY(-2px);
-    }
-
-    /* Apply styling only to consultant cards without explicit inline background */
-    .consultant-section .consultant-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .consultant-section .consultant-card:hover {
-        transform: translateY(-2px);
-    }
-
-    /* === GENTLE TEXT SELECTION === */
-    .about-section ::selection,
-    .consultant-section ::selection,
-    .hero ::selection {
-        background: rgba(248, 210, 156, 0.4);
-        color: rgba(42, 61, 102, 0.95);
-    }
-
-    /* === SOFTER FOCUS STATES === */
-    .about-section a:focus,
-    .consultant-section a:focus,
-    .hero a:focus {
-        outline: 2px solid rgba(248, 210, 156, 0.5);
-        outline-offset: 2px;
-        border-radius: 4px;
-    }
-
-    /* === GENTLE TRANSITIONS FOR ALL INTERACTIVE ELEMENTS === */
-    .about-section *,
-    .consultant-section *,
-    .hero * {
-        transition-property: color, background-color, border-color, box-shadow, transform;
-        transition-duration: 0.25s;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 </style>
 {% endblock %}
@@ -2680,12 +2466,17 @@
 
     .qr-card {
         background: rgba(253, 251, 247, 0.92);
-        border: 1px solid rgba(42, 61, 102, 0.12);
+        border: 2px solid rgba(42, 61, 102, 0.15);
         border-radius: 20px;
         padding: 24px 20px;
-        box-shadow: 0 14px 30px rgba(42, 61, 102, 0.12);
-        transition: all 0.3s ease;
+        box-shadow: 3px 3px 0px var(--echoe-accent-green), 0 8px 20px rgba(42, 61, 102, 0.1);
+        transition: all 0.25s ease;
         position: relative;
+    }
+    
+    .qr-card:hover {
+        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 10px 24px rgba(42, 61, 102, 0.12);
+        transform: translate(3px, 3px);
     }
 
     .qr-card.tiktok-card {
@@ -2701,8 +2492,8 @@
     }
 
     .qr-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 38px rgba(42, 61, 102, 0.14);
+        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 10px 24px rgba(42, 61, 102, 0.12);
+        transform: translate(3px, 3px);
     }
 
     .qr-image-wrap {

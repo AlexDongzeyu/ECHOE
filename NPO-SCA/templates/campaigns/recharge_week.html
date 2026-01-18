@@ -2,13 +2,75 @@
 {% block title %}Recharge Week - Campaigns{% endblock %}
 {% block styles %}
 <style>
-  .rw-hero{background:rgba(159,197,203,.18);padding:32px;border-radius:18px;text-align:center;margin-bottom:26px;box-shadow:0 8px 24px rgba(42,61,102,.08)}
-  .rw-hero h1{margin:0 0 8px 0;font-size:2.2rem;color:var(--deep-indigo)}
-  .rw-hero p{margin:0;color:var(--deep-indigo);opacity:.9}
+  /* Hero section styling with heading accent */
+  .rw-hero {
+    background: rgba(159, 197, 203, .18);
+    padding: 32px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 26px;
+    box-shadow: 0 8px 24px rgba(42, 61, 102, .08)
+  }
 
-  .rw-section{background:#fff;border-radius:16px;box-shadow:0 8px 22px rgba(42,61,102,.08);padding:22px;margin-bottom:22px}
-  .rw-section h2{margin:0 0 10px 0;color:var(--deep-indigo);font-size:1.5rem}
-  .rw-section p{color:var(--deep-indigo);line-height:1.65;margin:8px 0}
+  .rw-hero h1 {
+    margin: 0 0 8px 0;
+    font-size: 2.2rem;
+    color: var(--deep-indigo);
+    position: relative;
+    display: inline-block
+  }
+
+  .rw-hero h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--soft-yellow, #F8D29C);
+    margin: 12px auto 0;
+    border-radius: 2px;
+    opacity: 0.7
+  }
+
+  .rw-hero p {
+    margin: 0;
+    color: var(--deep-indigo);
+    opacity: .9
+  }
+
+  /* Section styling with left accent border and heading underlines */
+  .rw-section {
+    background: rgba(253, 251, 247, 0.72);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(42, 61, 102, .08);
+    padding: 22px;
+    margin-bottom: 22px;
+    border-left: 3px solid var(--soft-yellow)
+  }
+
+  .rw-section h2 {
+    margin: 0 0 10px 0;
+    color: var(--deep-indigo);
+    font-size: 1.5rem;
+    position: relative;
+    display: inline-block
+  }
+
+  .rw-section h2::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: var(--soft-yellow, #F8D29C);
+    margin: 8px 0 0 0;
+    border-radius: 1px;
+    opacity: 0.65
+  }
+
+  .rw-section p {
+    color: var(--deep-indigo);
+    line-height: 1.85;
+    margin: 8px 0
+  }
 
   /* === INTERACTIVE BATTERY SECTION === */
   .battery-section {
@@ -17,24 +79,27 @@
     border-radius: 24px;
     padding: 36px 28px;
     margin-bottom: 26px;
-    box-shadow: 6px 6px 0px rgba(42,61,102,0.3), 0 12px 40px rgba(42,61,102,0.12);
+    box-shadow: 6px 6px 0px rgba(42, 61, 102, 0.3), 0 12px 40px rgba(42, 61, 102, 0.12);
     overflow: hidden;
     position: relative;
   }
+
   .battery-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(159,197,203,0.10);
+    background: rgba(159, 197, 203, 0.10);
     pointer-events: none;
   }
+
   .battery-section h2 {
     color: #2A3D66;
     text-align: center;
     font-size: 1.9rem;
     margin-bottom: 8px;
   }
-  .battery-section > p {
+
+  .battery-section>p {
     color: #4A5A7A;
     text-align: center;
     margin-bottom: 28px;
@@ -62,10 +127,10 @@
     border: 3px solid #2A3D66;
     border-radius: 20px;
     padding: 12px;
-    box-shadow: 
-      inset 0 2px 8px rgba(42,61,102,0.1),
-      4px 4px 0px rgba(42,61,102,0.3),
-      0 8px 24px rgba(42,61,102,0.15);
+    box-shadow:
+      inset 0 2px 8px rgba(42, 61, 102, 0.1),
+      4px 4px 0px rgba(42, 61, 102, 0.3),
+      0 8px 24px rgba(42, 61, 102, 0.15);
   }
 
   /* Battery tip */
@@ -87,7 +152,7 @@
     display: flex;
     gap: 8px;
     padding: 8px;
-    background: rgba(42,61,102,0.08);
+    background: rgba(42, 61, 102, 0.08);
     border-radius: 12px;
   }
 
@@ -101,13 +166,13 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 2px solid rgba(42,61,102,0.15);
+    border: 2px solid rgba(42, 61, 102, 0.15);
   }
 
   .battery-segment:hover {
     border-color: #2A3D66;
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(42,61,102,0.2);
+    box-shadow: 0 4px 12px rgba(42, 61, 102, 0.2);
   }
 
   /* Segment fill (the charging animation) */
@@ -122,13 +187,33 @@
   }
 
   /* Color variations for each day */
-  .battery-segment[data-day="1"] .segment-fill { background: #B39CD0; }
-  .battery-segment[data-day="2"] .segment-fill { background: #9FC5CB; }
-  .battery-segment[data-day="3"] .segment-fill { background: #ADCBA4; }
-  .battery-segment[data-day="4"] .segment-fill { background: #F8D29C; }
-  .battery-segment[data-day="5"] .segment-fill { background: #F4D2C8; }
-  .battery-segment[data-day="6"] .segment-fill { background: #8FB8DE; }
-  .battery-segment[data-day="7"] .segment-fill { background: #E8BC6E; }
+  .battery-segment[data-day="1"] .segment-fill {
+    background: #B39CD0;
+  }
+
+  .battery-segment[data-day="2"] .segment-fill {
+    background: #9FC5CB;
+  }
+
+  .battery-segment[data-day="3"] .segment-fill {
+    background: #ADCBA4;
+  }
+
+  .battery-segment[data-day="4"] .segment-fill {
+    background: #F8D29C;
+  }
+
+  .battery-segment[data-day="5"] .segment-fill {
+    background: #F4D2C8;
+  }
+
+  .battery-segment[data-day="6"] .segment-fill {
+    background: #8FB8DE;
+  }
+
+  .battery-segment[data-day="7"] .segment-fill {
+    background: #E8BC6E;
+  }
 
   /* Active/charged state */
   .battery-segment.charged .segment-fill {
@@ -139,13 +224,34 @@
   .battery-segment.charged {
     box-shadow: 0 0 20px currentColor;
   }
-  .battery-segment[data-day="1"].charged { box-shadow: 0 0 25px rgba(155,123,184,0.6); }
-  .battery-segment[data-day="2"].charged { box-shadow: 0 0 25px rgba(135,206,235,0.6); }
-  .battery-segment[data-day="3"].charged { box-shadow: 0 0 25px rgba(152,216,170,0.6); }
-  .battery-segment[data-day="4"].charged { box-shadow: 0 0 25px rgba(255,217,61,0.6); }
-  .battery-segment[data-day="5"].charged { box-shadow: 0 0 25px rgba(255,159,159,0.6); }
-  .battery-segment[data-day="6"].charged { box-shadow: 0 0 25px rgba(168,216,234,0.6); }
-  .battery-segment[data-day="7"].charged { box-shadow: 0 0 25px rgba(244,208,111,0.6); }
+
+  .battery-segment[data-day="1"].charged {
+    box-shadow: 0 0 25px rgba(155, 123, 184, 0.6);
+  }
+
+  .battery-segment[data-day="2"].charged {
+    box-shadow: 0 0 25px rgba(135, 206, 235, 0.6);
+  }
+
+  .battery-segment[data-day="3"].charged {
+    box-shadow: 0 0 25px rgba(152, 216, 170, 0.6);
+  }
+
+  .battery-segment[data-day="4"].charged {
+    box-shadow: 0 0 25px rgba(255, 217, 61, 0.6);
+  }
+
+  .battery-segment[data-day="5"].charged {
+    box-shadow: 0 0 25px rgba(255, 159, 159, 0.6);
+  }
+
+  .battery-segment[data-day="6"].charged {
+    box-shadow: 0 0 25px rgba(168, 216, 234, 0.6);
+  }
+
+  .battery-segment[data-day="7"].charged {
+    box-shadow: 0 0 25px rgba(244, 208, 111, 0.6);
+  }
 
   /* Day number label */
   .segment-label {
@@ -155,19 +261,27 @@
     transform: translateX(-50%);
     font-weight: 800;
     font-size: 0.9rem;
-    color: rgba(42,61,102,0.5);
+    color: rgba(42, 61, 102, 0.5);
     z-index: 2;
     transition: all 0.3s ease;
   }
+
   .battery-segment.charged .segment-label {
     color: #fff;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
   /* Energy particles animation */
   @keyframes particle-rise {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    100% { transform: translateY(-100px) scale(0); opacity: 0; }
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: translateY(-100px) scale(0);
+      opacity: 0;
+    }
   }
 
   .energy-particle {
@@ -182,8 +296,15 @@
 
   /* Charging animation flash */
   @keyframes segment-flash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
   }
 
   .battery-segment.charging {
@@ -199,6 +320,7 @@
     margin-top: 12px;
     transition: all 0.3s ease;
   }
+
   .battery-percentage span {
     font-size: 1.2rem;
     color: #5A6A7A;
@@ -215,7 +337,7 @@
 
   .day-btn {
     background: #fff;
-    border: 2px solid rgba(42,61,102,0.2);
+    border: 2px solid rgba(42, 61, 102, 0.2);
     color: #2A3D66;
     padding: 10px 16px;
     border-radius: 12px;
@@ -231,14 +353,14 @@
     background: #FDF4C5;
     border-color: #2A3D66;
     transform: translateY(-2px);
-    box-shadow: 2px 2px 0px rgba(42,61,102,0.3);
+    box-shadow: 2px 2px 0px rgba(42, 61, 102, 0.3);
   }
 
   .day-btn.active {
     background: #F8D29C;
     border-color: #2A3D66;
     color: #2A3D66;
-    box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
+    box-shadow: 3px 3px 0px rgba(42, 61, 102, 0.3);
   }
 
   /* Content display area */
@@ -255,7 +377,7 @@
     border-radius: 16px;
     padding: 24px;
     animation: content-reveal 0.5s ease-out;
-    box-shadow: 4px 4px 0px rgba(42,61,102,0.25);
+    box-shadow: 4px 4px 0px rgba(42, 61, 102, 0.25);
   }
 
   .day-content.active {
@@ -263,12 +385,13 @@
   }
 
   @keyframes content-reveal {
-    0% { 
-      opacity: 0; 
+    0% {
+      opacity: 0;
       transform: translateY(20px) scale(0.95);
     }
-    100% { 
-      opacity: 1; 
+
+    100% {
+      opacity: 1;
       transform: translateY(0) scale(1);
     }
   }
@@ -303,23 +426,38 @@
   }
 
   @keyframes pulse-text {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+
+    50% {
+      opacity: 1;
+    }
   }
 
   /* Full charge celebration */
   @keyframes celebrate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.03);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 
   .battery-frame.full-charge {
     animation: celebrate 0.5s ease;
-    box-shadow: 
-      inset 0 2px 8px rgba(42,61,102,0.1),
-      6px 6px 0px rgba(42,61,102,0.4),
-      0 12px 40px rgba(98,216,170,0.3);
+    box-shadow:
+      inset 0 2px 8px rgba(42, 61, 102, 0.1),
+      6px 6px 0px rgba(42, 61, 102, 0.4),
+      0 12px 40px rgba(98, 216, 170, 0.3);
   }
 
   /* Charge All button */
@@ -334,18 +472,18 @@
     cursor: pointer;
     margin-top: 16px;
     transition: all 0.3s ease;
-    box-shadow: 3px 3px 0px rgba(42,61,102,0.3);
+    box-shadow: 3px 3px 0px rgba(42, 61, 102, 0.3);
   }
 
   .charge-all-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 3px 6px 0px rgba(42,61,102,0.3), 0 8px 20px rgba(244,208,111,0.3);
+    box-shadow: 3px 6px 0px rgba(42, 61, 102, 0.3), 0 8px 20px rgba(244, 208, 111, 0.3);
   }
 
   /* Reset button */
   .reset-btn {
     background: transparent;
-    border: 2px solid rgba(42,61,102,0.3);
+    border: 2px solid rgba(42, 61, 102, 0.3);
     color: #5A6A7A;
     padding: 8px 16px;
     border-radius: 50px;
@@ -359,38 +497,132 @@
   .reset-btn:hover {
     border-color: #2A3D66;
     color: #2A3D66;
-    background: rgba(42,61,102,0.05);
+    background: rgba(42, 61, 102, 0.05);
   }
 
   /* Mobile responsiveness */
   @media (max-width: 600px) {
-    .battery-section { padding: 20px 16px; }
-    .battery-segment { height: 80px; }
-    .segment-label { font-size: 0.75rem; }
-    .battery-percentage { font-size: 2rem; }
-    .day-btn { padding: 8px 12px; font-size: 0.8rem; }
-    .day-content { padding: 18px; }
-    .day-content h3 { font-size: 1.2rem; }
-    .day-content p { font-size: 0.95rem; }
+    .battery-section {
+      padding: 20px 16px;
+    }
+
+    .battery-segment {
+      height: 80px;
+    }
+
+    .segment-label {
+      font-size: 0.75rem;
+    }
+
+    .battery-percentage {
+      font-size: 2rem;
+    }
+
+    .day-btn {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+    }
+
+    .day-content {
+      padding: 18px;
+    }
+
+    .day-content h3 {
+      font-size: 1.2rem;
+    }
+
+    .day-content p {
+      font-size: 0.95rem;
+    }
   }
 
   /* Rest of original styles */
-  .rw-instagram-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;row-gap:22px;column-gap:16px;margin-top:14px}
-  .rw-ig-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 16px rgba(42,61,102,.08);border:2px solid rgba(42,61,102,0.1)}
-  .rw-ig-card a.block-link{display:block}
-  .rw-ig-card img{width:100%;border-radius:10px;display:block;margin-bottom:8px;box-shadow:0 4px 12px rgba(42,61,102,.10)}
-  .rw-ig-card h3{margin:0 0 6px 0;font-size:1.05rem;color:var(--deep-indigo)}
-  .rw-ig-card p{margin:0 0 8px 0;color:var(--deep-indigo);opacity:.9}
-  .rw-ig-card a{font-weight:600;color:var(--gentle-lavender)}
+  .rw-instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    row-gap: 22px;
+    column-gap: 16px;
+    margin-top: 14px
+  }
+
+  .rw-ig-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 16px rgba(42, 61, 102, .08);
+    border: 2px solid rgba(42, 61, 102, 0.1)
+  }
+
+  .rw-ig-card a.block-link {
+    display: block
+  }
+
+  .rw-ig-card img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(42, 61, 102, .10)
+  }
+
+  .rw-ig-card h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.05rem;
+    color: var(--deep-indigo)
+  }
+
+  .rw-ig-card p {
+    margin: 0 0 8px 0;
+    color: var(--deep-indigo);
+    opacity: .9
+  }
+
+  .rw-ig-card a {
+    font-weight: 600;
+    color: var(--gentle-lavender)
+  }
 
   /* Recap Video Card */
-  .rw-ig-card.rw-video-card{background:#FDF4C5;border:2px solid #2A3D66}
-  .rw-ig-card.rw-video-card h3{color:#2A3D66;font-size:1.15rem;margin-bottom:10px}
-  .rw-video-embed{width:100%;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#000}
-  .rw-recap-video{width:100%;height:auto;aspect-ratio:9/16;max-height:280px;object-fit:contain;display:block}
+  .rw-ig-card.rw-video-card {
+    background: #FDF4C5;
+    border: 2px solid #2A3D66
+  }
 
-  @media (max-width:1100px){.rw-instagram-grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:600px){.rw-instagram-grid{grid-template-columns:1fr}}
+  .rw-ig-card.rw-video-card h3 {
+    color: #2A3D66;
+    font-size: 1.15rem;
+    margin-bottom: 10px
+  }
+
+  .rw-video-embed {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background: #000
+  }
+
+  .rw-recap-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9/16;
+    max-height: 280px;
+    object-fit: contain;
+    display: block
+  }
+
+  @media (max-width:1100px) {
+    .rw-instagram-grid {
+      grid-template-columns: repeat(2, 1fr)
+    }
+  }
+
+  @media (max-width:600px) {
+    .rw-instagram-grid {
+      grid-template-columns: 1fr
+    }
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -403,15 +635,22 @@
 
     <section class="rw-section">
       <h2>What is Recharge Week?</h2>
-      <p>This 7‑day series treats your mental energy like a battery that needs tending. Each day focuses on a different "mode" — from switching <strong>Sleep Mode ON</strong> for real rest to activating <strong>Airplane Mode</strong> for a digital detox — to help you consciously reset. Whether you are decluttering your mind during <strong>Clean Storage</strong>, moving your body for a <strong>Fast Charge</strong>, or connecting with friends during <strong>Battery Share</strong>, this week offers small, actionable steps to check your energy settings and fully power up again.</p>
-      <p>Recharge Week is designed to be accessible: you can follow along on social media, participate privately, or complete only the days that fit your schedule. The goal is not perfection — it's noticing your needs, creating tiny moments of care, and reconnecting with yourself and others.</p>
+      <p>This 7‑day series treats your mental energy like a battery that needs tending. Each day focuses on a different
+        "mode" — from switching <strong>Sleep Mode ON</strong> for real rest to activating <strong>Airplane
+          Mode</strong> for a digital detox — to help you consciously reset. Whether you are decluttering your mind
+        during <strong>Clean Storage</strong>, moving your body for a <strong>Fast Charge</strong>, or connecting with
+        friends during <strong>Battery Share</strong>, this week offers small, actionable steps to check your energy
+        settings and fully power up again.</p>
+      <p>Recharge Week is designed to be accessible: you can follow along on social media, participate privately, or
+        complete only the days that fit your schedule. The goal is not perfection — it's noticing your needs, creating
+        tiny moments of care, and reconnecting with yourself and others.</p>
     </section>
 
     <!-- INTERACTIVE BATTERY SECTION -->
     <section class="battery-section">
       <h2>7-Day "Battery Modes"</h2>
       <p>Click each day to charge your battery and reveal the daily challenge!</p>
-      
+
       <div class="battery-container">
         <!-- Battery Visual -->
         <div class="battery-visual">
@@ -469,32 +708,39 @@
         <div class="day-content-area">
           <div class="day-content" data-day="1">
             <h3>Day 1 — Sleep Mode ON</h3>
-            <p>Prioritize real rest by setting a tech cut-off time, softening your evening routine, and giving your body permission to power down.</p>
+            <p>Prioritize real rest by setting a tech cut-off time, softening your evening routine, and giving your body
+              permission to power down.</p>
           </div>
           <div class="day-content" data-day="2">
-          <h3>Day 2 — Airplane Mode</h3>
-          <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.</p>
-        </div>
+            <h3>Day 2 — Airplane Mode</h3>
+            <p>Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a
+              quiet signal break.</p>
+          </div>
           <div class="day-content" data-day="3">
-          <h3>Day 3 — Clean Storage</h3>
-          <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.</p>
-        </div>
+            <h3>Day 3 — Clean Storage</h3>
+            <p>Declutter your space or mind — clear a corner of your room, tidy your backpack, or journal out thoughts
+              taking up too much storage.</p>
+          </div>
           <div class="day-content" data-day="4">
-          <h3>Day 4 — Fast Charge</h3>
-          <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.</p>
-        </div>
+            <h3>Day 4 — Fast Charge</h3>
+            <p>Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy
+              and release stress.</p>
+          </div>
           <div class="day-content" data-day="5">
-          <h3>Day 5 — Battery Share</h3>
-          <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a trusted friend.</p>
-        </div>
+            <h3>Day 5 — Battery Share</h3>
+            <p>Connect with someone who fills your cup — send a kind message, join a club event, or simply sit with a
+              trusted friend.</p>
+          </div>
           <div class="day-content" data-day="6">
-          <h3>Day 6 — Quiet Mode</h3>
-          <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.</p>
-        </div>
+            <h3>Day 6 — Quiet Mode</h3>
+            <p>Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the
+              noise of the week.</p>
+          </div>
           <div class="day-content" data-day="7">
-          <h3>Day 7 — System Check</h3>
-          <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.</p>
-        </div>
+            <h3>Day 7 — System Check</h3>
+            <p>Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as
+              part of your routine.</p>
+          </div>
           <p class="battery-prompt" id="batteryPrompt">Tap a day to begin charging</p>
         </div>
       </div>
@@ -502,7 +748,8 @@
 
     <section class="rw-section">
       <h2>Follow the 7‑Day Series on Instagram</h2>
-      <p>You can complete Recharge Week directly from our Instagram posts — each day includes a simple prompt and visual reminder.</p>
+      <p>You can complete Recharge Week directly from our Instagram posts — each day includes a simple prompt and visual
+        reminder.</p>
       <div class="rw-instagram-grid">
         <div class="rw-ig-card">
           <h3>Day 1 — Sleep Mode ON</h3>
@@ -564,11 +811,9 @@
         <div class="rw-ig-card rw-video-card">
           <h3>Recharge Week Recap</h3>
           <div class="rw-video-embed">
-            <video src="{{ url_for('static', filename='img/RW 1.mp4') }}?v=2"
-                   playsinline controls preload="auto"
-                   controlsList="nodownload"
-                   poster="{{ url_for('static', filename='img/RW D1.jpg') }}"
-                   class="no-save rw-recap-video">
+            <video src="{{ url_for('static', filename='img/RW 1.mp4') }}?v=2" playsinline controls preload="auto"
+              controlsList="nodownload" poster="{{ url_for('static', filename='img/RW D1.jpg') }}"
+              class="no-save rw-recap-video">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -580,235 +825,247 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const segments = document.querySelectorAll('.battery-segment');
-  const dayBtns = document.querySelectorAll('.day-btn');
-  const dayContents = document.querySelectorAll('.day-content');
-  const percentNum = document.getElementById('percentNum');
-  const batteryFrame = document.getElementById('batteryFrame');
-  const batteryPrompt = document.getElementById('batteryPrompt');
-  const chargeAllBtn = document.getElementById('chargeAllBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  
-  let chargedDays = new Set();
+  document.addEventListener('DOMContentLoaded', function () {
+    const segments = document.querySelectorAll('.battery-segment');
+    const dayBtns = document.querySelectorAll('.day-btn');
+    const dayContents = document.querySelectorAll('.day-content');
+    const percentNum = document.getElementById('percentNum');
+    const batteryFrame = document.getElementById('batteryFrame');
+    const batteryPrompt = document.getElementById('batteryPrompt');
+    const chargeAllBtn = document.getElementById('chargeAllBtn');
+    const resetBtn = document.getElementById('resetBtn');
 
-  function updatePercentage() {
-    const percent = Math.round((chargedDays.size / 7) * 100);
-    animateNumber(parseInt(percentNum.textContent), percent, 400);
-    
-    if (chargedDays.size === 7) {
-      batteryFrame.classList.add('full-charge');
-      setTimeout(() => batteryFrame.classList.remove('full-charge'), 500);
-    }
-  }
+    let chargedDays = new Set();
 
-  function animateNumber(from, to, duration) {
-    const start = performance.now();
-    function update(currentTime) {
-      const elapsed = currentTime - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.round(from + (to - from) * progress);
-      percentNum.textContent = current;
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  }
+    function updatePercentage() {
+      const percent = Math.round((chargedDays.size / 7) * 100);
+      animateNumber(parseInt(percentNum.textContent), percent, 400);
 
-  function createParticles(segment) {
-    for (let i = 0; i < 5; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'energy-particle';
-      particle.style.left = Math.random() * 80 + 10 + '%';
-      particle.style.bottom = '20%';
-      particle.style.animationDelay = Math.random() * 0.3 + 's';
-      segment.appendChild(particle);
-      setTimeout(() => particle.remove(), 1000);
-    }
-  }
-
-  function chargeDay(day) {
-    const segment = document.querySelector(`.battery-segment[data-day="${day}"]`);
-    const btn = document.querySelector(`.day-btn[data-day="${day}"]`);
-    const content = document.querySelector(`.day-content[data-day="${day}"]`);
-
-    // Add charging animation
-    segment.classList.add('charging');
-    setTimeout(() => segment.classList.remove('charging'), 600);
-
-    // Toggle charged state
-    if (chargedDays.has(day)) {
-      chargedDays.delete(day);
-      segment.classList.remove('charged');
-      btn.classList.remove('active');
-    } else {
-      chargedDays.add(day);
-      segment.classList.add('charged');
-      btn.classList.add('active');
-      createParticles(segment);
+      if (chargedDays.size === 7) {
+        batteryFrame.classList.add('full-charge');
+        setTimeout(() => batteryFrame.classList.remove('full-charge'), 500);
+      }
     }
 
-    // Show content
-    dayContents.forEach(c => c.classList.remove('active'));
-    content.classList.add('active');
-    batteryPrompt.style.display = 'none';
+    function animateNumber(from, to, duration) {
+      const start = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.round(from + (to - from) * progress);
+        percentNum.textContent = current;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
 
-    updatePercentage();
-  }
+    function createParticles(segment) {
+      for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'energy-particle';
+        particle.style.left = Math.random() * 80 + 10 + '%';
+        particle.style.bottom = '20%';
+        particle.style.animationDelay = Math.random() * 0.3 + 's';
+        segment.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
 
-  // Click handlers for segments
-  segments.forEach(segment => {
-    segment.addEventListener('click', () => {
-      const day = segment.dataset.day;
-      chargeDay(day);
+    function chargeDay(day) {
+      const segment = document.querySelector(`.battery-segment[data-day="${day}"]`);
+      const btn = document.querySelector(`.day-btn[data-day="${day}"]`);
+      const content = document.querySelector(`.day-content[data-day="${day}"]`);
+
+      // Add charging animation
+      segment.classList.add('charging');
+      setTimeout(() => segment.classList.remove('charging'), 600);
+
+      // Toggle charged state
+      if (chargedDays.has(day)) {
+        chargedDays.delete(day);
+        segment.classList.remove('charged');
+        btn.classList.remove('active');
+      } else {
+        chargedDays.add(day);
+        segment.classList.add('charged');
+        btn.classList.add('active');
+        createParticles(segment);
+      }
+
+      // Show content
+      dayContents.forEach(c => c.classList.remove('active'));
+      content.classList.add('active');
+      batteryPrompt.style.display = 'none';
+
+      updatePercentage();
+    }
+
+    // Click handlers for segments
+    segments.forEach(segment => {
+      segment.addEventListener('click', () => {
+        const day = segment.dataset.day;
+        chargeDay(day);
+      });
+    });
+
+    // Click handlers for day buttons
+    dayBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const day = btn.dataset.day;
+        chargeDay(day);
+      });
+    });
+
+    // Charge all button
+    chargeAllBtn.addEventListener('click', () => {
+      let delay = 0;
+      for (let i = 1; i <= 7; i++) {
+        setTimeout(() => {
+          if (!chargedDays.has(String(i))) {
+            chargeDay(String(i));
+          }
+        }, delay);
+        delay += 200;
+      }
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+      chargedDays.clear();
+      segments.forEach(s => s.classList.remove('charged'));
+      dayBtns.forEach(b => b.classList.remove('active'));
+      dayContents.forEach(c => c.classList.remove('active'));
+      batteryPrompt.style.display = 'block';
+      animateNumber(parseInt(percentNum.textContent), 0, 400);
     });
   });
 
-  // Click handlers for day buttons
-  dayBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const day = btn.dataset.day;
-      chargeDay(day);
-    });
-  });
-
-  // Charge all button
-  chargeAllBtn.addEventListener('click', () => {
-    let delay = 0;
-    for (let i = 1; i <= 7; i++) {
-      setTimeout(() => {
-        if (!chargedDays.has(String(i))) {
-          chargeDay(String(i));
-        }
-      }, delay);
-      delay += 200;
-    }
-  });
-
-  // Reset button
-  resetBtn.addEventListener('click', () => {
-    chargedDays.clear();
-    segments.forEach(s => s.classList.remove('charged'));
-    dayBtns.forEach(b => b.classList.remove('active'));
-    dayContents.forEach(c => c.classList.remove('active'));
-    batteryPrompt.style.display = 'block';
-    animateNumber(parseInt(percentNum.textContent), 0, 400);
-  });
-});
-
-// =============================================
-// GSAP ANIMATIONS FOR RECHARGE WEEK - FIXED
-// =============================================
-document.addEventListener('DOMContentLoaded', () => {
+  // =============================================
+  // GSAP ANIMATIONS FOR RECHARGE WEEK - FIXED
+  // =============================================
+  document.addEventListener('DOMContentLoaded', () => {
     // Ensure all elements are visible first!
     gsap.set('.battery-section, .battery-frame, .battery-tip, .battery-segment, .day-btn, .rw-section, .rw-ig-card', {
-        opacity: 1,
-        visibility: 'visible',
-        scale: 1,
-        scaleY: 1,
-        x: 0,
-        y: 0,
-        rotation: 0
+      opacity: 1,
+      visibility: 'visible',
+      scale: 1,
+      scaleY: 1,
+      x: 0,
+      y: 0,
+      rotation: 0
     });
-    
+
     // Hero entrance
     const rwHero = document.querySelector('.rw-hero');
     if (rwHero) {
-        gsap.fromTo(rwHero, 
-            { y: -40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
-        );
+      gsap.fromTo(rwHero,
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+      );
     }
-    
+
     // Battery section reveal
     const batterySection = document.querySelector('.battery-section');
     if (batterySection) {
-        gsap.fromTo(batterySection, 
-            { y: 50, opacity: 0 },
-            { scrollTrigger: { trigger: batterySection, start: 'top 85%' },
-              y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }
+      gsap.fromTo(batterySection,
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: { trigger: batterySection, start: 'top 85%' },
+          y: 0, opacity: 1, duration: 0.7, ease: 'power2.out'
+        }
+      );
+
+      // Battery frame
+      gsap.fromTo('.battery-frame',
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: { trigger: '.battery-frame', start: 'top 88%' },
+          y: 0, opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out'
+        }
+      );
+
+      // Battery segments - gentle reveal, NO scaleY!
+      const segments = document.querySelectorAll('.battery-segment');
+      segments.forEach((seg, i) => {
+        gsap.fromTo(seg,
+          { y: 20, opacity: 0 },
+          {
+            scrollTrigger: { trigger: '.battery-segments', start: 'top 88%' },
+            y: 0, opacity: 1, duration: 0.4, delay: 0.3 + i * 0.08, ease: 'back.out(1.3)'
+          }
         );
-        
-        // Battery frame
-        gsap.fromTo('.battery-frame', 
-            { y: 30, opacity: 0 },
-            { scrollTrigger: { trigger: '.battery-frame', start: 'top 88%' },
-              y: 0, opacity: 1, duration: 0.5, delay: 0.2, ease: 'power2.out' }
+      });
+
+      // Day buttons
+      const dayBtns = document.querySelectorAll('.day-btn');
+      dayBtns.forEach((btn, i) => {
+        gsap.fromTo(btn,
+          { y: 25, opacity: 0 },
+          {
+            scrollTrigger: { trigger: '.day-buttons', start: 'top 90%' },
+            y: 0, opacity: 1, duration: 0.35, delay: i * 0.06, ease: 'power2.out'
+          }
         );
-        
-        // Battery segments - gentle reveal, NO scaleY!
-        const segments = document.querySelectorAll('.battery-segment');
-        segments.forEach((seg, i) => {
-            gsap.fromTo(seg, 
-                { y: 20, opacity: 0 },
-                { scrollTrigger: { trigger: '.battery-segments', start: 'top 88%' },
-                  y: 0, opacity: 1, duration: 0.4, delay: 0.3 + i * 0.08, ease: 'back.out(1.3)' }
-            );
-        });
-        
-        // Day buttons
-        const dayBtns = document.querySelectorAll('.day-btn');
-        dayBtns.forEach((btn, i) => {
-            gsap.fromTo(btn, 
-                { y: 25, opacity: 0 },
-                { scrollTrigger: { trigger: '.day-buttons', start: 'top 90%' },
-                  y: 0, opacity: 1, duration: 0.35, delay: i * 0.06, ease: 'power2.out' }
-            );
-        });
+      });
     }
-    
+
     // Instagram grid cards with variety
     const rwIgCards = document.querySelectorAll('.rw-ig-card');
     rwIgCards.forEach((card, i) => {
-        const fromVars = [
-            { y: 40, rotation: -3 },
-            { y: 45, rotation: 3 },
-            { x: -30, rotation: -2 },
-            { x: 30, rotation: 2 },
-            { scale: 0.9 },
-            { y: 50, x: -20 },
-            { y: 50, x: 20 },
-            { y: 35 }
-        ][i % 8];
-        
-        gsap.fromTo(card, 
-            { ...fromVars, opacity: 0 },
-            { scrollTrigger: { trigger: card, start: 'top 90%' },
-              y: 0, x: 0, scale: 1, rotation: 0, opacity: 1,
-              duration: 0.5, delay: (i % 4) * 0.08, ease: 'back.out(1.2)' }
-        );
+      const fromVars = [
+        { y: 40, rotation: -3 },
+        { y: 45, rotation: 3 },
+        { x: -30, rotation: -2 },
+        { x: 30, rotation: 2 },
+        { scale: 0.9 },
+        { y: 50, x: -20 },
+        { y: 50, x: 20 },
+        { y: 35 }
+      ][i % 8];
+
+      gsap.fromTo(card,
+        { ...fromVars, opacity: 0 },
+        {
+          scrollTrigger: { trigger: card, start: 'top 90%' },
+          y: 0, x: 0, scale: 1, rotation: 0, opacity: 1,
+          duration: 0.5, delay: (i % 4) * 0.08, ease: 'back.out(1.2)'
+        }
+      );
     });
-    
+
     // Sections with variety
     const rwSections = document.querySelectorAll('.rw-section');
     const sectionAnims = [
-        { x: -50, rotation: -2 },
-        { x: 50, rotation: 2 },
-        { y: 50 },
-        { scale: 0.95, y: 30 }
+      { x: -50, rotation: -2 },
+      { x: 50, rotation: 2 },
+      { y: 50 },
+      { scale: 0.95, y: 30 }
     ];
-    
+
     rwSections.forEach((section, i) => {
-        const anim = sectionAnims[i % sectionAnims.length];
-        gsap.fromTo(section, 
-            { ...anim, opacity: 0 },
-            { scrollTrigger: { trigger: section, start: 'top 88%' },
-              x: 0, y: 0, scale: 1, rotation: 0, opacity: 1,
-              duration: 0.6, ease: 'power2.out' }
-        );
+      const anim = sectionAnims[i % sectionAnims.length];
+      gsap.fromTo(section,
+        { ...anim, opacity: 0 },
+        {
+          scrollTrigger: { trigger: section, start: 'top 88%' },
+          x: 0, y: 0, scale: 1, rotation: 0, opacity: 1,
+          duration: 0.6, ease: 'power2.out'
+        }
+      );
     });
-    
+
     // Hover effects
     document.querySelectorAll('.battery-segment').forEach(seg => {
-        seg.addEventListener('mouseenter', () => gsap.to(seg, { y: -3, duration: 0.2 }));
-        seg.addEventListener('mouseleave', () => gsap.to(seg, { y: 0, duration: 0.25 }));
+      seg.addEventListener('mouseenter', () => gsap.to(seg, { y: -3, duration: 0.2 }));
+      seg.addEventListener('mouseleave', () => gsap.to(seg, { y: 0, duration: 0.25 }));
     });
-    
+
     document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('mouseenter', () => gsap.to(btn, { y: -2, scale: 1.03, duration: 0.2 }));
-        btn.addEventListener('mouseleave', () => gsap.to(btn, { y: 0, scale: 1, duration: 0.25 }));
+      btn.addEventListener('mouseenter', () => gsap.to(btn, { y: -2, scale: 1.03, duration: 0.2 }));
+      btn.addEventListener('mouseleave', () => gsap.to(btn, { y: 0, scale: 1, duration: 0.25 }));
     });
-    
+
     console.log('🔋 Recharge Week Ready!');
-});
+  });
 </script>
 {% endblock %}

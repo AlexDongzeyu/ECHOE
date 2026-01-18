@@ -138,7 +138,7 @@
            Clear visual separation with organic wave design
            ============================================================ */
 
-    /* Main section divider - organic wave pattern */
+    /* Main section divider - pure stroke wave (no fill) */
     .hero::after,
     .about-section::after,
     .consultant-section::after,
@@ -148,56 +148,48 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
-        height: 60px;
-        /* Taller for more prominence */
+        bottom: -1px;
+        height: 24px;
         pointer-events: none;
         z-index: 5;
 
-        /* Organic wave SVG pattern - calm, flowing curves */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.35'/%3E%3C/svg%3E");
+        /* Clean wave stroke - no fill, just the decorative line */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,12 C150,20 350,4 600,12 C850,20 1050,4 1200,12' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.25' stroke-linecap='round'/%3E%3C/svg%3E");
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        background-position: bottom center;
-
-        /* Elegant shadow for depth */
-        filter: drop-shadow(0 -4px 12px rgba(42, 61, 102, 0.15));
+        background-position: center;
     }
-
 
     /* Top border for section separation */
     .about-section,
     .consultant-section,
     .social-manual,
     .socials-qr-section {
-        border-top: 3px solid rgba(42, 61, 102, 0.12);
-        margin-top: 30px;
-        /* Space for wave to breathe */
+        border-top: none;
+        margin-top: 0;
     }
 
-    /* Decorative separator dots between sections */
+    /* Decorative separator with dots between sections */
     .about-section::after,
     .social-manual::after {
-        /* Enhanced wave with center dot accent */
-        background-image:
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.35'/%3E%3Ccircle cx='600' cy='35' r='6' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='560' cy='37' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='640' cy='37' r='3' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
+        /* Wave with E.C.H.O.E brand dots */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,12 C150,20 350,4 600,12 C850,20 1050,4 1200,12' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.25' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='12' r='5' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='565' cy='12' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='635' cy='12' r='3' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
     }
 
-    /* Hero gets a special decorative divider matching the brand */
+    /* Hero - special double wave with brand orange accent */
     .hero::after {
-        height: 70px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 70' preserveAspectRatio='none'%3E%3Cpath d='M0,35 C150,55 350,15 600,35 C850,55 1050,15 1200,35 L1200,70 L0,70 Z' fill='%23FDFBF7' fill-opacity='0.90'/%3E%3Cpath d='M0,38 C200,58 400,18 600,38 C800,58 1000,18 1200,38' stroke='%232A3D66' stroke-width='2.5' fill='none' stroke-opacity='0.4'/%3E%3Cpath d='M0,42 C200,62 400,22 600,42 C800,62 1000,22 1200,42' stroke='%23F8D29C' stroke-width='1.5' fill='none' stroke-opacity='0.6'/%3E%3C/svg%3E");
-        filter: drop-shadow(0 -6px 16px rgba(42, 61, 102, 0.18));
+        height: 28px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0,10 C150,18 350,2 600,10 C850,18 1050,2 1200,10' stroke='%232A3D66' stroke-width='2.5' fill='none' stroke-opacity='0.3' stroke-linecap='round'/%3E%3Cpath d='M0,18 C150,26 350,10 600,18 C850,26 1050,10 1200,18' stroke='%23F8D29C' stroke-width='2' fill='none' stroke-opacity='0.5' stroke-linecap='round'/%3E%3C/svg%3E");
     }
 
-    /* Partners section gets leaf-inspired subtle accent */
+    /* Partners section - green accent wave */
     .consultant-section::after {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%23ADCBA4' stroke-width='2.5' fill='none' stroke-opacity='0.6'/%3E%3Cpath d='M0,38 C200,58 400,18 600,38 C800,58 1000,18 1200,38' stroke='%232A3D66' stroke-width='1' fill='none' stroke-opacity='0.25'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C150,16 350,0 600,8 C850,16 1050,0 1200,8' stroke='%23ADCBA4' stroke-width='2.5' fill='none' stroke-opacity='0.5' stroke-linecap='round'/%3E%3Cpath d='M0,16 C150,24 350,8 600,16 C850,24 1050,8 1200,16' stroke='%232A3D66' stroke-width='1' fill='none' stroke-opacity='0.2' stroke-linecap='round'/%3E%3C/svg%3E");
     }
 
     /* QR/Socials section - blue accent wave */
     .socials-qr-section::after {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C150,50 350,10 600,30 C850,50 1050,10 1200,30 L1200,60 L0,60 Z' fill='%23FDFBF7' fill-opacity='0.92'/%3E%3Cpath d='M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35' stroke='%239FC5CB' stroke-width='2.5' fill='none' stroke-opacity='0.7'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,12 C150,20 350,4 600,12 C850,20 1050,4 1200,12' stroke='%239FC5CB' stroke-width='2.5' fill='none' stroke-opacity='0.5' stroke-linecap='round'/%3E%3C/svg%3E");
     }
 
 

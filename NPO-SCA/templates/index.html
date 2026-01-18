@@ -1472,6 +1472,261 @@
         content: none !important;
     }
 
+    /* ============================================================
+       CALM, CUTE & PROFESSIONAL DESIGN ENHANCEMENTS
+       ============================================================ */
+
+    /* === ENHANCED TYPOGRAPHY SPACING - More Breathing Room === */
+    .hero-content p,
+    .about-section p,
+    .consultant-section p {
+        margin-bottom: 1.2rem;
+        line-height: 1.75;
+    }
+
+    .hero-content h1,
+    .about-section h2,
+    .consultant-section h2 {
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    /* === CUTE LIST STYLING - Soft Bullet Points === */
+    .about-section ul,
+    .consultant-section ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 1rem 0;
+    }
+
+    .about-section ul li,
+    .consultant-section ul li {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 0.85rem;
+        line-height: 1.7;
+        color: var(--deep-indigo);
+    }
+
+    /* Cute heart bullet for Values list */
+    #section-about-us ul li::before {
+        content: "💙";
+        position: absolute;
+        left: 0;
+        font-size: 1.1rem;
+        opacity: 0.7;
+        animation: heartbeat 2.5s ease-in-out infinite;
+    }
+
+    /* Soft dot bullet for other lists */
+    .about-section ul li:not(#section-about-us ul li)::before,
+    .consultant-section ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        font-size: 1.5rem;
+        color: var(--brand-orange);
+        opacity: 0.6;
+        line-height: 1.2;
+    }
+
+    /* === ENHANCED QUOTE STYLING - More Calming === */
+    .hero .quote {
+        font-style: italic;
+        font-size: 1.15rem;
+        color: var(--deep-indigo);
+        opacity: 0.92;
+        margin-bottom: 18px;
+        padding: 20px 24px;
+        padding-left: 28px;
+        border-left: 4px solid var(--brand-orange);
+        background: rgba(248, 210, 156, 0.12);
+        border-radius: 0 12px 12px 0;
+        position: relative;
+        line-height: 1.7;
+    }
+
+    .hero .quote::before {
+        content: '"';
+        position: absolute;
+        left: 12px;
+        top: 8px;
+        font-size: 3rem;
+        font-family: 'DM Serif Display', serif;
+        color: var(--brand-orange);
+        opacity: 0.3;
+        line-height: 1;
+    }
+
+    /* === ENHANCED VALUES BOX - Cute & Professional === */
+    #section-who-we-are p:last-child {
+        font-size: 0.95rem;
+        color: var(--deep-indigo);
+        opacity: 0.85;
+        padding: 16px 20px;
+        background: rgba(248, 210, 156, 0.18);
+        border-radius: 16px;
+        margin-top: 12px;
+        border: 1px solid rgba(248, 210, 156, 0.35);
+        box-shadow: 0 2px 8px rgba(248, 210, 156, 0.15);
+    }
+
+    /* === SOFTER CARD SHADOWS - More Calming === */
+    .post-card,
+    .qr-card {
+        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.08),
+                    0 2px 4px rgba(42, 61, 102, 0.04) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .post-card:hover,
+    .qr-card:hover {
+        box-shadow: 0 8px 24px rgba(42, 61, 102, 0.12),
+                    0 4px 8px rgba(42, 61, 102, 0.06) !important;
+    }
+
+    /* === ENHANCED SECTION HEADINGS - Subtle Decorative Elements === */
+    .about-section h2.font-serif,
+    .consultant-section h2.font-serif,
+    .social-manual h2.font-serif {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 8px;
+    }
+
+    .about-section h2.font-serif::after,
+    .consultant-section h2.font-serif::after,
+    .social-manual h2.font-serif::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--brand-orange), rgba(248, 210, 156, 0.3));
+        border-radius: 2px;
+    }
+
+    /* === ENHANCED NAVIGATION - Softer Feel === */
+    header nav a,
+    header .nav-links a {
+        transition: all 0.25s ease;
+        border-radius: 8px;
+        padding: 6px 12px;
+    }
+
+    header nav a:hover,
+    header .nav-links a:hover {
+        background: rgba(248, 210, 156, 0.15);
+        transform: translateY(-1px);
+    }
+
+    /* === ENHANCED SPACING - More Generous === */
+    .about-section,
+    .consultant-section {
+        padding: 48px 0;
+    }
+
+    .about-card {
+        padding: 16px 0;
+    }
+
+    /* === CUTE DECORATIVE ELEMENTS - Subtle & Professional === */
+    .acronym-subtitle {
+        position: relative;
+    }
+
+    .acronym-dot {
+        font-size: 1rem;
+        opacity: 0.5;
+        animation: twinkle 3s ease-in-out infinite;
+    }
+
+    /* === ENHANCED MISSION/VISION/VALUES SECTION === */
+    #section-about-us .about-card h2 {
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    #section-about-us .about-card h2:first-child {
+        margin-top: 0;
+    }
+
+    /* === SOFTER CONSULTANT CARD === */
+    .consultant-card {
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
+        border: 1px solid rgba(42, 61, 102, 0.08);
+    }
+
+    /* === ENHANCED PARTNER LOGO === */
+    #section-partners img {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 16px;
+    }
+
+    #section-partners img:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 8px 24px rgba(42, 61, 102, 0.15) !important;
+    }
+
+    /* === ENHANCED SOCIAL ICONS - More Calming === */
+    .social-icon-circle {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-icon-circle:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(42, 61, 102, 0.2) !important;
+    }
+
+    /* === ENHANCED FOOTER - Softer === */
+    footer {
+        background: rgba(253, 251, 247, 0.95);
+        border-top: 1px solid rgba(42, 61, 102, 0.1);
+    }
+
+    footer h3 {
+        margin-bottom: 12px;
+        color: var(--deep-indigo);
+    }
+
+    footer a {
+        transition: all 0.2s ease;
+        border-radius: 4px;
+        padding: 2px 4px;
+    }
+
+    footer a:hover {
+        background: rgba(248, 210, 156, 0.2);
+        transform: translateX(4px);
+    }
+
+    /* === ENHANCED ECHO THE CAT SECTION === */
+    #section-echo-cat .about-card {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
+        border: 1px solid rgba(42, 61, 102, 0.08);
+    }
+
+    /* === ENHANCED PHOTO STYLING === */
+    .photo-rect,
+    .banner-rect {
+        border-radius: 18px;
+        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .photo-rect:hover,
+    .banner-rect:hover {
+        box-shadow: 0 8px 24px rgba(42, 61, 102, 0.15);
+        transform: translateY(-2px);
+    }
+
     /* === ANIMATIONS (smooth transitions for all elements) === */
 
     /* Twinkle for stars */

@@ -295,32 +295,37 @@
     .acronym-subtitle {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px 12px;
+        gap: 10px 18px;
         align-items: center;
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: rgba(42, 61, 102, 0.78);
-        margin-bottom: 18px;
-        letter-spacing: 0.6px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(42, 61, 102, 0.85);
+        margin-bottom: 24px;
+        letter-spacing: 0.4px;
     }
 
     .acronym-subtitle span {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
     }
 
     .acronym-letter {
-        color: rgba(248, 210, 156, 0.95);
-        font-weight: 700;
-        font-size: 1.25rem;
+        color: var(--brand-orange);
+        font-weight: 800;
+        font-size: 1.4rem;
+        text-shadow: 0 1px 2px rgba(42, 61, 102, 0.1);
     }
 
     .acronym-word {
         color: var(--deep-indigo);
+        font-weight: 600;
     }
 
     .acronym-dot {
-        color: rgba(159, 197, 203, 0.85);
-        opacity: 0.9;
+        color: var(--brand-blue);
+        opacity: 0.6;
+        font-size: 0.8rem;
     }
 
     .hero .quote {
@@ -1416,43 +1421,48 @@
        (No new content — visual polish & animations only)
        ========================================================== */
 
-    /* === BUTTON SHADOW & HOVER TRANSLATE EFFECTS === */
+    /* === CALMING BUTTON STYLES - Soft, Professional, Mental Health Appropriate === */
     .btn-primary {
         position: relative;
-        background: var(--soft-golden-yellow);
+        background: var(--brand-orange);
         color: var(--deep-indigo);
         font-family: 'Nunito', sans-serif;
         font-weight: 700;
-        border: 2px solid var(--deep-indigo);
-        border-radius: 14px;
-        padding: 12px 24px;
-        box-shadow: 4px 4px 0px var(--echoe-accent-pink);
-        transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        font-size: 0.95rem;
+        border: 2px solid rgba(42, 61, 102, 0.2);
+        border-radius: 24px;
+        padding: 14px 28px;
+        box-shadow: 0 4px 12px rgba(42, 61, 102, 0.15);
+        transition: all 0.3s ease;
+        text-decoration: none;
     }
 
     .btn-primary:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-pink);
-        transform: translate(4px, 4px);
-        background: #f7db7a;
+        box-shadow: 0 6px 18px rgba(42, 61, 102, 0.22);
+        transform: translateY(-2px);
+        background: #f7d494;
     }
 
     .btn-secondary {
         position: relative;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.85);
         color: var(--deep-indigo);
         font-family: 'Nunito', sans-serif;
         font-weight: 700;
-        border: 2px solid var(--deep-indigo);
-        border-radius: 14px;
-        padding: 12px 24px;
-        box-shadow: 4px 4px 0px var(--echoe-accent-green);
-        transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        font-size: 0.95rem;
+        border: 2px solid rgba(42, 61, 102, 0.25);
+        border-radius: 24px;
+        padding: 14px 28px;
+        box-shadow: 0 4px 12px rgba(42, 61, 102, 0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
     }
 
     .btn-secondary:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-green);
-        transform: translate(4px, 4px);
-        background: var(--echoe-accent-green);
+        box-shadow: 0 6px 18px rgba(42, 61, 102, 0.18);
+        transform: translateY(-2px);
+        background: var(--brand-blue);
+        border-color: var(--brand-blue);
     }
 
     /* === NAVBAR - NO UNDERLINES === */
@@ -1977,7 +1987,6 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content animate-fade-up">
-            <p class="hero-kicker">Every Voice Deserves to Echo.</p>
             <h1>Welcome to E.C.H.O.E</h1>
             <div class="acronym-subtitle">
                 <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
@@ -1991,10 +2000,10 @@
                 <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
             </div>
             <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
-            <p class="mission">Here, we amplify unseen voices through anonymous letters, compassionate peer replies, and
+            <p class="mission">We amplify unseen voices through anonymous letters, compassionate peer replies, and
                 inclusive events — so no one feels alone.</p>
             <div class="hero-actions animate-fade-up delay-3">
-                <a href="{{ url_for('submit') }}" class="btn-primary animate-pulse-slow">Share Your Story</a>
+                <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
             </div>
         </div>
@@ -2016,26 +2025,27 @@
             <div class="about-card tilt-left animate-fade-up">
                 <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
                 <p
-                    style="font-size:1.05rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:16px; border-left:3px solid var(--soft-yellow); padding-left:16px;">
+                    style="font-size:1.1rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:20px; border-left:3px solid var(--brand-orange); padding-left:16px;">
                     Where loneliness ends, empathy begins.
                 </p>
-                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                    We are a student-led organization committed to breaking down social isolation among teens and
-                    building a collaborative community. In a world where silence can feel heavy, we believe no one
-                    should go through their journey alone.
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
+                    We are a <strong>student-led organization</strong> committed to breaking down social isolation among
+                    teens. In a world where silence can feel heavy, we believe no one should go through their journey
+                    alone.
                 </p>
-                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                    Our movement creates a bridge between solitude and belongingness. Teens can express themselves
-                    through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers
-                    who care. We also share resources, insights, and guidance by holding in-person events, ensuring that
-                    support is always within reach.
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
+                    Through <strong>anonymous letters</strong> and heartfelt peer responses, teens can express
+                    themselves freely and receive genuine support. We also hold <strong>in-person events</strong> to
+                    ensure connection is always within reach.
                 </p>
-                <p style="font-size:1.1rem; line-height:1.8; color:var(--deep-indigo);">
-                    We don’t just listen — we inspire, uplift, and help embrace new paths toward healing and resilience.
-                    Because every voice deserves to be echoed.
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:20px;">
+                    We don't just listen — we inspire, uplift, and help embrace new paths toward healing. <em>Because
+                        every voice deserves to be echoed.</em>
                 </p>
-                <p style="opacity:0.85; margin-top:10px;">Our values: Empathy • Connection • Hope • Outreach •
-                    Empowerment.</p>
+                <p
+                    style="font-size:0.95rem; color:var(--deep-indigo); opacity:0.85; padding:12px 16px; background:rgba(248, 210, 156, 0.2); border-radius:12px; margin-top:8px;">
+                    <strong>Our values:</strong> Empathy • Connection • Hope • Outreach • Empowerment
+                </p>
             </div>
             <div class="about-card tilt-right animate-slide-right delay-2"
                 style="display:flex; flex-direction:column; gap:12px; justify-content:center; align-items:center; text-align:center;">

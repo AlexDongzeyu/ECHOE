@@ -1442,46 +1442,55 @@
 
     /* === CALMING BUTTON STYLES - Soft, Professional, Mental Health Appropriate === */
     /* Updated: Theme-aligned colors with playful shadow effects - v2 */
-    .btn-primary {
-        position: relative;
-        background: var(--echoe-accent-yellow); /* #FDF4C5 - soft yellow from theme */
-        color: var(--echoe-primary); /* #2B5F8C - deep indigo */
-        font-family: 'Nunito', sans-serif;
-        font-weight: 700;
-        font-size: 0.95rem;
-        border: 2.5px solid var(--echoe-primary);
-        border-radius: 24px;
-        padding: 14px 28px;
-        box-shadow: 4px 4px 0px var(--echoe-accent-pink), 0 6px 16px rgba(42, 61, 102, 0.12);
-        transition: all 0.25s ease;
-        text-decoration: none;
+    /* Override base.html !important rules with more specific selectors */
+    body.page-index .btn-primary,
+    .page-index .btn-primary,
+    body .btn-primary {
+        position: relative !important;
+        background: var(--echoe-accent-yellow) !important; /* #FDF4C5 - soft yellow from theme */
+        color: var(--echoe-primary) !important; /* #2B5F8C - deep indigo */
+        font-family: 'Nunito', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        border: 2.5px solid var(--echoe-primary) !important;
+        border-radius: 24px !important;
+        padding: 14px 28px !important;
+        box-shadow: 4px 4px 0px var(--echoe-accent-pink), 0 6px 16px rgba(42, 61, 102, 0.12) !important;
+        transition: all 0.25s ease !important;
+        text-decoration: none !important;
     }
 
-    .btn-primary:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-pink), 0 8px 20px rgba(42, 61, 102, 0.15);
-        transform: translate(4px, 4px);
-        background: #F8E8A8; /* Slightly darker yellow on hover */
+    body.page-index .btn-primary:hover,
+    .page-index .btn-primary:hover,
+    body .btn-primary:hover {
+        box-shadow: 0px 0px 0px var(--echoe-accent-pink), 0 8px 20px rgba(42, 61, 102, 0.15) !important;
+        transform: translate(4px, 4px) !important;
+        background: #F8E8A8 !important; /* Slightly darker yellow on hover */
     }
 
-    .btn-secondary {
-        position: relative;
-        background: var(--echoe-secondary); /* #8FB8DE - light blue from theme */
-        color: var(--echoe-primary); /* #2B5F8C - deep indigo */
-        font-family: 'Nunito', sans-serif;
-        font-weight: 700;
-        font-size: 0.95rem;
-        border: 2.5px solid var(--echoe-primary);
-        border-radius: 24px;
-        padding: 14px 28px;
-        box-shadow: 4px 4px 0px var(--echoe-accent-green), 0 6px 16px rgba(42, 61, 102, 0.12);
-        transition: all 0.25s ease;
-        text-decoration: none;
+    body.page-index .btn-secondary,
+    .page-index .btn-secondary,
+    body .btn-secondary {
+        position: relative !important;
+        background: var(--echoe-secondary) !important; /* #8FB8DE - light blue from theme */
+        color: var(--echoe-primary) !important; /* #2B5F8C - deep indigo */
+        font-family: 'Nunito', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        border: 2.5px solid var(--echoe-primary) !important;
+        border-radius: 24px !important;
+        padding: 14px 28px !important;
+        box-shadow: 4px 4px 0px var(--echoe-accent-green), 0 6px 16px rgba(42, 61, 102, 0.12) !important;
+        transition: all 0.25s ease !important;
+        text-decoration: none !important;
     }
 
-    .btn-secondary:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 8px 20px rgba(42, 61, 102, 0.15);
-        transform: translate(4px, 4px);
-        background: #7AA8D4; /* Slightly darker blue on hover */
+    body.page-index .btn-secondary:hover,
+    .page-index .btn-secondary:hover,
+    body .btn-secondary:hover {
+        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 8px 20px rgba(42, 61, 102, 0.15) !important;
+        transform: translate(4px, 4px) !important;
+        background: #7AA8D4 !important; /* Slightly darker blue on hover */
     }
 
     /* === NAVBAR - NO UNDERLINES === */

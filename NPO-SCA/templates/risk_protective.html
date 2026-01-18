@@ -4,14 +4,14 @@
 
 {% block styles %}
 <style>
-  /* Hero section with subtle heading accent - blue tint */
+  /* Hero section with subtle heading accent - very transparent */
   .rp-hero {
-    background: rgba(159, 197, 203, 0.45);
+    background: rgba(159, 197, 203, 0.15);
     padding: 38px;
     border-radius: 18px;
     text-align: center;
     margin-bottom: 28px;
-    box-shadow: 0 8px 24px rgba(42, 61, 102, .08)
+    box-shadow: 0 4px 16px rgba(42, 61, 102, .04)
   }
 
   .rp-hero h1 {
@@ -39,26 +39,26 @@
     opacity: .9
   }
 
-  /* Section styling with left accent border - alternating colors */
+  /* Section styling with left accent border - more transparent */
   .rp-section {
-    background: rgba(237, 230, 217, 0.80);
-    /* Warm beige */
+    background: rgba(237, 230, 217, 0.25);
+    /* Warm beige - very subtle */
     border-radius: 16px;
-    box-shadow: 0 8px 22px rgba(42, 61, 102, .08);
+    box-shadow: 0 4px 12px rgba(42, 61, 102, .04);
     padding: 22px;
     margin-bottom: 22px;
     border-left: 3px solid var(--soft-yellow)
   }
 
   .rp-section:nth-of-type(odd) {
-    background: rgba(212, 232, 236, 0.70);
-    /* Soft blue */
+    background: rgba(212, 232, 236, 0.20);
+    /* Soft blue - very subtle */
     border-left-color: var(--gentle-lavender);
   }
 
   .rp-section:nth-of-type(even) {
-    background: rgba(216, 232, 208, 0.70);
-    /* Soft green */
+    background: rgba(216, 232, 208, 0.20);
+    /* Soft green - very subtle */
     border-left-color: var(--brand-green);
   }
 

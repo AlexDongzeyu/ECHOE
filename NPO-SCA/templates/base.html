@@ -203,9 +203,9 @@
         }
 
         .logo-img {
-            height: 60px;
-            width: 60px;
-            margin-right: 10px;
+            height: 80px;
+            width: 80px;
+            margin-right: 12px;
             background-color: transparent;
             border-radius: 12px;
             display: flex;
@@ -214,9 +214,10 @@
         }
 
         .logo-img img {
-            height: 42px;
-            width: auto;
-            border-radius: 4px;
+            height: 70px;
+            width: 70px;
+            object-fit: contain;
+            border-radius: 8px;
             display: block;
         }
 
@@ -611,7 +612,7 @@
             /* Default paper texture - more visible */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #A8C99E;
-            --page-overlay-opacity: 0.28;
+            --page-overlay-opacity: 0.18;
 
             background-image: var(--page-texture);
             background-size: cover;
@@ -641,59 +642,59 @@
 
         /* === PAGE-SPECIFIC COLORS === */
 
-        /* Helplines - Calming Blue-Teal (darker, more visible) */
+        /* Helplines - Calming Blue-Teal */
         body.page-helplines .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #7EB5C0;
-            --page-overlay-opacity: 0.38;
+            --page-overlay-opacity: 0.22;
         }
 
         body.page-helplines .page-header {
-            background: rgba(126, 181, 192, 0.55);
+            background: transparent;
         }
 
-        /* Resources - Deeper Lavender (darker for clarity) */
+        /* Resources - Deeper Lavender */
         body.page-resources .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --page-overlay-color: #8DAEB5;
-            --page-overlay-opacity: 0.35;
+            --page-overlay-opacity: 0.20;
         }
 
         body.page-resources .page-header {
-            background: rgba(141, 174, 181, 0.50);
+            background: transparent;
         }
 
-        /* Submit/Write a Letter - Warm Orange/Peach (darker) */
+        /* Submit/Write a Letter - Warm Orange/Peach */
         body.page-submit .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8C99B;
-            --page-overlay-opacity: 0.40;
+            --page-overlay-opacity: 0.22;
         }
 
         body.page-submit .page-header {
-            background: rgba(232, 201, 155, 0.55);
+            background: transparent;
         }
 
-        /* Events - Rose/Coral (richer, more saturated) */
+        /* Events - Rose/Coral */
         body.page-events_overview .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B5A8;
-            --page-overlay-opacity: 0.38;
+            --page-overlay-opacity: 0.20;
         }
 
         body.page-events_overview .page-header {
-            background: rgba(232, 181, 168, 0.55);
+            background: transparent;
         }
 
-        /* About - Warm Amber/Orange (richer) */
+        /* About - Warm Amber/Orange */
         body.page-about .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B864;
-            --page-overlay-opacity: 0.32;
+            --page-overlay-opacity: 0.18;
         }
 
         body.page-about .page-header {
-            background: rgba(232, 184, 100, 0.55);
+            background: transparent;
         }
 
         /* Blog - Fresh Green */
@@ -2520,7 +2521,7 @@
     <header>
         <nav>
             <a href="{{ url_for('index') }}" class="logo" style="background:none; padding:0;">
-                <div class="logo-img" style="height:52px; width:52px; margin-right:10px;">
+                <div class="logo-img">
                     <img src="{{ url_for('static', filename='img/LOGO.png') }}" alt="E.C.H.O.E logo" loading="eager">
                 </div>
                 <span style="display:none">E.C.H.O.E</span>

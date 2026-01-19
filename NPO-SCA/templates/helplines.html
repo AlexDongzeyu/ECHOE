@@ -1,64 +1,220 @@
 {% extends "base.html" %}
 {% block title %}Helplines - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+  /* === HELPLINES PAGE - REFINED DESIGN === */
+  /* Blue-teal palette for calming support resources */
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Curly wave separator - blue palette */
+  .curly-separator-blue {
+    width: 100%;
+    height: 28px;
+    margin: 24px 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0,14 C100,22 200,6 300,14 C400,22 500,6 600,14 C700,22 800,6 900,14 C1000,22 1100,6 1200,14' stroke='%239FC5CB' stroke-width='2.5' fill='none' stroke-opacity='0.5' stroke-linecap='round'/%3E%3Cpath d='M0,14 C100,6 200,22 300,14 C400,6 500,22 600,14 C700,6 800,22 900,14 C1000,6 1100,22 1200,14' stroke='%232A3D66' stroke-width='1.5' fill='none' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .curly-separator-dots-blue {
+    width: 100%;
+    height: 32px;
+    margin: 28px 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C150,24 350,8 600,16 C850,24 1050,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='16' r='5' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='555' cy='16' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='645' cy='16' r='3' fill='%237AAEB6' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  /* Page header with curly underline */
+  .helplines-header {
+    text-align: center;
+    padding: 36px 20px;
+    margin-bottom: 8px;
+    animation: fade-up 0.5s ease-out both;
+  }
+
+  .helplines-header h1 {
+    font-size: 2.4rem;
+    color: var(--deep-indigo);
+    margin-bottom: 12px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .helplines-header h1::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 14px;
+    margin: 12px auto 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,7 C17,12 33,2 50,7 C67,12 83,2 100,7' stroke='%239FC5CB' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .helplines-header .section-subtitle {
+    color: var(--deep-indigo);
+    opacity: 0.85;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  /* Content sections - simplified, breathing */
+  .helpline-section {
+    background: rgba(255, 251, 247, 0.5);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border: none;
+    box-shadow: 0 3px 12px rgba(42, 61, 102, 0.06);
+    animation: fade-up 0.5s ease-out both;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .helpline-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 61, 102, 0.1);
+  }
+
+  .helpline-section h2 {
+    color: var(--deep-indigo);
+    margin-bottom: 14px;
+    font-size: 1.5rem;
+    display: inline-block;
+    position: relative;
+  }
+
+  .helpline-section h2::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 8px;
+    margin: 6px 0 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 8' preserveAspectRatio='none'%3E%3Cpath d='M0,4 C8,7 17,1 25,4 C33,7 42,1 50,4' stroke='%237AAEB6' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .helpline-section h3 {
+    color: var(--deep-indigo);
+    margin: 18px 0 10px;
+    font-size: 1.2rem;
+  }
+
+  .helpline-section p {
+    color: var(--deep-indigo);
+    line-height: 1.65;
+    margin: 8px 0;
+  }
+
+  .helpline-section ul {
+    margin: 10px 0;
+    padding-left: 24px;
+  }
+
+  .helpline-section ul li {
+    margin: 6px 0;
+    line-height: 1.6;
+  }
+
+  .helpline-section a {
+    color: var(--brand-blue-dark, #7AAEB6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .helpline-section a:hover {
+    color: var(--deep-indigo);
+  }
+</style>
+{% endblock %}
 {% block content %}
 <div class="container">
   <div class="page-container">
-    <div class="page-header">
+    <div class="helplines-header">
       <h1>National Crisis Helplines (Available 24/7)</h1>
       <p class="section-subtitle">If you are in immediate danger, call 9-1-1.</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-dots-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.1s;">
       <h2>9-8-8: Suicide Crisis Helpline</h2>
       <p><strong>Call or text:</strong> 9-8-8</p>
       <p><strong>Website:</strong> <a href="https://988.ca" target="_blank" rel="noopener">988.ca</a></p>
-      <p>Available 24/7/365 for anyone thinking about suicide or worried about someone they know. Support is available in English and French.</p>
+      <p>Available 24/7/365 for anyone thinking about suicide or worried about someone they know. Support is available
+        in English and French.</p>
     </div>
 
-    <div class="content-section">
+    <div class="helpline-section" style="animation-delay: 0.15s;">
       <h2>Kids Help Phone</h2>
       <p><strong>Call:</strong> 1-800-668-6868 (24/7; English, French, and many other languages via interpreters).</p>
       <p><strong>Text:</strong> <strong>CONNECT</strong> to 686868 (24/7; English and French).</p>
-      <p><strong>Website:</strong> <a href="https://kidshelpphone.ca" target="_blank" rel="noopener">kidshelpphone.ca</a></p>
+      <p><strong>Website:</strong> <a href="https://kidshelpphone.ca" target="_blank"
+          rel="noopener">kidshelpphone.ca</a></p>
       <p>A 24/7 e-mental health service offering free, confidential support to young people in Canada.</p>
     </div>
 
-    <div class="content-section">
+    <div class="helpline-section" style="animation-delay: 0.2s;">
       <h2>Talk Suicide Canada</h2>
       <p><strong>Call:</strong> 1-833-456-4566 (24/7)</p>
       <p><strong>Text:</strong> 45645 (4 p.m. to midnight ET)</p>
-      <p><strong>Website:</strong> <a href="https://talksuicide.ca" target="_blank" rel="noopener">talksuicide.ca</a> (Operated by Crisis Services Canada: <a href="https://www.crisisservicescanada.ca" target="_blank" rel="noopener">crisisservicescanada.ca</a>)</p>
+      <p><strong>Website:</strong> <a href="https://talksuicide.ca" target="_blank" rel="noopener">talksuicide.ca</a>
+        (Operated by Crisis Services Canada: <a href="https://www.crisisservicescanada.ca" target="_blank"
+          rel="noopener">crisisservicescanada.ca</a>)</p>
       <p>Provides 24/7, bilingual support to anyone who is facing suicide.</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.25s;">
       <h2>Indigenous Mental Health Resources</h2>
       <h3>Hope for Wellness Help Line</h3>
       <p><strong>Call:</strong> 1-855-242-3310 (24/7)</p>
-      <p><strong>Chat:</strong> <a href="https://www.hopeforwellness.ca" target="_blank" rel="noopener">hopeforwellness.ca</a></p>
-      <p>Offers immediate mental health counselling and crisis intervention to all Indigenous peoples across Canada. Service available in English and French, and on request in Cree, Ojibway (Anishinaabemowin), and Inuktitut.</p>
+      <p><strong>Chat:</strong> <a href="https://www.hopeforwellness.ca" target="_blank"
+          rel="noopener">hopeforwellness.ca</a></p>
+      <p>Offers immediate mental health counselling and crisis intervention to all Indigenous peoples across Canada.
+        Service available in English and French, and on request in Cree, Ojibway (Anishinaabemowin), and Inuktitut.</p>
       <h3>National Indian Residential School Crisis Line</h3>
       <p><strong>Call:</strong> 1-866-925-4419</p>
       <p>A national, 24-hour crisis line providing support to former Residential School students and their families.</p>
       <h3>Talk 4 Healing</h3>
       <p><strong>Call or text:</strong> 1-855-554-4325</p>
-      <p><strong>Website:</strong> <a href="https://www.talk4healing.com" target="_blank" rel="noopener">talk4healing.com</a></p>
+      <p><strong>Website:</strong> <a href="https://www.talk4healing.com" target="_blank"
+          rel="noopener">talk4healing.com</a></p>
       <p>A helpline for Indigenous women, by Indigenous women, available in 14 languages across Ontario.</p>
       <h3>MMIWG Crisis Line</h3>
       <p><strong>Call:</strong> 1-844-413-6649</p>
-      <p>A 24/7 crisis line providing support to individuals impacted by the issue of missing and murdered Indigenous women, girls, and 2SLGBTQQIA+ people.</p>
+      <p>A 24/7 crisis line providing support to individuals impacted by the issue of missing and murdered Indigenous
+        women, girls, and 2SLGBTQQIA+ people.</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.3s;">
       <h2>LGBTQ2S+ Mental Health Resources</h2>
       <h3>Trans Lifeline</h3>
       <p><strong>Call:</strong> 1-877-330-6366</p>
-      <p><strong>Website:</strong> <a href="https://translifeline.org" target="_blank" rel="noopener">translifeline.org</a></p>
+      <p><strong>Website:</strong> <a href="https://translifeline.org" target="_blank"
+          rel="noopener">translifeline.org</a></p>
       <p>A peer support hotline for trans folks, run by and for trans people.</p>
       <h3>LGBT YouthLine (Ontario)</h3>
       <p><strong>Call:</strong> 1-800-268-9688</p>
       <p><strong>Text:</strong> 647-694-4275</p>
-      <p><strong>Website:</strong> <a href="https://www.youthline.ca" target="_blank" rel="noopener">youthline.ca</a></p>
+      <p><strong>Website:</strong> <a href="https://www.youthline.ca" target="_blank" rel="noopener">youthline.ca</a>
+      </p>
       <p>Confidential, non-judgemental peer support for 2SLGBTQ+ youth (29 and under) in Ontario.</p>
       <h3>Interligne (Quebec)</h3>
       <p><strong>Call or text:</strong> 1-888-505-1010 (Phone 24/7)</p>
@@ -66,7 +222,9 @@
       <p>A 24/7 helpline providing support for LGBTQ+ people and their loved ones across Quebec.</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.35s;">
       <h2>Black & African Canadian Mental Health Resources</h2>
       <h3>Black Youth Helpline</h3>
       <p><strong>Call:</strong> 1-833-294-8650 (9 a.m. to 10 p.m. ET)</p>
@@ -75,17 +233,22 @@
       <h3>CAFCAN (Caribbean African Canadian Social Services)</h3>
       <p><strong>Call (GTA):</strong> 416-740-1056</p>
       <p><strong>Website:</strong> <a href="https://cafcan.org" target="_blank" rel="noopener">cafcan.org</a></p>
-      <p>Provides culturally appropriate social services, including counselling, to African, Caribbean, and Diaspora communities in the GTA.</p>
+      <p>Provides culturally appropriate social services, including counselling, to African, Caribbean, and Diaspora
+        communities in the GTA.</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.4s;">
       <h2>Asian Canadian & Multilingual Mental Health Resources</h2>
       <h3>South Asian Canadians Health & Social Services (SACHSS)</h3>
       <p><strong>Distress Helpline:</strong> 647-367-4452</p>
       <p><strong>Website:</strong> <a href="https://sachss.ca" target="_blank" rel="noopener">sachss.ca</a></p>
-      <p>Offers culturally and linguistically appropriate services, including distress lines and counselling (Hindi, Punjabi, Urdu, Tamil, and more).</p>
+      <p>Offers culturally and linguistically appropriate services, including distress lines and counselling (Hindi,
+        Punjabi, Urdu, Tamil, and more).</p>
       <h3>S.U.C.C.E.S.S. Helplines (British Columbia)</h3>
-      <p><strong>Website:</strong> <a href="https://successbc.ca/counselling-crisis-support/services/help-lines/" target="_blank" rel="noopener">successbc.ca</a></p>
+      <p><strong>Website:</strong> <a href="https://successbc.ca/counselling-crisis-support/services/help-lines/"
+          target="_blank" rel="noopener">successbc.ca</a></p>
       <ul>
         <li>Mandarin: 1-888-721-0596 / Ext.1 (10 a.m. – 10 p.m., 7 days/week)</li>
         <li>Cantonese: 1-888-721-0596 / Ext.2 (10 a.m. – 10 p.m., 7 days/week)</li>
@@ -96,31 +259,43 @@
       <h3>Naseeha Mental Health</h3>
       <p><strong>Call or text:</strong> 1-866-627-3342 (24/7)</p>
       <p><strong>Website:</strong> <a href="https://naseeha.org" target="_blank" rel="noopener">naseeha.org</a></p>
-      <p>Confidential support for Muslim and non-Muslim communities; multiple languages including Arabic, Bengali, Hindi, Punjabi, Somali, and Urdu.</p>
+      <p>Confidential support for Muslim and non-Muslim communities; multiple languages including Arabic, Bengali,
+        Hindi, Punjabi, Somali, and Urdu.</p>
       <h3>Distress Centres of Greater Toronto (Multilingual Lines)</h3>
       <p><strong>Call:</strong> 905-459-7777 (Brampton & Mississauga)</p>
-      <p><strong>Website:</strong> <a href="https://www.dcogt.com/multilingual-distress-lines/" target="_blank" rel="noopener">dcogt.com/multilingual-distress-lines</a></p>
-      <p>Support available in Cantonese, Mandarin, Portuguese, Spanish, Hindi, Punjabi, and Urdu (Mon–Fri, 10 a.m. – 10 p.m.).</p>
+      <p><strong>Website:</strong> <a href="https://www.dcogt.com/multilingual-distress-lines/" target="_blank"
+          rel="noopener">dcogt.com/multilingual-distress-lines</a></p>
+      <p>Support available in Cantonese, Mandarin, Portuguese, Spanish, Hindi, Punjabi, and Urdu (Mon–Fri, 10 a.m. – 10
+        p.m.).</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.45s;">
       <h2>Hispanic & Latine Mental Health Resources</h2>
-      <p>Note: Canada’s 9-8-8 service is English/French. You can access 24/7 Spanish phone support via an interpreter by calling Kids Help Phone at 1-800-668-6868. Regional helplines also offer direct Spanish support:</p>
+      <p>Note: Canada's 9-8-8 service is English/French. You can access 24/7 Spanish phone support via an interpreter by
+        calling Kids Help Phone at 1-800-668-6868. Regional helplines also offer direct Spanish support:</p>
       <p><strong>Distress Centres of Greater Toronto:</strong> 905-459-7777 (Mon–Fri, 10 a.m. – 10 p.m.)</p>
-      <p><strong>Madison Community Services (Toronto):</strong> <a href="https://madisoncs.org/hispanic-program/" target="_blank" rel="noopener">madisoncs.org/hispanic-program</a> — Mental health case management in Spanish (not a crisis hotline)</p>
-      <p><strong>Centre for Spanish Speaking People (Toronto):</strong> <a href="https://www.spanishservices.org/" target="_blank" rel="noopener">spanishservices.org</a> — Programs and services for Spanish-speaking communities (not a crisis hotline)</p>
+      <p><strong>Madison Community Services (Toronto):</strong> <a href="https://madisoncs.org/hispanic-program/"
+          target="_blank" rel="noopener">madisoncs.org/hispanic-program</a> — Mental health case management in Spanish
+        (not a crisis hotline)</p>
+      <p><strong>Centre for Spanish Speaking People (Toronto):</strong> <a href="https://www.spanishservices.org/"
+          target="_blank" rel="noopener">spanishservices.org</a> — Programs and services for Spanish-speaking
+        communities (not a crisis hotline)</p>
     </div>
 
-    <div class="content-section">
+    <div class="curly-separator-dots-blue"></div>
+
+    <div class="helpline-section" style="animation-delay: 0.5s;">
       <h2>Indigenous Hawaiian & Pacific Islander Mental Health Resources</h2>
-      <p>Dedicated helplines for Indigenous Hawaiian and Pacific Islander communities were not found in Canada. Support is available through general crisis lines (like 9‑8‑8) or newcomer/multicultural services:</p>
+      <p>Dedicated helplines for Indigenous Hawaiian and Pacific Islander communities were not found in Canada. Support
+        is available through general crisis lines (like 9‑8‑8) or newcomer/multicultural services:</p>
       <ul>
-        <li><a href="https://issbc.org/" target="_blank" rel="noopener">Immigrant Services Society of B.C. (ISSofBC)</a></li>
+        <li><a href="https://issbc.org/" target="_blank" rel="noopener">Immigrant Services Society of B.C. (ISSofBC)</a>
+        </li>
         <li><a href="https://www.mosaicbc.org/" target="_blank" rel="noopener">MOSAIC</a></li>
       </ul>
     </div>
   </div>
 </div>
 {% endblock %}
-
-

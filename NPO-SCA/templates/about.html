@@ -2,35 +2,268 @@
 
 {% block title %}About Us - E.C.H.O.E{% endblock %}
 
+{% block styles %}
+<style>
+    /* === ABOUT PAGE - REFINED DESIGN === */
+    /* Orange/amber palette for warm, inviting feel */
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Curly wave separator - orange/gold palette */
+    .curly-separator-orange {
+        width: 100%;
+        height: 28px;
+        margin: 24px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0,14 C100,22 200,6 300,14 C400,22 500,6 600,14 C700,22 800,6 900,14 C1000,22 1100,6 1200,14' stroke='%23F8D29C' stroke-width='2.5' fill='none' stroke-opacity='0.6' stroke-linecap='round'/%3E%3Cpath d='M0,14 C100,6 200,22 300,14 C400,6 500,22 600,14 C700,6 800,22 900,14 C1000,6 1100,22 1200,14' stroke='%232A3D66' stroke-width='1.5' fill='none' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .curly-separator-dots-orange {
+        width: 100%;
+        height: 32px;
+        margin: 28px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C150,24 350,8 600,16 C850,24 1050,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='16' r='5' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='555' cy='16' r='3' fill='%23E8BC6E' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='645' cy='16' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Page header with curly underline */
+    .about-header {
+        text-align: center;
+        padding: 36px 20px;
+        margin-bottom: 8px;
+        animation: fade-up 0.5s ease-out both;
+    }
+
+    .about-header h1 {
+        font-size: 2.4rem;
+        color: var(--deep-indigo);
+        margin-bottom: 12px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .about-header h1::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 14px;
+        margin: 12px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,7 C17,12 33,2 50,7 C67,12 83,2 100,7' stroke='%23F8D29C' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .about-header p {
+        color: var(--deep-indigo);
+        opacity: 0.85;
+        font-size: 1.15rem;
+        font-style: italic;
+    }
+
+    /* Mission/Vision/Values sections - centered, breathing */
+    .about-section {
+        background: rgba(255, 251, 247, 0.5);
+        border-radius: 14px;
+        padding: 28px;
+        margin-bottom: 16px;
+        border: none;
+        box-shadow: 0 3px 12px rgba(42, 61, 102, 0.06);
+        text-align: center;
+        animation: fade-up 0.5s ease-out both;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .about-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(42, 61, 102, 0.1);
+    }
+
+    .about-section h2 {
+        font-size: 1.8rem;
+        font-family: 'Namdhinggo', Georgia, serif;
+        letter-spacing: 0.3px;
+        color: var(--deep-indigo);
+        margin-bottom: 14px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .about-section h2::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 10px;
+        margin: 8px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C10,8 20,2 30,5 C40,8 50,2 60,5' stroke='%23E8BC6E' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .about-section p {
+        font-size: 1.15rem;
+        max-width: 800px;
+        margin: 0 auto;
+        color: var(--deep-indigo);
+        line-height: 1.7;
+    }
+
+    /* How We Help cards */
+    .help-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .help-card {
+        background: rgba(255, 251, 247, 0.7);
+        padding: 24px;
+        border-radius: 14px;
+        box-shadow: 0 3px 12px rgba(42, 61, 102, 0.06);
+        border: none;
+        border-left: 4px solid var(--soft-yellow);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .help-card:nth-child(2) {
+        border-left-color: var(--brand-blue);
+    }
+
+    .help-card:nth-child(3) {
+        border-left-color: var(--brand-green);
+    }
+
+    .help-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(42, 61, 102, 0.1);
+    }
+
+    .help-card h3 {
+        color: var(--deep-indigo);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    .help-card p {
+        color: var(--deep-indigo);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Privacy section */
+    .privacy-section {
+        background: rgba(255, 251, 247, 0.5);
+        border-radius: 14px;
+        padding: 26px;
+        border: none;
+        box-shadow: 0 3px 12px rgba(42, 61, 102, 0.06);
+        animation: fade-up 0.5s ease-out both;
+    }
+
+    .privacy-section h2 {
+        color: var(--deep-indigo);
+        margin-bottom: 14px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .privacy-section h2::after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 8px;
+        margin: 6px 0 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 8' preserveAspectRatio='none'%3E%3Cpath d='M0,4 C8,7 17,1 25,4 C33,7 42,1 50,4' stroke='%239FC5CB' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .privacy-section ul {
+        margin-top: 16px;
+        padding-left: 26px;
+    }
+
+    .privacy-section ul li {
+        margin-bottom: 8px;
+        font-size: 1.05rem;
+        color: var(--deep-indigo);
+    }
+
+    /* CTA section - simplified */
+    .cta-section {
+        text-align: center;
+        margin-top: 32px;
+        padding: 36px;
+        background: var(--deep-indigo);
+        border-radius: 16px;
+        color: white;
+        box-shadow: 0 6px 24px rgba(42, 61, 102, 0.2);
+        animation: fade-up 0.5s ease-out 0.4s both;
+    }
+
+    .cta-section h2 {
+        color: white;
+        margin-bottom: 16px;
+        font-size: 1.8rem;
+    }
+
+    .cta-section p {
+        font-size: 1.15rem;
+        margin-bottom: 24px;
+        opacity: 0.9;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cta-buttons .btn-secondary {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="page-container">
-        <div class="page-header">
+        <div class="about-header">
             <h1>About E.C.H.O.E</h1>
             <p>Every Voice Deserves to Echo</p>
         </div>
 
-        <div class="content-section" style="text-align:center">
-            <h2 style="font-size:2.3rem; font-family:'Namdhinggo', Georgia, serif; letter-spacing:.3px"><i
-                    class="fas fa-bullseye" style="color: var(--soft-yellow); margin-right: 10px;"></i>Mission</h2>
-            <p style="font-size:1.2rem;max-width:900px;margin:0 auto">To amplify the voices that are often unheard and
-                stand against social isolation by creating safe, supportive spaces where teens can connect, share, and
-                heal together.</p>
+        <div class="curly-separator-dots-orange"></div>
+
+        <div class="about-section" style="animation-delay: 0.1s;">
+            <h2><i class="fas fa-bullseye" style="color: var(--soft-yellow); margin-right: 10px;"></i>Mission</h2>
+            <p>To amplify the voices that are often unheard and stand against social isolation by creating safe,
+                supportive spaces where teens can connect, share, and heal together.</p>
         </div>
 
-        <div class="content-section" style="text-align:center">
-            <h2 style="font-size:2.3rem; font-family:'Namdhinggo', Georgia, serif; letter-spacing:.3px"><i
-                    class="fas fa-lightbulb" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Our Vision
-            </h2>
-            <p style="font-size:1.2rem;max-width:900px;margin:0 auto">A world where no teen feels left out, and every
-                voice is valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and
-                belonging — where every voice deserves to echo.</p>
+        <div class="about-section" style="animation-delay: 0.15s;">
+            <h2><i class="fas fa-lightbulb" style="color: var(--brand-blue); margin-right: 10px;"></i>Our Vision</h2>
+            <p>A world where no teen feels left out, and every voice is valued, uplifted, and celebrated. We envision a
+                community built on empathy, collaboration, and belonging — where every voice deserves to echo.</p>
         </div>
 
-        <div class="content-section" style="text-align:center">
-            <h2 style="font-size:2.3rem; font-family:'Namdhinggo', Georgia, serif; letter-spacing:.3px"><i
-                    class="fas fa-star" style="color: var(--soft-yellow); margin-right: 10px;"></i>Values</h2>
-            <p style="font-size:1.2rem;max-width:900px;margin:0 auto">
+        <div class="about-section" style="animation-delay: 0.2s;">
+            <h2><i class="fas fa-star" style="color: var(--soft-yellow); margin-right: 10px;"></i>Values</h2>
+            <p>
                 <strong>Empathy</strong> — Listening with compassion and understanding.<br>
                 <strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.<br>
                 <strong>Hope</strong> — Inspiring optimism and resilience.<br>
@@ -40,76 +273,52 @@
             </p>
         </div>
 
-        <!-- Wave separator -->
-        <div class="wave-separator-subtle"></div>
+        <div class="curly-separator-orange"></div>
 
-        <div class="content-section">
+        <div class="about-section" style="animation-delay: 0.25s; text-align: left;">
             <h2><i class="fas fa-users" style="color: var(--soft-yellow); margin-right: 10px;"></i>How We Help</h2>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 25px;">
-                <div
-                    style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
-                    <h3><i class="fas fa-laptop" style="color: var(--deep-indigo); margin-right: 10px;"></i>Online
+            <div class="help-cards">
+                <div class="help-card">
+                    <h3><i class="fas fa-laptop" style="color: var(--deep-indigo); margin-right: 8px;"></i>Online
                         Platform</h3>
                     <p>Share your story through our secure online platform. Receive compassionate human replies.</p>
                 </div>
-                <div
-                    style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--gentle-lavender);">
-                    <h3><i class="fas fa-mailbox" style="color: var(--deep-indigo); margin-right: 10px;"></i>Physical
+                <div class="help-card">
+                    <h3><i class="fas fa-mailbox" style="color: var(--deep-indigo); margin-right: 8px;"></i>Physical
                         Mailboxes</h3>
                     <p>Prefer writing by hand? Our physical mailboxes in local spaces let you share anonymously and
                         receive thoughtful replies offline.</p>
                 </div>
-                <div
-                    style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(42, 61, 102, 0.1); border-top: 4px solid var(--soft-yellow);">
-                    <h3><i class="fas fa-comments" style="color: var(--deep-indigo); margin-right: 10px;"></i>Community
+                <div class="help-card">
+                    <h3><i class="fas fa-comments" style="color: var(--deep-indigo); margin-right: 8px;"></i>Community
                         Events</h3>
                     <p>Join supportive events where teens connect, share experiences, and uplift one another.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Wave separator -->
-        <div class="wave-separator"></div>
+        <div class="curly-separator-orange"></div>
 
-        <div class="content-section">
-            <h2><i class="fas fa-shield-alt" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Your Privacy
-                & Safety</h2>
-            <p>Our volunteers are trained to provide support while maintaining privacy and security.</p>
-            <ul style="margin-top: 20px; padding-left: 30px;">
-                <li style="margin-bottom: 10px; font-size: 1.1rem;">Anonymous letters</li>
-                <li style="margin-bottom: 10px; font-size: 1.1rem;">Secure data storage</li>
-                <li style="margin-bottom: 10px; font-size: 1.1rem;">AI word review</li>
+        <div class="privacy-section" style="animation-delay: 0.3s;">
+            <h2><i class="fas fa-shield-alt" style="color: var(--brand-blue); margin-right: 10px;"></i>Your Privacy &
+                Safety</h2>
+            <p style="color: var(--deep-indigo);">Our volunteers are trained to provide support while maintaining
+                privacy and security.</p>
+            <ul>
+                <li>Anonymous letters</li>
+                <li>Secure data storage</li>
+                <li>AI word review</li>
             </ul>
         </div>
 
-        <div
-            style="text-align: center; margin-top: 40px; padding: 40px; background: #2A3D66; border: 3px solid #F8D29C; border-radius: 20px; color: white; box-shadow: 6px 6px 0px rgba(42,61,102,0.25);">
-            <h2 style="color: white; margin-bottom: 20px;">Ready to Share Your Story?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Take the first step towards healing and
-                connection. Your words matter, and we're here to listen.</p>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <div class="cta-section">
+            <h2>Ready to Share Your Story?</h2>
+            <p>Take the first step towards healing and connection. Your words matter, and we're here to listen.</p>
+            <div class="cta-buttons">
                 <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
-                <a href="{{ url_for('volunteer_info') }}" class="btn-secondary"
-                    style="background-color: rgba(255,255,255,0.2); color: white;">Become a Volunteer</a>
+                <a href="{{ url_for('volunteer_info') }}" class="btn-secondary">Become a Volunteer</a>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    .content-section ul li {
-        color: var(--deep-indigo);
-        line-height: 1.6;
-    }
-
-    .content-section h3 {
-        margin-bottom: 15px;
-    }
-
-    .content-section div[style*="grid"]>div:hover {
-        transform: translateY(-5px);
-        transition: transform 0.3s ease;
-    }
-</style>
 {% endblock %}

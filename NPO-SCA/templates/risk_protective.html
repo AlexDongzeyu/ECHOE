@@ -40,26 +40,26 @@
     opacity: .9
   }
 
-  /* Section styling with left accent border - more transparent */
+  /* Section styling with left accent border - transparent to show page-container overlay */
   .rp-section {
-    background: rgba(237, 230, 217, 0.25);
-    /* Warm beige - very subtle */
+    background: transparent;
+    /* Let page-container overlay and paper texture show through */
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(42, 61, 102, .04);
     padding: 22px;
     margin-bottom: 22px;
-    border-left: 3px solid var(--soft-yellow)
+    border-left: 3px solid var(--soft-yellow);
+    position: relative;
+    z-index: 1;
   }
 
   .rp-section:nth-of-type(odd) {
-    background: rgba(212, 232, 236, 0.20);
-    /* Soft blue - very subtle */
+    background: transparent;
     border-left-color: var(--gentle-lavender);
   }
 
   .rp-section:nth-of-type(even) {
-    background: rgba(216, 232, 208, 0.20);
-    /* Soft green - very subtle */
+    background: transparent;
     border-left-color: var(--brand-green);
   }
 

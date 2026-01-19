@@ -609,17 +609,17 @@
             box-shadow: 0 8px 32px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Default paper texture - matching homepage (~0.48 opacity) */
+            /* Default paper texture - matching homepage (0.48 opacity) */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #A8C99E;
-            --page-overlay-opacity: 0.45;
+            --page-overlay-opacity: 0.48;
 
             background-image: var(--page-texture);
             background-size: cover;
             background-position: center;
 
-            /* Glass effect for modern look */
-            backdrop-filter: blur(2px);
+            /* Remove blur to allow paper texture to show clearly */
+            backdrop-filter: none;
         }
 
         /* Color overlay for page-container - more transparent */
@@ -646,7 +646,7 @@
         body.page-helplines .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #7EB5C0;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-helplines .page-header {
@@ -657,7 +657,7 @@
         body.page-resources .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --page-overlay-color: #8DAEB5;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-resources .page-header {
@@ -668,7 +668,7 @@
         body.page-submit .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8C99B;
-            --page-overlay-opacity: 0.45;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-submit .page-header {
@@ -679,7 +679,7 @@
         body.page-events_overview .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B5A8;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-events_overview .page-header {
@@ -690,7 +690,7 @@
         body.page-about .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B864;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-about .page-header {
@@ -702,7 +702,7 @@
         body.page-blog-post_detail .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #ADCBA4;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-blog-index .page-header,
@@ -714,7 +714,7 @@
         body.page-calendar_page .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #9FC5CB;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-calendar_page .page-header {
@@ -725,7 +725,7 @@
         body.page-risk_protective .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #8FB8DE;
-            --page-overlay-opacity: 0.42;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-risk_protective .page-header {
@@ -746,7 +746,7 @@
         body.page-volunteer_info .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #FDF4C5;
-            --page-overlay-opacity: 0.45;
+            --page-overlay-opacity: 0.48;
         }
 
         body.page-join .page-header,
@@ -867,42 +867,40 @@
             box-shadow: 2px 2px 0px rgba(42, 61, 102, 0.35);
         }
 
-        /* Content Sections - colored backgrounds with left accent */
+        /* Content Sections - transparent to show page-container overlay and paper texture */
         .content-section {
-            background: rgba(237, 230, 217, 0.85);
-            /* Warm beige */
+            background: transparent;
+            /* Let page-container overlay show through */
             border-radius: 18px;
             padding: 30px;
             margin-bottom: 25px;
             border: 1px solid rgba(42, 61, 102, 0.08);
             border-left: 3px solid var(--soft-yellow);
             box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Alternate section colors automatically inside a page-container */
+        /* Alternate section border colors - backgrounds are transparent */
         .page-container .content-section:nth-of-type(odd) {
-            background: rgba(212, 232, 236, 0.75);
-            /* Soft blue */
+            background: transparent;
             border-left-color: var(--gentle-lavender);
         }
 
         .page-container .content-section:nth-of-type(even) {
-            background: rgba(237, 230, 217, 0.80);
-            /* Warm beige */
+            background: transparent;
             border-left-color: var(--soft-yellow);
         }
 
         /* Third variant for variety */
         .page-container .content-section:nth-of-type(3n) {
-            background: rgba(216, 232, 208, 0.75);
-            /* Soft green */
+            background: transparent;
             border-left-color: var(--brand-green);
         }
 
         /* Fourth variant for variety */
         .page-container .content-section:nth-of-type(4n) {
-            background: rgba(244, 210, 200, 0.65);
-            /* Soft pink */
+            background: transparent;
             border-left-color: var(--brand-orange);
         }
 

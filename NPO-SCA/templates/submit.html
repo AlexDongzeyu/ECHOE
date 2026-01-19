@@ -4,377 +4,510 @@
 
 {% block styles %}
 <style>
-        /* Main Content */
-        main {
-            padding: 2rem 1rem 4rem;
-            min-height: calc(100vh - 140px); /* Adjusted for base template */
-            background: transparent; /* let global background show */
+    /* Main Content */
+    main {
+        padding: 2rem 1rem 4rem;
+        min-height: calc(100vh - 140px);
+        /* Adjusted for base template */
+        background: transparent;
+        /* let global background show */
+    }
+
+    /* Form Container */
+    .form-container {
+        max-width: 1100px;
+        /* wider so most users avoid scrolling */
+        margin: 1rem auto 3rem;
+        padding: 2.5rem;
+        background: rgba(159, 197, 203, 0.14);
+        border-radius: 20px;
+        box-shadow: 0 10px 36px rgba(42, 61, 102, 0.14);
+        position: relative;
+        overflow: visible;
+    }
+
+    /* Cat button replacement for suggestions */
+    .cat-suggestion-btn {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 280px;
+        height: auto;
+        z-index: 2;
+        cursor: pointer;
+        filter: drop-shadow(0 4px 12px rgba(42, 61, 102, 0.15));
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .cat-suggestion-btn:hover {
+        transform: translateY(-50%) scale(1.05);
+        filter: drop-shadow(0 6px 18px rgba(42, 61, 102, 0.25));
+    }
+
+    .cat-suggestion-btn.hidden {
+        display: none;
+    }
+
+    /* Cat hint message */
+    .cat-hint {
+        position: absolute;
+        right: 15px;
+        bottom: 60px;
+        background: rgba(248, 210, 156, 0.35);
+        border: 2px solid rgba(248, 210, 156, 0.6);
+        border-radius: 12px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        color: var(--deep-indigo);
+        font-weight: 600;
+        z-index: 2;
+        pointer-events: none;
+        animation: gentlePulse 3s ease-in-out infinite;
+        text-align: center;
+        max-width: 260px;
+    }
+
+    .cat-hint.hidden {
+        display: none;
+    }
+
+    @keyframes gentlePulse {
+
+        0%,
+        100% {
+            opacity: 0.85;
         }
-        
-        /* Form Container */
-        .form-container {
-            max-width: 1100px; /* wider so most users avoid scrolling */
-            margin: 1rem auto 3rem;
-            padding: 2.5rem;
-            background: rgba(159,197,203,0.14);
-            border-radius: 20px;
-            box-shadow: 0 10px 36px rgba(42, 61, 102, 0.14);
-            position: relative;
-            overflow: visible;
+
+        50% {
+            opacity: 1;
         }
-        
-        /* Cat button replacement for suggestions */
+    }
+
+    @media (max-width: 1024px) {
         .cat-suggestion-btn {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 280px;
-            height: auto;
-            z-index: 2;
-            cursor: pointer;
-            filter: drop-shadow(0 4px 12px rgba(42,61,102,0.15));
-            transition: transform 0.3s ease, filter 0.3s ease;
+            width: 200px;
+            right: 12px;
         }
-        
-        .cat-suggestion-btn:hover {
-            transform: translateY(-50%) scale(1.05);
-            filter: drop-shadow(0 6px 18px rgba(42,61,102,0.25));
-        }
-        
-        .cat-suggestion-btn.hidden {
-            display: none;
-        }
-        
-        /* Cat hint message */
+
         .cat-hint {
-            position: absolute;
-            right: 15px;
-            bottom: 60px;
-            background: rgba(248, 210, 156, 0.35);
-            border: 2px solid rgba(248, 210, 156, 0.6);
-            border-radius: 12px;
-            padding: 10px 16px;
-            font-size: 0.9rem;
-            color: var(--deep-indigo);
-            font-weight: 600;
-            z-index: 2;
-            pointer-events: none;
-            animation: gentlePulse 3s ease-in-out infinite;
-            text-align: center;
-            max-width: 260px;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            right: 12px;
+            bottom: 50px;
+            max-width: 180px;
         }
-        
-        .cat-hint.hidden {
-            display: none;
+    }
+
+    @media (max-width: 768px) {
+        .cat-suggestion-btn {
+            width: 140px;
+            right: 10px;
         }
-        
-        @keyframes gentlePulse {
-            0%, 100% { opacity: 0.85; }
-            50% { opacity: 1; }
+
+        .cat-hint {
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            right: 10px;
+            bottom: 40px;
+            max-width: 130px;
         }
-        
-        @media (max-width: 1024px) {
-            .cat-suggestion-btn {
-                width: 200px;
-                right: 12px;
-            }
-            .cat-hint {
-                font-size: 0.85rem;
-                padding: 8px 12px;
-                right: 12px;
-                bottom: 50px;
-                max-width: 180px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .cat-suggestion-btn {
-                width: 140px;
-                right: 10px;
-            }
-            .cat-hint {
-                font-size: 0.75rem;
-                padding: 6px 10px;
-                right: 10px;
-                bottom: 40px;
-                max-width: 130px;
-            }
-        }
-        
-        .form-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: #F8D29C;
-            border-radius: 10px 10px 0 0;
-        }
-        
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--deep-indigo);
-            font-size: 2rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .form-container h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: var(--soft-yellow);
-            border-radius: 2px;
-        }
-        
-        .form-quote {
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 2rem;
-            color: var(--deep-indigo);
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-        
-        .form-intro {
-            text-align: center;
+    }
+
+    .form-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: #F8D29C;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--deep-indigo);
+        font-size: 2rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .form-container h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 14px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,7 C17,12 33,2 50,7 C67,12 83,2 100,7' stroke='%23F8D29C' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: transparent;
+    }
+
+    .form-quote {
+        text-align: center;
+        font-style: italic;
         margin-bottom: 2rem;
-            color: var(--deep-indigo);
+        color: var(--deep-indigo);
+        opacity: 0.8;
+        font-size: 1.1rem;
+    }
+
+    .form-intro {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--deep-indigo);
         font-size: 1.1rem;
         line-height: 1.6;
-        }
-        
-        /* Submission Options */
-        .submission-options {
-            display: flex;
+    }
+
+    /* Submission Options */
+    .submission-options {
+        display: flex;
         justify-content: center;
-            margin-bottom: 2rem;
+        margin-bottom: 2rem;
         background-color: var(--warm-white);
         border-radius: 10px;
         padding: 5px;
         border: 2px solid var(--gentle-lavender);
-        }
-        
-        .submission-option {
-            flex: 1;
-            text-align: center;
+    }
+
+    .submission-option {
+        flex: 1;
+        text-align: center;
         padding: 0.8rem 1rem;
-            cursor: pointer;
+        cursor: pointer;
         border-radius: 8px;
-            transition: all 0.3s ease;
+        transition: all 0.3s ease;
         font-weight: 600;
-            color: var(--deep-indigo);
-        }
-        
-        .submission-option.active {
+        color: var(--deep-indigo);
+    }
+
+    .submission-option.active {
         background-color: var(--soft-yellow);
         color: var(--deep-indigo);
         transform: scale(1.02);
     }
-    
+
     .submission-option:hover {
         background-color: var(--light-yellow);
-        }
-        
-        /* Form Sections */
+    }
+
+    /* Form Sections */
     .submission-forms {
         margin-bottom: 2rem;
     }
-    
-        .form-section {
-            display: none;
+
+    .form-section {
+        display: none;
         animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        .form-section.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Centered compose area with floating suggestions card */
-        .compose-wrap { position: relative; max-width: 860px; margin: 0 auto; }
-        /* Invisible wall inside the textarea area */
-        .guide-rail {
-            position: absolute;
-            /* match textarea padding box exactly */
-            top: calc(0px + 2px); /* inside border */
-            bottom: calc(0px + 2px); /* inside border */
-            right: 0;
-            width: 36%; /* reserved area for inline suggestions */
-            pointer-events: auto; /* allow clicks inside rail */
-        }
-        .rail-divider {
-            /* hide visual divider to avoid edge overflow while keeping layout */
-            display: none;
-        }
-        .suggestion-inline {
-            position: absolute;
-            right: 12px;
-            top: 50%; transform: translateY(-50%);
-            width: calc(100% - 24px);
-            min-height: 200px; max-height: 80%;
-            font-family: 'Sriracha', 'Brush Script MT', cursive; /* alternate font for suggestions */
-            color: rgba(159,197,203,0.95); /* brand blue tint */
-            pointer-events: auto; /* interactive */
-            overflow-wrap: anywhere;
-            word-break: break-word;
-            background: rgba(255,255,255,0.96); border: 2px solid var(--gentle-lavender); border-radius: 16px; padding: 16px;
-            box-shadow: 0 4px 10px rgba(244,208,111,.35);
-            overflow-y: auto;
-        }
-        .suggestion-inline.hidden { display: none; }
-        .suggestion-inline ul {
-            list-style: disc;
-            list-style-position: outside;
-            margin: 0;
-            padding-left: 26px; /* fixed gutter so bullets align */
-            text-align: left;
-        }
-        .suggestion-inline li {
-            margin: 10px 0;
-            opacity: .95;
-            text-align: left;
-            text-indent: 0;
-            white-space: normal;
-            hyphens: auto;
-            transform-origin: left center;
-            animation: suggestPop .35s ease both;
-        }
-        .suggestion-inline li:nth-child(1){ animation-delay: .02s; }
-        .suggestion-inline li:nth-child(2){ animation-delay: .08s; }
-        .suggestion-inline li:nth-child(3){ animation-delay: .14s; }
-        .suggestion-inline li:nth-child(4){ animation-delay: .20s; }
-        @keyframes suggestPop { from { opacity: 0; transform: translateY(6px) scale(.98);} to { opacity:1; transform: translateY(0) scale(1);} }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
-        .write-zone { position: relative; }
-        .write-zone textarea {
-            padding-right: 38% !important;
-            box-sizing: border-box;
-            white-space: pre-wrap; /* keep line breaks, wrap long tokens */
-            overflow-wrap: anywhere;
-            word-break: break-word;
-        }
-        .suggestion-card {
-            background: rgba(255,255,255,0.96);
-            border: 1px solid rgba(159,197,203,0.35);
-            border-radius: 14px;
-            padding: 16px 16px 12px 16px;
-            box-shadow: 0 8px 24px rgba(42,61,102,0.12);
-            position: absolute;
-            width: 300px;
-            top: 0;
-            right: -340px; /* default on the right side */
-        }
-        .suggestion-card.left { right: auto; left: -340px; }
-        .suggestion-header { display:flex; align-items:center; justify-content: space-between; margin-bottom:8px; }
-        .suggestion-toggle { background:none; border:1px solid rgba(159,197,203,0.6); border-radius:8px; padding:4px 8px; cursor:pointer; font-weight:600; }
+    }
 
-        /* Add a subtle inner frame to balance background */
-        .framed-inner {
-            border: 1px solid rgba(159,197,203,0.35);
-            border-radius: 16px;
-            padding: 18px;
-            background: rgba(255,255,255,0.86);
+    .form-section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
         }
 
-        /* Suggestion toggles */
-        .suggestion-toggle-btn {
-            position: absolute; right: 12px; top: 50%; transform: translateY(-50%); z-index: 2;
-            width: calc(100% - 24px); height: 84px;
-            background: var(--soft-yellow); border: 2px solid var(--gentle-lavender);
-            color: var(--deep-indigo); font-weight: 800; border-radius: 16px; padding: 8px 14px; cursor: pointer;
-            display:flex; align-items:center; justify-content:center; text-align:center;
-            box-shadow: 0 4px 10px rgba(244,208,111,.35);
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .suggestion-toggle-btn:hover{ transform: translateY(-50%) translateY(-2px); }
-        .suggestion-toggle-btn.hidden{ display:none; }
-        .suggestion-close {
-            position: absolute; right: 6px; top: 6px; pointer-events: auto; cursor: pointer;
-            background: transparent; border: none; color: rgba(42,61,102,.6); font-weight: 800;
+    }
+
+    /* Centered compose area with floating suggestions card */
+    .compose-wrap {
+        position: relative;
+        max-width: 860px;
+        margin: 0 auto;
+    }
+
+    /* Invisible wall inside the textarea area */
+    .guide-rail {
+        position: absolute;
+        /* match textarea padding box exactly */
+        top: calc(0px + 2px);
+        /* inside border */
+        bottom: calc(0px + 2px);
+        /* inside border */
+        right: 0;
+        width: 36%;
+        /* reserved area for inline suggestions */
+        pointer-events: auto;
+        /* allow clicks inside rail */
+    }
+
+    .rail-divider {
+        /* hide visual divider to avoid edge overflow while keeping layout */
+        display: none;
+    }
+
+    .suggestion-inline {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - 24px);
+        min-height: 200px;
+        max-height: 80%;
+        font-family: 'Sriracha', 'Brush Script MT', cursive;
+        /* alternate font for suggestions */
+        color: rgba(159, 197, 203, 0.95);
+        /* brand blue tint */
+        pointer-events: auto;
+        /* interactive */
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        background: rgba(255, 255, 255, 0.96);
+        border: 2px solid var(--gentle-lavender);
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 4px 10px rgba(244, 208, 111, .35);
+        overflow-y: auto;
+    }
+
+    .suggestion-inline.hidden {
+        display: none;
+    }
+
+    .suggestion-inline ul {
+        list-style: disc;
+        list-style-position: outside;
+        margin: 0;
+        padding-left: 26px;
+        /* fixed gutter so bullets align */
+        text-align: left;
+    }
+
+    .suggestion-inline li {
+        margin: 10px 0;
+        opacity: .95;
+        text-align: left;
+        text-indent: 0;
+        white-space: normal;
+        hyphens: auto;
+        transform-origin: left center;
+        animation: suggestPop .35s ease both;
+    }
+
+    .suggestion-inline li:nth-child(1) {
+        animation-delay: .02s;
+    }
+
+    .suggestion-inline li:nth-child(2) {
+        animation-delay: .08s;
+    }
+
+    .suggestion-inline li:nth-child(3) {
+        animation-delay: .14s;
+    }
+
+    .suggestion-inline li:nth-child(4) {
+        animation-delay: .20s;
+    }
+
+    @keyframes suggestPop {
+        from {
+            opacity: 0;
+            transform: translateY(6px) scale(.98);
         }
-        
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .write-zone {
+        position: relative;
+    }
+
+    .write-zone textarea {
+        padding-right: 38% !important;
+        box-sizing: border-box;
+        white-space: pre-wrap;
+        /* keep line breaks, wrap long tokens */
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .suggestion-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(159, 197, 203, 0.35);
+        border-radius: 14px;
+        padding: 16px 16px 12px 16px;
+        box-shadow: 0 8px 24px rgba(42, 61, 102, 0.12);
+        position: absolute;
+        width: 300px;
+        top: 0;
+        right: -340px;
+        /* default on the right side */
+    }
+
+    .suggestion-card.left {
+        right: auto;
+        left: -340px;
+    }
+
+    .suggestion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .suggestion-toggle {
+        background: none;
+        border: 1px solid rgba(159, 197, 203, 0.6);
+        border-radius: 8px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    /* Add a subtle inner frame to balance background */
+    .framed-inner {
+        border: 1px solid rgba(159, 197, 203, 0.35);
+        border-radius: 16px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.86);
+    }
+
+    /* Suggestion toggles */
+    .suggestion-toggle-btn {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        width: calc(100% - 24px);
+        height: 84px;
+        background: var(--soft-yellow);
+        border: 2px solid var(--gentle-lavender);
+        color: var(--deep-indigo);
+        font-weight: 800;
+        border-radius: 16px;
+        padding: 8px 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(244, 208, 111, .35);
+    }
+
+    .suggestion-toggle-btn:hover {
+        transform: translateY(-50%) translateY(-2px);
+    }
+
+    .suggestion-toggle-btn.hidden {
+        display: none;
+    }
+
+    .suggestion-close {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        pointer-events: auto;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        color: rgba(42, 61, 102, .6);
+        font-weight: 800;
+    }
+
     /* Form Groups */
-        .form-group {
+    .form-group {
         margin-bottom: 1.5rem;
-        }
-        
+    }
+
     .form-group label {
-            display: block;
+        display: block;
         margin-bottom: 0.5rem;
         font-weight: 600;
-            color: var(--deep-indigo);
+        color: var(--deep-indigo);
         font-size: 1rem;
-        }
-        
+    }
+
     .form-group input,
     .form-group select,
     .form-group textarea {
-            width: 100%;
+        width: 100%;
         padding: 0.8rem 1rem;
         border: 2px solid var(--gentle-lavender);
         border-radius: 10px;
-            font-family: inherit;
+        font-family: inherit;
         font-size: 1rem;
         transition: all 0.3s ease;
-            background-color: var(--warm-white);
-        }
-        
+        background-color: var(--warm-white);
+    }
+
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-            outline: none;
-            border-color: var(--soft-yellow);
-            box-shadow: 0 0 0 3px rgba(244, 208, 111, 0.2);
+        outline: none;
+        border-color: var(--soft-yellow);
+        box-shadow: 0 0 0 3px rgba(244, 208, 111, 0.2);
         transform: translateY(-2px);
-        }
-        
-        .form-group textarea {
+    }
+
+    .form-group textarea {
         min-height: 420px;
-            resize: vertical;
-        font-family: 'Sriracha', 'Georgia', 'Times New Roman', serif; /* warmer, inviting */
+        resize: vertical;
+        font-family: 'Sriracha', 'Georgia', 'Times New Roman', serif;
+        /* warmer, inviting */
         font-size: 1.15rem;
         line-height: 1.8;
-        background: rgba(255,255,255,0.92);
-        box-shadow: inset 0 2px 8px rgba(42,61,102,0.06);
-        }
-        
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: inset 0 2px 8px rgba(42, 61, 102, 0.06);
+    }
+
     /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            background-color: var(--soft-yellow);
-            color: var(--deep-indigo);
-            border: none;
+    .submit-btn {
+        width: 100%;
+        background-color: var(--soft-yellow);
+        color: var(--deep-indigo);
+        border: none;
         padding: 1rem 2rem;
         border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
-        }
-        
-        .submit-btn:hover {
-            background-color: var(--light-yellow);
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(244, 208, 111, 0.4);
+    }
+
+    .submit-btn:hover {
+        background-color: var(--light-yellow);
         transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
-        }
-        
+        box-shadow: 0 6px 15px rgba(244, 208, 111, 0.5);
+    }
+
     /* Location Items */
     .mailbox-locations {
         margin-top: 2rem;
     }
-    
+
     .location-item {
         background-color: var(--warm-white);
         border-left: 4px solid var(--gentle-lavender);
@@ -384,24 +517,24 @@
         box-shadow: 0 2px 10px rgba(42, 61, 102, 0.05);
         transition: transform 0.3s ease;
     }
-    
+
     .location-item:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 15px rgba(42, 61, 102, 0.1);
     }
-    
+
     .location-item h4 {
         color: var(--deep-indigo);
         margin-bottom: 0.5rem;
         font-size: 1.3rem;
     }
-    
+
     .location-item p {
         margin-bottom: 0.3rem;
         color: var(--deep-indigo);
         opacity: 0.8;
     }
-    
+
     .note {
         text-align: center;
         margin-top: 2rem;
@@ -410,192 +543,205 @@
         border-radius: 10px;
         font-style: italic;
     }
-    
+
     .note a {
         color: var(--deep-indigo);
         font-weight: 600;
         text-decoration: none;
         border-bottom: 1px dotted var(--deep-indigo);
     }
-    
+
     .note a:hover {
         color: var(--gentle-lavender);
-        }
-        
-        /* AI Assistance Section */
-        .ai-assistance {
-            background-color: rgba(179, 156, 208, 0.1);
+    }
+
+    /* AI Assistance Section */
+    .ai-assistance {
+        background-color: rgba(179, 156, 208, 0.1);
         border-radius: 15px;
         padding: 1.5rem;
         text-align: center;
         margin-bottom: 2rem;
         border: 2px solid rgba(179, 156, 208, 0.3);
-        }
-        
+    }
+
     .ai-icon {
         font-size: 2rem;
         margin-bottom: 0.5rem;
         display: block;
-        }
-        
-        .ai-link {
-            color: var(--deep-indigo);
+    }
+
+    .ai-link {
+        color: var(--deep-indigo);
         cursor: pointer;
         font-weight: 600;
-            text-decoration: underline;
+        text-decoration: underline;
         transition: color 0.3s ease;
-        }
-        
-        .ai-link:hover {
-            color: var(--gentle-lavender);
-        }
-        
-        /* Privacy Note */
-        .privacy-note {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--deep-indigo);
+    }
+
+    .ai-link:hover {
+        color: var(--gentle-lavender);
+    }
+
+    /* Privacy Note */
+    .privacy-note {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--deep-indigo);
         opacity: 0.8;
         font-style: italic;
         padding: 1rem;
         background-color: rgba(244, 208, 111, 0.1);
         border-radius: 10px;
-        }
-        
-        .privacy-note a {
-            color: var(--deep-indigo);
+    }
+
+    .privacy-note a {
+        color: var(--deep-indigo);
         font-weight: 600;
         text-decoration: none;
         border-bottom: 1px dotted var(--deep-indigo);
+    }
+
+    .privacy-note a:hover {
+        color: var(--gentle-lavender);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 1.8rem 1.2rem;
+            margin: 1rem;
         }
-        
-        .privacy-note a:hover {
-            color: var(--gentle-lavender);
+
+        .online-grid {
+            display: block;
         }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 1.8rem 1.2rem;
-                margin: 1rem;
-            }
-            .online-grid { display: block; }
-            .side-panel { position: static; margin-top: 16px; }
-            
+
+        .side-panel {
+            position: static;
+            margin-top: 16px;
+        }
+
         .submission-options {
-                flex-direction: column;
-            }
-            
+            flex-direction: column;
+        }
+
         .submission-option {
             margin-bottom: 0.5rem;
-            }
         }
-    </style>
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-        <div class="form-container">
-            <h2>Share Your Story with E.C.H.O.E</h2>
-            <p class="form-quote">Every voice deserves to be echoed.</p>
-            <p class="form-intro">A gentle, judgment-free space to share what's on your mind. Our team will read with care and respond within 48 hours.</p>
-            
-            <div class="submission-options">
-                <div class="submission-option active" id="online-option">Online Submission</div>
-                <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
-            </div>
-            <div id="offlineBanner" class="note" style="display:none; margin-top:0;">
-                Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email 
-                <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
-            </div>
-            
-            <div class="submission-forms">
-                <div class="form-section active" id="online-form">
+<div class="form-container">
+    <h2>Share Your Story with E.C.H.O.E</h2>
+    <p class="form-quote">Every voice deserves to be echoed.</p>
+    <p class="form-intro">A gentle, judgment-free space to share what's on your mind. Our team will read with care and
+        respond within 48 hours.</p>
+
+    <div class="submission-options">
+        <div class="submission-option active" id="online-option">Online Submission</div>
+        <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
+    </div>
+    <div id="offlineBanner" class="note" style="display:none; margin-top:0;">
+        Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email
+        <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+    </div>
+
+    <div class="submission-forms">
+        <div class="form-section active" id="online-form">
             <div class="framed-inner">
-            <div class="compose-wrap" id="composeWrap">
-            <form method="POST" action="{{ url_for('submit') }}" id="letterForm">
-                {{ form.hidden_tag() }}
-                
+                <div class="compose-wrap" id="composeWrap">
+                    <form method="POST" action="{{ url_for('submit') }}" id="letterForm">
+                        {{ form.hidden_tag() }}
+
                         <!-- Topic selection hidden to reduce friction; AI will summarize title -->
                         <div class="form-group" style="display:none;">
-                    {{ form.topic(class="form-control") }}
+                            {{ form.topic(class="form-control") }}
                         </div>
-                        
+
                         <div class="form-group write-zone">
-                    {{ form.content.label(class="form-label") }}
-                    {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or concerns here...") }}
-                    {% if form.content.errors %}
-                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.content.errors[0] }}</div>
-                    {% endif %}
-                    <!-- Cat hint message -->
-                    <div class="cat-hint" id="cat-hint">💡 Click Echo the cat for ideas and suggestions!</div>
-                    
-                    <!-- Cat mascot button for suggestions -->
-                    <img src="{{ url_for('static', filename='img/Untitled design.png') }}" 
-                         alt="Click Echo the cat for writing suggestions" 
-                         class="cat-suggestion-btn" 
-                         id="cat-suggest-btn"
-                         role="button"
-                         tabindex="0"
-                         aria-label="Click Echo the cat for writing suggestions">
-                    
-            <div class="guide-rail" aria-hidden="true" id="guideRail">
-                <div class="suggestion-inline hidden" id="inlineSuggest">
-                            <button type="button" id="suggestionClose" class="suggestion-close" aria-label="Hide">✕</button>
-                            <ul id="inlineTips">
-                                <li>It's okay to be brief — start with one thought.</li>
-                                <li>Share feelings, not just events.</li>
-                                <li>Choose Inbox or Anonymous Email for replies.</li>
-                            </ul>
-                            <div id="inlineQuestion" style="margin-top: 8px; font-style: italic; opacity: 0.8;"></div>
+                            {{ form.content.label(class="form-label") }}
+                            {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or
+                            concerns here...") }}
+                            {% if form.content.errors %}
+                            <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.content.errors[0] }}
+                            </div>
+                            {% endif %}
+                            <!-- Cat hint message -->
+                            <div class="cat-hint" id="cat-hint">💡 Click Echo the cat for ideas and suggestions!</div>
+
+                            <!-- Cat mascot button for suggestions -->
+                            <img src="{{ url_for('static', filename='img/Untitled design.png') }}"
+                                alt="Click Echo the cat for writing suggestions" class="cat-suggestion-btn"
+                                id="cat-suggest-btn" role="button" tabindex="0"
+                                aria-label="Click Echo the cat for writing suggestions">
+
+                            <div class="guide-rail" aria-hidden="true" id="guideRail">
+                                <div class="suggestion-inline hidden" id="inlineSuggest">
+                                    <button type="button" id="suggestionClose" class="suggestion-close"
+                                        aria-label="Hide">✕</button>
+                                    <ul id="inlineTips">
+                                        <li>It's okay to be brief — start with one thought.</li>
+                                        <li>Share feelings, not just events.</li>
+                                        <li>Choose Inbox or Anonymous Email for replies.</li>
+                                    </ul>
+                                    <div id="inlineQuestion" style="margin-top: 8px; font-style: italic; opacity: 0.8;">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                        </div>
-                        
+
                         <div class="form-group">
-                    {{ form.reply_method.label(class="form-label") }}
-                    {{ form.reply_method(class="form-control", id="reply-method") }}
-                    {% if form.reply_method.errors %}
-                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.reply_method.errors[0] }}</div>
-                    {% endif %}
+                            {{ form.reply_method.label(class="form-label") }}
+                            {{ form.reply_method(class="form-control", id="reply-method") }}
+                            {% if form.reply_method.errors %}
+                            <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.reply_method.errors[0]
+                                }}</div>
+                            {% endif %}
                         </div>
-                        
+
                         <div class="form-group" id="email-container" style="display: none;">
-                    {{ form.anonymous_email.label(class="form-label") }}
-                    {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't collect any personal information)") }}
+                            {{ form.anonymous_email.label(class="form-label") }}
+                            {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't
+                            collect any personal information)") }}
                         </div>
-                        
+
                         <div class="form-group" style="margin-top: 10px;">
                             {% if recaptcha_site_key %}
                             <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                             {% endif %}
                         </div>
-                        
-                {{ form.submit(class="submit-btn", id="submitBtn") }}
-                    </form>
-            </div>
-                </div>
-                
-                <div class="form-section" id="offline-locations">
-                    <h3>Find Physical Mailboxes</h3>
-                    <div class="note" style="margin-top:0">
-                        Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- AI companion prompt removed to simplify the page per new guidance -->
-    
-    <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read our <a href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
-            </div>
-{% endblock %}
 
-{% block scripts %}
+                        {{ form.submit(class="submit-btn", id="submitBtn") }}
+                    </form>
+                </div>
+            </div>
+
+            <div class="form-section" id="offline-locations">
+                <h3>Find Physical Mailboxes</h3>
+                <div class="note" style="margin-top:0">
+                    Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email <a
+                        href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+                </div>
+            </div>
+        </div>
+
+        <!-- AI companion prompt removed to simplify the page per new guidance -->
+
+        <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read our <a
+                href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
     {% if recaptcha_site_key %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     {% endif %}
     <script>
         // Show/hide email input based on reply method
-        document.getElementById('reply-method').addEventListener('change', function() {
+        document.getElementById('reply-method').addEventListener('change', function () {
             const emailContainer = document.getElementById('email-container');
             if (this.value === 'anonymous-email') {
                 emailContainer.style.display = 'block';
@@ -603,31 +749,31 @@
                 emailContainer.style.display = 'none';
             }
         });
-        
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('Write page: DOM loaded, initializing...');
-        
-        // Toggle between online and offline options
-        document.getElementById('online-option').addEventListener('click', function() {
-            this.classList.add('active');
-            document.getElementById('offline-option').classList.remove('active');
-            
-            document.getElementById('online-form').classList.add('active');
-            document.getElementById('offline-locations').classList.remove('active');
+
+            // Toggle between online and offline options
+            document.getElementById('online-option').addEventListener('click', function () {
+                this.classList.add('active');
+                document.getElementById('offline-option').classList.remove('active');
+
+                document.getElementById('online-form').classList.add('active');
+                document.getElementById('offline-locations').classList.remove('active');
                 document.getElementById('offlineBanner').style.display = 'none';
-        });
-        
-        document.getElementById('offline-option').addEventListener('click', function() {
-            this.classList.add('active');
-            document.getElementById('online-option').classList.remove('active');
-            
-            document.getElementById('offline-locations').classList.add('active');
-            document.getElementById('online-form').classList.remove('active');
+            });
+
+            document.getElementById('offline-option').addEventListener('click', function () {
+                this.classList.add('active');
+                document.getElementById('online-option').classList.remove('active');
+
+                document.getElementById('offline-locations').classList.add('active');
+                document.getElementById('online-form').classList.remove('active');
                 // bring section into view so users see it immediately
                 document.getElementById('offline-locations').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 document.getElementById('offlineBanner').style.display = 'block';
             });
-            
+
             // Suggestion loading: on-demand by button click (3-4 tips)
             const draftEl = document.querySelector('#online-form textarea');
             const tipsEl = document.getElementById('inlineTips');
@@ -654,7 +800,7 @@
             // Cat button toggle for suggestions
             const catBtn = document.getElementById('cat-suggest-btn');
             const catHint = document.getElementById('cat-hint');
-            
+
             if (catBtn) {
                 const activateCat = async () => {
                     catBtn.classList.add('hidden');
@@ -684,19 +830,19 @@
             const CALL_COOLDOWN = 3500; // minimum gap between calls
             let debounceT;
 
-            function shouldCall(){ return (Date.now() - lastCallAt) > CALL_COOLDOWN; }
+            function shouldCall() { return (Date.now() - lastCallAt) > CALL_COOLDOWN; }
 
-            async function loadTips(force=false){
-                try{
-                    if(!force && !shouldCall()) return;
+            async function loadTips(force = false) {
+                try {
+                    if (!force && !shouldCall()) return;
                     const content = draftEl.value || '';
-                    const r = await fetch('/api/coach', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ content, mode: 'write' })});
+                    const r = await fetch('/api/coach', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content, mode: 'write' }) });
                     lastCallAt = Date.now();
                     const data = await r.json();
                     const tips = Array.isArray(data.tips) ? data.tips : [];
-                    tipsEl.innerHTML = tips.map(t => '<li>'+ (t||'').replace(/</g,'&lt;') +'</li>').join('');
-                    if(data.question && questionEl){ questionEl.textContent = data.question; }
-                }catch(e){ console.error('Write page: Coach API error:', e); }
+                    tipsEl.innerHTML = tips.map(t => '<li>' + (t || '').replace(/</g, '&lt;') + '</li>').join('');
+                    if (data.question && questionEl) { questionEl.textContent = data.question; }
+                } catch (e) { console.error('Write page: Coach API error:', e); }
             }
 
             // Continuous updates: debounce on typing + periodic background refresh
@@ -707,7 +853,7 @@
             setInterval(() => loadTips(false), PERIODIC_MS);
 
             // Support deep-linking to offline view via hash or query param
-            (function(){
+            (function () {
                 const params = new URLSearchParams(location.search);
                 if (location.hash === '#offline' || params.get('offline') === '1') {
                     document.getElementById('offline-option').click();
@@ -718,7 +864,7 @@
             const form = document.getElementById('letterForm');
             const submitBtn = document.getElementById('submitBtn');
             if (form && submitBtn) {
-                form.addEventListener('submit', function(){
+                form.addEventListener('submit', function () {
                     submitBtn.disabled = true;
                     const original = submitBtn.textContent || 'Sending...';
                     submitBtn.dataset.original = original;
@@ -728,4 +874,4 @@
             }
         });
     </script>
-{% endblock %} 
+    {% endblock %}

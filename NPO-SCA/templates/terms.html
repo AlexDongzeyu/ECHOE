@@ -4,122 +4,127 @@
 
 {% block styles %}
 <style>
-        .terms-container {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 2.5rem;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
+    .terms-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 2.5rem;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
         border-left: 4px solid var(--gentle-lavender);
-        }
+    }
 
-        .terms-container h1 {
-            color: var(--deep-indigo);
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
+    .terms-container h1 {
+        color: var(--deep-indigo);
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
         position: relative;
         padding-bottom: 15px;
     }
-    
+
     .terms-container h1::after {
         content: "";
         position: absolute;
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background-color: var(--soft-yellow);
-        border-radius: 2px;
-        }
+        width: 120px;
+        height: 16px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C20,14 40,2 60,8 C80,14 100,2 120,8' stroke='%23F8D29C' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: transparent;
+    }
 
-        .terms-container h2 {
-            color: var(--deep-indigo);
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem;
+    .terms-container h2 {
+        color: var(--deep-indigo);
+        font-size: 1.8rem;
+        margin: 2rem 0 1rem;
         position: relative;
         padding-bottom: 8px;
     }
-    
+
     .terms-container h2::after {
         content: "";
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 50px;
-        height: 2px;
-        background-color: var(--gentle-lavender);
-        border-radius: 1px;
-        }
+        width: 80px;
+        height: 12px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12' preserveAspectRatio='none'%3E%3Cpath d='M0,6 C13,10 27,2 40,6 C53,10 67,2 80,6' stroke='%23B39CD0' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: transparent;
+    }
 
-        .terms-container p {
-            margin-bottom: 1.5rem;
+    .terms-container p {
+        margin-bottom: 1.5rem;
         color: var(--deep-indigo);
         line-height: 1.7;
-        }
+    }
 
-        .terms-container ul {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-        }
+    .terms-container ul {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
 
-        .terms-container li {
-            margin-bottom: 0.5rem;
+    .terms-container li {
+        margin-bottom: 0.5rem;
         color: var(--deep-indigo);
         line-height: 1.6;
-        }
+    }
 
     .terms-container a {
         color: var(--gentle-lavender);
         font-weight: 600;
-            text-decoration: none;
+        text-decoration: none;
         border-bottom: 1px dotted var(--gentle-lavender);
-        }
+    }
 
     .terms-container a:hover {
         color: var(--deep-indigo);
         border-bottom-color: var(--deep-indigo);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .terms-container {
+            margin: 2rem 1rem;
+            padding: 2rem;
         }
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .terms-container {
-                margin: 2rem 1rem;
-                padding: 2rem;
-            }
-        
         .terms-container h1 {
             font-size: 2rem;
         }
-        
+
         .terms-container h2 {
             font-size: 1.5rem;
         }
-        }
-    </style>
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-        <div class="terms-container">
-            <h1>Terms of Service</h1>
-    
+<div class="terms-container">
+    <h1>Terms of Service</h1>
+
     <p><strong>Last updated:</strong> December 2023</p>
-            
-            <h2>1. Acceptance of Terms</h2>
-    <p>By accessing and using the Light in Silence platform, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please do not use our service.</p>
-            
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing and using the Light in Silence platform, you agree to comply with and be bound by these Terms of
+        Service. If you do not agree to these terms, please do not use our service.</p>
+
     <h2>2. Description of Service</h2>
-            <p>E.C.H.O.E is a mental health support initiative that provides:</p>
-            <ul>
+    <p>E.C.H.O.E is a mental health support initiative that provides:</p>
+    <ul>
         <li>Anonymous letter submission and response services</li>
         <li>AI-powered emotional support chat</li>
         <li>Physical mailbox locations for offline submissions</li>
         <li>Mental health resources and information</li>
-            </ul>
-            
-            <h2>3. User Responsibilities</h2>
+    </ul>
+
+    <h2>3. User Responsibilities</h2>
     <p>Users agree to:</p>
     <ul>
         <li>Use the service for its intended purpose of seeking emotional support</li>
@@ -127,7 +132,7 @@
         <li>Not attempt to identify other users or volunteers</li>
         <li>Respect the privacy and anonymity of the platform</li>
     </ul>
-    
+
     <h2>4. Content Guidelines</h2>
     <p>We reserve the right to review and moderate content. We may remove content that:</p>
     <ul>
@@ -135,21 +140,25 @@
         <li>Includes personal identifying information</li>
         <li>Is spam or promotional in nature</li>
         <li>Violates these terms of service</li>
-            </ul>
-            
+    </ul>
+
     <h2>5. Privacy and Anonymity</h2>
-    <p>We are committed to maintaining your privacy. Please review our <a href="{{ url_for('privacy') }}">Privacy Policy</a> for detailed information about how we handle your data.</p>
-            
+    <p>We are committed to maintaining your privacy. Please review our <a href="{{ url_for('privacy') }}">Privacy
+            Policy</a> for detailed information about how we handle your data.</p>
+
     <h2>6. Disclaimer</h2>
-    <p>E.C.H.O.E is not a replacement for professional mental health care. If you are experiencing a mental health crisis, please contact emergency services or a crisis hotline immediately.</p>
-            
+    <p>E.C.H.O.E is not a replacement for professional mental health care. If you are experiencing a mental health
+        crisis, please contact emergency services or a crisis hotline immediately.</p>
+
     <h2>7. Limitation of Liability</h2>
-    <p>E.C.H.O.E and its volunteers provide support on a voluntary basis. We cannot guarantee specific outcomes or be held liable for any decisions made based on interactions with our service.</p>
-            
+    <p>E.C.H.O.E and its volunteers provide support on a voluntary basis. We cannot guarantee specific outcomes or be
+        held liable for any decisions made based on interactions with our service.</p>
+
     <h2>8. Changes to Terms</h2>
-    <p>We may update these terms from time to time. Users will be notified of significant changes through the platform.</p>
-    
+    <p>We may update these terms from time to time. Users will be notified of significant changes through the platform.
+    </p>
+
     <h2>9. Contact Information</h2>
     <p>If you have questions about these terms, please <a href="{{ url_for('contact') }}">contact us</a>.</p>
-            </div>
-{% endblock %} 
+</div>
+{% endblock %}

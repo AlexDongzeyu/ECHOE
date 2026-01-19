@@ -614,8 +614,8 @@
             /* Default paper texture - SAME SYSTEM AS HOMEPAGE */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #A8C99E;
-            --page-overlay-opacity: 0.48;
-            /* SAME AS HOMEPAGE */
+            --page-overlay-opacity: 0.40;
+            /* MORE TRANSPARENT - paper texture more visible */
 
             /* Base = paper texture (fully visible) - SAME AS HOMEPAGE */
             background-image: var(--page-texture);
@@ -652,7 +652,7 @@
         body.page-helplines .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #7EB5C0;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-helplines .page-header {
@@ -663,7 +663,7 @@
         body.page-resources .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --page-overlay-color: #8DAEB5;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-resources .page-header {
@@ -674,7 +674,7 @@
         body.page-submit .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8C99B;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-submit .page-header {
@@ -685,7 +685,7 @@
         body.page-events_overview .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B5A8;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-events_overview .page-header {
@@ -696,7 +696,7 @@
         body.page-about .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B864;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-about .page-header {
@@ -708,7 +708,7 @@
         body.page-blog-post_detail .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #ADCBA4;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-blog-index .page-header,
@@ -720,7 +720,7 @@
         body.page-calendar_page .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #9FC5CB;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-calendar_page .page-header {
@@ -731,7 +731,7 @@
         body.page-risk_protective .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #8FB8DE;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-risk_protective .page-header {
@@ -752,7 +752,7 @@
         body.page-volunteer_info .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #FDF4C5;
-            --page-overlay-opacity: 0.48;
+            --page-overlay-opacity: 0.40;
         }
 
         body.page-join .page-header,
@@ -768,11 +768,14 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 40px 30px;
+            padding-bottom: 50px;
+            /* Space for wave separator */
             background: transparent;
             border-radius: 0;
             border: none;
-            border-bottom: 3px solid var(--soft-yellow);
+            /* No border-bottom - curved wave ::after handles separation */
             box-shadow: none;
+            position: relative;
         }
 
         .page-header h1 {
@@ -2514,9 +2517,29 @@
             border: none;
             border-radius: 0;
             box-shadow: none;
-            /* Keep subtle bottom border for visual separation */
-            border-bottom: 3px solid var(--soft-yellow);
+            position: relative;
+            padding-bottom: 30px;
+            /* Space for wave separator */
             animation: slide-up-bounce 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        /* Curved wave separator - cute, calm, professional (replaces straight line) */
+        .rp-hero::after,
+        .hero-section::after,
+        .page-header::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 24px;
+            pointer-events: none;
+            z-index: 5;
+            /* Gentle wave with E.C.H.O.E brand dots - matches homepage style */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 24' preserveAspectRatio='none'%3E%3Cpath d='M0,12 C150,20 350,4 600,12 C850,20 1050,4 1200,12' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.2' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='12' r='5' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='565' cy='12' r='3' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='635' cy='12' r='3' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .rp-hero:hover,

@@ -12,8 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="{{ url_for('static', filename='img/LOGO.png') }}" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20260116-1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}?v=20260116-1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20260118-2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}?v=20260118-2">
 
     <!-- GSAP Core + Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -2495,24 +2495,29 @@
         }
 
         /* ============================================================
-           HERO SECTIONS - Solid colors, no gradients
+           HERO SECTIONS - Transparent to show paper texture
+           Colors come from page-container ::before overlay
            ============================================================ */
 
         .rp-hero,
         .hero-section,
         .page-header {
-            background: var(--color-sunny) !important;
-            border: 3px solid #2A3D66 !important;
-            border-radius: 24px !important;
-            box-shadow: 7px 7px 0px rgba(42, 61, 102, 0.45), 0 12px 35px var(--shadow-deep) !important;
+            /* NO BACKGROUND - let paper texture + color overlay from page-container show through */
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            /* Keep subtle bottom border for visual separation */
+            border-bottom: 3px solid var(--soft-yellow);
             animation: slide-up-bounce 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
         .rp-hero:hover,
         .hero-section:hover,
         .page-header:hover {
-            transform: translateY(-4px);
-            box-shadow: 6px 10px 0px var(--shadow-offset-dark), 0 16px 40px var(--shadow-deep) !important;
+            /* Subtle hover effect without changing background */
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>

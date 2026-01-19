@@ -609,10 +609,10 @@
             box-shadow: 0 8px 32px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Default paper texture - very transparent like homepage */
+            /* Default paper texture - matching homepage (~0.48 opacity) */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #A8C99E;
-            --page-overlay-opacity: 0.10;
+            --page-overlay-opacity: 0.45;
 
             background-image: var(--page-texture);
             background-size: cover;
@@ -646,7 +646,7 @@
         body.page-helplines .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #7EB5C0;
-            --page-overlay-opacity: 0.12;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-helplines .page-header {
@@ -657,7 +657,7 @@
         body.page-resources .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg3.jpg') }}");
             --page-overlay-color: #8DAEB5;
-            --page-overlay-opacity: 0.12;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-resources .page-header {
@@ -668,7 +668,7 @@
         body.page-submit .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8C99B;
-            --page-overlay-opacity: 0.12;
+            --page-overlay-opacity: 0.45;
         }
 
         body.page-submit .page-header {
@@ -679,7 +679,7 @@
         body.page-events_overview .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B5A8;
-            --page-overlay-opacity: 0.12;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-events_overview .page-header {
@@ -690,7 +690,7 @@
         body.page-about .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #E8B864;
-            --page-overlay-opacity: 0.10;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-about .page-header {
@@ -702,7 +702,7 @@
         body.page-blog-post_detail .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #ADCBA4;
-            --page-overlay-opacity: 0.10;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-blog-index .page-header,
@@ -714,7 +714,7 @@
         body.page-calendar_page .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #9FC5CB;
-            --page-overlay-opacity: 0.10;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-calendar_page .page-header {
@@ -725,20 +725,20 @@
         body.page-risk_protective .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg1.jpg') }}");
             --page-overlay-color: #8FB8DE;
-            --page-overlay-opacity: 0.12;
+            --page-overlay-opacity: 0.42;
         }
 
         body.page-risk_protective .page-header {
-            background: rgba(42, 61, 102, 0.75);
+            background: transparent;
         }
 
         body.page-risk_protective .page-header h1,
         body.page-risk_protective .page-header p {
-            color: #FFFFFF;
+            color: var(--deep-indigo);
         }
 
         body.page-risk_protective .page-header h1::after {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--soft-yellow);
         }
 
         /* Join/Volunteer - Cheerful Yellow */
@@ -746,7 +746,7 @@
         body.page-volunteer_info .page-container {
             --page-texture: url("{{ url_for('static', filename='img/bg4.jpg') }}");
             --page-overlay-color: #FDF4C5;
-            --page-overlay-opacity: 0.10;
+            --page-overlay-opacity: 0.45;
         }
 
         body.page-join .page-header,

@@ -9,19 +9,29 @@
 }
 
 body {
-    background-color: var(--warm-pearl-white);
+    /* Let base.html handle full background styling with paper textures */
     color: var(--dark-near-black);
     margin: 0;
-    /* Let `base.html` own the global look (bg shapes, header, etc.) */
 }
 
 /* Backgrounds per page (no gradients; backgrounds handled in templates/base) */
-.page-index, .page-submit, .page-contact, .page-about, .page-privacy, .page-terms { background: transparent; }
+.page-index,
+.page-submit,
+.page-contact,
+.page-about,
+.page-privacy,
+.page-terms {
+    background: transparent;
+}
 
-/* Keep content readable on image backgrounds */
-.page-container { background-color: rgba(255,255,255,0.92); }
+/* 
+ * IMPORTANT: page-container and content-section backgrounds are now 
+ * handled in base.html with paper texture + transparent color overlays.
+ * Do NOT add opaque backgrounds here!
+ */
 
-h1, h2 {
+h1,
+h2 {
     color: var(--deep-indigo);
 }
 
@@ -35,31 +45,40 @@ a {
     transition: color 0.3s ease;
 }
 
-a:hover { color: var(--deep-indigo); }
-
-/* Softer header/footer to match imagery */
-header, footer {
-    background-color: rgba(159, 197, 203, 0.85); /* brand blue */
-    color: #0f2233;
-    padding: 1rem;
-    backdrop-filter: saturate(120%) blur(6px);
+a:hover {
+    color: var(--deep-indigo);
 }
 
-/* Buttons are styled in `base.html` (keep these as harmless fallbacks) */
-.btn-primary, .btn-secondary { border: none; }
+/* Softer header/footer to match imagery - handled more in base.html */
+header,
+footer {
+    background-color: transparent;
+    color: #0f2233;
+    padding: 1rem;
+}
 
-/* Page and Content Containers */
+/* Buttons are styled in base.html (keep these as harmless fallbacks) */
+.btn-primary,
+.btn-secondary {
+    border: none;
+}
+
+/* Page and Content Containers - TRANSPARENT to show paper texture */
 .container {
     max-width: 1000px;
     margin: 3rem auto;
     padding: 2.5rem;
 }
 
-.page-container { background-color: transparent; }
+/* DO NOT add solid backgrounds - let base.html handle with paper texture */
+.page-container {
+    background-color: transparent !important;
+}
 
 .page-header {
     text-align: center;
     margin-bottom: 3rem;
+    background: transparent !important;
 }
 
 .page-header h1 {
@@ -68,15 +87,22 @@ header, footer {
     margin-bottom: 1rem;
 }
 
-.page-header p { font-style: italic; }
+.page-header p {
+    font-style: italic;
+}
 
+/* Content sections - transparent with subtle visual separation */
 .content-section {
     padding: 2rem;
-    background-color: var(--warm-pearl-white);
+    /* NO solid background - use transparent to show paper texture from base.html */
+    background-color: transparent;
     border-radius: 15px;
     margin-bottom: 2rem;
+    /* subtle border for visual separation instead of solid background */
+    border-bottom: 2px solid rgba(42, 61, 102, 0.1);
 }
 
 .content-section:last-child {
     margin-bottom: 0;
-} 
+    border-bottom: none;
+}

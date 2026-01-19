@@ -599,30 +599,34 @@
            Each page gets its own unique color based on content type
            ============================================================ */
 
-        /* Base page-container with paper texture - SEAMLESS DESIGN */
+        /* Base page-container with paper texture - MATCHES HOMEPAGE SECTIONS EXACTLY */
         .page-container {
             position: relative;
             overflow: hidden;
+            isolation: isolate;
+            /* SAME AS HOMEPAGE */
             border-radius: 20px;
             padding: 40px;
             border: none;
             box-shadow: 0 8px 32px rgba(42, 61, 102, 0.12);
             margin-bottom: 40px;
 
-            /* Default paper texture - matching homepage (0.48 opacity) */
+            /* Default paper texture - SAME SYSTEM AS HOMEPAGE */
             --page-texture: url("{{ url_for('static', filename='img/bg2.jpg') }}");
             --page-overlay-color: #A8C99E;
             --page-overlay-opacity: 0.48;
+            /* SAME AS HOMEPAGE */
 
+            /* Base = paper texture (fully visible) - SAME AS HOMEPAGE */
             background-image: var(--page-texture);
             background-size: cover;
             background-position: center;
-
-            /* Remove blur to allow paper texture to show clearly */
-            backdrop-filter: none;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            /* EXPLICIT - SAME AS HOMEPAGE */
         }
 
-        /* Color overlay for page-container - more transparent */
+        /* Color overlay - SAME STRUCTURE AS HOMEPAGE ::before */
         .page-container::before {
             content: "";
             position: absolute;
@@ -630,14 +634,16 @@
             background-color: var(--page-overlay-color);
             opacity: var(--page-overlay-opacity);
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
+            /* SAME AS HOMEPAGE */
             border-radius: 20px;
         }
 
-        /* Ensure content appears above the overlay */
+        /* Ensure content appears above the overlay - SAME AS HOMEPAGE */
         .page-container>* {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            /* SAME AS HOMEPAGE (above overlay at z-index 1) */
         }
 
         /* === PAGE-SPECIFIC COLORS === */

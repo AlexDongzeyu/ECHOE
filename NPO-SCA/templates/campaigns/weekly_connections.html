@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+{% block title %}Weekly Connections - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+    /* === WEEKLY CONNECTIONS PAGE === */
+    /* Color Theme: Warm Amber */
+
+    .campaigns-hero {
+        background: rgba(248, 210, 156, 0.18);
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: 0;
+    }
+
+    .campaigns-hero h1 {
+        color: var(--deep-indigo);
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .campaigns-hero h1::after {
+        content: "";
+        display: block;
+        width: 140px;
+        height: 16px;
+        margin: 14px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23F8D29C' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .campaigns-hero .subtitle {
+        color: var(--deep-indigo);
+        font-size: 1.2rem;
+        opacity: 0.85;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Curly separator */
+    .curly-separator-amber {
+        width: 100%;
+        height: 32px;
+        margin: 28px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.18' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%23E8BC6E' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Section intro */
+    .section-intro {
+        background: rgba(255, 251, 247, 0.7);
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 32px;
+        border-left: 4px solid #F8D29C;
+    }
+
+    .section-intro p {
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* Campaign cards grid */
+    .campaigns-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 28px;
+        margin-bottom: 40px;
+    }
+
+    .campaign-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 18px;
+        overflow: hidden;
+        border: 2px solid rgba(42, 61, 102, 0.1);
+        box-shadow: 0 6px 24px rgba(42, 61, 102, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .campaign-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 36px rgba(42, 61, 102, 0.14);
+    }
+
+    /* Image placeholder */
+    .campaign-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, rgba(248, 210, 156, 0.3) 0%, rgba(232, 188, 110, 0.2) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgba(42, 61, 102, 0.08);
+        position: relative;
+    }
+
+    .campaign-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='30' y='25' width='40' height='50' rx='4' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Ccircle cx='50' cy='42' r='8' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Cpath d='M30,75 L42,58 L50,66 L70,45 L70,75 Z' fill='%232A3D66' fill-opacity='0.1'/%3E%3C/svg%3E");
+        background-size: 60px;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.7;
+    }
+
+    .placeholder-text {
+        color: var(--deep-indigo);
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.5;
+        text-align: center;
+        padding: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Card content */
+    .campaign-content {
+        padding: 24px;
+    }
+
+    .campaign-content h3 {
+        color: var(--deep-indigo);
+        font-size: 1.4rem;
+        margin: 0 0 6px 0;
+        font-weight: 800;
+    }
+
+    .campaign-tagline {
+        color: #C9913A;
+        font-size: 1rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 0 0 14px 0;
+    }
+
+    .campaign-content p {
+        color: var(--deep-indigo);
+        font-size: 0.98rem;
+        line-height: 1.65;
+        margin: 0 0 18px 0;
+        opacity: 0.88;
+    }
+
+    /* Seasonal examples */
+    .seasonal-examples {
+        background: rgba(248, 210, 156, 0.15);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 16px 0;
+    }
+
+    .seasonal-examples h4 {
+        color: var(--deep-indigo);
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+    }
+
+    .seasonal-examples ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .seasonal-examples li {
+        color: var(--deep-indigo);
+        font-size: 0.9rem;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(42, 61, 102, 0.08);
+    }
+
+    .seasonal-examples li:last-child {
+        border-bottom: none;
+    }
+
+    /* CTA button */
+    .campaign-cta {
+        display: inline-block;
+        background: #F8D29C;
+        color: var(--deep-indigo);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border: 2px solid rgba(42, 61, 102, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .campaign-cta:hover {
+        background: #E8BC6E;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(248, 210, 156, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .campaigns-hero h1 {
+            font-size: 2rem;
+        }
+
+        .campaigns-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .campaign-image {
+            height: 160px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <!-- Hero Section -->
+        <section class="campaigns-hero">
+            <h1>Weekly Connections</h1>
+            <p class="subtitle">Feel-Good Fridays and seasonal celebrations.</p>
+        </section>
+
+        <!-- Curly Wave Separator -->
+        <div class="curly-separator-amber"></div>
+
+        <!-- Section Introduction -->
+        <div class="section-intro">
+            <p>Connection doesn't always require a grand gesture; often, it's built in the small, consistent moments.
+                This section houses our recurring initiatives designed to spark joy and foster routine interaction.
+                Whether it's a weekly challenge or a holiday check-in, these campaigns encourage students to step out of
+                their comfort zones and engage with the community around them.</p>
+        </div>
+
+        <!-- Campaign Cards -->
+        <div class="campaigns-grid">
+            <!-- Feel-Good Friday -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Feel-Good Friday campaign image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Feel-Good Friday</h3>
+                    <p class="campaign-tagline">"Small Acts, Big Impact"</p>
+                    <p>Every Friday, we issue a simple, actionable challenge to the student body. Whether it's "Say hi
+                        to someone new," "Go tech-free for an hour," or "Send a gratitude text," these micro-challenges
+                        are designed to reduce social anxiety and build habit-forming connections.</p>
+                    <p>It's our way of turning the weekend into an opportunity for wellness.</p>
+                </div>
+            </article>
+
+            <!-- Seasonal Campaigns -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Seasonal Campaigns image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Seasonal Campaigns</h3>
+                    <p class="campaign-tagline">"Holiday Mental Health Checks"</p>
+                    <p>Holidays can be joyful, but they can also be isolating. Our seasonal campaigns provide tailored
+                        advice for navigating the highs and lows of the school year. We focus on inclusive ways to
+                        celebrate that prioritize mental well-being over social pressure.</p>
+
+                    <div class="seasonal-examples">
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>"Halloween with Heart" — SAD-friendly activities</li>
+                            <li>"Gratitude in Action" — Thanksgiving wellness tips</li>
+                            <li>Winter break check-ins and connection ideas</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

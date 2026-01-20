@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+{% block title %}Inspiration & Media - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+    /* === INSPIRATION & MEDIA PAGE === */
+    /* Color Theme: Lavender/Soft Purple-Blue */
+
+    .campaigns-hero {
+        background: rgba(179, 156, 208, 0.18);
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: 0;
+    }
+
+    .campaigns-hero h1 {
+        color: var(--deep-indigo);
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .campaigns-hero h1::after {
+        content: "";
+        display: block;
+        width: 140px;
+        height: 16px;
+        margin: 14px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23B39CD0' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .campaigns-hero .subtitle {
+        color: var(--deep-indigo);
+        font-size: 1.2rem;
+        opacity: 0.85;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Curly separator */
+    .curly-separator-lavender {
+        width: 100%;
+        height: 32px;
+        margin: 28px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.18' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Section intro */
+    .section-intro {
+        background: rgba(255, 251, 247, 0.7);
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 32px;
+        border-left: 4px solid #B39CD0;
+    }
+
+    .section-intro p {
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* Campaign cards grid */
+    .campaigns-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 28px;
+        margin-bottom: 40px;
+    }
+
+    .campaign-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 18px;
+        overflow: hidden;
+        border: 2px solid rgba(42, 61, 102, 0.1);
+        box-shadow: 0 6px 24px rgba(42, 61, 102, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .campaign-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 36px rgba(42, 61, 102, 0.14);
+    }
+
+    /* Image placeholder */
+    .campaign-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, rgba(179, 156, 208, 0.3) 0%, rgba(159, 197, 203, 0.2) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgba(42, 61, 102, 0.08);
+        position: relative;
+    }
+
+    .campaign-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='30' y='25' width='40' height='50' rx='4' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Ccircle cx='50' cy='42' r='8' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Cpath d='M30,75 L42,58 L50,66 L70,45 L70,75 Z' fill='%232A3D66' fill-opacity='0.1'/%3E%3C/svg%3E");
+        background-size: 60px;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.7;
+    }
+
+    .placeholder-text {
+        color: var(--deep-indigo);
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.5;
+        text-align: center;
+        padding: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Card content */
+    .campaign-content {
+        padding: 24px;
+    }
+
+    .campaign-content h3 {
+        color: var(--deep-indigo);
+        font-size: 1.4rem;
+        margin: 0 0 6px 0;
+        font-weight: 800;
+    }
+
+    .campaign-tagline {
+        color: #9078A8;
+        font-size: 1rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 0 0 14px 0;
+    }
+
+    .campaign-content p {
+        color: var(--deep-indigo);
+        font-size: 0.98rem;
+        line-height: 1.65;
+        margin: 0 0 18px 0;
+        opacity: 0.88;
+    }
+
+    /* Coming Soon badge */
+    .coming-soon-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #B39CD0 0%, #9FC5CB 100%);
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+    }
+
+    /* CTA button */
+    .campaign-cta {
+        display: inline-block;
+        background: #B39CD0;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border: 2px solid rgba(42, 61, 102, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .campaign-cta:hover {
+        background: #9A82BA;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(179, 156, 208, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .campaigns-hero h1 {
+            font-size: 2rem;
+        }
+
+        .campaigns-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .campaign-image {
+            height: 160px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <!-- Hero Section -->
+        <section class="campaigns-hero">
+            <h1>Inspiration & Media</h1>
+            <p class="subtitle">Curated playlists, podcasts, and daily doses of hope.</p>
+        </section>
+
+        <!-- Curly Wave Separator -->
+        <div class="curly-separator-lavender"></div>
+
+        <!-- Section Introduction -->
+        <div class="section-intro">
+            <p>Sometimes you need advice, and sometimes you just need a vibe. Our Inspiration & Media section curates
+                the sensory side of mental health. From the music that grounds us to the quotes that lift us up, we
+                collect resources that help regulate your nervous system and provide a quiet moment of reflection in a
+                noisy world.</p>
+        </div>
+
+        <!-- Campaign Cards -->
+        <div class="campaigns-grid">
+            <!-- Echo Message -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Echo Message quotes image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Echo Message</h3>
+                    <p class="campaign-tagline">"Words That Resonate"</p>
+                    <p>A collection of powerful quotes and reminders from diverse voices—from celebrities like The Rock
+                        to historical figures like Eleanor Roosevelt.</p>
+                    <p>These short, impactful graphics serve as daily reminders that you are not alone, you are enough,
+                        and your resilience is valid.</p>
+                </div>
+            </article>
+
+            <!-- The Playlist Project -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Playlist Project image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>The Playlist Project</h3>
+                    <p class="campaign-tagline">"Tune Into Your Mood"</p>
+                    <p>Music is a direct line to our emotions. Our Playlist Project curates student-recommended songs
+                        for every headspace—focus, calm, motivation, and comfort.</p>
+                    <p>It's a collaborative soundtrack for the student experience, proving that we are all listening to
+                        the same rhythm of highs and lows.</p>
+                </div>
+            </article>
+
+            <!-- Echo Podcast -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Echo Podcast image</span>
+                </div>
+                <div class="campaign-content">
+                    <span class="coming-soon-badge">Coming Soon</span>
+                    <h3>Echo Podcast</h3>
+                    <p class="campaign-tagline">"Real Talk, Real Time"</p>
+                    <p>Dive deeper into the conversation with our podcast series. We host discussions on student life,
+                        mental health trends, and interviews with peers and professionals.</p>
+                    <p>It's the audio companion to our mission, offering company and conversation wherever you go.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

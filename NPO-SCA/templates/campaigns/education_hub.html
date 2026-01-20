@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% block title %}Education Hub - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+    /* === EDUCATION HUB PAGE === */
+    /* Color Theme: Sage Green */
+
+    .campaigns-hero {
+        background: rgba(173, 203, 164, 0.18);
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: 0;
+    }
+
+    .campaigns-hero h1 {
+        color: var(--deep-indigo);
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .campaigns-hero h1::after {
+        content: "";
+        display: block;
+        width: 140px;
+        height: 16px;
+        margin: 14px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23ADCBA4' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .campaigns-hero .subtitle {
+        color: var(--deep-indigo);
+        font-size: 1.2rem;
+        opacity: 0.85;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Curly separator */
+    .curly-separator-green {
+        width: 100%;
+        height: 32px;
+        margin: 28px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.18' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%23A8C99E' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23ADCBA4' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Section intro */
+    .section-intro {
+        background: rgba(255, 251, 247, 0.7);
+        padding: 28px 32px;
+        border-radius: 16px;
+        margin-bottom: 32px;
+        border-left: 4px solid #ADCBA4;
+    }
+
+    .section-intro p {
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* Campaign cards grid */
+    .campaigns-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 28px;
+        margin-bottom: 40px;
+    }
+
+    .campaign-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 18px;
+        overflow: hidden;
+        border: 2px solid rgba(42, 61, 102, 0.1);
+        box-shadow: 0 6px 24px rgba(42, 61, 102, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .campaign-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 36px rgba(42, 61, 102, 0.14);
+    }
+
+    /* Image placeholder */
+    .campaign-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, rgba(173, 203, 164, 0.3) 0%, rgba(168, 201, 158, 0.2) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgba(42, 61, 102, 0.08);
+        position: relative;
+    }
+
+    .campaign-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='30' y='25' width='40' height='50' rx='4' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Ccircle cx='50' cy='42' r='8' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Cpath d='M30,75 L42,58 L50,66 L70,45 L70,75 Z' fill='%232A3D66' fill-opacity='0.1'/%3E%3C/svg%3E");
+        background-size: 60px;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.7;
+    }
+
+    .placeholder-text {
+        color: var(--deep-indigo);
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.5;
+        text-align: center;
+        padding: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Card content */
+    .campaign-content {
+        padding: 24px;
+    }
+
+    .campaign-content h3 {
+        color: var(--deep-indigo);
+        font-size: 1.4rem;
+        margin: 0 0 6px 0;
+        font-weight: 800;
+    }
+
+    .campaign-tagline {
+        color: #7A9E6E;
+        font-size: 1rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 0 0 14px 0;
+    }
+
+    .campaign-content p {
+        color: var(--deep-indigo);
+        font-size: 0.98rem;
+        line-height: 1.65;
+        margin: 0 0 18px 0;
+        opacity: 0.88;
+    }
+
+    /* CTA button */
+    .campaign-cta {
+        display: inline-block;
+        background: #ADCBA4;
+        color: var(--deep-indigo);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border: 2px solid rgba(42, 61, 102, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .campaign-cta:hover {
+        background: #9BBB90;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(173, 203, 164, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .campaigns-hero h1 {
+            font-size: 2rem;
+        }
+
+        .campaigns-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .campaign-image {
+            height: 160px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <!-- Hero Section -->
+        <section class="campaigns-hero">
+            <h1>Education Hub</h1>
+            <p class="subtitle">Deep dives into mental health topics, facts, and awareness.</p>
+        </section>
+
+        <!-- Curly Wave Separator -->
+        <div class="curly-separator-green"></div>
+
+        <!-- Section Introduction -->
+        <div class="section-intro">
+            <p>Understanding is the first step toward empathy. Our Education Hub is designed to demystify mental health,
+                break down complex disorders, and provide accessible, researched-backed information. We believe that
+                when students understand why they feel the way they do, and what their peers are experiencing, we create
+                a more inclusive and compassionate school culture.</p>
+        </div>
+
+        <!-- Campaign Cards -->
+        <div class="campaigns-grid">
+            <!-- Echo of the Month -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Echo of the Month campaign image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Echo of the Month</h3>
+                    <p class="campaign-tagline">"Shining a Light on the Unseen"</p>
+                    <p>Each month, E.C.H.O.E. dedicates its platform to a specific mental health topic. From Social
+                        Anxiety Disorder (SAD) in October to Generalized Anxiety Disorder (GAD) in November, we provide
+                        comprehensive resources, symptom breakdowns, and support strategies.</p>
+                    <p>Our goal is to normalize these conversations and provide clear, actionable information for
+                        students and allies alike.</p>
+                </div>
+            </article>
+
+            <!-- Autism Awareness -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Autism Awareness campaign image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Autism Awareness</h3>
+                    <p class="campaign-tagline">"Different, Not Less"</p>
+                    <p>A core part of our mission is fighting social isolation for neurodivergent students. This series
+                        focuses specifically on Autism Spectrum Disorder (ASD), debunking myths and offering guidance on
+                        how to build inclusive friendships.</p>
+                    <p>We explore how sensory processing and social communication differences impact mental health,
+                        fostering a culture where neurodiversity is celebrated.</p>
+                </div>
+            </article>
+
+            <!-- Monthly Trivia & Echo Bites -->
+            <article class="campaign-card">
+                <div class="campaign-image">
+                    <span class="placeholder-text">Add Monthly Trivia campaign image</span>
+                </div>
+                <div class="campaign-content">
+                    <h3>Monthly Trivia & Echo Bites</h3>
+                    <p class="campaign-tagline">"Fast Facts for Busy Minds"</p>
+                    <p>Learning doesn't have to be heavy. Monthly Trivia and Echo Bites offer quick, engaging ways to
+                        test your knowledge and learn new facts.</p>
+                    <p>From True/False quizzes about anxiety prevalence to bite-sized psychology tips, these posts make
+                        mental health literacy fun, interactive, and easy to digest while scrolling.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

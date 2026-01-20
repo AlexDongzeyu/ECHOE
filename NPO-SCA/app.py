@@ -1471,38 +1471,32 @@ Respond with empathy and care (2-4 sentences)."""
     def events_overview():
         return render_template('events_overview.html')
 
-    # Social Media Campaigns
-    @app.route('/campaigns/feel-good-friday')
-    def campaign_feel_good_friday():
-        return render_template('campaigns/feel_good_friday.html')
+    # Social Media Campaigns - 5 Main Sections
+    @app.route('/campaigns/wellness')
+    def campaign_wellness():
+        return render_template('campaigns/wellness.html')
 
+    @app.route('/campaigns/student-voices')
+    def campaign_student_voices():
+        return render_template('campaigns/student_voices.html')
+
+    @app.route('/campaigns/education-hub')
+    def campaign_education_hub():
+        return render_template('campaigns/education_hub.html')
+
+    @app.route('/campaigns/weekly-connections')
+    def campaign_weekly_connections():
+        return render_template('campaigns/weekly_connections.html')
+
+    @app.route('/campaigns/inspiration-media')
+    def campaign_inspiration_media():
+        return render_template('campaigns/inspiration_media.html')
+
+    # Keep Recharge Week as it has interactive battery feature
     @app.route('/campaigns/recharge-week')
     def campaign_recharge_week():
         return render_template('campaigns/recharge_week.html')
 
-    @app.route('/campaigns/holiday-messages')
-    def campaign_holiday_messages():
-        return render_template('campaigns/holiday_messages.html')
-
-    @app.route('/campaigns/echo-of-the-month')
-    def campaign_echo_of_month():
-        return render_template('campaigns/echo_of_the_month.html')
-
-    @app.route('/campaigns/echo-message')
-    def campaign_echo_message():
-        return render_template('campaigns/echo_message.html')
-
-    @app.route('/campaigns/monthly-trivia')
-    def campaign_monthly_trivia():
-        return render_template('campaigns/monthly_trivia.html')
-
-    @app.route('/campaigns/playlist')
-    def campaign_playlist():
-        return render_template('campaigns/playlist.html')
-
-    @app.route('/campaigns/podcast')
-    def campaign_podcast():
-        return render_template('campaigns/podcast.html')
 
     @app.route('/research-study')
     def research_study():

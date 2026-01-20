@@ -2,12 +2,11 @@
 {% block title %}Wellness Campaigns - E.C.H.O.E{% endblock %}
 {% block styles %}
 <style>
-    /* === WELLNESS CAMPAIGNS PAGE === */
-    /* Color Theme: Teal-Blue */
+    /* === WELLNESS CAMPAIGNS - CLEAN LAYOUT === */
 
     .campaigns-hero {
         background: rgba(159, 197, 203, 0.18);
-        padding: 40px 20px;
+        padding: 48px 20px 40px;
         text-align: center;
         border-radius: 20px 20px 0 0;
         margin-bottom: 0;
@@ -35,159 +34,131 @@
 
     .campaigns-hero .subtitle {
         color: var(--deep-indigo);
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         opacity: 0.85;
         max-width: 700px;
         margin: 0 auto;
         line-height: 1.6;
     }
 
-    /* Curly separator */
-    .curly-separator-teal {
-        width: 100%;
-        height: 32px;
-        margin: 28px 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.18' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%237AAEB6' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
-
     /* Section intro */
     .section-intro {
-        background: rgba(255, 251, 247, 0.7);
-        padding: 28px 32px;
-        border-radius: 16px;
-        margin-bottom: 32px;
-        border-left: 4px solid #9FC5CB;
+        max-width: 900px;
+        margin: 32px auto 40px;
+        padding: 0 20px;
+        text-align: center;
     }
 
     .section-intro p {
         color: var(--deep-indigo);
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         line-height: 1.75;
         margin: 0;
     }
 
-    /* Campaign cards grid */
-    .campaigns-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 28px;
-        margin-bottom: 40px;
-    }
-
-    .campaign-card {
-        background: rgba(255, 255, 255, 0.85);
-        border-radius: 18px;
-        overflow: hidden;
-        border: 2px solid rgba(42, 61, 102, 0.1);
-        box-shadow: 0 6px 24px rgba(42, 61, 102, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .campaign-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 36px rgba(42, 61, 102, 0.14);
-    }
-
-    /* Image placeholder */
-    .campaign-image {
+    /* Curly separator between campaigns */
+    .curly-separator {
         width: 100%;
-        height: 200px;
-        background: linear-gradient(135deg, rgba(159, 197, 203, 0.3) 0%, rgba(122, 174, 182, 0.2) 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 2px solid rgba(42, 61, 102, 0.08);
-        position: relative;
-    }
-
-    .campaign-image::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='30' y='25' width='40' height='50' rx='4' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Ccircle cx='50' cy='42' r='8' fill='none' stroke='%232A3D66' stroke-width='2' stroke-opacity='0.2'/%3E%3Cpath d='M30,75 L42,58 L50,66 L70,45 L70,75 Z' fill='%232A3D66' fill-opacity='0.1'/%3E%3C/svg%3E");
-        background-size: 60px;
+        height: 32px;
+        margin: 48px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%237AAEB6' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
         background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.7;
     }
 
-    .placeholder-text {
+    /* Campaign section - two column layout */
+    .campaign-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+        padding: 0 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .campaign-section.reverse {
+        direction: rtl;
+    }
+
+    .campaign-section.reverse>* {
+        direction: ltr;
+    }
+
+    /* Image gallery side */
+    .campaign-images {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .campaign-images img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);
+    }
+
+    .image-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .image-grid img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    /* Text content side */
+    .campaign-text {
+        padding-top: 10px;
+    }
+
+    .campaign-text h2 {
         color: var(--deep-indigo);
-        font-size: 0.9rem;
-        font-weight: 600;
-        opacity: 0.5;
-        text-align: center;
-        padding: 12px;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Card content */
-    .campaign-content {
-        padding: 24px;
-    }
-
-    .campaign-content h3 {
-        color: var(--deep-indigo);
-        font-size: 1.4rem;
-        margin: 0 0 6px 0;
+        font-size: 1.9rem;
         font-weight: 800;
+        margin: 0 0 8px 0;
     }
 
     .campaign-tagline {
         color: #7AAEB6;
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 600;
         font-style: italic;
-        margin: 0 0 14px 0;
-    }
-
-    .campaign-content p {
-        color: var(--deep-indigo);
-        font-size: 0.98rem;
-        line-height: 1.65;
         margin: 0 0 18px 0;
-        opacity: 0.88;
     }
 
-    /* Week breakdown */
-    .week-breakdown {
-        background: rgba(159, 197, 203, 0.15);
-        border-radius: 12px;
-        padding: 16px;
+    .campaign-text p {
+        color: var(--deep-indigo);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0 0 16px 0;
+        opacity: 0.9;
+    }
+
+    .campaign-text ul {
+        list-style: none;
+        padding: 0;
         margin: 16px 0;
     }
 
-    .week-breakdown h4 {
+    .campaign-text li {
         color: var(--deep-indigo);
         font-size: 0.95rem;
-        font-weight: 700;
-        margin: 0 0 10px 0;
-    }
-
-    .week-breakdown ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .week-breakdown li {
-        color: var(--deep-indigo);
-        font-size: 0.9rem;
-        padding: 6px 0;
+        padding: 8px 0;
         border-bottom: 1px solid rgba(42, 61, 102, 0.08);
         display: flex;
-        align-items: flex-start;
-        gap: 8px;
+        gap: 10px;
     }
 
-    .week-breakdown li:last-child {
+    .campaign-text li:last-child {
         border-bottom: none;
     }
 
-    .week-breakdown li strong {
+    .campaign-text li strong {
         color: #7AAEB6;
         min-width: 70px;
     }
@@ -197,13 +168,14 @@
         display: inline-block;
         background: #9FC5CB;
         color: var(--deep-indigo);
-        padding: 10px 20px;
+        padding: 12px 24px;
         border-radius: 25px;
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         text-decoration: none;
-        border: 2px solid rgba(42, 61, 102, 0.15);
+        border: 2px solid rgba(42, 61, 102, 0.12);
         transition: all 0.2s ease;
+        margin-top: 8px;
     }
 
     .campaign-cta:hover {
@@ -218,12 +190,17 @@
             font-size: 2rem;
         }
 
-        .campaigns-grid {
+        .campaign-section {
             grid-template-columns: 1fr;
+            gap: 24px;
         }
 
-        .campaign-image {
-            height: 160px;
+        .campaign-section.reverse {
+            direction: ltr;
+        }
+
+        .campaign-text {
+            padding-top: 0;
         }
     }
 </style>
@@ -238,9 +215,6 @@
             <p class="subtitle">Interactive series to build resilience, flexibility, and strength.</p>
         </section>
 
-        <!-- Curly Wave Separator -->
-        <div class="curly-separator-teal"></div>
-
         <!-- Section Introduction -->
         <div class="section-intro">
             <p>Mental health isn't just a destination—it's a daily practice. In our Wellness Campaigns, we move beyond
@@ -249,68 +223,71 @@
                 like a muscle: with the right care and consistency, it gets stronger.</p>
         </div>
 
-        <!-- Campaign Cards -->
-        <div class="campaigns-grid">
-            <!-- Mind Gym -->
-            <article class="campaign-card">
-                <div class="campaign-image">
-                    <span class="placeholder-text">Add Mind Gym campaign image</span>
-                </div>
-                <div class="campaign-content">
-                    <h3>Mind Gym</h3>
-                    <p class="campaign-tagline">"21 Days to Build Your Mental Muscles"</p>
-                    <p>Just like physical fitness, mental resilience requires training. Our Mind Gym campaign is a
-                        structured 3-week program designed to strengthen your psychological protective factors.</p>
+        <!-- Mind Gym -->
+        <section class="campaign-section">
+            <div class="campaign-images">
+                <img src="{{ url_for('static', filename='img/ins/ins mind hym.png') }}"
+                    alt="Mind Gym campaign - 21 day program overview">
+                <img src="{{ url_for('static', filename='img/ins/mind gym sample.jpg') }}" alt="Mind Gym sample post">
+            </div>
+            <div class="campaign-text">
+                <h2>Mind Gym</h2>
+                <p class="campaign-tagline">"21 Days to Build Your Mental Muscles"</p>
+                <p>Just like physical fitness, mental resilience requires training. Our Mind Gym campaign is a
+                    structured 3-week program designed to strengthen your psychological protective factors.</p>
+                <ul>
+                    <li><strong>Week 1:</strong> Strength — Building coping skills, emotional regulation, and boundaries
+                    </li>
+                    <li><strong>Week 2:</strong> Flexibility — Cultivating adaptability and a growth mindset</li>
+                    <li><strong>Week 3:</strong> Endurance — Establishing consistency, gratitude, and purposeful
+                        routines</li>
+                </ul>
+                <p><strong>The Routine:</strong> Daily "reps"—small, actionable steps to build a healthier mind.</p>
+            </div>
+        </section>
 
-                    <div class="week-breakdown">
-                        <h4>The Program:</h4>
-                        <ul>
-                            <li><strong>Week 1:</strong> Strength — Building coping skills, emotional regulation, and
-                                boundaries</li>
-                            <li><strong>Week 2:</strong> Flexibility — Cultivating adaptability and a growth mindset
-                            </li>
-                            <li><strong>Week 3:</strong> Endurance — Establishing consistency, gratitude, and purposeful
-                                routines</li>
-                        </ul>
-                    </div>
-                    <p><strong>The Routine:</strong> Daily "reps"—small, actionable steps to build a healthier mind.</p>
-                </div>
-            </article>
+        <div class="curly-separator"></div>
 
-            <!-- Recharge Week -->
-            <article class="campaign-card">
-                <div class="campaign-image">
-                    <span class="placeholder-text">Add Recharge Week campaign image</span>
-                </div>
-                <div class="campaign-content">
-                    <h3>Recharge Week</h3>
-                    <p class="campaign-tagline">"7 Days to Reset Your Mental Battery"</p>
-                    <p>We all know the feeling of running on 1%. Recharge Week uses the metaphor of a phone battery to
-                        help students manage their energy levels and prevent burnout.</p>
-                    <p>Over seven days, we guide you through daily "charging habits"—from "Sleep Mode" and "Airplane
-                        Mode" (disconnecting) to "Fast Charge" (movement) and "Battery Share" (connection). It's a
-                        simple, visual guide to recognizing when you are drained and knowing exactly how to plug back
-                        in.</p>
-                    <a href="{{ url_for('campaign_recharge_week') }}" class="campaign-cta">Explore Recharge Week</a>
-                </div>
-            </article>
+        <!-- Recharge Week -->
+        <section class="campaign-section reverse">
+            <div class="campaign-images">
+                <img src="{{ url_for('static', filename='img/ins/recharge week overall.png') }}"
+                    alt="Recharge Week overview">
+                <img src="{{ url_for('static', filename='img/ins/Recharge week sample.jpg') }}"
+                    alt="Recharge Week sample post">
+            </div>
+            <div class="campaign-text">
+                <h2>Recharge Week</h2>
+                <p class="campaign-tagline">"7 Days to Reset Your Mental Battery"</p>
+                <p>We all know the feeling of running on 1%. Recharge Week uses the metaphor of a phone battery to help
+                    students manage their energy levels and prevent burnout.</p>
+                <p>Over seven days, we guide you through daily "charging habits"—from "Sleep Mode" and "Airplane Mode"
+                    (disconnecting) to "Fast Charge" (movement) and "Battery Share" (connection). It's a simple, visual
+                    guide to recognizing when you are drained and knowing exactly how to plug back in.</p>
+                <a href="{{ url_for('campaign_recharge_week') }}" class="campaign-cta">Explore Recharge Week</a>
+            </div>
+        </section>
 
-            <!-- 6 Days, 6 Therapies -->
-            <article class="campaign-card">
-                <div class="campaign-image">
-                    <span class="placeholder-text">Add 6 Days 6 Therapies campaign image</span>
-                </div>
-                <div class="campaign-content">
-                    <h3>6 Days, 6 Therapies</h3>
-                    <p class="campaign-tagline">"Science Meets Healing"</p>
-                    <p>Therapy isn't "one-size-fits-all," and it isn't just talking on a couch. This educational series
-                        explores six evidence-based therapeutic approaches used by clinicians worldwide.</p>
-                    <p>From the cognitive rewiring of CBT to the nervous system regulation of Music Therapy and the
-                        emotional expression of Art Therapy, we break down how different methods heal the brain and
-                        body.</p>
-                </div>
-            </article>
-        </div>
+        <div class="curly-separator"></div>
+
+        <!-- 6 Days, 6 Therapies -->
+        <section class="campaign-section">
+            <div class="campaign-images">
+                <img src="{{ url_for('static', filename='img/ins/6 days therapy.png') }}"
+                    alt="6 Days 6 Therapies overview">
+                <img src="{{ url_for('static', filename='img/ins/6 days therapy sample.jpg') }}"
+                    alt="6 Days 6 Therapies sample post">
+            </div>
+            <div class="campaign-text">
+                <h2>6 Days, 6 Therapies</h2>
+                <p class="campaign-tagline">"Science Meets Healing"</p>
+                <p>Therapy isn't "one-size-fits-all," and it isn't just talking on a couch. This educational series
+                    explores six evidence-based therapeutic approaches used by clinicians worldwide.</p>
+                <p>From the cognitive rewiring of CBT to the nervous system regulation of Music Therapy and the
+                    emotional expression of Art Therapy, we break down how different methods heal the brain and body.
+                </p>
+            </div>
+        </section>
     </div>
 </div>
 {% endblock %}

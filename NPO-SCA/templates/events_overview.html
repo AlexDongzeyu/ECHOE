@@ -2,576 +2,377 @@
 {% block title %}Events - E.C.H.O.E{% endblock %}
 {% block styles %}
 <style>
-  /* === EVENTS PAGE - REFINED DESIGN === */
-  /* Matching homepage style with organic curves and minimal frames */
+  /* === EVENTS PAGE - CLEAN TWO-COLUMN LAYOUT === */
+  /* Matching Social Media Campaigns style */
 
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide-in-gentle {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes float-gentle {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-6px);
-    }
-  }
-
-  /* === DECORATIVE CURLY WAVE SEPARATORS === */
-  .curly-separator {
-    width: 100%;
-    height: 32px;
-    margin: 28px 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.18' stroke-linecap='round'/%3E%3Ccircle cx='480' cy='16' r='4' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3Ccircle cx='720' cy='16' r='4' fill='%23F4B8A8' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  .curly-separator-accent {
-    width: 100%;
-    height: 28px;
-    margin: 24px 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 28' preserveAspectRatio='none'%3E%3Cpath d='M0,14 C100,22 200,6 300,14 C400,22 500,6 600,14 C700,22 800,6 900,14 C1000,22 1100,6 1200,14' stroke='%23F4B8A8' stroke-width='2.5' fill='none' stroke-opacity='0.6' stroke-linecap='round'/%3E%3Cpath d='M0,14 C100,6 200,22 300,14 C400,6 500,22 600,14 C700,6 800,22 900,14 C1000,6 1100,22 1200,14' stroke='%232A3D66' stroke-width='1.5' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  .curly-separator-dots {
-    width: 100%;
-    height: 36px;
-    margin: 32px 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0,18 C150,26 350,10 600,18 C850,26 1050,10 1200,18' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.2' stroke-linecap='round'/%3E%3Ccircle cx='600' cy='18' r='5' fill='%23F8D29C' stroke='%232A3D66' stroke-width='1.5'/%3E%3Ccircle cx='560' cy='18' r='3' fill='%23F4B8A8' stroke='%232A3D66' stroke-width='1'/%3E%3Ccircle cx='640' cy='18' r='3' fill='%23E8BC6E' stroke='%232A3D66' stroke-width='1'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  /* Hero - clean, no heavy frame */
   .events-hero {
-    background: transparent;
-    padding: 40px 20px;
+    background: rgba(179, 156, 208, 0.18);
+    padding: 48px 20px 40px;
     text-align: center;
-    margin-bottom: 32px;
-    border: none;
-    box-shadow: none;
-    animation: fade-up 0.6s ease-out both;
+    border-radius: 20px 20px 0 0;
+    margin-bottom: 0;
   }
 
   .events-hero h1 {
-    font-size: 2.6rem;
-    margin-bottom: 16px;
     color: var(--deep-indigo);
-    animation: slide-in-gentle 0.7s ease-out 0.1s both;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0 0 12px 0;
     position: relative;
     display: inline-block;
   }
 
-  /* Curly wave underline for title instead of straight bar */
   .events-hero h1::after {
     content: "";
     display: block;
-    width: 120px;
+    width: 140px;
     height: 16px;
     margin: 14px auto 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C20,14 40,2 60,8 C80,14 100,2 120,8' stroke='%23F8D29C' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23B39CD0' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }
 
-  .events-hero p {
-    font-size: 1.15rem;
+  .events-hero .subtitle {
     color: var(--deep-indigo);
-    opacity: 0.88;
-    max-width: 650px;
+    font-size: 1.15rem;
+    opacity: 0.85;
+    max-width: 700px;
     margin: 0 auto;
-    animation: fade-up 0.6s ease-out 0.3s both;
     line-height: 1.6;
   }
 
-  .events-hero i {
-    animation: float-gentle 3s ease-in-out infinite;
+  /* Section intro */
+  .section-intro {
+    max-width: 900px;
+    margin: 32px auto 40px;
+    padding: 0 20px;
+    text-align: center;
   }
 
-  /* Featured event - simplified, breathing layout */
-  .featured-event {
-    background: rgba(255, 251, 247, 0.65);
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 4px 20px rgba(42, 61, 102, 0.08);
-    padding: 28px;
-    margin-bottom: 24px;
-    animation: fade-up 0.6s ease-out 0.2s both;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .featured-event:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(42, 61, 102, 0.12);
-  }
-
-  .media-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    align-items: start;
-  }
-
-  .featured-title {
-    margin: 0 0 8px 0;
-    font-size: 1.9rem;
+  .section-intro p {
     color: var(--deep-indigo);
-    font-weight: 800;
-    animation: slide-in-gentle 0.6s ease-out 0.3s both;
-    position: relative;
-    display: inline-block;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin: 0;
   }
 
-  /* Subtle curly accent under featured title */
-  .featured-title::after {
-    content: "";
-    display: block;
-    width: 80px;
-    height: 12px;
-    margin: 8px 0 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12' preserveAspectRatio='none'%3E%3Cpath d='M0,6 C13,10 27,2 40,6 C53,10 67,2 80,6' stroke='%23F4B8A8' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  /* Curly separator */
+  .curly-separator {
+    width: 100%;
+    height: 32px;
+    margin: 48px 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%23F4B8A8' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E");
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }
 
-  .featured-meta {
-    color: var(--brand-blue-dark, #7AAEB6);
-    font-weight: 700;
-    margin-bottom: 16px;
-    animation: fade-up 0.5s ease-out 0.4s both;
+  /* Event section - two column layout */
+  .event-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    padding: 0 20px;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
-  /* Gallery - softer styling */
-  .gallery {
+  .event-section.reverse {
+    direction: rtl;
+  }
+
+  .event-section.reverse>* {
+    direction: ltr;
+  }
+
+  /* Image side */
+  .event-images {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .event-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);
+  }
+
+  /* Two-image grid */
+  .image-grid-2 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
 
-  .gallery img {
-    display: block;
+  .image-grid-2 img {
     width: 100%;
-    height: 240px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    animation: fade-up 0.5s ease-out both;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(42, 61, 102, 0.1);
   }
 
-  .gallery img:nth-child(1) {
-    animation-delay: 0.1s;
+  /* Text content side */
+  .event-text {
+    padding-top: 10px;
   }
 
-  .gallery img:nth-child(2) {
-    animation-delay: 0.15s;
+  .event-text h2 {
+    color: var(--deep-indigo);
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
   }
 
-  .gallery img:nth-child(3) {
-    animation-delay: 0.2s;
+  .event-meta {
+    color: #9078A8;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 18px 0;
   }
 
-  .gallery img:nth-child(4) {
-    animation-delay: 0.25s;
+  .event-text p {
+    color: var(--deep-indigo);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
+    opacity: 0.9;
   }
 
-  .gallery img:nth-child(5) {
-    animation-delay: 0.3s;
+  /* Event highlights list */
+  .event-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
   }
 
-  .gallery img:nth-child(6) {
-    animation-delay: 0.35s;
+  .event-highlights li {
+    color: var(--deep-indigo);
+    font-size: 0.95rem;
+    padding: 10px 0 10px 16px;
+    border-left: 3px solid rgba(179, 156, 208, 0.6);
+    margin-bottom: 10px;
+    background: rgba(179, 156, 208, 0.06);
+    border-radius: 0 8px 8px 0;
   }
 
-  .gallery img:nth-child(7) {
-    animation-delay: 0.4s;
+  .event-highlights li strong {
+    color: #9078A8;
   }
 
-  .gallery img:nth-child(8) {
-    animation-delay: 0.45s;
+  /* Video section */
+  .video-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
-  .gallery img:nth-child(9) {
-    animation-delay: 0.5s;
-  }
-
-  .gallery img:hover {
-    transform: scale(1.03) translateY(-4px);
-    box-shadow: 0 12px 32px rgba(42, 61, 102, 0.15);
-  }
-
-  /* Video - minimal frame */
-  .video-row {
-    margin-top: 24px;
-    display: flex;
-    justify-content: center;
+  .video-section h3 {
+    color: var(--deep-indigo);
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 20px 0;
   }
 
   .video-frame {
     background: var(--deep-indigo);
     border-radius: 14px;
     overflow: hidden;
-    border: none;
-    box-shadow: 0 6px 24px rgba(42, 61, 102, 0.15);
-    width: 100%;
-    max-width: 1000px;
-    animation: fade-up 0.6s ease-out 0.6s both;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .video-frame:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(42, 61, 102, 0.2);
+    box-shadow: 0 8px 28px rgba(42, 61, 102, 0.15);
   }
 
   .video-frame video {
     width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-  }
-
-  .no-save {
-    -webkit-user-drag: none;
-    user-select: none;
-  }
-
-  /* Event description - transparent, breathing */
-  .event-desc {
-    background: rgba(248, 210, 156, 0.15);
-    border-radius: 14px;
-    padding: 22px;
-    border: none;
-    box-shadow: none;
-    animation: fade-up 0.5s ease-out 0.3s both;
-  }
-
-  .event-desc h3 {
-    margin: 0 0 14px 0;
-    color: var(--deep-indigo);
-    position: relative;
-    display: inline-block;
-  }
-
-  /* Curly accent for section headers */
-  .event-desc h3::after {
-    content: "";
     display: block;
-    width: 60px;
-    height: 10px;
-    margin: 6px 0 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C10,8 20,2 30,5 C40,8 50,2 60,5' stroke='%23F4B8A8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
   }
 
-  /* Event cardlets - softer, no heavy shadows */
-  .event-cardlet {
-    border-radius: 10px;
-    padding: 16px;
-    border: none;
-    box-shadow: 0 2px 10px rgba(42, 61, 102, 0.06);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    animation: fade-up 0.4s ease-out both;
+  /* Link button */
+  .event-link {
+    display: inline-block;
+    background: #B39CD0;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 2px solid rgba(42, 61, 102, 0.12);
+    transition: all 0.2s ease;
+    margin-top: 8px;
   }
 
-  .event-cardlet:nth-child(1) {
-    background: rgba(159, 197, 203, 0.18);
-    animation-delay: 0.1s;
-  }
-
-  .event-cardlet:nth-child(2) {
-    background: rgba(248, 210, 156, 0.18);
-    animation-delay: 0.15s;
-  }
-
-  .event-cardlet:nth-child(3) {
-    background: rgba(244, 184, 168, 0.18);
-    animation-delay: 0.2s;
-  }
-
-  .event-cardlet:nth-child(4) {
-    background: rgba(179, 156, 208, 0.15);
-    animation-delay: 0.25s;
-  }
-
-  .event-cardlet:hover {
+  .event-link:hover {
+    background: #9A82BA;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(42, 61, 102, 0.1);
+    box-shadow: 0 4px 12px rgba(179, 156, 208, 0.3);
   }
 
-  /* Linktree CTA - simplified */
+  /* Linktree CTA */
   .linktree-cta {
-    background: rgba(255, 251, 247, 0.6);
-    border-radius: 14px;
-    border: none;
-    box-shadow: 0 4px 16px rgba(42, 61, 102, 0.08);
-    padding: 28px;
-    margin-top: 0;
+    max-width: 700px;
+    margin: 0 auto;
     text-align: center;
-    animation: fade-up 0.6s ease-out 0.7s both;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .linktree-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(42, 61, 102, 0.12);
+    padding: 32px;
+    background: rgba(255, 251, 247, 0.6);
+    border-radius: 16px;
   }
 
   .linktree-cta p {
-    margin: 0 0 18px 0;
     color: var(--deep-indigo);
-    font-weight: 600;
     font-size: 1.05rem;
+    margin: 0 0 16px 0;
   }
 
   .linktree-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--soft-yellow);
+    display: inline-block;
+    background: #F4B8A8;
     color: var(--deep-indigo);
-    padding: 14px 28px;
-    border-radius: 50px;
-    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 25px;
     font-weight: 700;
-    font-size: 1rem;
-    border: 2px solid var(--deep-indigo);
-    box-shadow: 0 4px 12px rgba(42, 61, 102, 0.15);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
   }
 
   .linktree-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(248, 210, 156, 0.4);
-    color: var(--deep-indigo);
-  }
-
-  .linktree-btn i {
-    font-size: 1.15rem;
-    transition: transform 0.3s ease;
-  }
-
-  .linktree-btn:hover i {
-    transform: rotate(12deg);
-  }
-
-  /* Event placeholder - clean, no dashed border */
-  .event-placeholder {
-    background: rgba(179, 156, 208, 0.12);
-    padding: 40px;
-    border-radius: 16px;
-    text-align: center;
-    border: none;
-    box-shadow: 0 4px 16px rgba(42, 61, 102, 0.06);
-    margin-top: 0;
-    animation: fade-up 0.6s ease-out 0.8s both;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .event-placeholder:hover {
+    background: #E8A090;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(42, 61, 102, 0.1);
   }
 
-  .event-placeholder i {
-    font-size: 3rem;
-    color: var(--brand-blue);
-    margin-bottom: 18px;
-    animation: float-gentle 4s ease-in-out infinite;
-  }
-
-  .event-placeholder h3 {
-    color: var(--deep-indigo);
-    margin-bottom: 12px;
-    font-size: 1.5rem;
-    position: relative;
-    display: inline-block;
-  }
-
-  .event-placeholder h3::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 10px;
-    margin: 8px auto 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C12,8 23,2 35,5 C47,8 58,2 70,5' stroke='%23F4B8A8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  .event-placeholder p {
-    color: var(--deep-indigo);
-    opacity: 0.85;
-    line-height: 1.7;
-    max-width: 600px;
+  /* Future events placeholder */
+  .future-events {
+    max-width: 700px;
     margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+    background: rgba(159, 197, 203, 0.12);
+    border-radius: 16px;
+  }
+
+  .future-events h3 {
+    color: var(--deep-indigo);
+    font-size: 1.4rem;
+    margin: 0 0 12px 0;
+  }
+
+  .future-events p {
+    color: var(--deep-indigo);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0.85;
   }
 
   /* Responsive */
-  @media (max-width: 1200px) {
-    .gallery {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .gallery img {
-      height: 200px;
-    }
-  }
-
-  @media (max-width: 620px) {
-    .gallery {
-      grid-template-columns: 1fr;
-    }
-
-    .gallery img {
-      height: 220px;
-    }
-  }
-
   @media (max-width: 768px) {
     .events-hero h1 {
       font-size: 2rem;
     }
 
-    .events-hero {
-      padding: 30px 16px;
+    .event-section {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
 
-    .featured-title {
-      font-size: 1.6rem;
+    .event-section.reverse {
+      direction: ltr;
+    }
+
+    .event-text {
+      padding-top: 0;
+    }
+
+    .image-grid-2 {
+      grid-template-columns: 1fr;
     }
   }
 </style>
 {% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="page-container">
-    <div class="events-hero">
-      <h1><i class="fas fa-calendar-alt"></i> E.C.H.O.E Events</h1>
-      <p class="section-subtitle">Join us for in-person gatherings where every voice is heard, and connection
-        flourishes.</p>
+    <!-- Hero Section -->
+    <section class="events-hero">
+      <h1>E.C.H.O.E Events</h1>
+      <p class="subtitle">Join us for in-person gatherings where every voice is heard and connection flourishes.</p>
+    </section>
+
+    <!-- Section Introduction -->
+    <div class="section-intro">
+      <p>We host regular community events designed to foster belonging, connection, and support. From workshops to
+        social gatherings, each event is a safe space where teens can meet, share, and grow together. Follow us on
+        social media to get notified when registration opens for our next event!</p>
     </div>
 
-    <!-- Curly wave separator -->
-    <div class="curly-separator"></div>
-
-    <!-- Featured Event -->
-    <section class="featured-event">
-      <div>
-        <h2 class="featured-title">ECHOE of the Gifted Hearts</h2>
-        <div class="featured-meta">November 8, 2025 · Hosted by E.C.H.O.E</div>
-      </div>
-
-      <!-- Description -->
-      <div class="event-desc" style="margin-bottom:18px;">
-        <h3>Event Highlights</h3>
-        <p style="margin:0 0 12px 0; color:var(--deep-indigo); line-height:1.7;">
-          Our ECHOE of the Gifted Hearts event was a vibrant success, bringing teens together to fulfill our mission:
-          breaking social isolation and fostering a supportive community. As E.C.H.O.E—Empathy, Connection, Hope,
-          Outreach, and Empowerment—we were proud to create a safe space for connection and understanding.
-        </p>
-        <div style="display:grid; gap:12px; margin:14px 0;">
-          <div class="event-cardlet">
-            <strong style="color:var(--deep-indigo);">Guest Presentation:</strong>
-            <div style="color:var(--deep-indigo); margin-top:4px;">We hosted Dianna Jiang from Gifted People Services
-              (GPS), who shared valuable insights on autism awareness and inclusion.</div>
-          </div>
-          <div class="event-cardlet">
-            <strong style="color:var(--deep-indigo);">Interactive Connections:</strong>
-            <div style="color:var(--deep-indigo); margin-top:4px;">Attendees connected through our lively "Social Circle
-              Bingo" and the fast-paced "Social Circle Challenge," which sparked new conversations.</div>
-          </div>
-          <div class="event-cardlet">
-            <strong style="color:var(--deep-indigo);">Fundraising:</strong>
-            <div style="color:var(--deep-indigo); margin-top:4px;">Our Bake Sale Café, Raffle Booth, and Art Wall
-              Fundraiser were highlights of the event, with all donations supporting our charity partner, GPS.</div>
-          </div>
-          <div class="event-cardlet">
-            <strong style="color:var(--deep-indigo);">Community Closing:</strong>
-            <div style="color:var(--deep-indigo); margin-top:4px;">We concluded with a celebratory group photo and
-              invited everyone to make a personal promise on our Connection Pledge Wall.</div>
-          </div>
+    <!-- ECHOE of the Gifted Hearts Event -->
+    <section class="event-section">
+      <div class="event-images">
+        <img src="{{ url_for('static', filename='img/gifted hearts 1.jpg') }}" alt="ECHOE of the Gifted Hearts event">
+        <div class="image-grid-2">
+          <img src="{{ url_for('static', filename='img/gifted hearts 2.jpg') }}" alt="Event activities">
+          <img src="{{ url_for('static', filename='img/gifted hearts 3.jpg') }}" alt="Community gathering">
         </div>
-        <div style="font-size:.95rem; color:var(--brand-blue-dark, #7AAEB6); font-weight:600;">Thank you to everyone who
-          made this happen—your presence matters.</div>
-        <p style="margin-top:12px; color:var(--deep-indigo);">
-          See our event highlight on Instagram:
-          <a href="https://www.instagram.com/reel/DQ2i5eqgX-S/?utm_source=ig_web_copy_link&amp;igsh=aWozbDdubmpvdGRj"
-            target="_blank" rel="noopener">instagram.com/reel/DQ2i5eqgX-S</a>
-        </p>
       </div>
+      <div class="event-text">
+        <h2>ECHOE of the Gifted Hearts</h2>
+        <p class="event-meta">November 8, 2025 - Hosted by E.C.H.O.E</p>
+        <p>Our ECHOE of the Gifted Hearts event was a vibrant success, bringing teens together to fulfill our mission:
+          breaking social isolation and fostering a supportive community.</p>
 
-      <!-- Curly separator before media -->
-      <div class="curly-separator-accent"></div>
+        <ul class="event-highlights">
+          <li><strong>Guest Presentation:</strong> Dianna Jiang from Gifted People Services (GPS) shared valuable
+            insights on autism awareness and inclusion.</li>
+          <li><strong>Interactive Connections:</strong> "Social Circle Bingo" and the fast-paced "Social Circle
+            Challenge" sparked new conversations.</li>
+          <li><strong>Fundraising:</strong> Bake Sale Café, Raffle Booth, and Art Wall Fundraiser—all donations
+            supported GPS.</li>
+          <li><strong>Community Closing:</strong> Celebratory group photo and Connection Pledge Wall.</li>
+        </ul>
 
-      <!-- Media: Gallery then Video -->
-      <div class="media-grid">
-        <div>
-          <div class="gallery">
-            <img src="{{ url_for('static', filename='img/EOGH 1.jpg') }}" alt="EOGH 1" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 2.jpg') }}?v=2" alt="EOGH 2" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 3.jpg') }}" alt="EOGH 3" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 4.jpg') }}" alt="EOGH 4" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 5.jpg') }}" alt="EOGH 5" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 6.jpg') }}" alt="EOGH 6" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 7.jpg') }}" alt="EOGH 7" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 8.png') }}" alt="EOGH 8" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-            <img src="{{ url_for('static', filename='img/EOGH 9.jpg') }}" alt="EOGH 9" class="no-save"
-              oncontextmenu="return false" draggable="false" loading="lazy">
-          </div>
+        <p>Thank you to everyone who made this happen—your presence matters.</p>
 
-          <!-- Video -->
-          <div class="video-row">
-            <div class="video-frame">
-              <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}?v=5" playsinline controls
-                preload="auto" controlsList="nodownload" class="no-save">
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-        </div>
+        <a href="https://www.instagram.com/reel/DQ2i5eqgX-S/" target="_blank" rel="noopener" class="event-link">
+          <i class="fab fa-instagram"></i> View on Instagram
+        </a>
       </div>
     </section>
 
-    <!-- Curly wave separator with dots -->
-    <div class="curly-separator-dots"></div>
+    <div class="curly-separator"></div>
+
+    <!-- More Photos -->
+    <section class="event-section reverse">
+      <div class="event-images">
+        <img src="{{ url_for('static', filename='img/gifted heart 4.jpg') }}"
+          alt="Group photo from Gifted Hearts event">
+      </div>
+      <div class="event-text">
+        <h2>A Night of Connection</h2>
+        <p>As E.C.H.O.E—Empathy, Connection, Hope, Outreach, and Empowerment—we were proud to create a safe space where
+          every teen felt seen and valued.</p>
+        <p>We invited everyone to make a personal promise on our Connection Pledge Wall, symbolizing our commitment to
+          building a more inclusive community.</p>
+      </div>
+    </section>
+
+    <div class="curly-separator"></div>
+
+    <!-- Video Section -->
+    <section class="video-section">
+      <h3>Event Highlights Video</h3>
+      <div class="video-frame">
+        <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}" playsinline controls preload="auto"
+          controlsList="nodownload">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
+
+    <div class="curly-separator"></div>
 
     <!-- Linktree CTA -->
     <div class="linktree-cta">
@@ -581,16 +382,13 @@
       </a>
     </div>
 
-    <!-- Curly separator -->
     <div class="curly-separator"></div>
 
-    <div class="event-placeholder">
-      <i class="fas fa-users"></i>
-      <h3>In-Person Events</h3>
-      <p>We host regular community events designed to foster belonging, connection, and support. From workshops to
-        social gatherings, each event is a safe space where teens can meet, share, and grow together.</p>
-      <p style="margin-top:14px;font-weight:600;">Follow us on social media to get notified when registration opens for
-        our next event!</p>
+    <!-- Future Events -->
+    <div class="future-events">
+      <h3>More Events Coming Soon</h3>
+      <p>We're planning more community events to bring teens together. Follow us on social media to be the first to know
+        when registration opens!</p>
     </div>
   </div>
 </div>

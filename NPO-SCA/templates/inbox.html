@@ -4,15 +4,77 @@
 
 {% block styles %}
 <style>
-    .inbox-wrap{max-width:1000px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(42,61,102,.08);padding:24px}
-    .inbox-empty{padding:40px;text-align:center;opacity:.8}
-    .inbox-list{display:flex;flex-direction:column;gap:14px}
-    .inbox-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid rgba(159,197,203,.35);border-radius:12px;background:var(--warm-white);transition:transform .2s ease, box-shadow .2s ease;text-decoration:none;color:inherit;cursor:pointer}
-    .inbox-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(42,61,102,.08);text-decoration:none}
-    .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
-    .badge-unread{background:#e74c3c;color:#fff}
-    .meta{font-size:.9rem;opacity:.8}
-    .avatar{width:36px;height:36px;border-radius:50%;background:var(--gentle-lavender);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;margin-right:10px}
+  .inbox-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(42, 61, 102, .08);
+    padding: 24px
+  }
+
+  .inbox-empty {
+    padding: 40px;
+    text-align: center;
+    opacity: .8
+  }
+
+  .inbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px
+  }
+
+  .inbox-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid rgba(159, 197, 203, .35);
+    border-radius: 12px;
+    background: var(--warm-white);
+    transition: transform .2s ease, box-shadow .2s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer
+  }
+
+  .inbox-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(42, 61, 102, .08);
+    text-decoration: none
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 700
+  }
+
+  .badge-unread {
+    background: #e74c3c;
+    color: #fff
+  }
+
+  .meta {
+    font-size: .9rem;
+    opacity: .8
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gentle-lavender);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    margin-right: 10px
+  }
 </style>
 {% endblock %}
 
@@ -21,32 +83,38 @@
   <div class="inbox-wrap">
     <div class="page-header" style="border:none;margin-bottom:10px;padding-bottom:0">
       <h1>Your Inbox</h1>
-      <p class="section-subtitle">Private, anonymous space to view your letters and replies</p>
+      <p class="section-subtitle">This is your private, anonymous space to view your letters and the replies you've
+        received from our peer responders.</p>
     </div>
 
     {% if empty %}
-      <div class="inbox-empty">
-        <p>No letters yet. Write your first one on the <a href="{{ url_for('submit') }}">Share Your Story</a> page.</p>
-      </div>
+    <div class="inbox-empty">
+      <p><strong>No letters yet.</strong> Write your first one on the <a href="{{ url_for('submit') }}">Share Your
+          Story</a> page.</p>
+      <p style="margin-top:12px; font-size:0.95rem; opacity:0.85;">When you submit a letter, it will appear here along
+        with any replies from our team. Your inbox is completely private — only you can access the letters and responses
+        connected to your anonymous account. We believe that knowing a real person read and thoughtfully responded to
+        your words can make a meaningful difference, even when life feels heavy.</p>
+    </div>
     {% else %}
-      <div class="inbox-list">
-        {% for l in letters %}
-        <a class="inbox-item" href="{{ url_for('inbox_letter', letter_id=l.unique_id) }}" style="position:relative;z-index:1">
-          <div style="display:flex;align-items:center;flex:1">
-            <div class="avatar">U</div>
-            <div style="flex:1">
-              <div style="font-weight:800">{{ (l.content[:80] ~ ('...' if l.content|length > 80 else '')) }}</div>
-              <div class="meta">{{ l.created_at.strftime('%b %d, %Y') }}</div>
-            </div>
+    <div class="inbox-list">
+      {% for l in letters %}
+      <a class="inbox-item" href="{{ url_for('inbox_letter', letter_id=l.unique_id) }}"
+        style="position:relative;z-index:1">
+        <div style="display:flex;align-items:center;flex:1">
+          <div class="avatar">U</div>
+          <div style="flex:1">
+            <div style="font-weight:800">{{ (l.content[:80] ~ ('...' if l.content|length > 80 else '')) }}</div>
+            <div class="meta">{{ l.created_at.strftime('%b %d, %Y') }}</div>
           </div>
-          <div>
-            {% if l.has_unread %}<span class="badge badge-unread">New</span>{% endif %}
-          </div>
-        </a>
-        {% endfor %}
-      </div>
+        </div>
+        <div>
+          {% if l.has_unread %}<span class="badge badge-unread">New</span>{% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
     {% endif %}
   </div>
 </div>
 {% endblock %}
-

@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
-{% block title %}E.C.H.O.E — Empathy Connection Hope Outreach Empowerment{% endblock %}
+{% block title %}E.C.H.O.E â€” Empathy Connection Hope Outreach Empowerment{% endblock %}
 
 {% block styles %}
 <style>
@@ -16,7 +16,7 @@
         --echoe-accent-green: #D8E2D0;
         --echoe-accent-yellow: #FDF4C5;
         --echoe-text: #333333;
-        /* Section band overlays (solid “paper” colors) */
+        /* Section band overlays (solid â€œpaperâ€ colors) */
         --band-b: url("{{ url_for('static', filename='img/bg-b.png') }}");
         --band-g: url("{{ url_for('static', filename='img/bg-g.png') }}");
         --band-r: url("{{ url_for('static', filename='img/bg-r.png') }}");
@@ -66,7 +66,7 @@
         overflow: hidden;
         /* full banner masthead */
         height: clamp(380px, 46vw, 620px);
-        /* E.C.H.O.E banner (masthead) — v2 */
+        /* E.C.H.O.E banner (masthead) â€” v2 */
         background-image: url("{{ url_for('static', filename='img/echoe-banner-v2.png') }}");
         background-size: cover;
         background-position: center;
@@ -101,7 +101,7 @@
 
         /* Defaults; override per-section below */
         --band-photo: none;
-        /* bg1–bg4 paper texture (base layer) */
+        /* bg1â€“bg4 paper texture (base layer) */
         --section-bg-color: #ADCBA4;
         /* default green (overridden per section) */
         --section-bg-opacity: 0.48;
@@ -210,7 +210,7 @@
         --band-divider: var(--band-g);
         background-color: #9FC5CB;
         border-bottom: none;
-        /* overlap the banner a LITTLE (don’t cover Helen Keller by default) */
+        /* overlap the banner a LITTLE (donâ€™t cover Helen Keller by default) */
         margin-top: -24px;
         z-index: 2;
         /* sits above banner */
@@ -219,7 +219,7 @@
         will-change: transform;
     }
 
-    /* No “panel/frame”: let text sit on the photo background */
+    /* No â€œpanel/frameâ€: let text sit on the photo background */
     .hero-content {
         background: transparent;
         border: none;
@@ -670,7 +670,7 @@
         /* tighter section spacing */
     }
 
-    /* Homepage: make sections feel “full but organized” (like Figma/selfcareapy) */
+    /* Homepage: make sections feel â€œfull but organizedâ€ (like Figma/selfcareapy) */
     .about-section {
         padding: 54px 0;
     }
@@ -740,7 +740,7 @@
         /* equalize heights between text and image card */
     }
 
-    /* Add breathing room without “frames” */
+    /* Add breathing room without â€œframesâ€ */
     .about-grid>.about-card {
         padding: 6px 6px;
     }
@@ -1460,7 +1460,7 @@
 
     /* ==========================================================
        MATERIAL 3 / ECHOE GRAPHIC DESIGN ENHANCEMENTS
-       (No new content — visual polish & animations only)
+       (No new content â€” visual polish & animations only)
        ========================================================== */
 
     /* === CALMING BUTTON STYLES - Soft, Professional, Mental Health Appropriate === */
@@ -2080,21 +2080,23 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content animate-fade-up">
-            <h1>Welcome to E.C.H.O.E</h1>
+            <p class="hero-kicker">"Every Voice Deserves to Echo"</p>
+            <h1>Welcome to E.C.H.O.E.</h1>
             <div class="acronym-subtitle">
                 <span><span class="acronym-letter">E</span><span class="acronym-word">mpathy</span></span>
-                <span class="acronym-dot">•</span>
+                <span class="acronym-dot">â€¢</span>
                 <span><span class="acronym-letter">C</span><span class="acronym-word">onnection</span></span>
-                <span class="acronym-dot">•</span>
+                <span class="acronym-dot">â€¢</span>
                 <span><span class="acronym-letter">H</span><span class="acronym-word">ope</span></span>
-                <span class="acronym-dot">•</span>
+                <span class="acronym-dot">â€¢</span>
                 <span><span class="acronym-letter">O</span><span class="acronym-word">utreach</span></span>
-                <span class="acronym-dot">•</span>
+                <span class="acronym-dot">â€¢</span>
                 <span><span class="acronym-letter">E</span><span class="acronym-word">mpowerment</span></span>
             </div>
-            <p class="quote">Every voice deserves to echo — from the shadows of silence, we rise together.</p>
-            <p class="mission">We amplify unseen voices through anonymous letters, compassionate peer replies, and
-                inclusive events — so no one feels alone.</p>
+            <p class="quote">Every voice deserves to echo â€” from the shadows of silence, we rise together.</p>
+            <p class="mission">E.C.H.O.E. is a student-led HOSA mental health initiative dedicated to reducing social
+                isolation among teens. Through anonymous letters, compassionate peer replies, and inclusive community
+                events, we create safe spaces where no one has to feel alone.</p>
             <div class="hero-actions animate-fade-up delay-3">
                 <a href="{{ url_for('submit') }}" class="btn-primary">Share Your Story</a>
                 <a href="{{ url_for('helplines') }}" class="btn-secondary">Find Helplines</a>
@@ -2119,25 +2121,44 @@
                 <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
                 <p
                     style="font-size:1.1rem; font-style:italic; color:var(--deep-indigo); opacity:0.9; margin-bottom:20px; border-left:3px solid var(--brand-orange); padding-left:16px;">
-                    Where loneliness ends, empathy begins.
+                    "Where loneliness ends, empathy begins."
                 </p>
                 <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
                     We are a <strong>student-led organization</strong> committed to breaking down social isolation among
-                    teens. In a world where silence can feel heavy, we believe no one should go through their journey
-                    alone.
+                    teens and building a collaborative, supportive community. In a world where silence can feel heavy,
+                    we believe no one should go through their journey alone. Here, sharing is empowerment, and we
+                    transform vulnerability into strength.
                 </p>
                 <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
-                    Through <strong>anonymous letters</strong> and heartfelt peer responses, teens can express
-                    themselves freely and receive genuine support. We also hold <strong>in-person events</strong> to
-                    ensure connection is always within reach.
+                    Our movement creates a bridge between solitude and belongingness. Teens can express themselves
+                    through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers
+                    who care. We also share resources, insights, and guidance by holding in-person events, ensuring that
+                    support is always within reach.
                 </p>
-                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:20px;">
-                    We don't just listen — we inspire, uplift, and help embrace new paths toward healing. <em>Because
-                        every voice deserves to be echoed.</em>
+
+                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:20px 0 12px 0;">How We
+                    Help</h3>
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
+                    We provide multiple pathways for teens to access support and build connection. Our secure online
+                    platform allows for anonymous sharing where trained peer responders provide thoughtful, empathetic
+                    replies along with helpful resources. We maintain physical mailboxes in local spaces for students
+                    who prefer offline letter writing. Additionally, we host supportive community events that foster
+                    belonging, connection, and meaningful interaction in safe, judgment-free environments.
                 </p>
-                <p
-                    style="font-size:0.95rem; color:var(--deep-indigo); opacity:0.85; padding:12px 16px; background:rgba(248, 210, 156, 0.2); border-radius:12px; margin-top:8px;">
-                    <strong>Our values:</strong> Empathy • Connection • Hope • Outreach • Empowerment
+
+                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:20px 0 12px 0;">Your
+                    Privacy & Safety</h3>
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
+                    We take the privacy and safety of our community members seriously. All letters are anonymous with
+                    secure storage to protect user identity. Our volunteer peer responders receive training on
+                    compassionate communication and content moderation. We maintain clear safety guidelines to protect
+                    all users, and our Mental Health Consultant reviews our response protocols to ensure they meet
+                    professional standards.
+                </p>
+
+                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:0;">
+                    We don't just listen â€” we inspire, uplift, and help embrace new paths toward healing and resilience.
+                    <em>Because every voice deserves to be echoed.</em>
                 </p>
             </div>
             <div class="about-card tilt-right animate-slide-right delay-2"
@@ -2154,21 +2175,23 @@
 <section class="about-section" id="section-echo-cat">
     <div class="container">
         <div class="about-card animate-slide-up-bounce">
-            <h2 style="margin-bottom:12px;" class="font-serif">Meet Echo the Cat!</h2>
+            <h2 style="margin-bottom:12px;" class="font-serif">Meet Echo the Cat</h2>
             <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
                 Once upon a time, in a cozy corner of the internet, a tiny ginger kitten with a twinkle in her eye and a
-                lullaby purr was born. This was <strong>Echo</strong>! From her very first pounce, Echo was full of
-                curiosity, tilting her head to every little ping and boop that floated through the digital air.
+                lullaby purr was born. This was <strong>Echo</strong>!
             </p>
             <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo);">
-                Echo adores unraveling mysterious tangles of code, napping on forgotten story scrolls, and sipping warm
-                imaginary tea. Her shimmering monocle helps her see clearly, and her little green scarf keeps her snug
-                for adventures.
+                From her very first pounce, Echo was full of curiosity, tilting her head to every little ping and beep
+                that floated through the digital air. Echo adores unraveling mysterious tangles of yarn, napping on
+                forgotten story scrolls, and sipping warm imaginary tea. Her shimmering mane helps her see clearly, and
+                her little green scarf keeps her snug for adventures.
             </p>
+
             <p style="font-size:1.05rem; line-height:1.8; color:var(--deep-indigo); margin:0;">
                 Most of all, Echo loves making friends. She listens quietly, offers gentle presence, and reminds us that
-                our online world can be warm, welcoming, and wonderfully curious. If you look closely, you might catch a
-                friendly wink from behind her monocle — she’s happy you’re here.
+                our online world can be warm, welcoming, and wonderful. Echo appears throughout our social media content
+                to deliver cozy reminders, self-care tips, and a sprinkle of positive energy to brighten your feed. If
+                you look closely, you might catch a friendly wink from behind her monocle â€” she's happy you're here.
             </p>
         </div>
         <div class="about-card animate-fade-scale delay-2" style="margin-top:18px;">
@@ -2202,16 +2225,26 @@
                 <h2 style="margin:10px 0;" class="font-serif">Our Vision</h2>
                 <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is
                     valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and
-                    belonging — where every voice deserves to echo.</p>
-                <h2 style="margin:10px 0;" class="font-serif">Values</h2>
+                    belonging â€” where every voice deserves to echo.</p>
+                <h2 style="margin:10px 0;" class="font-serif">Our Values</h2>
+                <p style="font-size:1rem; margin:0 0 12px; opacity:0.9;">Each letter in E.C.H.O.E. represents a core
+                    value that guides everything we do:</p>
                 <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
-                    <li><strong>Empathy</strong> — Listening with compassion and understanding.</li>
-                    <li><strong>Connection</strong> — Building meaningful bonds that replace isolation with belonging.
-                    </li>
-                    <li><strong>Hope</strong> — Inspiring optimism and resilience.</li>
-                    <li><strong>Outreach</strong> — Extending support beyond ourselves.</li>
-                    <li><strong>Empowerment</strong> — Giving every teen the confidence to share their story and embrace
-                        their voice.</li>
+                    <li><strong>Empathy</strong> â€” We listen with compassion and understanding, recognizing that every
+                        person's experience is valid and worthy of care. Empathy is the foundation of our peer response
+                        program and drives how we approach every interaction.</li>
+                    <li><strong>Connection</strong> â€” We believe in building meaningful bonds that replace isolation
+                        with belonging. Connection is a protective factor against mental health challenges, and we
+                        create opportunities for authentic connection both online and in person.</li>
+                    <li><strong>Hope</strong> â€” We inspire optimism and resilience by showing teens that support is
+                        available and that difficult feelings are temporary. Through our campaigns and content, we
+                        remind our community that things can get better.</li>
+                    <li><strong>Outreach</strong> â€” We extend support beyond ourselves by actively reaching out to those
+                        who may be struggling in silence. Our letter-writing program and community events are designed
+                        to meet students where they are.</li>
+                    <li><strong>Empowerment</strong> â€” We give every teen the confidence to share their story and
+                        embrace their voice. By creating safe platforms for expression, we help students reclaim their
+                        narratives and find strength in vulnerability.</li>
                 </ul>
             </div>
             <div class="about-card tilt-right animate-slide-right delay-1">
@@ -2241,19 +2274,22 @@
             <div class="about-card tilt-left animate-slide-left">
                 <h2 style="margin-bottom:10px;" class="font-serif">Our Mental Health Consultant</h2>
                 <div class="consultant-card" style="box-shadow:none; padding:0; background:transparent;">
-                    <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Leora Raphael-Berman"
+                    <img src="{{ url_for('static', filename='img/unnamed.jpg') }}" alt="Laura Raphael-Berman"
                         class="avatar-photo">
                     <div>
-                        <p style="margin:0 0 8px 0; line-height:1.7; font-weight:800; color:var(--deep-indigo);">Leora
+                        <p style="margin:0 0 8px 0; line-height:1.7; font-weight:800; color:var(--deep-indigo);">Laura
                             Raphael-Berman, RN</p>
                         <p style="margin:0; line-height:1.75; opacity:.9;">
-                            Leora Raphael-Berman is a Registered Nurse with over a decade of experience in public and
+                            Laura Raphael-Berman is a Registered Nurse with over a decade of experience in public and
                             community health. She is deeply passionate about mental health and empowering young people
                             to care for their well-being and support one another. Alongside her clinical and community
-                            work, she has proudly served as the staff lead for her school’s JACK chapter for the past
-                            three years. This year, she is excited to support the HOSA team as the Mental Health
-                            Consultant, helping students build a project that promotes awareness, empathy, and
-                            meaningful conversations about mental wellness.
+                            work, she has proudly served as the staff lead for her school's JACK chapter for the past
+                            three years.
+                        </p>
+                        <p style="margin:12px 0 0 0; line-height:1.75; opacity:.9;">
+                            This year, she is excited to support the HOSA team as the Mental Health Consultant, helping
+                            students build a project that promotes awareness, empathy, and meaningful conversations
+                            about mental wellness.
                         </p>
                     </div>
                 </div>
@@ -2297,11 +2333,11 @@
                     <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@echoe_hosa"
                         data-unique-id="echoe_hosa" data-embed-type="creator"
                         style="max-width: 605px;min-width: 325px;">
-                        <section>Loading TikTok…</section>
+                        <section>Loading TikTokâ€¦</section>
                     </blockquote>
                     <div id="ytLatestHome">
                         <div style="padding:12px; text-align:center; opacity:.8; width:100%;">Loading latest YouTube
-                            video…</div>
+                            videoâ€¦</div>
                     </div>
                 </div>
                 <script async src="https://www.tiktok.com/embed.js"></script>

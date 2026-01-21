@@ -1,6 +1,240 @@
 {% extends "base.html" %}
 {% block title %}Our Next Steps - E.C.H.O.E{% endblock %}
-{% block content %}
-<div class="container"><div class="page-container"><div class="page-header"><h1>Our Next Steps</h1></div><div class="content-section"><p>Roadmap coming soon.</p></div></div></div>
+{% block styles %}
+<style>
+    /* === NEXT STEPS PAGE - PREMIUM LAYOUT === */
+
+    .next-steps-hero {
+        background: rgba(179, 156, 208, 0.18);
+        padding: 48px 20px 40px;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: 0;
+    }
+
+    .next-steps-hero h1 {
+        color: var(--deep-indigo);
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .next-steps-hero h1::after {
+        content: "";
+        display: block;
+        width: 140px;
+        height: 16px;
+        margin: 14px auto 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23B39CD0' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    .next-steps-hero .subtitle {
+        color: var(--deep-indigo);
+        font-size: 1.15rem;
+        opacity: 0.85;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Section intro */
+    .section-intro {
+        max-width: 900px;
+        margin: 32px auto 40px;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .section-intro p {
+        color: var(--deep-indigo);
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin: 0;
+    }
+
+    /* Curly separator */
+    .curly-separator {
+        width: 100%;
+        height: 32px;
+        margin: 48px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%239FC5CB' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23B39CD0' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Next step blocks */
+    .next-step-block {
+        max-width: 900px;
+        margin: 0 auto 40px;
+        padding: 32px;
+        background: rgba(255, 251, 247, 0.6);
+        border-radius: 16px;
+        border-left: 4px solid #B39CD0;
+    }
+
+    .next-step-block h2 {
+        color: var(--deep-indigo);
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 0 0 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .next-step-block h2 i {
+        color: #9078A8;
+        font-size: 1.3rem;
+    }
+
+    .next-step-block p {
+        color: var(--deep-indigo);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0 0 12px 0;
+        opacity: 0.9;
+    }
+
+    .next-step-block p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Alternate colors for visual variety */
+    .next-step-block:nth-child(even) {
+        border-left-color: #9FC5CB;
+    }
+
+    .next-step-block:nth-child(even) h2 i {
+        color: #7AAEB6;
+    }
+
+    /* Commitment section - special styling */
+    .commitment-section {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 40px;
+        background: linear-gradient(135deg, rgba(179, 156, 208, 0.12) 0%, rgba(159, 197, 203, 0.08) 100%);
+        border-radius: 20px;
+    }
+
+    .commitment-section h2 {
+        color: var(--deep-indigo);
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin: 0 0 16px 0;
+    }
+
+    .commitment-section p {
+        color: var(--deep-indigo);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin: 0 0 16px 0;
+    }
+
+    .commitment-section .tagline {
+        font-size: 1.2rem;
+        font-weight: 700;
+        font-style: italic;
+        color: #9078A8;
+        margin-top: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .next-steps-hero h1 {
+            font-size: 2rem;
+        }
+
+        .next-step-block {
+            padding: 24px;
+            margin: 0 16px 24px;
+        }
+    }
+</style>
 {% endblock %}
 
+{% block content %}
+<div class="container">
+    <div class="page-container">
+        <!-- Hero Section -->
+        <section class="next-steps-hero">
+            <h1>Our Next Steps</h1>
+            <p class="subtitle">Looking ahead — continuing to make every voice echo.</p>
+        </section>
+
+        <!-- Section Introduction -->
+        <div class="section-intro">
+            <p>As our campaign continues to grow, our next goal is to move beyond awareness and take direct, meaningful
+                action to address social isolation, especially among teens and students. Throughout the rest of this
+                year and into the next school year, we aim to expand our reach, strengthen our content, and create
+                opportunities for real connection both online and offline.</p>
+        </div>
+
+        <!-- Next Step Blocks -->
+        <div class="next-step-block">
+            <h2><i class="fas fa-microphone-alt"></i> Expanding Our Educational Podcast Series</h2>
+            <p>One of our primary next steps is to expand our educational podcast series by continuing to interview
+                mental health professionals who specialize in social isolation, loneliness, and adolescent well-being.
+            </p>
+            <p>In future episodes, we plan to introduce interactive segments where listeners can anonymously submit
+                questions or experiences related to isolation. These questions will be addressed by our professional
+                guests, allowing our audience to gain reliable guidance while feeling heard and supported.</p>
+        </div>
+
+        <div class="next-step-block">
+            <h2><i class="fas fa-share-alt"></i> Growing Our Digital Platforms</h2>
+            <p>In addition to our podcast, we plan to grow our digital platforms with more intentional,
+                platform-specific content. While Instagram will remain an educational space, we aim to make our TikTok
+                and YouTube platforms more focused on storytelling, relatability, and open conversations around social
+                isolation.</p>
+            <p>By sharing real experiences, practical coping strategies, and reflective discussions, we hope to reduce
+                the stigma surrounding loneliness and help individuals recognize that they are not alone in what they
+                are feeling.</p>
+        </div>
+
+        <div class="next-step-block">
+            <h2><i class="fas fa-users"></i> Increasing Community Involvement</h2>
+            <p>Beyond online outreach, we hope to increase community involvement through initiatives that encourage
+                connection. We are currently exploring the development of small-scale projects that promote peer
+                connection, such as letter-writing or message-based outreach programs, where participants can engage in
+                thoughtful communication as a way to combat feelings of isolation.</p>
+            <p>We plan to host additional in-person events throughout the school year, each designed to build protective
+                factors through meaningful interaction.</p>
+        </div>
+
+        <div class="next-step-block">
+            <h2><i class="fas fa-hand-holding-heart"></i> Continuing Philanthropic Efforts</h2>
+            <p>We also plan to continue our philanthropic efforts by organizing fundraisers and partnering with
+                organizations that work to improve mental health access and community well-being. Through these efforts,
+                we aim to support causes that directly address isolation and provide resources to those who may not
+                otherwise have access to support.</p>
+            <p>Our ongoing partnership with Gifted People Services will continue to deepen, allowing us to better serve
+                neurodivergent students in our community.</p>
+        </div>
+
+        <div class="next-step-block">
+            <h2><i class="fas fa-chart-line"></i> Research and Resources</h2>
+            <p>Looking ahead, we hope to use the data and feedback we have collected throughout our campaign to inform
+                future research and resources, which we plan to share publicly on our website.</p>
+            <p>By combining education, advocacy, and action, our goal is to create a lasting impact that empowers
+                individuals to recognize social isolation, understand its effects, and take small but meaningful steps
+                toward connection.</p>
+        </div>
+
+        <div class="curly-separator"></div>
+
+        <!-- Commitment Section -->
+        <div class="commitment-section">
+            <h2>Our Commitment</h2>
+            <p>Our commitment to this project extends beyond this competition. We hope that by continuing this work, we
+                can foster a more connected, understanding, and supportive community — one conversation at a time.</p>
+            <p class="tagline">Because "Every Voice Deserves to Echo."</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

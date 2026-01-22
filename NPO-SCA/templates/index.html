@@ -2116,7 +2116,8 @@
 
 <section class="about-section" id="section-who-we-are">
     <div class="container">
-        <div class="about-grid">
+        <!-- Top row: Text + Photo side by side -->
+        <div class="about-grid" style="align-items: stretch;">
             <div class="about-card tilt-left animate-fade-up">
                 <h2 style="margin-bottom:16px;" class="font-serif">Who We Are</h2>
                 <p
@@ -2125,47 +2126,42 @@
                 </p>
                 <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
                     We are a <strong>student-led organization</strong> committed to breaking down social isolation among
-                    teens and building a collaborative, supportive community. In a world where silence can feel heavy,
-                    we believe no one should go through their journey alone. Here, sharing is empowerment, and we
-                    transform vulnerability into strength.
+                    teens and building a supportive community. We believe no one should go through their journey alone.
                 </p>
-                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
-                    Our movement creates a bridge between solitude and belongingness. Teens can express themselves
-                    through sharing anonymous letters or messages and receive genuine, heartfelt responses from peers
-                    who care. We also share resources, insights, and guidance by holding in-person events, ensuring that
-                    support is always within reach.
-                </p>
-
-                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:20px 0 12px 0;">How We
-                    Help</h3>
-                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
-                    We provide multiple pathways for teens to access support and build connection. Our secure online
-                    platform allows for anonymous sharing where trained peer responders provide thoughtful, empathetic
-                    replies along with helpful resources. We maintain physical mailboxes in local spaces for students
-                    who prefer offline letter writing. Additionally, we host supportive community events that foster
-                    belonging, connection, and meaningful interaction in safe, judgment-free environments.
-                </p>
-
-                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:20px 0 12px 0;">Your
-                    Privacy & Safety</h3>
-                <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:18px;">
-                    We take the privacy and safety of our community members seriously. All letters are anonymous with
-                    secure storage to protect user identity. Our volunteer peer responders receive training on
-                    compassionate communication and content moderation. We maintain clear safety guidelines to protect
-                    all users, and our Mental Health Consultant reviews our response protocols to ensure they meet
-                    professional standards.
-                </p>
-
                 <p style="font-size:1.05rem; line-height:1.85; color:var(--deep-indigo); margin-bottom:0;">
-                    We don't just listen "” we inspire, uplift, and help embrace new paths toward healing and resilience.
+                    Teens can express themselves through anonymous letters and receive genuine, heartfelt responses from
+                    peers
+                    who care. We also hold in-person events to share resources and foster connection.
                     <em>Because every voice deserves to be echoed.</em>
                 </p>
             </div>
             <div class="about-card tilt-right animate-slide-right delay-2"
-                style="display:flex; flex-direction:column; gap:12px; justify-content:center; align-items:center; text-align:center;">
+                style="display:flex; align-items:center; justify-content:center;">
                 <img src="{{ url_for('static', filename='img/Weixin Image_20251029224616_6598_474.jpg') }}"
                     alt="E.C.H.O.E Team" class="photo-rect"
-                    style="height:auto; max-height:420px; object-fit:contain; background:transparent;">
+                    style="width:100%; height:auto; object-fit:cover; background:transparent; border-radius:12px;">
+            </div>
+        </div>
+
+        <!-- Bottom row: How We Help + Privacy & Safety side by side -->
+        <div class="two-col-grid" style="margin-top:24px;">
+            <div class="about-card animate-slide-left">
+                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:0 0 12px 0;">How We Help
+                </h3>
+                <ul style="margin:0; padding-left:20px; line-height:1.75; color:var(--deep-indigo);">
+                    <li>Secure online platform for anonymous sharing with trained peer responders</li>
+                    <li>Physical mailboxes in local spaces for offline letter writing</li>
+                    <li>Community events that foster belonging in safe, judgment-free environments</li>
+                </ul>
+            </div>
+            <div class="about-card animate-slide-right delay-1">
+                <h3 style="font-size:1.15rem; font-weight:700; color:var(--deep-indigo); margin:0 0 12px 0;">Your
+                    Privacy & Safety</h3>
+                <ul style="margin:0; padding-left:20px; line-height:1.75; color:var(--deep-indigo);">
+                    <li>All letters are anonymous with secure storage</li>
+                    <li>Peer responders receive training on compassionate communication</li>
+                    <li>Mental Health Consultant reviews our response protocols</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -2212,54 +2208,57 @@
     </div>
 </section>
 
-<!-- Mission/Vision/Values and How We Help side by side -->
+<!-- About Us: Mission/Vision/Values -->
 <section class="about-section" id="section-about-us">
     <div class="container">
         <h2 style="text-align:center; margin-bottom:18px;" class="font-serif animate-fade-down">About Us</h2>
-        <div class="two-col-grid">
-            <div class="about-card tilt-left animate-slide-left" style="text-align:center;">
-                <h2 style="margin-bottom:10px;" class="font-serif">Our Mission</h2>
-                <p style="font-size:1.05rem; margin:0 0 16px;">To amplify the voices that are often unheard and stand
-                    against social isolation by creating safe, supportive spaces where teens can connect, share, and
-                    heal together.</p>
-                <h2 style="margin:10px 0;" class="font-serif">Our Vision</h2>
-                <p style="font-size:1.05rem; margin:0 0 16px;">A world where no teen feels left out, and every voice is
-                    valued, uplifted, and celebrated. We envision a community built on empathy, collaboration, and
-                    belonging "” where every voice deserves to echo.</p>
-                <h2 style="margin:10px 0;" class="font-serif">Our Values</h2>
-                <p style="font-size:1rem; margin:0 0 12px; opacity:0.9;">Each letter in E.C.H.O.E. represents a core
-                    value that guides everything we do:</p>
-                <ul style="list-style:none; padding:0; margin:0; line-height:1.7; text-align:left;">
-                    <li><strong>Empathy</strong> "” We listen with compassion and understanding, recognizing that every
-                        person's experience is valid and worthy of care. Empathy is the foundation of our peer response
-                        program and drives how we approach every interaction.</li>
-                    <li><strong>Connection</strong> "” We believe in building meaningful bonds that replace isolation
-                        with belonging. Connection is a protective factor against mental health challenges, and we
-                        create opportunities for authentic connection both online and in person.</li>
-                    <li><strong>Hope</strong> "” We inspire optimism and resilience by showing teens that support is
-                        available and that difficult feelings are temporary. Through our campaigns and content, we
-                        remind our community that things can get better.</li>
-                    <li><strong>Outreach</strong> "” We extend support beyond ourselves by actively reaching out to those
-                        who may be struggling in silence. Our letter-writing program and community events are designed
-                        to meet students where they are.</li>
-                    <li><strong>Empowerment</strong> "” We give every teen the confidence to share their story and
-                        embrace their voice. By creating safe platforms for expression, we help students reclaim their
-                        narratives and find strength in vulnerability.</li>
-                </ul>
+
+        <!-- Mission and Vision side by side -->
+        <div class="two-col-grid" style="margin-bottom:24px;">
+            <div class="about-card animate-slide-left" style="text-align:center;">
+                <h3 style="margin-bottom:10px; font-size:1.3rem;" class="font-serif">Our Mission</h3>
+                <p style="font-size:1.05rem; margin:0; line-height:1.7;">To amplify unheard voices and stand against
+                    social isolation by creating safe, supportive spaces where teens can connect, share, and heal
+                    together.</p>
             </div>
-            <div class="about-card tilt-right animate-slide-right delay-1">
-                <h2 class="font-serif">How We Help</h2>
-                <ul style="margin:8px 0 0 18px; line-height:1.7;">
-                    <li>Secure online platform for anonymous sharing and human replies</li>
-                    <li>Physical mailboxes in local spaces for offline letters</li>
-                    <li>Supportive community events that foster belonging</li>
-                </ul>
-                <h2 style="margin-top:16px;" class="font-serif">Your Privacy & Safety</h2>
-                <ul style="margin:8px 0 0 18px; line-height:1.7;">
-                    <li>Anonymous letters and secure storage</li>
-                    <li>Volunteer training and content moderation</li>
-                    <li>Clear safety guidelines to protect all users</li>
-                </ul>
+            <div class="about-card animate-slide-right delay-1" style="text-align:center;">
+                <h3 style="margin-bottom:10px; font-size:1.3rem;" class="font-serif">Our Vision</h3>
+                <p style="font-size:1.05rem; margin:0; line-height:1.7;">A world where no teen feels left out and every
+                    voice is valued. A community built on empathy, collaboration, and belonging.</p>
+            </div>
+        </div>
+
+        <!-- Values - full width with 5 columns -->
+        <div class="about-card animate-fade-up">
+            <h3 style="text-align:center; margin-bottom:16px; font-size:1.3rem;" class="font-serif">Our Values</h3>
+            <p style="text-align:center; font-size:1rem; margin-bottom:20px; opacity:0.9;">Each letter in E.C.H.O.E.
+                represents a core value:</p>
+            <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:16px; text-align:center;">
+                <div>
+                    <strong style="color:var(--deep-indigo); font-size:1.1rem;">Empathy</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0; line-height:1.5; opacity:0.9;">We listen with
+                        compassion, recognizing every experience as valid.</p>
+                </div>
+                <div>
+                    <strong style="color:var(--deep-indigo); font-size:1.1rem;">Connection</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0; line-height:1.5; opacity:0.9;">We build meaningful bonds
+                        that replace isolation with belonging.</p>
+                </div>
+                <div>
+                    <strong style="color:var(--deep-indigo); font-size:1.1rem;">Hope</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0; line-height:1.5; opacity:0.9;">We inspire optimism and
+                        show that support is always available.</p>
+                </div>
+                <div>
+                    <strong style="color:var(--deep-indigo); font-size:1.1rem;">Outreach</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0; line-height:1.5; opacity:0.9;">We actively reach out to
+                        those who may be struggling in silence.</p>
+                </div>
+                <div>
+                    <strong style="color:var(--deep-indigo); font-size:1.1rem;">Empowerment</strong>
+                    <p style="font-size:0.9rem; margin:8px 0 0; line-height:1.5; opacity:0.9;">We give teens confidence
+                        to share their story and embrace their voice.</p>
+                </div>
             </div>
         </div>
     </div>

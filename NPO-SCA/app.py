@@ -1019,17 +1019,41 @@ try:
             
             with httpx.Client(timeout=15) as client:
                 response = client.post(url, json=gemini_payload)
+                
+                # Log the response status for debugging
+                app.logger.info(f"Gemini API response status: {response.status_code}")
+                
+                # Check for HTTP errors first
+                if response.status_code != 200:
+                    app.logger.error(f"Gemini API HTTP error: {response.status_code} - {response.text[:500]}")
+                    # Use fallback responses when API fails
+                    fallback_responses = [
+                        "Thank you for sharing with me. Your feelings are valid. If you'd like more support, try writing an anonymous letter - our volunteers respond within 24-72 hours.",
+                        "I hear you, and you're not alone. Many students feel similar pressures. Would you like me to help you find resources on our website?",
+                        "It takes courage to reach out. If you need immediate support, Kids Help Phone is available 24/7 at 1-800-668-6868 or text HOME to 686868.",
+                    ]
+                    import random
+                    return jsonify({'message': random.choice(fallback_responses)})
+                
                 data = response.json()
             
             if data and 'candidates' in data and len(data['candidates']) > 0:
-                ai_response = " ".join([part.get('text', '') for part in data['candidates'][0]['content']['parts']]).strip()
-                return jsonify({'message': ai_response})
+                try:
+                    ai_response = " ".join([part.get('text', '') for part in data['candidates'][0]['content']['parts']]).strip()
+                    return jsonify({'message': ai_response})
+                except (KeyError, IndexError) as e:
+                    app.logger.error(f"Error parsing Gemini response: {e}, data: {data}")
+                    return jsonify({'message': "I'm processing your message. Please try again in a moment."})
             else:
-                app.logger.warning(f"Gemini API returned unexpected response: {data}")
+                # Log what we actually got
+                app.logger.warning(f"Gemini API returned unexpected response structure: {str(data)[:500]}")
+                # Check if there's an error message in the response
+                if data and 'error' in data:
+                    app.logger.error(f"Gemini API error: {data['error']}")
                 return jsonify({'message': "I'm sorry, I'm having trouble responding right now. Please try again in a moment."})
         
         except Exception as e:
-            app.logger.error(f"api_chat error: {e}")
+            app.logger.error(f"api_chat error: {str(e)}")
             return jsonify({'message': "I apologize, but I'm experiencing technical difficulties. Please try again later or use our anonymous letter system for support."}), 200
 
     # Internal function: Generate AI response

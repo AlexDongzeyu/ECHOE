@@ -1569,10 +1569,6 @@ Respond with empathy and care (2-4 sentences)."""
     def campaign_inspiration_media():
         return render_template('campaigns/inspiration_media.html')
 
-    # Keep Recharge Week as it has interactive battery feature
-    @app.route('/campaigns/recharge-week')
-    def campaign_recharge_week():
-        return render_template('campaigns/recharge_week.html')
 
 
     @app.route('/research-study')

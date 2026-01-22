@@ -196,74 +196,206 @@
                     a
                     knowledgeable community armed with actionable information.</p>
 
-                <!-- Topic Explorer Interactive -->
+                <!-- Topic Explorer Interactive - EXPANDED -->
                 <div id="topic-explorer"
                     style="margin-top: 20px; background: linear-gradient(135deg, rgba(179, 156, 208, 0.12) 0%, rgba(159, 197, 203, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
-                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">
-                        Topic Explorer</h4>
+                    <h4
+                        style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
+                        🌟 Echo of the Month - Topic Explorer</h4>
                     <p
-                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
-                        Click a month to explore:</p>
+                        style="text-align: center; font-size: 0.9rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 18px 0;">
+                        Click a month to dive deep into each mental health topic:</p>
 
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Sep', 'Social Isolation', 'We launched our campaign educating about social isolation among youth and our risk/protective factors framework.')"
-                            style="padding: 10px; background: rgba(179, 156, 208, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Sep</div>
-                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Isolation</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                        <button class="month-btn" data-month="sep"
+                            style="padding: 12px 8px; background: rgba(179, 156, 208, 0.25); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Sep</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Social Isolation
+                            </div>
                         </button>
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Oct', 'Social Anxiety Disorder', 'We explored social anxiety as more than shyness - explaining how it can interfere with daily activities.')"
-                            style="padding: 10px; background: rgba(159, 197, 203, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Oct</div>
-                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">SAD</div>
+                        <button class="month-btn" data-month="oct"
+                            style="padding: 12px 8px; background: rgba(159, 197, 203, 0.25); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Oct</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Social Anxiety
+                            </div>
                         </button>
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Nov', 'Generalized Anxiety Disorder', 'We examined chronic worry and its physical and emotional effects on students.')"
-                            style="padding: 10px; background: rgba(232, 146, 124, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Nov</div>
+                        <button class="month-btn" data-month="nov"
+                            style="padding: 12px 8px; background: rgba(248, 210, 156, 0.3); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Nov</div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">GAD</div>
                         </button>
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Dec', 'Seasonal Affective Disorder', 'We provided education about seasonal depression, light therapy, and coping strategies.')"
-                            style="padding: 10px; background: rgba(42, 61, 102, 0.12); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Dec</div>
+                        <button class="month-btn" data-month="dec"
+                            style="padding: 12px 8px; background: rgba(143, 184, 222, 0.25); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Dec</div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Seasonal</div>
                         </button>
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Jan', 'New Beginnings', 'Guidance on setting realistic intentions without perfectionism for the new year.')"
-                            style="padding: 10px; background: rgba(179, 156, 208, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Jan</div>
-                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Goals</div>
+                        <button class="month-btn" data-month="jan"
+                            style="padding: 12px 8px; background: rgba(173, 203, 164, 0.25); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Jan</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Goals & Growth
+                            </div>
                         </button>
-                        <button class="month-btn"
-                            onclick="showTopic(this, 'Feb', 'Black History Month', 'Mental health resources and perspectives from Black communities.')"
-                            style="padding: 10px; background: rgba(159, 197, 203, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Feb</div>
+                        <button class="month-btn" data-month="feb"
+                            style="padding: 12px 8px; background: rgba(232, 146, 124, 0.25); border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.3s;">
+                            <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Feb</div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">BHM</div>
                         </button>
                     </div>
 
                     <div id="topic-detail"
-                        style="display: none; margin-top: 14px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px;">
-                        <h5 id="topic-title" style="margin: 0 0 8px 0; color: var(--deep-indigo); font-size: 1rem;">
-                        </h5>
-                        <p id="topic-desc"
-                            style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); line-height: 1.5;"></p>
+                        style="display: none; margin-top: 18px; background: rgba(255,255,255,0.7); border-radius: 14px; padding: 20px; animation: fadeIn 0.4s ease;">
+                        <div id="topic-content"></div>
                     </div>
                 </div>
 
                 <script>
-                    function showTopic(btn, month, title, desc) {
-                        document.querySelectorAll('.month-btn').forEach(b => {
-                            b.style.borderColor = 'transparent';
-                        });
-                        btn.style.borderColor = 'rgba(179, 156, 208, 0.6)';
+                    (function () {
+                        const topicData = {
+                            sep: {
+                                emoji: '🫂',
+                                title: 'September: Social Isolation',
+                                subtitle: 'Breaking the Silence Together',
+                                overview: 'Social isolation affects 1 in 3 teens, making it one of the most significant mental health risk factors today. Unlike loneliness (a feeling), isolation is the objective lack of meaningful connections.',
+                                keyFacts: [
+                                    '36% of teens report feeling "seriously lonely"',
+                                    'Isolation increases risk of depression by 2.7x',
+                                    'Connection is a protective factor - it literally rewires your brain'
+                                ],
+                                signs: ['Withdrawing from activities you once enjoyed', 'Feeling like no one understands you', 'Spending excessive time alone (not by choice)', 'Difficulty reaching out for help'],
+                                copingTips: ['Start small: send one text to check in on someone', 'Join a club or activity where interaction happens naturally', 'Write an anonymous letter - sometimes starting without pressure helps'],
+                                reflection: 'Think about your week: Who made you feel seen? When did you feel most connected?',
+                                color: '#B39CD0'
+                            },
+                            oct: {
+                                emoji: '💬',
+                                title: 'October: Social Anxiety Disorder (SAD)',
+                                subtitle: 'More Than Just Shyness',
+                                overview: 'Social Anxiety Disorder goes beyond normal nervousness. It\'s an intense fear of being judged, negatively evaluated, or rejected in social situations that significantly impacts daily life.',
+                                keyFacts: [
+                                    '7% of the population has Social Anxiety Disorder',
+                                    'Average onset age is 13 years old',
+                                    'SAD is highly treatable with proper support'
+                                ],
+                                signs: ['Dreading everyday interactions (ordering food, asking questions)', 'Physical symptoms: blushing, trembling, nausea', 'Avoiding situations where you might be noticed', 'Replaying conversations over and over'],
+                                copingTips: ['Challenge negative thoughts: "What evidence do I have?"', 'Practice gradual exposure to feared situations', 'Remember: most people are too focused on themselves to judge you', 'Breathing exercises: 4 counts in, 7 hold, 8 out'],
+                                reflection: 'When do you feel most anxious socially? What\'s the worst thing you imagine happening - and how likely is it really?',
+                                color: '#9FC5CB'
+                            },
+                            nov: {
+                                emoji: '🌀',
+                                title: 'November: Generalized Anxiety Disorder (GAD)',
+                                subtitle: 'When Worry Takes Over',
+                                overview: 'GAD is characterized by persistent, excessive worry about various aspects of life - school, relationships, health, the future - even when there\'s no immediate threat. It\'s like your brain\'s alarm system is always on.',
+                                keyFacts: [
+                                    '6.8 million adults in the US have GAD',
+                                    '50% of cases develop by age 30',
+                                    'GAD often co-occurs with depression'
+                                ],
+                                signs: ['Constantly anticipating disaster', 'Difficulty concentrating or mind going blank', 'Muscle tension, headaches, stomach issues', 'Sleep problems and restlessness'],
+                                copingTips: ['Grounding technique: 5 things you see, 4 hear, 3 touch, 2 smell, 1 taste', 'Schedule "worry time" - give yourself 15 minutes, then move on', 'Physical activity helps release tension', 'Talk to someone - sharing lightens the load'],
+                                reflection: 'What worries occupy most of your mental space? Are they about things you can control?',
+                                color: '#F8D29C'
+                            },
+                            dec: {
+                                emoji: '❄️',
+                                title: 'December: Seasonal Affective Disorder',
+                                subtitle: 'The Winter Blues Are Real',
+                                overview: 'Seasonal Affective Disorder is a type of depression that follows a seasonal pattern. Most commonly, symptoms begin in fall/winter when daylight decreases and lift in spring when days get longer.',
+                                keyFacts: [
+                                    '10-20% of people experience some form of winter blues',
+                                    'SAD is 4x more common in women',
+                                    'Light therapy can help 60-80% of SAD cases'
+                                ],
+                                signs: ['Fatigue and low energy despite enough sleep', 'Changes in appetite (especially craving carbs)', 'Difficulty getting out of bed in the morning', 'Feeling hopeless as winter approaches'],
+                                copingTips: ['Maximize daylight exposure (sit near windows, go outside)', 'Consider a light therapy box (10,000 lux for 20-30 mins)', 'Maintain regular sleep schedule', 'Stay connected - isolation worsens SAD'],
+                                reflection: 'Notice your energy levels this week. Do you feel different when you\'ve spent time in sunlight?',
+                                color: '#8FB8DE'
+                            },
+                            jan: {
+                                emoji: '🌱',
+                                title: 'January: Goals & Growth Mindset',
+                                subtitle: 'Intentions Over Resolutions',
+                                overview: 'New Year\'s resolutions have an 80% failure rate by February. Instead, we focus on sustainable growth: setting intentions, practicing self-compassion, and building habits that last.',
+                                keyFacts: [
+                                    '80% of resolutions fail by mid-February',
+                                    'Specific goals are 33% more likely to succeed',
+                                    'Progress, not perfection, builds lasting change'
+                                ],
+                                signs: ['Setting "all-or-nothing" goals that feel overwhelming', 'Giving up after one setback', 'Comparing your chapter 1 to someone else\'s chapter 20', 'Perfectionism disguised as ambition'],
+                                copingTips: ['Set SMART goals: Specific, Measurable, Achievable, Relevant, Time-bound', 'Focus on systems, not outcomes ("I will study 30 min daily" vs "I will get an A")', 'Celebrate small wins - they build momentum', 'Be kind to yourself when you stumble'],
+                                reflection: 'What\'s one small thing you could do this week that future-you would thank you for?',
+                                color: '#ADCBA4'
+                            },
+                            feb: {
+                                emoji: '✊🏿',
+                                title: 'February: Black History Month & Mental Health',
+                                subtitle: 'Honoring Stories, Breaking Stigma',
+                                overview: 'Black communities face unique mental health challenges including historical trauma, systemic barriers to care, and cultural stigma around seeking help. This month, we amplify Black voices and share culturally relevant resources.',
+                                keyFacts: [
+                                    'Only 1 in 3 Black adults who need mental health care receive it',
+                                    'Black youth are 2x more likely to die by suicide than white peers',
+                                    'Culturally competent care improves outcomes significantly'
+                                ],
+                                signs: ['Strength-based culture sometimes discourages "admitting" struggle', 'Medical mistrust due to historical mistreatment', 'Lack of representation in mental health providers', 'Belief that faith alone should be enough'],
+                                copingTips: ['Seek therapists who understand cultural contexts', 'Connect with community support groups', 'Know that seeking help IS strength', 'Resources: Black Youth Helpline (1-833-294-8650), Therapy for Black Girls'],
+                                reflection: 'How do cultural expectations around strength affect how you express emotions or ask for help?',
+                                color: '#E8927C'
+                            }
+                        };
 
-                        document.getElementById('topic-title').textContent = month + ': ' + title;
-                        document.getElementById('topic-desc').textContent = desc;
-                        document.getElementById('topic-detail').style.display = 'block';
-                    }
+                        function renderTopic(month) {
+                            const data = topicData[month];
+                            const html = `
+                            <div style="border-left: 4px solid ${data.color}; padding-left: 16px; margin-bottom: 16px;">
+                                <h4 style="margin: 0 0 4px 0; color: var(--deep-indigo); font-size: 1.15rem;">${data.emoji} ${data.title}</h4>
+                                <p style="margin: 0; color: #7AAEB6; font-style: italic; font-size: 0.9rem;">"${data.subtitle}"</p>
+                            </div>
+                            
+                            <p style="color: var(--deep-indigo); line-height: 1.65; margin: 0 0 16px 0; font-size: 0.95rem;">${data.overview}</p>
+                            
+                            <div style="background: rgba(${data.color === '#B39CD0' ? '179,156,208' : data.color === '#9FC5CB' ? '159,197,203' : data.color === '#F8D29C' ? '248,210,156' : data.color === '#8FB8DE' ? '143,184,222' : data.color === '#ADCBA4' ? '173,203,164' : '232,146,124'}, 0.15); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
+                                <p style="margin: 0 0 8px 0; font-weight: 700; color: var(--deep-indigo); font-size: 0.9rem;">📊 Key Facts:</p>
+                                <ul style="margin: 0; padding-left: 18px; color: var(--deep-indigo); font-size: 0.85rem; line-height: 1.6;">
+                                    ${data.keyFacts.map(f => `<li>${f}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <details style="margin-bottom: 12px; cursor: pointer;">
+                                <summary style="font-weight: 700; color: var(--deep-indigo); font-size: 0.9rem; padding: 8px 0;">🔍 Signs to Watch For</summary>
+                                <ul style="margin: 8px 0 0 0; padding-left: 18px; color: var(--deep-indigo); font-size: 0.85rem; line-height: 1.6;">
+                                    ${data.signs.map(s => `<li>${s}</li>`).join('')}
+                                </ul>
+                            </details>
+                            
+                            <details style="margin-bottom: 12px; cursor: pointer;">
+                                <summary style="font-weight: 700; color: var(--deep-indigo); font-size: 0.9rem; padding: 8px 0;">💡 Coping Strategies</summary>
+                                <ul style="margin: 8px 0 0 0; padding-left: 18px; color: var(--deep-indigo); font-size: 0.85rem; line-height: 1.6;">
+                                    ${data.copingTips.map(t => `<li>${t}</li>`).join('')}
+                                </ul>
+                            </details>
+                            
+                            <div style="background: linear-gradient(135deg, rgba(179, 156, 208, 0.15), rgba(159, 197, 203, 0.15)); border-radius: 10px; padding: 14px; margin-top: 14px;">
+                                <p style="margin: 0 0 6px 0; font-weight: 700; color: var(--deep-indigo); font-size: 0.9rem;">💭 Reflection Prompt:</p>
+                                <p style="margin: 0; color: var(--deep-indigo); font-size: 0.9rem; font-style: italic; line-height: 1.5;">${data.reflection}</p>
+                            </div>
+                        `;
+
+                            document.getElementById('topic-content').innerHTML = html;
+                            document.getElementById('topic-detail').style.display = 'block';
+                        }
+
+                        document.querySelectorAll('#topic-explorer .month-btn').forEach(btn => {
+                            btn.addEventListener('click', function () {
+                                document.querySelectorAll('#topic-explorer .month-btn').forEach(b => {
+                                    b.style.borderColor = 'transparent';
+                                    b.style.transform = 'scale(1)';
+                                });
+                                this.style.borderColor = 'rgba(42, 61, 102, 0.4)';
+                                this.style.transform = 'scale(1.03)';
+                                renderTopic(this.dataset.month);
+                            });
+                        });
+                    })();
                 </script>
             </div>
         </section>
@@ -274,8 +406,6 @@
         <section class="campaign-section reverse">
             <div class="campaign-images">
                 <img src="{{ url_for('static', filename='img/ins/ASD.png') }}" alt="Autism Awareness series overview">
-                <img src="{{ url_for('static', filename='img/ins/ASD sample.jpg') }}"
-                    alt="Autism Awareness sample post">
             </div>
             <div class="campaign-text">
                 <h2>Autism Awareness</h2>
@@ -385,6 +515,13 @@
                         };
                     })();
                 </script>
+
+                <!-- Sample Post Image - moved below interactive for fuller layout -->
+                <div style="margin-top: 20px;">
+                    <img src="{{ url_for('static', filename='img/ins/ASD sample.jpg') }}"
+                        alt="Autism Awareness sample post"
+                        style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);">
+                </div>
 
                 <p style="margin-top: 16px;">Our partnership with Gifted People Services ensures this content reflects
                     autistic perspectives.</p>

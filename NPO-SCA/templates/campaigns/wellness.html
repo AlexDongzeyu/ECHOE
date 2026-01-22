@@ -470,7 +470,211 @@
                         with someone you trust.</li>
                     <li><strong>Day 7:</strong> Fully Charged - Reflection and gratitude mark the final day.</li>
                 </ul>
-                <a href="{{ url_for('campaign_recharge_week') }}" class="campaign-cta">Explore Recharge Week</a>
+                <!-- 7-Day Battery Interactive (from Recharge Week) -->
+                <div id="recharge-battery-widget"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(159, 197, 203, 0.15) 0%, rgba(248, 210, 156, 0.1) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 2px solid rgba(42, 61, 102, 0.15); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4
+                        style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
+                        7-Day Battery Challenge</h4>
+                    <p
+                        style="text-align: center; font-size: 0.9rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 20px 0;">
+                        Click each day to charge your battery and reveal the challenge!</p>
+
+                    <!-- Battery Visual -->
+                    <div style="max-width: 420px; margin: 0 auto;">
+                        <div id="rw-battery-frame"
+                            style="background: #fff; border: 3px solid #2A3D66; border-radius: 16px; padding: 10px; position: relative; box-shadow: 3px 3px 0px rgba(42, 61, 102, 0.25);">
+                            <div
+                                style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 50px; height: 12px; background: #9FC5CB; border-radius: 5px 5px 0 0; border: 2px solid #2A3D66; border-bottom: none;">
+                            </div>
+                            <div
+                                style="display: flex; gap: 6px; padding: 6px; background: rgba(42, 61, 102, 0.06); border-radius: 10px;">
+                                <div class="rw-seg" data-day="1"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #B39CD0; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D1</span>
+                                </div>
+                                <div class="rw-seg" data-day="2"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #9FC5CB; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D2</span>
+                                </div>
+                                <div class="rw-seg" data-day="3"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #ADCBA4; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D3</span>
+                                </div>
+                                <div class="rw-seg" data-day="4"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #F8D29C; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D4</span>
+                                </div>
+                                <div class="rw-seg" data-day="5"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #F4D2C8; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D5</span>
+                                </div>
+                                <div class="rw-seg" data-day="6"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #8FB8DE; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D6</span>
+                                </div>
+                                <div class="rw-seg" data-day="7"
+                                    style="flex: 1; height: 90px; background: #E8ECF0; border-radius: 6px; cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(42, 61, 102, 0.12); transition: all 0.3s;">
+                                    <div class="rw-seg-fill"
+                                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: #E8BC6E; border-radius: 4px; transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                                    </div>
+                                    <span
+                                        style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 0.75rem; color: rgba(42, 61, 102, 0.5); z-index: 2;">D7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 12px;">
+                            <span id="rw-percent"
+                                style="font-size: 2rem; font-weight: 800; color: #2A3D66;">0</span><span
+                                style="font-size: 1rem; color: #5A6A7A;">% Charged</span>
+                        </div>
+                    </div>
+
+                    <!-- Day buttons -->
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px;">
+                        <button class="rw-day-btn" data-day="1"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            1</button>
+                        <button class="rw-day-btn" data-day="2"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            2</button>
+                        <button class="rw-day-btn" data-day="3"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            3</button>
+                        <button class="rw-day-btn" data-day="4"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            4</button>
+                        <button class="rw-day-btn" data-day="5"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            5</button>
+                        <button class="rw-day-btn" data-day="6"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            6</button>
+                        <button class="rw-day-btn" data-day="7"
+                            style="background: #fff; border: 2px solid rgba(42, 61, 102, 0.2); color: #2A3D66; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Day
+                            7</button>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div style="text-align: center; margin-top: 14px;">
+                        <button id="rw-charge-all"
+                            style="background: #F8D29C; border: 2px solid #2A3D66; color: #2A3D66; padding: 10px 20px; border-radius: 25px; font-weight: 700; cursor: pointer; box-shadow: 2px 2px 0px rgba(42, 61, 102, 0.25); transition: all 0.2s;">Charge
+                            All Days</button>
+                        <button id="rw-reset"
+                            style="background: transparent; border: 1px solid rgba(42, 61, 102, 0.3); color: #5A6A7A; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; margin-left: 10px; transition: all 0.2s;">Reset
+                            Battery</button>
+                    </div>
+
+                    <!-- Day content display -->
+                    <div id="rw-day-content"
+                        style="display: none; margin-top: 16px; background: rgba(255,255,255,0.7); border: 2px solid rgba(42, 61, 102, 0.1); border-radius: 12px; padding: 16px;">
+                        <h5 id="rw-day-title" style="margin: 0 0 8px 0; color: #2A3D66; font-size: 1.1rem;"></h5>
+                        <p id="rw-day-desc" style="margin: 0; color: #4A5A7A; font-size: 0.95rem; line-height: 1.6;">
+                        </p>
+                    </div>
+                    <p id="rw-prompt" style="text-align: center; color: #6B7B8B; font-size: 0.85rem; margin-top: 12px;">
+                        Tap a day to begin charging</p>
+                </div>
+
+                <script>
+                    (function () {
+                        const dayData = {
+                            1: { title: 'Day 1 - Sleep Mode ON', desc: 'Prioritize real rest by setting a tech cut-off time, softening your evening routine, and giving your body permission to power down.' },
+                            2: { title: 'Day 2 - Airplane Mode', desc: 'Take a mini digital detox: mute notifications, step away from constant scrolling, and give your mind a quiet signal break.' },
+                            3: { title: 'Day 3 - Clean Storage', desc: 'Declutter your space or mind - clear a corner of your room, tidy your backpack, or journal out thoughts taking up too much storage.' },
+                            4: { title: 'Day 4 - Fast Charge', desc: 'Move your body in a way that feels doable: a short walk, stretch break, or dance session to boost energy and release stress.' },
+                            5: { title: 'Day 5 - Battery Share', desc: 'Connect with someone who fills your cup - send a kind message, join a club event, or simply sit with a trusted friend.' },
+                            6: { title: 'Day 6 - Quiet Mode', desc: 'Create a calm pocket of time with mindfulness, music, or creative expression so your brain can soften the noise of the week.' },
+                            7: { title: 'Day 7 - System Check', desc: 'Reflect on what helped you feel more charged, what drained you, and which practices you want to keep as part of your routine.' }
+                        };
+
+                        let charged = new Set();
+                        const segments = document.querySelectorAll('#recharge-battery-widget .rw-seg');
+                        const dayBtns = document.querySelectorAll('#recharge-battery-widget .rw-day-btn');
+                        const percentEl = document.getElementById('rw-percent');
+                        const contentBox = document.getElementById('rw-day-content');
+                        const titleEl = document.getElementById('rw-day-title');
+                        const descEl = document.getElementById('rw-day-desc');
+                        const promptEl = document.getElementById('rw-prompt');
+
+                        function updatePercent() {
+                            percentEl.textContent = Math.round((charged.size / 7) * 100);
+                        }
+
+                        function chargeDay(day) {
+                            const seg = document.querySelector(`#recharge-battery-widget .rw-seg[data-day="${day}"]`);
+                            const btn = document.querySelector(`#recharge-battery-widget .rw-day-btn[data-day="${day}"]`);
+                            const fill = seg.querySelector('.rw-seg-fill');
+
+                            if (charged.has(day)) {
+                                charged.delete(day);
+                                fill.style.height = '0%';
+                                seg.querySelector('span').style.color = 'rgba(42, 61, 102, 0.5)';
+                                btn.style.background = '#fff';
+                            } else {
+                                charged.add(day);
+                                fill.style.height = '100%';
+                                seg.querySelector('span').style.color = '#fff';
+                                btn.style.background = '#F8D29C';
+                            }
+
+                            // Show content
+                            titleEl.textContent = dayData[day].title;
+                            descEl.textContent = dayData[day].desc;
+                            contentBox.style.display = 'block';
+                            promptEl.style.display = 'none';
+
+                            updatePercent();
+                        }
+
+                        segments.forEach(seg => seg.addEventListener('click', () => chargeDay(seg.dataset.day)));
+                        dayBtns.forEach(btn => btn.addEventListener('click', () => chargeDay(btn.dataset.day)));
+
+                        document.getElementById('rw-charge-all').addEventListener('click', () => {
+                            let delay = 0;
+                            for (let i = 1; i <= 7; i++) {
+                                setTimeout(() => { if (!charged.has(String(i))) chargeDay(String(i)); }, delay);
+                                delay += 150;
+                            }
+                        });
+
+                        document.getElementById('rw-reset').addEventListener('click', () => {
+                            charged.clear();
+                            segments.forEach(seg => {
+                                seg.querySelector('.rw-seg-fill').style.height = '0%';
+                                seg.querySelector('span').style.color = 'rgba(42, 61, 102, 0.5)';
+                            });
+                            dayBtns.forEach(btn => btn.style.background = '#fff');
+                            contentBox.style.display = 'none';
+                            promptEl.style.display = 'block';
+                            updatePercent();
+                        });
+                    })();
+                </script>
             </div>
         </section>
 

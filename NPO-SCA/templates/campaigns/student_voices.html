@@ -296,26 +296,109 @@
 
                 <script>
                     (function () {
-                        let answered = {};
+                        let answers = { q1: null, q2: null, q3: null };
+
+                        // Response combinations for personalized suggestions
+                        const suggestions = {
+                            // Based on connection style + sharing frequency + what helps
+                            getPersonalized: function (a) {
+                                let title = '';
+                                let msg = '';
+                                let action = '';
+
+                                // Determine main message based on sharing frequency
+                                if (a.q2 === 'often') {
+                                    title = '💜 You\'re Already Connected!';
+                                    msg = 'It\'s wonderful that you share openly. Your voice has power - consider becoming an E.C.H.O.E. volunteer to help others find their voice too.';
+                                    action = 'Become a Volunteer';
+                                } else if (a.q2 === 'never' || a.q2 === 'rarely') {
+                                    if (a.q3 === 'anonymous') {
+                                        title = '🌟 Your Voice Matters - Anonymously';
+                                        msg = 'Writing anonymously can be a powerful first step. Our letter system lets you share without revealing your identity, and you\'ll receive a caring response within 24-72 hours.';
+                                        action = 'Write Anonymously';
+                                    } else if (a.q3 === 'listen') {
+                                        title = '💙 Someone Is Ready to Listen';
+                                        msg = 'You deserve to be heard. Our trained peer volunteers are here to listen without judgment. Consider sharing your story through Echo Voices or writing a letter.';
+                                        action = 'Share Your Story';
+                                    } else if (a.q3 === 'safe') {
+                                        title = '🏡 Find Your Safe Space';
+                                        msg = 'E.C.H.O.E. was built to be that safe space. Whether through anonymous letters or community events, we create environments where vulnerability is welcomed.';
+                                        action = 'Explore Our Community';
+                                    } else {
+                                        title = '🎨 Express Yourself Creatively';
+                                        msg = 'Sometimes words aren\'t enough. Consider joining our Echo Gallery or participating in creative wellness activities. Art and expression are powerful healing tools.';
+                                        action = 'Explore Echo Gallery';
+                                    }
+                                } else { // sometimes
+                                    if (a.q1 === 'friends') {
+                                        title = '👥 Strengthen Your Circle';
+                                        msg = 'Close friendships are protective factors against isolation. Consider deepening those connections by checking in more often or inviting friends to E.C.H.O.E. events.';
+                                        action = 'View Upcoming Events';
+                                    } else if (a.q1 === 'group') {
+                                        title = '🤝 You Thrive in Community';
+                                        msg = 'Group activities energize you - that\'s a strength! Our community events and workshops are perfect for you. Join us to connect with others who understand.';
+                                        action = 'View Events';
+                                    } else if (a.q1 === 'online') {
+                                        title = '🌐 Your Online Voice Matters';
+                                        msg = 'Online communities can provide meaningful connection. Follow us on social media, participate in our campaigns, or share your story digitally through Echo Voices.';
+                                        action = 'Follow on Instagram';
+                                    } else {
+                                        title = '💭 Discovering Your Connection Style';
+                                        msg = 'Not sure where you fit? That\'s okay! E.C.H.O.E. offers multiple ways to connect - anonymous letters, one-on-one responses, community events, and online engagement. Try what feels right.';
+                                        action = 'Explore Options';
+                                    }
+                                }
+
+                                return { title, msg, action };
+                            }
+                        };
+
                         window.selectQuizOption = function (btn, qNum) {
                             const q = btn.closest('.quiz-q');
                             q.querySelectorAll('.quiz-opt').forEach(b => {
                                 b.style.background = b.style.background.includes('179, 156, 208') ? 'rgba(179, 156, 208, 0.15)' :
                                     b.style.background.includes('159, 197, 203') ? 'rgba(159, 197, 203, 0.15)' : 'rgba(232, 146, 124, 0.15)';
                                 b.style.fontWeight = '400';
+                                b.style.color = 'var(--deep-indigo)';
                             });
                             btn.style.background = 'linear-gradient(135deg, #B39CD0, #9FC5CB)';
                             btn.style.color = '#fff';
                             btn.style.fontWeight = '600';
-                            answered[qNum] = true;
 
-                            if (Object.keys(answered).length >= 3) {
+                            // Track specific answer
+                            const answerText = btn.textContent.trim().toLowerCase();
+                            if (qNum === 1) {
+                                if (answerText.includes('close friends')) answers.q1 = 'friends';
+                                else if (answerText.includes('group')) answers.q1 = 'group';
+                                else if (answerText.includes('online')) answers.q1 = 'online';
+                                else answers.q1 = 'unsure';
+                            } else if (qNum === 2) {
+                                if (answerText === 'often') answers.q2 = 'often';
+                                else if (answerText === 'sometimes') answers.q2 = 'sometimes';
+                                else if (answerText === 'rarely') answers.q2 = 'rarely';
+                                else answers.q2 = 'never';
+                            } else if (qNum === 3) {
+                                if (answerText.includes('listen')) answers.q3 = 'listen';
+                                else if (answerText.includes('safe')) answers.q3 = 'safe';
+                                else if (answerText.includes('anonymous')) answers.q3 = 'anonymous';
+                                else answers.q3 = 'creative';
+                            }
+
+                            if (answers.q1 && answers.q2 && answers.q3) {
                                 document.getElementById('quiz-submit').style.display = 'block';
                             }
                         };
 
                         window.showQuizResult = function () {
-                            document.getElementById('quiz-result').style.display = 'block';
+                            const result = suggestions.getPersonalized(answers);
+                            const resultDiv = document.getElementById('quiz-result');
+                            resultDiv.innerHTML = `
+                                <p style="margin: 0 0 10px 0; font-size: 1.1rem; font-weight: 700; color: var(--deep-indigo);">${result.title}</p>
+                                <p style="margin: 0 0 14px 0; font-size: 0.95rem; color: var(--deep-indigo); line-height: 1.6;">${result.msg}</p>
+                                <p style="margin: 0; font-size: 0.85rem; color: #6B7B8B; font-style: italic;">Remember: connection is a protective factor. Every voice deserves to echo. 💜</p>
+                                <a href="{{ url_for('submit') }}" style="display: inline-block; margin-top: 14px; padding: 10px 22px; background: linear-gradient(135deg, #B39CD0, #9078A8); color: #fff; border-radius: 20px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.2s;">Share Your Story</a>
+                            `;
+                            resultDiv.style.display = 'block';
                             document.getElementById('quiz-submit').style.display = 'none';
                         };
                     })();

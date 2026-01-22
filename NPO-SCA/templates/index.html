@@ -2650,40 +2650,52 @@
     }
 
     .qr-card {
-        background: rgba(253, 251, 247, 0.92);
-        border: 2px solid rgba(42, 61, 102, 0.15);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(253, 251, 247, 0.45) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(255, 255, 255, 0.5);
         border-radius: 20px;
         padding: 24px 20px;
-        box-shadow: 3px 3px 0px var(--echoe-accent-green), 0 8px 20px rgba(42, 61, 102, 0.1);
-        transition: all 0.25s ease;
+        box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        transition: all 0.3s ease;
         position: relative;
     }
 
+    .qr-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 1.5px;
+        background: linear-gradient(135deg, rgba(159, 197, 203, 0.4), rgba(248, 210, 156, 0.3), rgba(173, 203, 164, 0.3));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
     .qr-card:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 10px 24px rgba(42, 61, 102, 0.12);
-        transform: translate(3px, 3px);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(42, 61, 102, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(253, 251, 247, 0.55) 100%);
     }
 
     .qr-card.tiktok-card {
-        border-top: 4px solid rgba(42, 61, 102, 0.18);
+        border-top: 3px solid rgba(0, 0, 0, 0.15);
     }
 
     .qr-card.instagram-card {
-        border-top: 4px solid rgba(42, 61, 102, 0.18);
+        border-top: 3px solid rgba(225, 48, 108, 0.25);
     }
 
     .qr-card.youtube-card {
-        border-top: 4px solid rgba(42, 61, 102, 0.18);
-    }
-
-    .qr-card:hover {
-        box-shadow: 0px 0px 0px var(--echoe-accent-green), 0 10px 24px rgba(42, 61, 102, 0.12);
-        transform: translate(3px, 3px);
+        border-top: 3px solid rgba(255, 0, 0, 0.2);
     }
 
     .qr-image-wrap {
-        background: #F8F9FA;
-        border: 2px solid rgba(42, 61, 102, 0.1);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(248, 249, 250, 0.5) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         border-radius: 16px;
         padding: 16px;
         margin-bottom: 16px;

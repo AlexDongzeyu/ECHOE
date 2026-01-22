@@ -70,21 +70,39 @@
     font-weight: 600;
   }
 
-  /* Content sections - simplified, breathing */
+  /* Content sections - glassmorphic, breathing */
   .helpline-section {
-    background: rgba(255, 251, 247, 0.5);
-    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(253, 251, 247, 0.4) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
     padding: 24px;
     margin-bottom: 16px;
-    border: none;
-    box-shadow: 0 3px 12px rgba(42, 61, 102, 0.06);
+    box-shadow: 0 8px 32px rgba(42, 61, 102, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     animation: fade-up 0.5s ease-out both;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .helpline-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, rgba(159, 197, 203, 0.4), rgba(122, 174, 182, 0.3), rgba(173, 203, 164, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 
   .helpline-section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 61, 102, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(42, 61, 102, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(253, 251, 247, 0.5) 100%);
   }
 
   .helpline-section h2 {

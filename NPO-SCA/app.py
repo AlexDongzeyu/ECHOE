@@ -574,7 +574,7 @@ try:
                             f"Volunteer draft / latest typing (focus):\n'''{recent}'''\n"
                         )
                     api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
-                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
                     payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.6, "topP": 0.9}}
                     with httpx.Client(timeout=15) as client:
                         resp = client.post(url, json=payload)
@@ -1003,7 +1003,7 @@ try:
                     "Keep responses warm, supportive, and relatively brief. Use a caring tone like a kind friend."
                 )
             
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
             gemini_payload = {
                 "contents": [{
                     "parts": [{
@@ -1060,7 +1060,7 @@ try:
     def generate_ai_response(message):
         try:
             api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
             
             payload = {
                 "contents": [{
@@ -1375,7 +1375,7 @@ try:
     def generate_ai_response_with_type(message, response_type):
         try:
             api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
             
             # Comprehensive E.C.H.O.E. website context for accurate responses
             echoe_context = """

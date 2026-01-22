@@ -243,6 +243,198 @@
                 </ul>
                 <p><strong>The Routine:</strong> Each day features a quick "rep" - a small, actionable step like sending
                     appreciation texts, journaling wins, or spending 5 minutes in nature.</p>
+
+                <!-- 21-Day Mind Gym Tracker Interactive -->
+                <div id="mind-gym-tracker"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(179, 156, 208, 0.12) 0%, rgba(159, 197, 203, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 8px 0; font-size: 1.1rem;">
+                        21-Day Mind Gym Tracker</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        Click each day to complete your mental workout!</p>
+
+                    <!-- Week 1: Strength -->
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                            <span
+                                style="background: linear-gradient(135deg, #B39CD0, #9078A8); color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">Week
+                                1</span>
+                            <span
+                                style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Strength</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+                            <button class="gym-day" data-day="1"
+                                data-tip="Send an appreciation text to someone you care about"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">1</button>
+                            <button class="gym-day" data-day="2" data-tip="Journal 3 things you're grateful for"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">2</button>
+                            <button class="gym-day" data-day="3" data-tip="Practice saying 'no' to one small thing"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">3</button>
+                            <button class="gym-day" data-day="4" data-tip="Take 5 deep breaths when you feel stressed"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">4</button>
+                            <button class="gym-day" data-day="5"
+                                data-tip="Identify one emotion you felt today and name it"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">5</button>
+                            <button class="gym-day" data-day="6"
+                                data-tip="Spend 10 minutes doing something just for you"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">6</button>
+                            <button class="gym-day" data-day="7"
+                                data-tip="Write down one personal boundary you want to set"
+                                style="aspect-ratio: 1; border: 2px solid rgba(179, 156, 208, 0.4); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">7</button>
+                        </div>
+                    </div>
+
+                    <!-- Week 2: Flexibility -->
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                            <span
+                                style="background: linear-gradient(135deg, #9FC5CB, #7AAEB6); color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">Week
+                                2</span>
+                            <span
+                                style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Flexibility</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+                            <button class="gym-day" data-day="8" data-tip="Try something new, even if it's small"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">8</button>
+                            <button class="gym-day" data-day="9"
+                                data-tip="Reframe one negative thought into a growth opportunity"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">9</button>
+                            <button class="gym-day" data-day="10" data-tip="Ask for help with one thing today"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">10</button>
+                            <button class="gym-day" data-day="11" data-tip="Accept one thing you cannot change today"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">11</button>
+                            <button class="gym-day" data-day="12" data-tip="Celebrate a small win today"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">12</button>
+                            <button class="gym-day" data-day="13" data-tip="Learn one new fact about mental health"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">13</button>
+                            <button class="gym-day" data-day="14" data-tip="Do something outside your comfort zone"
+                                style="aspect-ratio: 1; border: 2px solid rgba(159, 197, 203, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">14</button>
+                        </div>
+                    </div>
+
+                    <!-- Week 3: Endurance -->
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                            <span
+                                style="background: linear-gradient(135deg, #E8927C, #D4735B); color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">Week
+                                3</span>
+                            <span
+                                style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Endurance</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+                            <button class="gym-day" data-day="15" data-tip="Create a morning routine and stick to it"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">15</button>
+                            <button class="gym-day" data-day="16" data-tip="Write down one long-term goal"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">16</button>
+                            <button class="gym-day" data-day="17"
+                                data-tip="Spend 5 minutes in nature or looking outside"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">17</button>
+                            <button class="gym-day" data-day="18" data-tip="Do one kind thing for someone else"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">18</button>
+                            <button class="gym-day" data-day="19" data-tip="Reflect on how far you've come this month"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">19</button>
+                            <button class="gym-day" data-day="20" data-tip="Share something you learned with a friend"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">20</button>
+                            <button class="gym-day" data-day="21" data-tip="Celebrate your 21-day achievement!"
+                                style="aspect-ratio: 1; border: 2px solid rgba(232, 146, 124, 0.5); background: rgba(255,255,255,0.5); border-radius: 8px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 0.8rem; transition: all 0.2s;">21</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div style="margin-top: 16px;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span
+                                style="font-size: 0.85rem; font-weight: 600; color: var(--deep-indigo);">Progress</span>
+                            <span id="gym-progress-text"
+                                style="font-size: 0.85rem; font-weight: 700; color: #9078A8;">0/21 days</span>
+                        </div>
+                        <div
+                            style="background: rgba(179, 156, 208, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                            <div id="gym-progress-bar"
+                                style="background: linear-gradient(90deg, #B39CD0, #9FC5CB); height: 100%; width: 0%; border-radius: 10px; transition: width 0.4s ease;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Tip Display -->
+                    <div id="gym-tip"
+                        style="margin-top: 12px; padding: 10px 14px; background: rgba(255,255,255,0.6); border-radius: 10px; display: none;">
+                        <p style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo);"><strong>Today's
+                                Rep:</strong> <span id="gym-tip-text"></span></p>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <button id="gym-reset"
+                        style="margin-top: 12px; padding: 8px 16px; background: transparent; border: 1px solid rgba(179, 156, 208, 0.5); border-radius: 20px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;"
+                        onmouseover="this.style.background='rgba(179, 156, 208, 0.15)'"
+                        onmouseout="this.style.background='transparent'">Reset Tracker</button>
+                </div>
+
+                <script>
+                    (function () {
+                        const days = document.querySelectorAll('#mind-gym-tracker .gym-day');
+                        const progressBar = document.getElementById('gym-progress-bar');
+                        const progressText = document.getElementById('gym-progress-text');
+                        const tipBox = document.getElementById('gym-tip');
+                        const tipText = document.getElementById('gym-tip-text');
+                        const resetBtn = document.getElementById('gym-reset');
+
+                        // Load saved state
+                        let completed = JSON.parse(localStorage.getItem('mindGymDays') || '[]');
+
+                        function updateProgress() {
+                            const pct = (completed.length / 21) * 100;
+                            progressBar.style.width = pct + '%';
+                            progressText.textContent = completed.length + '/21 days';
+                        }
+
+                        function updateDayStyles() {
+                            days.forEach(day => {
+                                const dayNum = parseInt(day.dataset.day);
+                                if (completed.includes(dayNum)) {
+                                    day.style.background = 'linear-gradient(135deg, #B39CD0, #9FC5CB)';
+                                    day.style.color = '#fff';
+                                    day.style.borderColor = 'transparent';
+                                } else {
+                                    day.style.background = 'rgba(255,255,255,0.5)';
+                                    day.style.color = 'var(--deep-indigo)';
+                                }
+                            });
+                        }
+
+                        days.forEach(day => {
+                            day.addEventListener('click', function () {
+                                const dayNum = parseInt(this.dataset.day);
+                                const tip = this.dataset.tip;
+
+                                if (completed.includes(dayNum)) {
+                                    completed = completed.filter(d => d !== dayNum);
+                                } else {
+                                    completed.push(dayNum);
+                                    tipText.textContent = tip;
+                                    tipBox.style.display = 'block';
+                                }
+
+                                localStorage.setItem('mindGymDays', JSON.stringify(completed));
+                                updateProgress();
+                                updateDayStyles();
+                            });
+                        });
+
+                        resetBtn.addEventListener('click', function () {
+                            completed = [];
+                            localStorage.setItem('mindGymDays', JSON.stringify(completed));
+                            tipBox.style.display = 'none';
+                            updateProgress();
+                            updateDayStyles();
+                        });
+
+                        // Initialize
+                        updateProgress();
+                        updateDayStyles();
+                    })();
+                </script>
             </div>
         </section>
 
@@ -297,23 +489,116 @@
                 <p class="campaign-tagline">"Healing Comes in Many Forms"</p>
                 <p>Mental health isn't "one-size-fits-all." Just like physical health, different conditions need
                     different treatments - and not all therapies involve talking on a couch. This educational series
-                    explores six evidence-based therapies used by clinicians around the world, reducing stigma around
-                    seeking help and promoting mental health literacy among teens.</p>
-                <ul>
-                    <li><strong>Day 1:</strong> Cognitive Behavioral Therapy (CBT) - Helps notice unhelpful thinking
-                        patterns and replace them with realistic, balanced thoughts.</li>
-                    <li><strong>Day 2:</strong> Dialectical Behavior Therapy (DBT) - Teaches skills in mindfulness,
-                        distress tolerance, emotion regulation, and interpersonal effectiveness.</li>
-                    <li><strong>Day 3:</strong> Art Therapy - Uses creative expression to explore emotions that may be
-                        difficult to verbalize.</li>
-                    <li><strong>Day 4:</strong> Mindfulness-Based Therapies - Incorporates meditation and present-moment
-                        awareness to reduce stress.</li>
-                    <li><strong>Day 5:</strong> Music Therapy - Uses musical experiences to address emotional,
-                        cognitive, and social needs.</li>
-                    <li><strong>Day 6:</strong> Animal-Assisted Therapy - Interactions with trained therapy animals can
-                        lower cortisol levels and reduce anxiety.</li>
-                </ul>
-                <p style="font-size: 0.9rem; opacity: 0.8;"><strong>Protective Factors Addressed:</strong> Mental health
+                    explores six evidence-based therapies used by clinicians around the world.</p>
+
+                <!-- Therapy Explorer Interactive -->
+                <div id="therapy-explorer"
+                    style="margin-top: 20px; background: linear-gradient(135deg, rgba(159, 197, 203, 0.12) 0%, rgba(179, 156, 208, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">
+                        Therapy Explorer</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        Click a card to learn more:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                        <!-- CBT -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'CBT targets negative thought patterns. Try this: Write down a worried thought, then list 3 reasons it might not be true.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🧠</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">CBT</div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                        <!-- DBT -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'DBT teaches distress tolerance and emotional regulation. Try this: Hold an ice cube for 30 seconds when feeling overwhelmed.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">⚖️</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">DBT</div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                        <!-- Art Therapy -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'Art therapy uses creative expression to explore emotions. Try this: Draw your current mood using only colors and shapes.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎨</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Art</div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                        <!-- Mindfulness -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'Mindfulness reduces stress through present-moment awareness. Try this: Name 5 things you can see, 4 you can hear, 3 you can touch.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🧘</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Mindfulness
+                            </div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                        <!-- Music Therapy -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'Music therapy addresses emotional, cognitive, and social needs. Try this: Create a playlist for different emotions you might feel.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🎵</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Music</div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                        <!-- Animal-Assisted -->
+                        <div class="therapy-card"
+                            style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.3s;"
+                            onclick="toggleTherapy(this, 'Animal therapy lowers cortisol and reduces anxiety. Try this: Spend 10 minutes petting an animal and notice how you feel.')">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">🐾</div>
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Animal</div>
+                            <div class="therapy-detail"
+                                style="display: none; font-size: 0.75rem; color: var(--deep-indigo); margin-top: 8px; line-height: 1.4;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <p
+                        style="margin-top: 14px; font-size: 0.8rem; text-align: center; color: var(--deep-indigo); opacity: 0.7;">
+                        Click any card to see a sample exercise!</p>
+                </div>
+
+                <script>
+                    function toggleTherapy(card, detail) {
+                        const detailDiv = card.querySelector('.therapy-detail');
+                        const allCards = document.querySelectorAll('#therapy-explorer .therapy-card');
+
+                        // Reset all cards
+                        allCards.forEach(c => {
+                            if (c !== card) {
+                                c.querySelector('.therapy-detail').style.display = 'none';
+                                c.style.borderColor = 'transparent';
+                                c.style.background = 'rgba(255,255,255,0.6)';
+                            }
+                        });
+
+                        // Toggle clicked card
+                        if (detailDiv.style.display === 'none') {
+                            detailDiv.textContent = detail;
+                            detailDiv.style.display = 'block';
+                            card.style.borderColor = 'rgba(159, 197, 203, 0.6)';
+                            card.style.background = 'rgba(159, 197, 203, 0.15)';
+                        } else {
+                            detailDiv.style.display = 'none';
+                            card.style.borderColor = 'transparent';
+                            card.style.background = 'rgba(255,255,255,0.6)';
+                        }
+                    }
+                </script>
+
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 16px;"><strong>Protective Factors
+                        Addressed:</strong> Mental health
                     literacy, help-seeking behaviors, coping strategies, emotional regulation</p>
             </div>
         </section>

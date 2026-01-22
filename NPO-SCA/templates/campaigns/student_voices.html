@@ -204,17 +204,122 @@
                 <h2>Echo Voices</h2>
                 <p class="campaign-tagline">"Connection is Protection"</p>
                 <p>Every face in the hallway has a story you haven't heard. Echo Voices is our signature interview
-                    series featuring students from different grades and backgrounds. We ask the real questions: When do
-                    you feel most alone? What gives you hope? How do you cope when things get hard?</p>
-                <p>Through honest portraits and candid interviews, these stories serve as our strongest protection
-                    against isolation. Participants share what mental health means to them, moments when they felt most
-                    connected or disconnected, and advice for others who might be struggling. The diversity of voices -
-                    representing different experiences, challenges, and coping strategies - ensures that every student
-                    can find someone whose story resonates with their own.</p>
-                <p>Featured students have shared experiences ranging from navigating social anxiety to processing family
-                    challenges, from the isolation of being an international student to the pressure of academic
-                    expectations. Each story is a reminder that vulnerability creates connection, and that speaking our
-                    truth can help others feel less alone.</p>
+                    series featuring students from different grades and backgrounds. Through honest portraits and candid
+                    interviews, these stories serve as our strongest protection against isolation.</p>
+
+                <!-- Your Voice Matters Quiz -->
+                <div id="voice-quiz"
+                    style="margin-top: 20px; background: linear-gradient(135deg, rgba(179, 156, 208, 0.12) 0%, rgba(159, 197, 203, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">
+                        Your Voice Matters</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        Reflect on your connection experiences:</p>
+
+                    <div id="quiz-questions">
+                        <div class="quiz-q" data-q="1"
+                            style="margin-bottom: 14px; padding: 12px; background: rgba(255,255,255,0.5); border-radius: 10px;">
+                            <p
+                                style="margin: 0 0 10px 0; font-size: 0.9rem; font-weight: 600; color: var(--deep-indigo);">
+                                When do you feel most connected?</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 1)"
+                                    style="padding: 6px 12px; background: rgba(179, 156, 208, 0.15); border: 1px solid rgba(179, 156, 208, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">With
+                                    close friends</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 1)"
+                                    style="padding: 6px 12px; background: rgba(179, 156, 208, 0.15); border: 1px solid rgba(179, 156, 208, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">In
+                                    group activities</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 1)"
+                                    style="padding: 6px 12px; background: rgba(179, 156, 208, 0.15); border: 1px solid rgba(179, 156, 208, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Online
+                                    communities</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 1)"
+                                    style="padding: 6px 12px; background: rgba(179, 156, 208, 0.15); border: 1px solid rgba(179, 156, 208, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">I'm
+                                    not sure</button>
+                            </div>
+                        </div>
+
+                        <div class="quiz-q" data-q="2"
+                            style="margin-bottom: 14px; padding: 12px; background: rgba(255,255,255,0.5); border-radius: 10px;">
+                            <p
+                                style="margin: 0 0 10px 0; font-size: 0.9rem; font-weight: 600; color: var(--deep-indigo);">
+                                How often do you share what you're really feeling?</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 2)"
+                                    style="padding: 6px 12px; background: rgba(159, 197, 203, 0.15); border: 1px solid rgba(159, 197, 203, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Often</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 2)"
+                                    style="padding: 6px 12px; background: rgba(159, 197, 203, 0.15); border: 1px solid rgba(159, 197, 203, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Sometimes</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 2)"
+                                    style="padding: 6px 12px; background: rgba(159, 197, 203, 0.15); border: 1px solid rgba(159, 197, 203, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Rarely</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 2)"
+                                    style="padding: 6px 12px; background: rgba(159, 197, 203, 0.15); border: 1px solid rgba(159, 197, 203, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Never</button>
+                            </div>
+                        </div>
+
+                        <div class="quiz-q" data-q="3"
+                            style="margin-bottom: 14px; padding: 12px; background: rgba(255,255,255,0.5); border-radius: 10px;">
+                            <p
+                                style="margin: 0 0 10px 0; font-size: 0.9rem; font-weight: 600; color: var(--deep-indigo);">
+                                What would help you feel more heard?</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 3)"
+                                    style="padding: 6px 12px; background: rgba(232, 146, 124, 0.15); border: 1px solid rgba(232, 146, 124, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Someone
+                                    to listen</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 3)"
+                                    style="padding: 6px 12px; background: rgba(232, 146, 124, 0.15); border: 1px solid rgba(232, 146, 124, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">A
+                                    safe space</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 3)"
+                                    style="padding: 6px 12px; background: rgba(232, 146, 124, 0.15); border: 1px solid rgba(232, 146, 124, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Anonymous
+                                    sharing</button>
+                                <button class="quiz-opt" onclick="selectQuizOption(this, 3)"
+                                    style="padding: 6px 12px; background: rgba(232, 146, 124, 0.15); border: 1px solid rgba(232, 146, 124, 0.3); border-radius: 16px; color: var(--deep-indigo); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Creative
+                                    expression</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="quiz-submit" onclick="showQuizResult()"
+                        style="display: none; margin-top: 12px; width: 100%; padding: 12px; background: linear-gradient(135deg, #B39CD0, #9FC5CB); border: none; border-radius: 20px; color: #fff; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s;">Get
+                        Your Connection Tips</button>
+
+                    <div id="quiz-result"
+                        style="display: none; margin-top: 16px; padding: 14px; background: rgba(255,255,255,0.7); border-radius: 12px; text-align: center;">
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--deep-indigo); line-height: 1.6;">
+                            <strong>Your voice matters!</strong> Remember: connection is a protective factor. Consider
+                            sharing your story through Echo Voices or writing an anonymous letter. Every voice deserves
+                            to echo.
+                        </p>
+                        <a href="{{ url_for('submit') }}"
+                            style="display: inline-block; margin-top: 12px; padding: 8px 20px; background: linear-gradient(135deg, #B39CD0, #9078A8); color: #fff; border-radius: 16px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">Share
+                            Your Story</a>
+                    </div>
+                </div>
+
+                <script>
+                    (function () {
+                        let answered = {};
+                        window.selectQuizOption = function (btn, qNum) {
+                            const q = btn.closest('.quiz-q');
+                            q.querySelectorAll('.quiz-opt').forEach(b => {
+                                b.style.background = b.style.background.includes('179, 156, 208') ? 'rgba(179, 156, 208, 0.15)' :
+                                    b.style.background.includes('159, 197, 203') ? 'rgba(159, 197, 203, 0.15)' : 'rgba(232, 146, 124, 0.15)';
+                                b.style.fontWeight = '400';
+                            });
+                            btn.style.background = 'linear-gradient(135deg, #B39CD0, #9FC5CB)';
+                            btn.style.color = '#fff';
+                            btn.style.fontWeight = '600';
+                            answered[qNum] = true;
+
+                            if (Object.keys(answered).length >= 3) {
+                                document.getElementById('quiz-submit').style.display = 'block';
+                            }
+                        };
+
+                        window.showQuizResult = function () {
+                            document.getElementById('quiz-result').style.display = 'block';
+                            document.getElementById('quiz-submit').style.display = 'none';
+                        };
+                    })();
+                </script>
             </div>
         </section>
 
@@ -230,16 +335,81 @@
                 <h2>Echo Gallery</h2>
                 <p class="campaign-tagline">"When Feelings Speak"</p>
                 <p>Sometimes, emotions are too complex for words. The Echo Gallery showcases creative submissions from
-                    our community - art, photography, poetry, and visual expressions of mental health. It is a safe
-                    space where creativity meets vulnerability, allowing students to see their internal worlds reflected
-                    in the art of others.</p>
-                <p>Art has long been recognized as a powerful tool for emotional expression and processing. For students
-                    who struggle to articulate their feelings verbally, creative expression offers an alternative
-                    pathway to be heard and understood. The Echo Gallery celebrates these expressions and creates
-                    opportunities for connection through shared aesthetic experiences.</p>
-                <p>We accept submissions on an ongoing basis and feature selected works across our social media
-                    platforms and website. All submissions are shared with artist permission, and participants can
-                    choose to remain anonymous or be credited for their work.</p>
+                    our community - art, photography, poetry, and visual expressions of mental health.</p>
+
+                <!-- Express Yourself Interactive -->
+                <div id="express-yourself"
+                    style="margin-top: 20px; background: linear-gradient(135deg, rgba(159, 197, 203, 0.12) 0%, rgba(179, 156, 208, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">
+                        Express Yourself</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        How are you feeling today? Click to explore:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; text-align: center;">
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('calm', 'Draw flowing water or soft clouds. What does peace look like to you?')"
+                            style="background: rgba(159, 197, 203, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">😌</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Calm</div>
+                        </button>
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('anxious', 'Sketch tangled lines or scattered shapes. Try putting chaos on paper.')"
+                            style="background: rgba(179, 156, 208, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">😰</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Anxious</div>
+                        </button>
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('hopeful', 'Use bright colors or draw sunrise imagery. What gives you hope?')"
+                            style="background: rgba(232, 146, 124, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">🌟</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Hopeful</div>
+                        </button>
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('sad', 'Try blues and grays. Draw rain, tears, or empty spaces.')"
+                            style="background: rgba(42, 61, 102, 0.15); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">😢</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Sad</div>
+                        </button>
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('grateful', 'Draw something or someone you appreciate. Fill the page with warmth.')"
+                            style="background: rgba(179, 156, 208, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">💜</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Grateful</div>
+                        </button>
+                        <button class="mood-btn"
+                            onclick="showMoodPrompt('confused', 'Draw mazes, question marks, or fragmented images. It is okay not to know.')"
+                            style="background: rgba(159, 197, 203, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-size: 1.4rem;">🤔</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Confused</div>
+                        </button>
+                    </div>
+
+                    <div id="mood-prompt"
+                        style="display: none; margin-top: 16px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px; text-align: center;">
+                        <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--deep-indigo); line-height: 1.5;">
+                            <strong>Art Prompt:</strong> <span id="mood-prompt-text"></span></p>
+                        <p style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8;">Create
+                            something and submit it to our gallery!</p>
+                    </div>
+                </div>
+
+                <script>
+                    function showMoodPrompt(mood, prompt) {
+                        document.querySelectorAll('.mood-btn').forEach(btn => {
+                            btn.style.transform = 'scale(1)';
+                            btn.style.boxShadow = 'none';
+                        });
+                        event.target.closest('.mood-btn').style.transform = 'scale(1.1)';
+                        event.target.closest('.mood-btn').style.boxShadow = '0 4px 12px rgba(179, 156, 208, 0.3)';
+
+                        document.getElementById('mood-prompt-text').textContent = prompt;
+                        document.getElementById('mood-prompt').style.display = 'block';
+                    }
+                </script>
+
+                <p style="margin-top: 16px;">We accept submissions on an ongoing basis. Participants can choose to
+                    remain anonymous or be credited.</p>
             </div>
         </section>
 

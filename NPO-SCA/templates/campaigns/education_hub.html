@@ -192,24 +192,79 @@
             <div class="campaign-text">
                 <h2>Echo of the Month</h2>
                 <p class="campaign-tagline">Monthly Mental Health Spotlight</p>
-                <p>Each month, we spotlight a specific mental health topic with detailed education, including what it
-                    is, how it affects people, common misconceptions, and support strategies. Our goal is to build a
-                    knowledgeable community armed with actionable information for students and allies alike.</p>
-                <ul>
-                    <li><strong>September:</strong> Social Isolation - We launched our campaign by educating our
-                        community about social isolation, its prevalence among youth, and our risk and protective
-                        factors framework.</li>
-                    <li><strong>October:</strong> Social Anxiety Disorder (SAD) - We explored social anxiety as more
-                        than just shyness, explaining how it can interfere with daily activities.</li>
-                    <li><strong>November:</strong> Generalized Anxiety Disorder (GAD) - We examined chronic worry and
-                        its physical and emotional effects.</li>
-                    <li><strong>December:</strong> Seasonal Affective Disorder - We provided education about seasonal
-                        depression and light therapy.</li>
-                    <li><strong>January:</strong> New Beginnings and Goal-Setting - Guidance on setting realistic
-                        intentions without perfectionism.</li>
-                    <li><strong>February:</strong> Black History Month Mental Health - Mental health resources and
-                        perspectives from Black communities.</li>
-                </ul>
+                <p>Each month, we spotlight a specific mental health topic with detailed education. Our goal is to build
+                    a
+                    knowledgeable community armed with actionable information.</p>
+
+                <!-- Topic Explorer Interactive -->
+                <div id="topic-explorer"
+                    style="margin-top: 20px; background: linear-gradient(135deg, rgba(179, 156, 208, 0.12) 0%, rgba(159, 197, 203, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">
+                        Topic Explorer</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        Click a month to explore:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Sep', 'Social Isolation', 'We launched our campaign educating about social isolation among youth and our risk/protective factors framework.')"
+                            style="padding: 10px; background: rgba(179, 156, 208, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Sep</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Isolation</div>
+                        </button>
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Oct', 'Social Anxiety Disorder', 'We explored social anxiety as more than shyness - explaining how it can interfere with daily activities.')"
+                            style="padding: 10px; background: rgba(159, 197, 203, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Oct</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">SAD</div>
+                        </button>
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Nov', 'Generalized Anxiety Disorder', 'We examined chronic worry and its physical and emotional effects on students.')"
+                            style="padding: 10px; background: rgba(232, 146, 124, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Nov</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">GAD</div>
+                        </button>
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Dec', 'Seasonal Affective Disorder', 'We provided education about seasonal depression, light therapy, and coping strategies.')"
+                            style="padding: 10px; background: rgba(42, 61, 102, 0.12); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Dec</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Seasonal</div>
+                        </button>
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Jan', 'New Beginnings', 'Guidance on setting realistic intentions without perfectionism for the new year.')"
+                            style="padding: 10px; background: rgba(179, 156, 208, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Jan</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">Goals</div>
+                        </button>
+                        <button class="month-btn"
+                            onclick="showTopic(this, 'Feb', 'Black History Month', 'Mental health resources and perspectives from Black communities.')"
+                            style="padding: 10px; background: rgba(159, 197, 203, 0.2); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--deep-indigo);">Feb</div>
+                            <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">BHM</div>
+                        </button>
+                    </div>
+
+                    <div id="topic-detail"
+                        style="display: none; margin-top: 14px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px;">
+                        <h5 id="topic-title" style="margin: 0 0 8px 0; color: var(--deep-indigo); font-size: 1rem;">
+                        </h5>
+                        <p id="topic-desc"
+                            style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); line-height: 1.5;"></p>
+                    </div>
+                </div>
+
+                <script>
+                    function showTopic(btn, month, title, desc) {
+                        document.querySelectorAll('.month-btn').forEach(b => {
+                            b.style.borderColor = 'transparent';
+                        });
+                        btn.style.borderColor = 'rgba(179, 156, 208, 0.6)';
+
+                        document.getElementById('topic-title').textContent = month + ': ' + title;
+                        document.getElementById('topic-desc').textContent = desc;
+                        document.getElementById('topic-detail').style.display = 'block';
+                    }
+                </script>
             </div>
         </section>
 
@@ -226,14 +281,112 @@
                 <h2>Autism Awareness</h2>
                 <p class="campaign-tagline">"Different, Not Less"</p>
                 <p>A core part of our mission is fighting social isolation for neurodivergent students. This series
-                    focuses specifically on Autism Spectrum Disorder (ASD), debunking myths and offering guidance on how
-                    to build inclusive friendships and communities.</p>
-                <p>We explore how sensory processing and social communication differences impact mental health,
-                    fostering a culture where neurodiversity is celebrated rather than stigmatized. Content includes how
-                    to be a better ally to autistic peers, understanding sensory needs, and creating inclusive social
-                    environments.</p>
-                <p>Our partnership with Gifted People Services ensures this content reflects the perspectives and needs
-                    of the autism community.</p>
+                    focuses on Autism Spectrum Disorder (ASD), debunking myths and building inclusive communities.</p>
+
+                <!-- Inclusion Checklist Interactive -->
+                <div id="inclusion-checklist"
+                    style="margin-top: 20px; background: linear-gradient(135deg, rgba(159, 197, 203, 0.12) 0%, rgba(179, 156, 208, 0.08) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 20px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 6px 0; font-size: 1.1rem;">Are
+                        You an Ally?</h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 16px 0;">
+                        Check your inclusion habits:</p>
+
+                    <div id="checklist-items">
+                        <div class="check-item"
+                            style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer;"
+                            onclick="toggleCheck(this)">
+                            <div class="check-box"
+                                style="width: 24px; height: 24px; border: 2px solid rgba(159, 197, 203, 0.6); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--deep-indigo);">I avoid making assumptions
+                                about people's abilities</span>
+                        </div>
+                        <div class="check-item"
+                            style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer;"
+                            onclick="toggleCheck(this)">
+                            <div class="check-box"
+                                style="width: 24px; height: 24px; border: 2px solid rgba(179, 156, 208, 0.6); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--deep-indigo);">I try to understand sensory
+                                needs</span>
+                        </div>
+                        <div class="check-item"
+                            style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer;"
+                            onclick="toggleCheck(this)">
+                            <div class="check-box"
+                                style="width: 24px; height: 24px; border: 2px solid rgba(159, 197, 203, 0.6); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--deep-indigo);">I include neurodivergent peers
+                                in activities</span>
+                        </div>
+                        <div class="check-item"
+                            style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer;"
+                            onclick="toggleCheck(this)">
+                            <div class="check-box"
+                                style="width: 24px; height: 24px; border: 2px solid rgba(179, 156, 208, 0.6); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--deep-indigo);">I speak up against ableist
+                                jokes or comments</span>
+                        </div>
+                        <div class="check-item"
+                            style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer;"
+                            onclick="toggleCheck(this)">
+                            <div class="check-box"
+                                style="width: 24px; height: 24px; border: 2px solid rgba(159, 197, 203, 0.6); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--deep-indigo);">I listen to autistic voices
+                                about their experiences</span>
+                        </div>
+                    </div>
+
+                    <button id="checklist-submit" onclick="showAllyResult()"
+                        style="margin-top: 12px; width: 100%; padding: 12px; background: linear-gradient(135deg, #9FC5CB, #B39CD0); border: none; border-radius: 20px; color: #fff; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s;">See
+                        Your Score</button>
+
+                    <div id="ally-result"
+                        style="display: none; margin-top: 14px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px; text-align: center;">
+                        <p style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700; color: var(--deep-indigo);">
+                            <span id="ally-score"></span>/5 Ally Points</p>
+                        <p id="ally-feedback"
+                            style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); line-height: 1.5;"></p>
+                    </div>
+                </div>
+
+                <script>
+                    (function () {
+                        let checked = 0;
+                        window.toggleCheck = function (item) {
+                            const box = item.querySelector('.check-box');
+                            if (box.innerHTML === '') {
+                                box.innerHTML = '<span style="color: #9FC5CB; font-weight: bold;">✓</span>';
+                                box.style.background = 'rgba(159, 197, 203, 0.2)';
+                                checked++;
+                            } else {
+                                box.innerHTML = '';
+                                box.style.background = 'transparent';
+                                checked--;
+                            }
+                        };
+
+                        window.showAllyResult = function () {
+                            const count = document.querySelectorAll('#checklist-items .check-box span').length;
+                            document.getElementById('ally-score').textContent = count;
+
+                            let feedback = '';
+                            if (count === 5) feedback = 'Amazing! You\'re a true ally. Keep spreading inclusion!';
+                            else if (count >= 3) feedback = 'Great start! Try focusing on the unchecked items.';
+                            else feedback = 'Every step counts. Consider learning more about neurodiversity.';
+
+                            document.getElementById('ally-feedback').textContent = feedback;
+                            document.getElementById('ally-result').style.display = 'block';
+                            document.getElementById('checklist-submit').style.display = 'none';
+                        };
+                    })();
+                </script>
+
+                <p style="margin-top: 16px;">Our partnership with Gifted People Services ensures this content reflects
+                    autistic perspectives.</p>
             </div>
         </section>
 

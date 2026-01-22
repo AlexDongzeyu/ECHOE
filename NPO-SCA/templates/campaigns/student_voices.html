@@ -350,37 +350,43 @@
                         <button class="mood-btn"
                             onclick="showMoodPrompt('calm', 'Draw flowing water or soft clouds. What does peace look like to you?')"
                             style="background: rgba(159, 197, 203, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">😌</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-leaf" style="color: var(--soft-teal);"></i>
+                            </div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Calm</div>
                         </button>
                         <button class="mood-btn"
                             onclick="showMoodPrompt('anxious', 'Sketch tangled lines or scattered shapes. Try putting chaos on paper.')"
                             style="background: rgba(179, 156, 208, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">😰</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-cloud-sun-rain"
+                                    style="color: var(--soft-lavender);"></i></div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Anxious</div>
                         </button>
                         <button class="mood-btn"
                             onclick="showMoodPrompt('hopeful', 'Use bright colors or draw sunrise imagery. What gives you hope?')"
                             style="background: rgba(232, 146, 124, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">🌟</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-sun"
+                                    style="color: var(--golden-butter);"></i></div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Hopeful</div>
                         </button>
                         <button class="mood-btn"
                             onclick="showMoodPrompt('sad', 'Try blues and grays. Draw rain, tears, or empty spaces.')"
                             style="background: rgba(42, 61, 102, 0.15); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">😢</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-cloud-rain"
+                                    style="color: var(--deep-indigo);"></i></div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Sad</div>
                         </button>
                         <button class="mood-btn"
                             onclick="showMoodPrompt('grateful', 'Draw something or someone you appreciate. Fill the page with warmth.')"
                             style="background: rgba(179, 156, 208, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">💜</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-heart"
+                                    style="color: var(--gentle-peach);"></i></div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Grateful</div>
                         </button>
                         <button class="mood-btn"
                             onclick="showMoodPrompt('confused', 'Draw mazes, question marks, or fragmented images. It is okay not to know.')"
                             style="background: rgba(159, 197, 203, 0.3); border: none; border-radius: 10px; padding: 12px 6px; cursor: pointer; transition: all 0.2s;">
-                            <div style="font-size: 1.4rem;">🤔</div>
+                            <div style="font-size: 1.4rem;"><i class="fas fa-question-circle"
+                                    style="color: var(--soft-teal);"></i></div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); margin-top: 4px;">Confused</div>
                         </button>
                     </div>
@@ -388,7 +394,8 @@
                     <div id="mood-prompt"
                         style="display: none; margin-top: 16px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px; text-align: center;">
                         <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--deep-indigo); line-height: 1.5;">
-                            <strong>Art Prompt:</strong> <span id="mood-prompt-text"></span></p>
+                            <strong>Art Prompt:</strong> <span id="mood-prompt-text"></span>
+                        </p>
                         <p style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.8;">Create
                             something and submit it to our gallery!</p>
                     </div>

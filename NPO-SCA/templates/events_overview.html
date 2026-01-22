@@ -315,18 +315,19 @@
         <!-- Top: Main image -->
         <img src="{{ url_for('static', filename='img/gifted hearts 1.jpg') }}"
           alt="ECHOE of the Gifted Hearts event group photo">
-        <!-- Middle: 3-column grid with smaller images and video -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px;">
+        <!-- Middle: 2-column grid with images -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
           <img src="{{ url_for('static', filename='img/gifted hearts 2.jpg') }}" alt="Social Circle Rings activity"
-            style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px;">
+            style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px;">
           <img src="{{ url_for('static', filename='img/gifted hearts 3.jpg') }}" alt="Community gathering"
-            style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px;">
-          <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}" playsinline controls preload="auto"
-            controlsList="nodownload"
-            style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: var(--deep-indigo);">
-            Your browser does not support the video tag.
-          </video>
+            style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px;">
         </div>
+        <!-- Bottom: Video spanning full width -->
+        <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}" playsinline controls preload="auto"
+          controlsList="nodownload"
+          style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; background: var(--deep-indigo); margin-top: 12px;">
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div class="event-text">
         <h2>ECHOE of the Gifted Hearts</h2>
@@ -346,12 +347,12 @@
         <p>As E.C.H.O.E. - Empathy, Connection, Hope, Outreach, and Empowerment - we created a safe space where every
           teen felt seen and valued.</p>
 
-        <!-- Creative Instagram Button -->
+        <!-- Instagram Button - Matching Website Style -->
         <a href="https://www.instagram.com/reel/DQ2i5eqgX-S/" target="_blank" rel="noopener"
-          style="display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 14px 24px; background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCAF45 100%); color: #fff; border-radius: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;"
-          onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(131, 58, 180, 0.4)';"
-          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(131, 58, 180, 0.3)';">
-          <i class="fab fa-instagram" style="font-size: 1.3rem;"></i>
+          style="display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 12px 20px; background: rgba(159, 197, 203, 0.2); color: var(--deep-indigo); border: 2px solid rgba(159, 197, 203, 0.5); border-radius: 25px; font-weight: 700; text-decoration: none; transition: all 0.2s ease;"
+          onmouseover="this.style.background='rgba(159, 197, 203, 0.35)'; this.style.transform='translateY(-2px)';"
+          onmouseout="this.style.background='rgba(159, 197, 203, 0.2)'; this.style.transform='translateY(0)';">
+          <i class="fab fa-instagram" style="font-size: 1.2rem;"></i>
           <span>Watch the Recap on Instagram</span>
         </a>
       </div>

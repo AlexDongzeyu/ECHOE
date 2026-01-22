@@ -347,7 +347,8 @@
                     <div id="ally-result"
                         style="display: none; margin-top: 14px; padding: 14px; background: rgba(255,255,255,0.6); border-radius: 12px; text-align: center;">
                         <p style="margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 700; color: var(--deep-indigo);">
-                            <span id="ally-score"></span>/5 Ally Points</p>
+                            <span id="ally-score"></span>/5 Ally Points
+                        </p>
                         <p id="ally-feedback"
                             style="margin: 0; font-size: 0.85rem; color: var(--deep-indigo); line-height: 1.5;"></p>
                     </div>
@@ -409,6 +410,145 @@
                 <p>Our interactive format encourages engagement and makes learning feel like a game rather than a
                     lecture. Studies show that testing yourself on information improves retention, so our trivia format
                     actually helps students remember what they learn.</p>
+
+                <!-- Mental Health Myth Buster Interactive -->
+                <div id="myth-buster"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(173, 203, 164, 0.15) 0%, rgba(159, 197, 203, 0.1) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 8px 0; font-size: 1.15rem;">
+                        <i class="fas fa-brain" style="margin-right: 8px; color: #9BBB90;"></i>
+                        Mental Health Myth Buster
+                    </h4>
+                    <p
+                        style="text-align: center; font-size: 0.9rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 18px 0;">
+                        True or False? Test your mental health knowledge!</p>
+
+                    <!-- Myth Question Display -->
+                    <div id="myth-question"
+                        style="background: rgba(255,255,255,0.6); border-radius: 12px; padding: 18px; margin-bottom: 16px;">
+                        <p id="myth-text"
+                            style="margin: 0; font-size: 1rem; color: var(--deep-indigo); font-weight: 600; text-align: center; line-height: 1.5;">
+                            "People with anxiety just need to relax and they'll be fine."
+                        </p>
+                    </div>
+
+                    <!-- Answer Buttons -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                        <button onclick="answerMyth(true)"
+                            style="background: linear-gradient(135deg, rgba(173, 203, 164, 0.4) 0%, rgba(155, 187, 144, 0.3) 100%); border: 2px solid rgba(155, 187, 144, 0.4); border-radius: 12px; padding: 14px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 1rem; transition: all 0.2s;">
+                            <i class="fas fa-check" style="margin-right: 6px;"></i>True
+                        </button>
+                        <button onclick="answerMyth(false)"
+                            style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.3) 0%, rgba(248, 210, 156, 0.3) 100%); border: 2px solid rgba(232, 146, 124, 0.3); border-radius: 12px; padding: 14px; cursor: pointer; font-weight: 700; color: var(--deep-indigo); font-size: 1rem; transition: all 0.2s;">
+                            <i class="fas fa-times" style="margin-right: 6px;"></i>False
+                        </button>
+                    </div>
+
+                    <!-- Feedback Area -->
+                    <div id="myth-feedback"
+                        style="display: none; padding: 16px; border-radius: 12px; margin-bottom: 12px;">
+                        <p id="myth-result" style="margin: 0 0 8px 0; font-weight: 700; font-size: 1rem;"></p>
+                        <p id="myth-explanation"
+                            style="margin: 0; font-size: 0.9rem; color: var(--deep-indigo); line-height: 1.5;"></p>
+                    </div>
+
+                    <!-- Score and Next Button -->
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="myth-score" style="font-size: 0.9rem; color: var(--deep-indigo); font-weight: 600;">
+                            <i class="fas fa-star" style="color: var(--golden-butter); margin-right: 4px;"></i>Score:
+                            0/0
+                        </span>
+                        <button id="next-myth-btn" onclick="nextMyth()"
+                            style="display: none; background: linear-gradient(135deg, #9BBB90 0%, #ADCBA4 100%); border: none; border-radius: 20px; padding: 10px 20px; font-size: 0.9rem; font-weight: 700; color: #fff; cursor: pointer;">
+                            Next Question <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    (function () {
+                        const myths = [
+                            {
+                                statement: '"People with anxiety just need to relax and they\'ll be fine."',
+                                isTrue: false,
+                                explanation: 'Anxiety disorders involve complex brain chemistry and learned responses. While relaxation techniques can help, anxiety often requires professional support, therapy, or medication to manage effectively.'
+                            },
+                            {
+                                statement: '"Talking about suicide can encourage it."',
+                                isTrue: false,
+                                explanation: 'Research shows that asking about suicide directly doesn\'t increase risk—it can actually help. Open conversations create opportunities for support and intervention.'
+                            },
+                            {
+                                statement: '"Exercise can be as effective as medication for mild to moderate depression."',
+                                isTrue: true,
+                                explanation: 'Studies show regular exercise releases endorphins and can be as effective as antidepressants for mild to moderate depression. However, always consult a professional for severe symptoms.'
+                            },
+                            {
+                                statement: '"Mental illness is a sign of weakness or lack of willpower."',
+                                isTrue: false,
+                                explanation: 'Mental illness is a medical condition, not a character flaw. It involves complex factors including genetics, brain chemistry, trauma, and environment—none of which are about weakness.'
+                            },
+                            {
+                                statement: '"Most people with mental health conditions can lead productive, fulfilling lives."',
+                                isTrue: true,
+                                explanation: 'With proper support, treatment, and understanding, most people with mental health conditions can thrive in work, relationships, and personal goals.'
+                            },
+                            {
+                                statement: '"Children don\'t experience mental health problems."',
+                                isTrue: false,
+                                explanation: 'Half of all mental health conditions begin by age 14. Children can experience anxiety, depression, ADHD, and other conditions that deserve proper attention and care.'
+                            },
+                            {
+                                statement: '"Social media use has been linked to increased depression and anxiety in teens."',
+                                isTrue: true,
+                                explanation: 'Multiple studies show correlations between heavy social media use and mental health challenges in teens, including increased comparison, cyberbullying exposure, and disrupted sleep.'
+                            }
+                        ];
+
+                        let currentMyth = 0;
+                        let score = 0;
+                        let attempted = 0;
+
+                        // Initialize with first myth
+                        document.getElementById('myth-text').innerHTML = myths[0].statement;
+
+                        window.answerMyth = function (answer) {
+                            const myth = myths[currentMyth];
+                            const isCorrect = answer === myth.isTrue;
+                            attempted++;
+                            if (isCorrect) score++;
+
+                            const feedbackDiv = document.getElementById('myth-feedback');
+                            const resultEl = document.getElementById('myth-result');
+                            const explanationEl = document.getElementById('myth-explanation');
+
+                            resultEl.innerHTML = isCorrect
+                                ? '<i class="fas fa-check-circle" style="color: #9BBB90; margin-right: 6px;"></i>Correct!'
+                                : '<i class="fas fa-times-circle" style="color: #E8927C; margin-right: 6px;"></i>Not quite!';
+                            resultEl.style.color = isCorrect ? '#5A7A52' : '#C27A6A';
+
+                            explanationEl.textContent = myth.explanation;
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.style.background = isCorrect ? 'rgba(173, 203, 164, 0.2)' : 'rgba(232, 146, 124, 0.15)';
+
+                            document.getElementById('myth-score').innerHTML =
+                                '<i class="fas fa-star" style="color: var(--golden-butter); margin-right: 4px;"></i>Score: ' + score + '/' + attempted;
+
+                            if (currentMyth < myths.length - 1) {
+                                document.getElementById('next-myth-btn').style.display = 'inline-block';
+                            } else {
+                                document.getElementById('next-myth-btn').style.display = 'none';
+                                resultEl.innerHTML += ' <span style="font-size: 0.9rem; opacity: 0.8;">(Quiz complete!)</span>';
+                            }
+                        };
+
+                        window.nextMyth = function () {
+                            currentMyth++;
+                            document.getElementById('myth-text').innerHTML = myths[currentMyth].statement;
+                            document.getElementById('myth-feedback').style.display = 'none';
+                            document.getElementById('next-myth-btn').style.display = 'none';
+                        };
+                    })();
+                </script>
             </div>
         </section>
     </div>

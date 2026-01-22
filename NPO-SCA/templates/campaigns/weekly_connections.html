@@ -204,6 +204,37 @@
                 <p>Past challenges have included: complimenting someone genuinely, spending 10 minutes outside, reaching
                     out to someone you haven't talked to in a while, writing down three things you're grateful for, and
                     doing one kind thing for yourself.</p>
+
+                <!-- Feel-Good Friday Challenge Picker Interactive -->
+                <div id="challenge-picker"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(248, 210, 156, 0.15) 0%, rgba(179, 156, 208, 0.1) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 8px 0; font-size: 1.15rem;">
+                        <i class="fas fa-dice" style="margin-right: 8px; color: var(--soft-lavender);"></i>
+                        Challenge Picker
+                    </h4>
+                    <p
+                        style="text-align: center; font-size: 0.9rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 18px 0;">
+                        Click to get your weekend challenge:</p>
+
+                    <div style="text-align: center;">
+                        <button id="pickChallengeBtn" onclick="pickChallenge()"
+                            style="background: linear-gradient(135deg, #F8D29C 0%, #E8BC6E 100%); border: none; border-radius: 25px; padding: 14px 32px; font-size: 1rem; font-weight: 700; color: var(--deep-indigo); cursor: pointer; box-shadow: 0 4px 16px rgba(248, 210, 156, 0.4); transition: all 0.3s;">
+                            <i class="fas fa-sparkles" style="margin-right: 8px;"></i>Pick My Challenge
+                        </button>
+                    </div>
+
+                    <div id="challengeResult"
+                        style="display: none; margin-top: 20px; padding: 18px; background: rgba(255,255,255,0.6); border-radius: 14px; text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 10px;">
+                            <i id="challengeIcon" class="fas fa-star" style="color: var(--golden-butter);"></i>
+                        </div>
+                        <p id="challengeText"
+                            style="margin: 0; font-size: 1.05rem; color: var(--deep-indigo); font-weight: 600; line-height: 1.5;">
+                        </p>
+                        <p style="margin: 12px 0 0; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.75;">
+                            Share your experience with #FeelGoodFriday</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -231,8 +262,126 @@
                         transition away from school routines, maintain connections during break, and cope with family
                         stress or loneliness during the holidays.</li>
                 </ul>
+
+                <!-- Holiday Wellness Generator Interactive -->
+                <div id="holiday-generator"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(159, 197, 203, 0.15) 0%, rgba(179, 156, 208, 0.1) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4 style="text-align: center; color: var(--deep-indigo); margin: 0 0 8px 0; font-size: 1.15rem;">
+                        <i class="fas fa-snowflake" style="margin-right: 8px; color: var(--soft-teal);"></i>
+                        Holiday Wellness Tips
+                    </h4>
+                    <p
+                        style="text-align: center; font-size: 0.9rem; color: var(--deep-indigo); opacity: 0.8; margin: 0 0 18px 0;">
+                        Select a situation to get personalized tips:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+                        <button class="holiday-btn" onclick="showHolidayTips('family')"
+                            style="background: rgba(255,255,255,0.5); border: 2px solid transparent; border-radius: 12px; padding: 14px 8px; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-home"
+                                style="font-size: 1.3rem; color: var(--soft-lavender); display: block; margin-bottom: 6px;"></i>
+                            <span style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Family
+                                Stress</span>
+                        </button>
+                        <button class="holiday-btn" onclick="showHolidayTips('lonely')"
+                            style="background: rgba(255,255,255,0.5); border: 2px solid transparent; border-radius: 12px; padding: 14px 8px; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-user"
+                                style="font-size: 1.3rem; color: var(--soft-teal); display: block; margin-bottom: 6px;"></i>
+                            <span style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Feeling
+                                Alone</span>
+                        </button>
+                        <button class="holiday-btn" onclick="showHolidayTips('overwhelmed')"
+                            style="background: rgba(255,255,255,0.5); border: 2px solid transparent; border-radius: 12px; padding: 14px 8px; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-cloud"
+                                style="font-size: 1.3rem; color: var(--gentle-peach); display: block; margin-bottom: 6px;"></i>
+                            <span
+                                style="font-size: 0.8rem; color: var(--deep-indigo); font-weight: 600;">Overwhelmed</span>
+                        </button>
+                    </div>
+
+                    <div id="holidayResult"
+                        style="display: none; margin-top: 18px; padding: 16px; background: rgba(255,255,255,0.6); border-radius: 14px;">
+                        <p id="holidayTips"
+                            style="margin: 0; font-size: 0.95rem; color: var(--deep-indigo); line-height: 1.6;"></p>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 </div>
+
+<script>
+    // Feel-Good Friday Challenge Picker
+    const challenges = [
+        { text: "Say hi to someone new today - a classmate, neighbor, or coworker you haven't spoken to before.", icon: "fa-hand-wave" },
+        { text: "Go tech-free for one hour this weekend. Notice what you observe around you.", icon: "fa-mobile-screen-button" },
+        { text: "Send a gratitude text to someone who made your week better. Be specific about why.", icon: "fa-message" },
+        { text: "Compliment someone genuinely - focus on their actions or character, not just appearance.", icon: "fa-heart" },
+        { text: "Spend 10 minutes outside without your phone. Take in the sights and sounds.", icon: "fa-tree" },
+        { text: "Reach out to someone you haven't talked to in a while. A simple 'thinking of you' works.", icon: "fa-phone" },
+        { text: "Write down three things you're grateful for before bed tonight.", icon: "fa-pen" },
+        { text: "Do one kind thing just for yourself - no productivity, just enjoyment.", icon: "fa-spa" },
+        { text: "Listen to a full album or playlist without multitasking. Really listen.", icon: "fa-headphones" },
+        { text: "Take a 5-minute stretch break and breathe deeply. Your body will thank you.", icon: "fa-person-running" },
+        { text: "Make your favorite comfort food or drink and savor it slowly.", icon: "fa-mug-hot" },
+        { text: "Write a note (paper!) to someone you appreciate. Handwritten notes are special.", icon: "fa-envelope" },
+        { text: "Go for a walk with no destination - just wander and explore.", icon: "fa-shoe-prints" },
+        { text: "Share a genuine laugh with someone today. Watch something funny together.", icon: "fa-face-laugh" },
+        { text: "Practice saying 'no' to one thing that drains you this weekend.", icon: "fa-shield-halved" }
+    ];
+
+    function pickChallenge() {
+        const randomIndex = Math.floor(Math.random() * challenges.length);
+        const challenge = challenges[randomIndex];
+
+        document.getElementById('challengeText').textContent = challenge.text;
+        document.getElementById('challengeIcon').className = 'fas ' + challenge.icon;
+        document.getElementById('challengeResult').style.display = 'block';
+
+        // Button animation
+        const btn = document.getElementById('pickChallengeBtn');
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
+    }
+
+    // Holiday Wellness Generator
+    const holidayTips = {
+        family: [
+            "Set boundaries before gatherings - it's okay to step outside for a breather when needed.",
+            "Have a 'safe topic' list ready (movies, hobbies, school projects) to redirect difficult conversations.",
+            "Plan your exit strategy - having a time to leave can reduce anxiety.",
+            "Find an ally at gatherings - someone you can exchange knowing glances with when things get tense.",
+            "Remember: you can love your family and still need space. Both can be true."
+        ],
+        lonely: [
+            "Connect online - virtual hangouts, gaming sessions, or group chats still count as connection.",
+            "Volunteer during holidays - helping others often helps us feel less alone.",
+            "Create your own traditions - solo doesn't mean sad. Cook your favorite meal, watch beloved movies.",
+            "Reach out to one person today. Many people feel isolated during holidays and would welcome contact.",
+            "Be gentle with yourself - loneliness is a feeling, not a reflection of your worth."
+        ],
+        overwhelmed: [
+            "Lower expectations - not everything has to be perfect or Instagram-worthy.",
+            "Schedule 'nothing time' - rest is productive too, especially during busy seasons.",
+            "Say no to one thing you really don't want to do. Protect your energy.",
+            "Break big tasks into tiny steps. Wrap one gift. Send one message. That's enough.",
+            "Remember: this season will pass. You don't have to do everything right now."
+        ]
+    };
+
+    function showHolidayTips(type) {
+        const tips = holidayTips[type];
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+
+        document.getElementById('holidayTips').innerHTML = '<i class="fas fa-lightbulb" style="color: var(--golden-butter); margin-right: 8px;"></i>' + randomTip;
+        document.getElementById('holidayResult').style.display = 'block';
+
+        // Highlight active button
+        document.querySelectorAll('.holiday-btn').forEach(btn => {
+            btn.style.borderColor = 'transparent';
+            btn.style.background = 'rgba(255,255,255,0.5)';
+        });
+        event.currentTarget.style.borderColor = 'var(--soft-teal)';
+        event.currentTarget.style.background = 'rgba(159, 197, 203, 0.3)';
+    }
+</script>
 {% endblock %}

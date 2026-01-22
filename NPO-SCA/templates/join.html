@@ -2,169 +2,180 @@
 {% block title %}Join Us - E.C.H.O.E{% endblock %}
 {% block styles %}
 <style>
-  /* === JOIN US PAGE - PREMIUM LAYOUT === */
-
   .join-hero {
     background: rgba(244, 184, 168, 0.18);
     padding: 48px 20px 40px;
     text-align: center;
     border-radius: 20px 20px 0 0;
-    margin-bottom: 0;
   }
 
   .join-hero h1 {
     color: var(--deep-indigo);
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     font-weight: 800;
     margin: 0 0 12px 0;
-    position: relative;
-    display: inline-block;
-  }
-
-  .join-hero h1::after {
-    content: "";
-    display: block;
-    width: 140px;
-    height: 16px;
-    margin: 14px auto 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 16' preserveAspectRatio='none'%3E%3Cpath d='M0,8 C23,14 47,2 70,8 C93,14 117,2 140,8' stroke='%23F4B8A8' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
   }
 
   .join-hero .subtitle {
     color: var(--deep-indigo);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     opacity: 0.85;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
   }
 
-  /* Section intro */
   .section-intro {
-    max-width: 900px;
-    margin: 32px auto 40px;
+    max-width: 700px;
+    margin: 32px auto;
     padding: 0 20px;
     text-align: center;
-  }
-
-  .section-intro p {
     color: var(--deep-indigo);
     font-size: 1.05rem;
-    line-height: 1.75;
-    margin: 0 0 16px 0;
+    line-height: 1.7;
   }
 
-  .section-intro p:last-child {
-    margin-bottom: 0;
+  .volunteer-section h2 {
+    text-align: center;
+    color: var(--deep-indigo);
+    font-size: 1.4rem;
+    margin-bottom: 24px;
   }
 
-  /* Curly separator */
-  .curly-separator {
-    width: 100%;
-    height: 32px;
-    margin: 48px 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 32' preserveAspectRatio='none'%3E%3Cpath d='M0,16 C80,24 160,8 240,16 C320,24 400,8 480,16 C560,24 640,8 720,16 C800,24 880,8 960,16 C1040,24 1120,8 1200,16' stroke='%232A3D66' stroke-width='2' fill='none' stroke-opacity='0.15' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='16' r='4' fill='%23F4B8A8' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='600' cy='16' r='4' fill='%23E8A090' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3Ccircle cx='800' cy='16' r='4' fill='%23F4B8A8' stroke='%232A3D66' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  /* Volunteer opportunities grid */
   .volunteer-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    max-width: 1000px;
-    margin: 0 auto 40px;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto 32px;
     padding: 0 20px;
   }
 
-  .volunteer-card {
-    background: rgba(255, 251, 247, 0.6);
-    border-radius: 14px;
-    padding: 28px;
-    border-left: 4px solid #F4B8A8;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .volunteer-item {
+    padding: 20px;
   }
 
-  .volunteer-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(42, 61, 102, 0.1);
-  }
-
-  .volunteer-card h3 {
+  .volunteer-item h3 {
     color: var(--deep-indigo);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
     display: flex;
     align-items: center;
     gap: 10px;
   }
 
-  .volunteer-card h3 i {
+  .volunteer-item h3 i {
     color: #D4887A;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
-  .volunteer-card p {
+  .volunteer-item p {
     color: var(--deep-indigo);
     font-size: 0.95rem;
-    line-height: 1.65;
+    line-height: 1.6;
     margin: 0;
     opacity: 0.9;
   }
 
-  /* Apply CTA section */
-  .apply-section {
-    max-width: 700px;
-    margin: 0 auto;
+  .apply-cta {
     text-align: center;
-    padding: 40px;
-    background: linear-gradient(135deg, rgba(244, 184, 168, 0.15) 0%, rgba(248, 210, 156, 0.1) 100%);
-    border-radius: 20px;
+    padding: 32px 20px;
   }
 
-  .apply-section p {
+  .apply-cta p {
     color: var(--deep-indigo);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin: 0 0 20px 0;
+    margin-bottom: 16px;
   }
 
   .apply-btn {
     display: inline-block;
     background: #F4B8A8;
     color: var(--deep-indigo);
-    padding: 14px 32px;
+    padding: 14px 28px;
     border-radius: 28px;
     font-weight: 700;
-    font-size: 1rem;
     text-decoration: none;
-    border: 2px solid rgba(42, 61, 102, 0.12);
     transition: all 0.2s ease;
   }
 
   .apply-btn:hover {
     background: #E8A090;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(244, 184, 168, 0.35);
   }
 
-  .apply-section .tagline {
-    font-size: 1.1rem;
+  .apply-cta .tagline {
+    margin-top: 20px;
     font-style: italic;
     color: #9078A8;
-    margin-top: 24px;
+    font-weight: 600;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .join-hero h1 {
-      font-size: 2rem;
-    }
+  .contact-section {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 0 20px;
+  }
 
+  .contact-section h2 {
+    color: var(--deep-indigo);
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .contact-section .subtitle {
+    color: var(--deep-indigo);
+    opacity: 0.8;
+    margin-bottom: 24px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--deep-indigo);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .contact-link i {
+    width: 24px;
+    text-align: center;
+  }
+
+  .contact-link:hover {
+    color: #9078A8;
+  }
+
+  .help-note {
+    color: var(--deep-indigo);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .help-note a {
+    color: #9078A8;
+    font-weight: 600;
+  }
+
+  .closing-tagline {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-style: italic;
+    color: #9078A8;
+  }
+
+  @media (max-width: 768px) {
     .volunteer-grid {
       grid-template-columns: 1fr;
     }
@@ -175,114 +186,74 @@
 {% block content %}
 <div class="container">
   <div class="page-container">
-    <!-- Hero Section -->
     <section class="join-hero">
       <h1>Volunteer with E.C.H.O.E.</h1>
       <p class="subtitle">Join our movement to make every voice heard.</p>
     </section>
 
-    <!-- Section Introduction -->
     <div class="section-intro">
-      <p>Volunteering is a great way to get involved in your community while making a real difference in the lives of
-        your peers. Help us fight against social isolation and ensure that no student has to feel alone.</p>
-      <p>Research shows that volunteering itself is a protective factor — helping others increases your own sense of
-        purpose and connection.</p>
+      <p>Help us fight against social isolation and ensure no student feels alone. Research shows volunteering itself is
+        a protective factor - helping others increases your own sense of purpose and connection.</p>
     </div>
 
-    <!-- Volunteer Opportunities -->
-    <h2 style="text-align: center; color: var(--deep-indigo); font-size: 1.6rem; margin-bottom: 28px;">We are looking
-      for volunteers who can:</h2>
+    <section class="volunteer-section">
+      <h2>We're looking for volunteers who can:</h2>
 
-    <div class="volunteer-grid">
-      <div class="volunteer-card">
-        <h3><i class="fas fa-calendar-check"></i> Assist with In-Person Events</h3>
-        <p>Help us set up, facilitate activities, and create welcoming environments at our community gatherings. Event
-          volunteers should be comfortable interacting with peers and committed to maintaining inclusive, judgment-free
-          spaces.</p>
-      </div>
-
-      <div class="volunteer-card">
-        <h3><i class="fas fa-envelope-open-text"></i> Help Reply to Anonymous Letters</h3>
-        <p>After completing our peer responder training, volunteers can join our team of compassionate responders who
-          read and reply to letters submitted through our Share Your Story platform. This role requires empathy, good
-          boundaries, and commitment to our response guidelines.</p>
-      </div>
-
-      <div class="volunteer-card">
-        <h3><i class="fas fa-paint-brush"></i> Create Social Media Content</h3>
-        <p>Share your creativity by designing graphics, writing captions, or producing video content that spreads our
-          message. Content volunteers work with our team to ensure all posts align with our mission and meet quality
-          standards.</p>
-      </div>
-
-      <div class="volunteer-card">
-        <h3><i class="fas fa-bullhorn"></i> Spread Awareness</h3>
-        <p>Become an E.C.H.O.E. ambassador by sharing our resources, telling others about our programs, and representing
-          our values in your daily interactions in your school and community.</p>
-      </div>
-    </div>
-
-    <!-- Apply Section -->
-    <div class="apply-section">
-      <p>If interested, please apply through the volunteer form below. All volunteers receive training appropriate to
-        their role and ongoing support from our team.</p>
-      <a href="https://forms.gle/XeiSGceonbQKCCzo9" target="_blank" rel="noopener" class="apply-btn">
-        <i class="fas fa-paper-plane" style="margin-right: 8px;"></i>Apply to Volunteer
-      </a>
-      <p class="tagline">Together, we can make a difference — one echo at a time.</p>
-    </div>
-
-    <div class="curly-separator"></div>
-
-    <!-- Contact Section -->
-    <section style="max-width: 800px; margin: 0 auto; text-align: center;">
-      <h2 style="color: var(--deep-indigo); font-size: 1.8rem; margin-bottom: 12px;">Contact Us</h2>
-      <p style="color: var(--deep-indigo); font-size: 1.05rem; margin-bottom: 28px;">We'd love to hear from you.</p>
-
-      <p style="color: var(--deep-indigo); font-size: 1rem; line-height: 1.7; max-width: 600px; margin: 0 auto 32px;">
-        Have questions about our programs? Want to collaborate with E.C.H.O.E.? Looking for mental health resources?
-        We're here to help.</p>
-
-      <!-- Contact Info -->
-      <div style="display: inline-block; text-align: left; max-width: 400px; width: 100%;">
-        <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0; font-size: 1.15rem;">
-          <i class="fas fa-envelope" style="color: #F4B8A8; font-size: 1.2rem; width: 24px; text-align: center;"></i>
-          <a href="mailto:echoe.hosa@gmail.com"
-            style="color: var(--deep-indigo); text-decoration: none; font-weight: 600;">echoe.hosa@gmail.com</a>
+      <div class="volunteer-grid">
+        <div class="volunteer-item">
+          <h3><i class="fas fa-calendar-check"></i> Assist with Events</h3>
+          <p>Help set up, facilitate activities, and create welcoming environments at our community gatherings.</p>
         </div>
-        <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0; font-size: 1.15rem;">
-          <i class="fab fa-instagram" style="color: #C13584; font-size: 1.2rem; width: 24px; text-align: center;"></i>
-          <a href="https://www.instagram.com/echoe_hosa26" target="_blank"
-            style="color: var(--deep-indigo); text-decoration: none; font-weight: 600;">@echoe_hosa26</a>
+
+        <div class="volunteer-item">
+          <h3><i class="fas fa-envelope-open-text"></i> Reply to Letters</h3>
+          <p>After training, join our peer responders who read and reply to letters through Share Your Story.</p>
         </div>
-        <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0; font-size: 1.15rem;">
-          <i class="fab fa-tiktok"
-            style="color: var(--deep-indigo); font-size: 1.2rem; width: 24px; text-align: center;"></i>
-          <a href="https://www.tiktok.com/@echoe_hosa26" target="_blank"
-            style="color: var(--deep-indigo); text-decoration: none; font-weight: 600;">@echoe_hosa26</a>
+
+        <div class="volunteer-item">
+          <h3><i class="fas fa-paint-brush"></i> Create Content</h3>
+          <p>Design graphics, write captions, or produce videos that spread our message on social media.</p>
         </div>
-        <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0; font-size: 1.15rem;">
-          <i class="fab fa-youtube" style="color: #FF0000; font-size: 1.2rem; width: 24px; text-align: center;"></i>
-          <a href="https://youtube.com/@echoe_hosa" target="_blank"
-            style="color: var(--deep-indigo); text-decoration: none; font-weight: 600;">@echoe_hosa</a>
+
+        <div class="volunteer-item">
+          <h3><i class="fas fa-bullhorn"></i> Spread Awareness</h3>
+          <p>Become an E.C.H.O.E. ambassador by sharing resources in your school and community.</p>
         </div>
       </div>
 
-      <p
-        style="color: var(--deep-indigo); font-size: 0.95rem; line-height: 1.7; max-width: 600px; margin: 32px auto 0; opacity: 0.85;">
-        For general inquiries, collaboration requests, or media questions, please email us and we'll respond within 48
-        hours. For mental health support, please visit our <a href="{{ url_for('helplines') }}"
-          style="color: #9078A8; font-weight: 600;">Helplines page</a> or reach out through our <a
-          href="{{ url_for('submit') }}" style="color: #9078A8; font-weight: 600;">Share Your Story</a> platform.</p>
+      <div class="apply-cta">
+        <p>All volunteers receive training and ongoing support from our team.</p>
+        <a href="https://forms.gle/XeiSGceonbQKCCzo9" target="_blank" rel="noopener" class="apply-btn">
+          <i class="fas fa-paper-plane" style="margin-right: 8px;"></i>Apply to Volunteer
+        </a>
+        <p class="tagline">Together, we can make a difference - one echo at a time.</p>
+      </div>
     </section>
 
-    <div class="curly-separator"></div>
+    <section class="contact-section">
+      <h2>Contact Us</h2>
+      <p class="subtitle">We'd love to hear from you.</p>
 
-    <!-- Closing Tagline -->
-    <div style="text-align: center; padding: 20px;">
-      <p style="font-size: 1.3rem; font-weight: 700; font-style: italic; color: #9078A8;">"Every voice deserves to
-        echo."</p>
-    </div>
+      <div class="contact-links">
+        <a href="mailto:echoe.hosa@gmail.com" class="contact-link">
+          <i class="fas fa-envelope" style="color: #D4887A;"></i> echoe.hosa@gmail.com
+        </a>
+        <a href="https://www.instagram.com/echoe_hosa26" target="_blank" class="contact-link">
+          <i class="fab fa-instagram" style="color: #C13584;"></i> @echoe_hosa26
+        </a>
+        <a href="https://www.tiktok.com/@echoe_hosa26" target="_blank" class="contact-link">
+          <i class="fab fa-tiktok"></i> @echoe_hosa26
+        </a>
+        <a href="https://youtube.com/@echoe_hosa" target="_blank" class="contact-link">
+          <i class="fab fa-youtube" style="color: #FF0000;"></i> @echoe_hosa
+        </a>
+      </div>
+
+      <p class="help-note">For mental health support, visit our <a href="{{ url_for('helplines') }}">Helplines</a> or <a
+          href="{{ url_for('submit') }}">Share Your Story</a>.</p>
+    </section>
+
+    <p class="closing-tagline">"Every voice deserves to echo."</p>
   </div>
 </div>
 {% endblock %}

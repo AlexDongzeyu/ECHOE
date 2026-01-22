@@ -318,7 +318,13 @@
           <img src="{{ url_for('static', filename='img/gifted hearts 2.jpg') }}" alt="Social Circle Rings activity">
           <img src="{{ url_for('static', filename='img/gifted hearts 3.jpg') }}" alt="Community gathering">
         </div>
-        <img src="{{ url_for('static', filename='img/gifted heart 4.jpg') }}" alt="Connection Pledge Wall">
+        <!-- Event Video integrated here -->
+        <div class="event-video">
+          <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}" playsinline controls preload="auto"
+            controlsList="nodownload" style="width: 100%; border-radius: 12px;">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
       <div class="event-text">
         <h2>ECHOE of the Gifted Hearts</h2>
@@ -330,56 +336,34 @@
         <h3 style="color: var(--deep-indigo); font-size: 1.1rem; margin: 18px 0 10px 0;">Event Highlights:</h3>
         <ul class="event-highlights">
           <li><strong>Guest Presentation:</strong> Dianna Jiang from GPS shared insights on autism awareness and
-            inclusion, emphasizing that every individual with special needs is gifted and unique.</li>
-          <li><strong>Interactive Connections:</strong> We facilitated "Social Circle Rings" - a fun activity helping
-            participants meet new people in a low-pressure format.</li>
-          <li><strong>Fundraising:</strong> Our Bake Sale Cafe, Raffle Booth, and Art Wall Fundraiser supported GPS and
-            their work with families affected by autism.</li>
-          <li><strong>Connection Pledge Wall:</strong> Every attendee made a personal promise about how they would
-            support mental health and inclusion - from "I will say hi to someone sitting alone" to "I will start a peer
-            support group."</li>
+            inclusion.</li>
+          <li><strong>Interactive Connections:</strong> "Social Circle Rings" helped participants meet new people.</li>
+          <li><strong>Fundraising:</strong> Bake Sale, Raffle Booth, and Art Wall Fundraiser supported GPS.</li>
+          <li><strong>Connection Pledge Wall:</strong> Attendees made personal promises to support mental health.</li>
         </ul>
 
         <p>As E.C.H.O.E. - Empathy, Connection, Hope, Outreach, and Empowerment - we created a safe space where every
-          teen felt seen and valued. Thank you to everyone who made this happen!</p>
+          teen felt seen and valued.</p>
 
-        <a href="https://www.instagram.com/reel/DQ2i5eqgX-S/" target="_blank" rel="noopener" class="event-link">
-          <i class="fab fa-instagram"></i> View on Instagram
-        </a>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+          <a href="https://www.instagram.com/reel/DQ2i5eqgX-S/" target="_blank" rel="noopener" class="event-link">
+            <i class="fab fa-instagram"></i> View on Instagram
+          </a>
+          <a href="https://linktr.ee/echoehosa" target="_blank" rel="noopener" class="event-link"
+            style="background: rgba(159, 197, 203, 0.15);">
+            <i class="fas fa-link"></i> Visit Linktree
+          </a>
+        </div>
       </div>
     </section>
-
-    <div class="curly-separator"></div>
-
-    <!-- Video Section -->
-    <section class="video-section">
-      <h3>Event Highlights Video</h3>
-      <div class="video-frame">
-        <video src="{{ url_for('static', filename='img/EGOHVideo 1.mp4') }}" playsinline controls preload="auto"
-          controlsList="nodownload">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </section>
-
-    <div class="curly-separator"></div>
-
-    <!-- Linktree CTA -->
-    <div class="linktree-cta">
-      <p>Want to see more and stay updated on future events?</p>
-      <a href="https://linktr.ee/echoehosa" target="_blank" rel="noopener" class="linktree-btn">
-        <i class="fas fa-link"></i> Visit Our Linktree
-      </a>
-    </div>
 
     <div class="curly-separator"></div>
 
     <!-- Future Events -->
-    <div class="future-events">
-      <h3>More Events Coming Soon</h3>
-      <p>We're planning more community events to bring teens together. Our upcoming events will continue to focus on
-        creating safe, inclusive spaces for connection while addressing different aspects of mental wellness. Follow us
-        on social media to be the first to know when registration opens!</p>
+    <div class="future-events" style="text-align: center; padding: 32px 20px;">
+      <h3 style="margin-bottom: 12px;">More Events Coming Soon</h3>
+      <p style="max-width: 600px; margin: 0 auto;">We're planning more community events to bring teens together. Follow
+        us on social media to be the first to know when registration opens!</p>
     </div>
   </div>
 </div>

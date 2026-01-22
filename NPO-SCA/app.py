@@ -1347,34 +1347,6 @@ try:
         flash('Replies are now available in your Inbox.', 'info')
         return redirect(url_for('inbox'))
 
-    # API route: Get AI response
-    @app.route('/api/chat', methods=['POST'])
-    def chat_with_ai():
-        data = request.json
-        
-        if not data or 'message' not in data:
-            return jsonify({'error': 'No message provided'}), 400
-        
-        message = data['message']
-        response_type = data.get('type', 'supportive')
-        
-        # First perform content moderation
-        moderation_result = moderate_content_internal(message)
-        
-        if moderation_result['status'] == 'flagged':
-            return jsonify({
-                'status': 'flagged',
-                'message': moderation_result['message']
-            })
-        
-        # Generate AI response
-        ai_response = generate_ai_response_with_type(message, response_type)
-        
-        return jsonify({
-            'status': 'success',
-            'message': ai_response
-        })
-
     # Internal function: Generate AI response of specified type
     def generate_ai_response_with_type(message, response_type):
         try:
@@ -1961,11 +1933,6 @@ Respond with empathy and care (2-4 sentences)."""
             ],
             'default_voice': 'en-US-Standard-A'
         })
-
-    # Health check for frontend widget
-    @app.route('/api/health')
-    def api_health():
-        return jsonify({'status': 'ok'}), 200
 
     # 保存聊天记录
     @app.route('/save-chat', methods=['POST'])

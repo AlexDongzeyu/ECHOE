@@ -951,6 +951,87 @@ try:
         count = Letter.query.filter_by(anon_user_id=anon_cookie, has_unread=True).count()
         return jsonify({ 'count': count })
 
+    # API: Health check for chat widget
+    @app.route('/api/health')
+    def api_health():
+        api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
+        return jsonify({
+            'status': 'ok',
+            'ai_available': bool(api_key)
+        })
+
+    # API: Chat endpoint for AI companion and website help
+    @app.route('/api/chat', methods=['POST'])
+    def api_chat():
+        try:
+            payload = request.get_json(silent=True) or {}
+            message = (payload.get('message') or '').strip()
+            chat_type = (payload.get('type') or 'supportive').strip()
+            
+            if not message:
+                return jsonify({'message': 'Please type a message to start chatting.'}), 200
+            
+            api_key = app.config.get('GEMINI_API_KEY') or os.getenv('GEMINI_API_KEY')
+            if not api_key:
+                # Fallback responses when API key is not available
+                fallback_responses = [
+                    "Thank you for sharing with me. Your feelings are valid. If you'd like more support, try writing an anonymous letter - our volunteers respond within 24-72 hours.",
+                    "I hear you, and you're not alone. Many students feel similar pressures. Would you like me to help you find resources on our website?",
+                    "It takes courage to reach out. If you need immediate support, Kids Help Phone is available 24/7 at 1-800-668-6868 or text HOME to 686868.",
+                    "Your wellbeing matters to us at E.C.H.O.E. Our anonymous letter system lets you share more privately if you'd like personalized peer support.",
+                    "I appreciate you trusting me with your thoughts. Remember, seeking support is a sign of strength. Check out our Helplines page for crisis resources."
+                ]
+                import random
+                return jsonify({'message': random.choice(fallback_responses)})
+            
+            # Build prompt based on chat type
+            if chat_type == 'practical':
+                # Customer service / website help mode
+                system_prompt = (
+                    "You are Echo, a friendly helper for the E.C.H.O.E. website (Empathy, Connection, Hope, Outreach, Empowerment). "
+                    "Help users navigate the website, find resources, and answer questions about E.C.H.O.E. services. "
+                    "Be helpful, concise, and friendly. Key pages: Helplines (crisis resources), Write a Letter (anonymous peer support), "
+                    "Events, Research Study, Social Media Campaigns. Keep responses brief and practical."
+                )
+            else:
+                # Companion / supportive mode
+                system_prompt = (
+                    "You are Echo, a warm and supportive AI companion for the E.C.H.O.E. mental health platform. "
+                    "Respond with empathy, care, and understanding. Do NOT diagnose or provide medical advice. "
+                    "Listen actively, validate feelings, and gently encourage professional help when appropriate. "
+                    "Remind users about crisis resources (Kids Help Phone: 1-800-668-6868, text HOME to 686868) when needed. "
+                    "Keep responses warm, supportive, and relatively brief. Use a caring tone like a kind friend."
+                )
+            
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+            gemini_payload = {
+                "contents": [{
+                    "parts": [{
+                        "text": f"{system_prompt}\n\nUser message: {message}"
+                    }]
+                }],
+                "generationConfig": {
+                    "temperature": 0.7,
+                    "topP": 0.9,
+                    "maxOutputTokens": 300
+                }
+            }
+            
+            with httpx.Client(timeout=15) as client:
+                response = client.post(url, json=gemini_payload)
+                data = response.json()
+            
+            if data and 'candidates' in data and len(data['candidates']) > 0:
+                ai_response = " ".join([part.get('text', '') for part in data['candidates'][0]['content']['parts']]).strip()
+                return jsonify({'message': ai_response})
+            else:
+                app.logger.warning(f"Gemini API returned unexpected response: {data}")
+                return jsonify({'message': "I'm sorry, I'm having trouble responding right now. Please try again in a moment."})
+        
+        except Exception as e:
+            app.logger.error(f"api_chat error: {e}")
+            return jsonify({'message': "I apologize, but I'm experiencing technical difficulties. Please try again later or use our anonymous letter system for support."}), 200
+
     # Internal function: Generate AI response
     def generate_ai_response(message):
         try:

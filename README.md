@@ -1,178 +1,157 @@
-# 🌟 Light in Silence - Mental Health Platform
+# 🌟 E.C.H.O.E. - Every Connection Helps One Emerge
 
-[![Deploy Status](https://img.shields.io/badge/status-ready_for_deployment-brightgreen)](https://github.com/AlexDongzeyu/LightInSilence)
-[![Platform](https://img.shields.io/badge/platform-cloudflare-orange)](https://cloudflare.com)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Live Site](https://img.shields.io/badge/site-echoehosa.com-brightgreen)](https://echoehosa.com)
+[![Platform](https://img.shields.io/badge/platform-Render-blue)](https://render.com)
+[![Flask](https://img.shields.io/badge/framework-Flask-black)](https://flask.palletsprojects.com/)
 
 > "We are all broken. That's how the light gets in." — Ernest Hemingway
 
-A Canadian mental health platform providing anonymous support through both digital and physical channels.
+A Canadian student-led nonprofit mental health platform providing anonymous support and combating social isolation among youth.
 
-## 🚀 **Current Deployment Status**
+## 🌐 **Live Website**
 
-**Website**: [echoehosa.com](https://echoehosa.com) ✅ **LIVE ON CLOUDFLARE PAGES**
+**Website**: [echoehosa.com](https://echoehosa.com) ✅ **LIVE**
+
+## 📋 **About E.C.H.O.E.**
+
+E.C.H.O.E. (Every Connection Helps One Emerge) is a youth-led mental health organization focused on fighting social isolation among students through:
+
+- **Anonymous Letter System** - Share your story, receive support
+- **AI-Powered Responses** - Get immediate, compassionate responses
+- **Volunteer Network** - Trained peers who understand
+- **Educational Campaigns** - Monthly mental health topics
+- **Community Events** - Safe spaces for connection
 
 ## 📁 **Project Structure**
 
-This repository contains **THREE versions** of the Light in Silence platform:
+```
+ECHOE/
+├── NPO-SCA/                    # Main Flask Application
+│   ├── app.py                  # Main application entry point
+│   ├── templates/              # Jinja2 HTML templates
+│   │   ├── base.html           # Base template with navigation
+│   │   ├── index.html          # Homepage
+│   │   ├── campaigns/          # Campaign pages
+│   │   │   ├── wellness.html
+│   │   │   ├── education_hub.html
+│   │   │   ├── student_voices.html
+│   │   │   ├── inspiration_media.html
+│   │   │   └── weekly_connections.html
+│   │   └── ...                 # Other templates
+│   ├── static/                 # Static assets
+│   │   ├── css/                # Stylesheets
+│   │   ├── js/                 # JavaScript
+│   │   └── img/                # Images and media
+│   └── migrations/             # Database migrations
+├── render.yaml                 # Render deployment config
+├── requirements.txt            # Python dependencies
+└── README.md                   # This file
+```
 
-### 1. 🌐 **Cloudflare Pages (Current Live Site)**
-- **Location**: Root directory (`index.html`, `_redirects`)  
-- **Status**: ✅ **LIVE** - Currently deployed at echoehosa.com
-- **Technology**: Static HTML/CSS/JavaScript
-- **Purpose**: Public landing page with coming soon functionality
+## 🎯 **Key Features**
 
-### 2. ⚡ **Cloudflare Workers (Full Platform)**
-- **Location**: `/src/` directory + `wrangler.toml`
-- **Status**: 🚧 **Ready for deployment** (when backend needed)
-- **Technology**: TypeScript + Hono + D1 Database + AI integration
-- **Purpose**: Complete platform with letter submission, AI responses, volunteer management
+### ✉️ Anonymous Letter System
+- Submit anonymous letters about mental health struggles
+- Unique letter IDs for checking responses
+- Reply-to-reply conversations with volunteers
 
-### 3. 🐍 **Original Flask Application (Preserved)**
-- **Location**: `/NPO-SCA/` directory
-- **Status**: ✅ **Preserved original working version**
-- **Technology**: Python Flask + SQLite
-- **Purpose**: Original development version and fallback
+### 🤖 AI Integration
+- Google Gemini 2.0 Flash for immediate responses
+- Crisis detection and resource integration
+- Multiple response styles (supportive, practical, reflective)
 
-## 🌍 **Live Website Features**
+### 👥 Volunteer System
+- Trained peer volunteers respond to letters
+- Dashboard for managing unprocessed letters
+- Conversation threading
 
-The current live site at **echoehosa.com** includes:
+### 🛡️ Admin Features
+- User management (promote, demote users)
+- Content moderation
+- Platform analytics
 
-- ✨ **Beautiful landing page** with animated elements
-- 📧 **Email subscription** for launch notifications
-- 📱 **Fully responsive** design for all devices
-- ♿ **Accessible** navigation and smooth scrolling
-- 🎨 **Professional branding** with consistent color scheme
+### 📚 Interactive Campaign Pages
+- **Topic Explorer** - Monthly mental health education with detailed content
+- **7-Day Battery Challenge** - Wellness activities interactive
+- **Your Voice Matters Quiz** - Personalized suggestions based on answers
+- **Are You an Ally?** - Autism awareness checklist
+- **Daily Echo Message** - AI-powered daily mental health messages
+- **Holiday Wellness Tips** - Seasonal support generator
+- **Myth Buster** - Mental health trivia
 
 ## 🔧 **Development Setup**
 
-### For Pages Development (Current):
+### Prerequisites
+- Python 3.9+
+- pip
+
+### Local Development
 ```bash
 # Clone repository
-git clone https://github.com/AlexDongzeyu/LightInSilence.git
-cd LightInSilence
+git clone https://github.com/AlexDongzeyu/ECHOE.git
+cd ECHOE/NPO-SCA
 
-# Open index.html in browser for local development
-# Or use a simple HTTP server:
-python -m http.server 8000
-# Visit http://localhost:8000
-```
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-### For Workers Development (Future Full Platform):
-```bash
 # Install dependencies
-npm install
+pip install -r requirements.txt
 
-# Set up environment
-cp .env.example .env
-# Add your API keys: JWT_SECRET, GEMINI_API_KEY
-
-# Start development server
-npm run dev
-
-# Deploy to Cloudflare Workers
-npm run deploy
+# Run development server
+flask run
+# Visit http://localhost:5000
 ```
 
-## 📋 **Deployment Guide**
+### Environment Variables
+Create a `.env` file with:
+```
+FLASK_SECRET_KEY=your-secret-key
+GEMINI_API_KEY=your-google-gemini-api-key
+```
 
-### Current: Cloudflare Pages ✅
-The site is already deployed! The Pages deployment automatically:
-- Serves `index.html` as the main page
-- Handles routing with `_redirects` file
-- Provides global CDN distribution
-- Offers SSL certificates and custom domains
+## 🚀 **Deployment**
 
-### Future: Cloudflare Workers (Full Platform)
-When ready to deploy the complete platform:
+The project is deployed on **Render** with:
+- Automatic deployments from GitHub
+- Persistent disk storage for database
+- Health checks and monitoring
 
-1. **Create D1 Database**:
-   ```bash
-   wrangler d1 create light-in-silence-db
-   # Update wrangler.toml with database_id
-   ```
+### Deployment Configuration (`render.yaml`)
+- Web service with Python runtime
+- Persistent disk at `/var/data/echoe`
+- Alembic migrations run on pre-deploy
 
-2. **Set Environment Variables**:
-   ```bash
-   wrangler secret put JWT_SECRET
-   wrangler secret put GEMINI_API_KEY
-   ```
+## 🎨 **Design System**
 
-3. **Run Database Migrations**:
-   ```bash
-   wrangler d1 migrations apply light-in-silence-db --remote
-   ```
+### Brand Colors
+- **Deep Indigo** `#2A3D66` - Primary text
+- **Gentle Lavender** `#B39CD0` - Accents
+- **Soft Teal** `#9FC5CB` - Interactive elements
+- **Golden Butter** `#F8D29C` - Highlights
+- **Warm White** `#FDF8E8` - Backgrounds
 
-4. **Deploy**:
-   ```bash
-   npm run deploy
-   ```
+### Typography
+- **Nunito** - Primary font (body and headings)
 
-## Zero-downtime deploys
+## 🆘 **Crisis Resources**
 
-- Render service defined in `render.yaml` uses a persistent disk at `/var/data/echoe` and health check `/health-check`.
-- Pre-deploy runs `scripts/predeploy.py` to apply Alembic migrations (or `create_all` fallback) so data persists.
-- GitHub Action `.github/workflows/trigger-deploy.yml` can call `RENDER_DEPLOY_HOOK` and purge Cloudflare cache.
-- Set repo secrets: `RENDER_DEPLOY_HOOK`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID`.
+The platform integrates crisis resources:
+- **Canada Suicide Prevention**: 1-833-456-4566
+- **Kids Help Phone**: 1-800-668-6868
+- **Crisis Text Line**: Text HOME to 686868
+- **Emergency Services**: 911
 
-## 🌟 **Key Features**
-
-### Current Live Site:
-- 🎯 **Professional landing page** showcasing the platform
-- 📱 **Mobile-responsive** design
-- 📧 **Email collection** for launch notifications
-- 🎨 **Beautiful animations** and user experience
-
-### Planned Full Platform Features:
-- 📝 **Anonymous letter submission** with topic categorization
-- 🤖 **AI-powered responses** using Google Gemini
-- 👥 **Volunteer management** system
-- 🛡️ **Admin dashboard** with content moderation
-- 🔐 **Role-based access control** (User → Volunteer → Admin → Ultimate Admin)
-- 📊 **Analytics and reporting**
-- 🆘 **Crisis detection** and resource integration
-
-## 🔒 **Security Features**
-
-- 🔐 **JWT authentication** with secure password hashing
-- 🛡️ **Content moderation** with AI-powered crisis detection
-- 🚪 **CORS protection** and input validation
-- 📊 **Role-based permissions** at API level
-- 🔒 **Anonymous submissions** with privacy protection
-
-## 🌐 **Technology Stack**
-
-### Frontend:
-- HTML5, CSS3, JavaScript (ES6+)
-- Font Awesome icons
-- Google Fonts (Nunito)
-- Responsive design principles
-
-### Backend (Workers Version):
-- TypeScript
-- Hono framework
-- Cloudflare D1 database
-- Google Gemini AI API
-- bcrypt password hashing
-- JWT authentication
-
-## 📞 **Contact & Support**
+## 📞 **Contact**
 
 - 🌐 **Website**: [echoehosa.com](https://echoehosa.com)
-- 📧 **Email**: contact@lightinsilence.org
-- 🐙 **GitHub**: [AlexDongzeyu/LightInSilence](https://github.com/AlexDongzeyu/LightInSilence)
+- 📧 **Email**: echoehosa@gmail.com
+- 📱 **Instagram**: [@echoehosa](https://instagram.com/echoehosa)
 
 ## 📄 **License**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 **Acknowledgments**
-
-- **Mental Health Organizations** across Canada for inspiration
-- **Cloudflare** for providing excellent edge computing infrastructure
-- **Google** for Gemini AI API supporting our response system
-- **Community volunteers** who will help provide human support
+This project is for the E.C.H.O.E. Mental Health Organization.
 
 ---
 
-*Light in Silence - Where Your Words Find Light* ✨ 
+*E.C.H.O.E. - Every Connection Helps One Emerge* 💜

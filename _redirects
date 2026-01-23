@@ -1,8 +1,0 @@
-# Redirect all traffic to Cloudflare Workers backend
-/* https://light-in-silence.alexdong0414.workers.dev/:splat 200
-
-# API routes specifically handled by Workers
-/api/* https://light-in-silence.alexdong0414.workers.dev/api/:splat 200
-/submit https://light-in-silence.alexdong0414.workers.dev/submit 200
-/admin/* https://light-in-silence.alexdong0414.workers.dev/admin/:splat 200
-/volunteer/* https://light-in-silence.alexdong0414.workers.dev/volunteer/:splat 200 

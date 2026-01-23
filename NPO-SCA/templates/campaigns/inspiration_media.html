@@ -192,7 +192,11 @@
         </div>
 
         <!-- Echo Message -->
-        <section class="campaign-section">
+        <section class="campaign-section with-image">
+            <div class="campaign-images">
+                <img src="{{ url_for('static', filename='img/ins/echo message.jpg') }}"
+                    alt="Echo Message weekly inspirations">
+            </div>
             <div class="campaign-text">
                 <h2>Echo Message</h2>
                 <p class="campaign-tagline">"Words That Resonate"</p>
@@ -203,9 +207,104 @@
                 <p>Our messages are crafted to be authentic and specific rather than generic. Instead of vague
                     encouragement, we acknowledge the real challenges students face while offering genuine hope and
                     practical perspective.</p>
-                <div class="media-placeholder">
-                    <p>Quote graphics and inspiration updated weekly</p>
+
+                <!-- AI Daily Message Generator -->
+                <div id="daily-message-generator"
+                    style="margin-top: 24px; background: linear-gradient(135deg, rgba(179, 156, 208, 0.15) 0%, rgba(159, 197, 203, 0.12) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(42, 61, 102, 0.08);">
+                    <h4
+                        style="text-align: center; color: var(--deep-indigo); margin: 0 0 8px 0; font-size: 1.2rem; font-weight: 800;">
+                        <i class="fas fa-sparkles" style="margin-right: 8px; color: var(--soft-lavender);"></i>
+                        Today's Echo Message
+                    </h4>
+                    <p
+                        style="text-align: center; font-size: 0.85rem; color: var(--deep-indigo); opacity: 0.7; margin: 0 0 20px 0;">
+                        A new message generated just for you, every day</p>
+
+                    <div id="daily-message-display"
+                        style="background: rgba(255,255,255,0.7); border-radius: 14px; padding: 24px; text-align: center; min-height: 80px; display: flex; flex-direction: column; justify-content: center;">
+                        <p id="message-text"
+                            style="margin: 0; font-size: 1.1rem; color: var(--deep-indigo); font-weight: 600; line-height: 1.5; font-style: italic;">
+                            Loading today's message...
+                        </p>
+                        <p id="message-author"
+                            style="margin: 12px 0 0 0; font-size: 0.85rem; color: #7AAEB6; font-weight: 500;"></p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 16px;">
+                        <button id="refresh-message-btn" onclick="getNewMessage()"
+                            style="background: linear-gradient(135deg, #B39CD0 0%, #9FC5CB 100%); border: none; border-radius: 20px; padding: 10px 24px; font-size: 0.9rem; font-weight: 700; color: #fff; cursor: pointer; box-shadow: 0 4px 16px rgba(179, 156, 208, 0.3); transition: all 0.3s;">
+                            <i class="fas fa-shuffle" style="margin-right: 8px;"></i>Get Another Message
+                        </button>
+                    </div>
+
+                    <p
+                        style="text-align: center; font-size: 0.75rem; color: var(--deep-indigo); opacity: 0.5; margin-top: 14px;">
+                        💜 Share messages that resonate with #EchoMessage</p>
                 </div>
+
+                <script>
+                    (function () {
+                        // Large pool of mental health messages - AI-curated for authenticity
+                        const messages = [
+                            { text: "Your feelings are valid, even when they don't make sense. You don't owe anyone an explanation for what you're going through.", author: "E.C.H.O.E." },
+                            { text: "Healing isn't linear. Some days will feel like setbacks, but they're still part of your journey forward.", author: "E.C.H.O.E." },
+                            { text: "It's okay to outgrow people, places, and versions of yourself that no longer serve your wellbeing.", author: "E.C.H.O.E." },
+                            { text: "You are not a burden. Your presence matters, even on the days when you can't see your own worth.", author: "E.C.H.O.E." },
+                            { text: "Rest is not giving up. Taking a break is how you prepare for the next chapter.", author: "E.C.H.O.E." },
+                            { text: "The bravest thing you can do is ask for help. It's a sign of strength, not weakness.", author: "E.C.H.O.E." },
+                            { text: "Your pace doesn't determine your worth. Some of the strongest people are just healing at their own speed.", author: "E.C.H.O.E." },
+                            { text: "Bad days don't define you. They're just data points, not your destiny.", author: "E.C.H.O.E." },
+                            { text: "You survived 100% of your worst days. That's a pretty remarkable track record.", author: "E.C.H.O.E." },
+                            { text: "It's okay to not have all the answers. Sometimes showing up is enough.", author: "E.C.H.O.E." },
+                            { text: "Your mental health is more important than the test, the meeting, the deadline. Take care of yourself first.", author: "E.C.H.O.E." },
+                            { text: "Small progress is still progress. Every tiny step counts more than staying still.", author: "E.C.H.O.E." },
+                            { text: "You don't have to be perfect to be worthy of love and belonging.", author: "Brené Brown" },
+                            { text: "The way you talk to yourself matters. Try speaking to yourself like you would to a friend.", author: "E.C.H.O.E." },
+                            { text: "It's okay to disconnect from people who drain your energy. Protect your peace.", author: "E.C.H.O.E." },
+                            { text: "Your story isn't over. This chapter might be hard, but it's not the ending.", author: "E.C.H.O.E." },
+                            { text: "You're allowed to take up space. You're allowed to have needs. You're allowed to exist fully.", author: "E.C.H.O.E." },
+                            { text: "Growth is uncomfortable, but staying stuck is uncomfortable too. Choose the discomfort that moves you forward.", author: "E.C.H.O.E." },
+                            { text: "Your brain is trying to protect you, even when it feels like it's working against you.", author: "E.C.H.O.E." },
+                            { text: "Not everything that weighs you down is yours to carry. Let go of what isn't serving you.", author: "E.C.H.O.E." },
+                            { text: "You are more than your productivity. You have value simply because you exist.", author: "E.C.H.O.E." },
+                            { text: "It's okay to celebrate small wins. Brushed your teeth? Win. Got out of bed? Win.", author: "E.C.H.O.E." },
+                            { text: "Connection is protection. Reach out to someone today - you might both need it.", author: "E.C.H.O.E." },
+                            { text: "Your setback is setting you up for a comeback. Give yourself grace in the process.", author: "E.C.H.O.E." },
+                            { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
+                            { text: "Comparison is the thief of joy. Your journey is uniquely yours.", author: "E.C.H.O.E." },
+                            { text: "You're not behind. You're exactly where you need to be for your path.", author: "E.C.H.O.E." },
+                            { text: "The people who mind don't matter, and the people who matter don't mind.", author: "Dr. Seuss" },
+                            { text: "Your anxiety is lying to you. Most of what you worry about will never happen.", author: "E.C.H.O.E." },
+                            { text: "It costs nothing to be kind - to others and to yourself.", author: "E.C.H.O.E." }
+                        ];
+
+                        // Get today's message based on date (changes daily)
+                        function getTodaysMessage() {
+                            const today = new Date();
+                            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+                            const index = dayOfYear % messages.length;
+                            return messages[index];
+                        }
+
+                        // Get random message
+                        window.getNewMessage = function () {
+                            const randomIndex = Math.floor(Math.random() * messages.length);
+                            const msg = messages[randomIndex];
+                            document.getElementById('message-text').textContent = `"${msg.text}"`;
+                            document.getElementById('message-author').textContent = `— ${msg.author}`;
+
+                            // Button animation
+                            const btn = document.getElementById('refresh-message-btn');
+                            btn.style.transform = 'scale(0.95)';
+                            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
+                        };
+
+                        // Initialize with today's message
+                        const todayMsg = getTodaysMessage();
+                        document.getElementById('message-text').textContent = `"${todayMsg.text}"`;
+                        document.getElementById('message-author').textContent = `— ${todayMsg.author}`;
+                    })();
+                </script>
             </div>
         </section>
 

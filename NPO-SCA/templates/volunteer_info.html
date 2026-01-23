@@ -1,51 +1,227 @@
 {% extends "base.html" %}
-
 {% block title %}Volunteer - E.C.H.O.E{% endblock %}
+{% block styles %}
+<style>
+    /* === VOLUNTEER PAGE - ORGANIC FLOWING DESIGN === */
+
+    .volunteer-hero {
+        text-align: center;
+        padding: 56px 20px 44px;
+        position: relative;
+    }
+
+    .volunteer-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 240px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(232, 146, 124, 0.5), rgba(179, 156, 208, 0.5), transparent);
+        border-radius: 2px;
+    }
+
+    .volunteer-hero h1 {
+        color: var(--deep-indigo);
+        font-size: 2.5rem;
+        font-weight: 800;
+        font-family: 'Namdhinggo', Georgia, serif;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.5px;
+    }
+
+    .volunteer-hero .subtitle {
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+        opacity: 0.8;
+        font-style: italic;
+    }
+
+    .volunteer-intro {
+        max-width: 720px;
+        margin: 0 auto 44px;
+        padding: 0 20px;
+        text-align: center;
+        color: var(--deep-indigo);
+        font-size: 1.05rem;
+        line-height: 1.75;
+    }
+
+    /* Section heading style */
+    .section-heading {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .section-heading h2 {
+        color: var(--deep-indigo);
+        font-size: 1.45rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    /* Volunteer opportunities grid */
+    .opportunities-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        padding: 0 20px;
+    }
+
+    .opportunity-item {
+        padding: 0;
+    }
+
+    .opportunity-item h3 {
+        color: var(--deep-indigo);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .opportunity-item h3 i {
+        color: #9078A8;
+        font-size: 1rem;
+        opacity: 0.85;
+    }
+
+    .opportunity-item p {
+        color: var(--deep-indigo);
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin: 0;
+        opacity: 0.85;
+    }
+
+    /* Organic separator */
+    .organic-line {
+        width: 100%;
+        height: 20px;
+        margin: 36px 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 20' preserveAspectRatio='none'%3E%3Cpath d='M0,10 Q200,6 400,10 T800,10 T1200,10' stroke='%232A3D66' stroke-width='1.2' fill='none' stroke-opacity='0.1' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* Training note */
+    .training-note {
+        max-width: 600px;
+        margin: 0 auto 32px;
+        padding: 0 20px;
+        text-align: center;
+        color: var(--deep-indigo);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.85;
+    }
+
+    /* CTA button area */
+    .volunteer-cta {
+        text-align: center;
+        margin: 40px 0;
+    }
+
+    .volunteer-cta .btn-primary {
+        background: linear-gradient(135deg, #E8927C 0%, #D87B66 100%);
+        color: #fff;
+        padding: 14px 32px;
+        border-radius: 28px;
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 20px rgba(232, 146, 124, 0.3);
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .volunteer-cta .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(232, 146, 124, 0.4);
+    }
+
+    /* Tagline */
+    .volunteer-tagline {
+        text-align: center;
+        margin: 36px 0 20px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        font-style: italic;
+        color: #9078A8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .opportunities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .volunteer-hero h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="page-container">
-        <div class="page-header">
-            <h1>Become a Volunteer</h1>
-            <p>Every voice deserves to be echoed.</p>
+        <section class="volunteer-hero">
+            <h1>Volunteer with E.C.H.O.E.</h1>
+            <p class="subtitle">Join our movement to make every voice heard.</p>
+        </section>
+
+        <div class="volunteer-intro">
+            <p>Help us fight against social isolation and ensure no student feels alone. Research shows volunteering
+                itself is a protective factor - helping others increases your own sense of purpose and connection.</p>
         </div>
-        
-        <div class="content-section">
-            <h2 style="font-size:2.2rem; font-family:'Namdhinggo', Georgia, serif;"><i class="fas fa-heart" style="color: var(--soft-yellow); margin-right: 10px;"></i>Why Volunteer with E.C.H.O.E?</h2>
-            <p>Help fight social isolation and make sure all voices are heard. Support teens through in‑person events and community outreach.</p>
+
+        <div class="section-heading">
+            <h2>We're looking for volunteers who can:</h2>
         </div>
-        
-        <div class="content-section">
-            <h2 style="font-size:2.2rem; font-family:'Namdhinggo', Georgia, serif;"><i class="fas fa-hands-helping" style="color: var(--gentle-lavender); margin-right: 10px;"></i>Volunteer</h2>
-            <p>Click the link to apply to volunteer and join our most recent event.</p>
-            <div style="text-align:center; margin-top:16px">
-                <a href="https://forms.gle/XeiSGceonbQKCCzo9" class="btn-primary">Apply to Volunteer</a>
-                <div style="margin-top:10px">
-                    <a href="{{ url_for('events_overview') }}" class="btn-secondary">See Upcoming Events</a>
-                </div>
+
+        <div class="opportunities-grid">
+            <div class="opportunity-item">
+                <h3><i class="fas fa-calendar-check"></i> Assist with Events</h3>
+                <p>Help set up, facilitate activities, and create welcoming environments at our community gatherings.
+                </p>
+            </div>
+
+            <div class="opportunity-item">
+                <h3><i class="fas fa-envelope-open-text"></i> Reply to Letters</h3>
+                <p>After training, join our peer responders who read and reply to letters through Share Your Story.</p>
+            </div>
+
+            <div class="opportunity-item">
+                <h3><i class="fas fa-pen-fancy"></i> Create Content</h3>
+                <p>Design graphics, write captions, or produce videos that spread our message on social media.</p>
+            </div>
+
+            <div class="opportunity-item">
+                <h3><i class="fas fa-bullhorn"></i> Spread Awareness</h3>
+                <p>Become an E.C.H.O.E. ambassador by sharing resources in your school and community.</p>
             </div>
         </div>
-        
-        <div class="content-section">
-            <h2 style="font-size:2.2rem; font-family:'Namdhinggo', Georgia, serif;"><i class="fas fa-envelope" style="color: var(--soft-yellow); margin-right: 10px;"></i>Contact Us</h2>
-            <p>Email: echoe.hosa@gmail.com<br>
-               Instagram: @echoe_hosa26<br>
-               Tiktok: @echoe_hosa26<br>
-               Youtube: @echoe_hosa
-            </p>
+
+        <div class="organic-line"></div>
+
+        <p class="training-note">All volunteers receive training and ongoing support from our team.</p>
+
+        <div class="volunteer-cta">
+            <a href="https://forms.gle/XeiSGceonbQKCCzo9" class="btn-primary" target="_blank" rel="noopener">
+                <i class="fas fa-paper-plane"></i> Apply to Volunteer
+            </a>
         </div>
+
+        <p class="volunteer-tagline">Together, we can make a difference - one echo at a time.</p>
     </div>
 </div>
-
-<style>
-    .content-section div[style*="grid"] > div:hover {
-        transform: translateY(-5px);
-        transition: transform 0.3s ease;
-    }
-    
-    .content-section ul li {
-        font-size: 1.05rem;
-        line-height: 1.6;
-    }
-</style>
-{% endblock %} 
+{% endblock %}

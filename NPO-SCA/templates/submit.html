@@ -634,120 +634,141 @@
 {% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <h2>Share Your Story with E.C.H.O.E.</h2>
-    <p class="form-quote">Every voice deserves to be echoed.</p>
-    <p class="form-intro">This is a gentle, judgment-free space to share what's on your mind. Whether you're navigating
-        a difficult situation, processing complex emotions, or simply need someone to listen, our team is here for you.
-        Our trained peer responders will read your letter with care and respond within 48 hours with empathy,
-        encouragement, and helpful resources.</p>
-    <p class="form-intro" style="margin-top:0;">You can write about anything that's weighing on you. Some students share
-        experiences with loneliness or feeling disconnected from peers. Others write about academic stress, family
-        challenges, or navigating social situations that feel overwhelming. Some simply want to express thoughts they
-        haven't been able to say out loud. Whatever you're experiencing, your voice matters and your story deserves to
-        be heard.</p>
-    <p class="form-intro" style="margin-top:0;">Our peer responders are trained to listen without judgment and respond
-        with compassion. They won't try to "fix" your problems or tell you what to do — instead, they'll acknowledge
-        your feelings, offer support, and share resources that might be helpful. If your letter indicates you may be in
-        crisis, we will include information about professional support services.</p>
-    <p class="form-intro" style="margin-top:0;">You can choose to check your inbox on our website for replies, or
-        provide an email if you prefer to receive responses there. Either way, your identity remains anonymous unless
-        you choose to share it.</p>
+<div class="container">
+    <div class="page-container">
+        <div class="form-container">
+            <h2>Share Your Story with E.C.H.O.E.</h2>
+            <p class="form-quote">Every voice deserves to be echoed.</p>
+            <p class="form-intro">This is a gentle, judgment-free space to share what's on your mind. Whether you're
+                navigating
+                a difficult situation, processing complex emotions, or simply need someone to listen, our team is here
+                for you.
+                Our trained peer responders will read your letter with care and respond within 48 hours with empathy,
+                encouragement, and helpful resources.</p>
+            <p class="form-intro" style="margin-top:0;">You can write about anything that's weighing on you. Some
+                students share
+                experiences with loneliness or feeling disconnected from peers. Others write about academic stress,
+                family
+                challenges, or navigating social situations that feel overwhelming. Some simply want to express thoughts
+                they
+                haven't been able to say out loud. Whatever you're experiencing, your voice matters and your story
+                deserves to
+                be heard.</p>
+            <p class="form-intro" style="margin-top:0;">Our peer responders are trained to listen without judgment and
+                respond
+                with compassion. They won't try to "fix" your problems or tell you what to do — instead, they'll
+                acknowledge
+                your feelings, offer support, and share resources that might be helpful. If your letter indicates you
+                may be in
+                crisis, we will include information about professional support services.</p>
+            <p class="form-intro" style="margin-top:0;">You can choose to check your inbox on our website for replies,
+                or
+                provide an email if you prefer to receive responses there. Either way, your identity remains anonymous
+                unless
+                you choose to share it.</p>
 
-    <div class="submission-options">
-        <div class="submission-option active" id="online-option">Online Submission</div>
-        <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
-    </div>
-    <div id="offlineBanner" class="note" style="display:none; margin-top:0;">
-        Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email
-        <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
-    </div>
+            <div class="submission-options">
+                <div class="submission-option active" id="online-option">Online Submission</div>
+                <div class="submission-option" id="offline-option">Find Physical Mailboxes</div>
+            </div>
+            <div id="offlineBanner" class="note" style="display:none; margin-top:0;">
+                Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email
+                <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+            </div>
 
-    <div class="submission-forms">
-        <div class="form-section active" id="online-form">
-            <div class="framed-inner">
-                <div class="compose-wrap" id="composeWrap">
-                    <form method="POST" action="{{ url_for('submit') }}" id="letterForm">
-                        {{ form.hidden_tag() }}
+            <div class="submission-forms">
+                <div class="form-section active" id="online-form">
+                    <div class="framed-inner">
+                        <div class="compose-wrap" id="composeWrap">
+                            <form method="POST" action="{{ url_for('submit') }}" id="letterForm">
+                                {{ form.hidden_tag() }}
 
-                        <!-- Topic selection hidden to reduce friction; AI will summarize title -->
-                        <div class="form-group" style="display:none;">
-                            {{ form.topic(class="form-control") }}
-                        </div>
+                                <!-- Topic selection hidden to reduce friction; AI will summarize title -->
+                                <div class="form-group" style="display:none;">
+                                    {{ form.topic(class="form-control") }}
+                                </div>
 
-                        <div class="form-group write-zone">
-                            {{ form.content.label(class="form-label") }}
-                            {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or
-                            concerns here...") }}
-                            {% if form.content.errors %}
-                            <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.content.errors[0] }}
-                            </div>
-                            {% endif %}
-                            <!-- Cat hint message -->
-                            <div class="cat-hint" id="cat-hint">💡 Click Echo the cat for ideas and suggestions!</div>
+                                <div class="form-group write-zone">
+                                    {{ form.content.label(class="form-label") }}
+                                    {{ form.content(class="form-control", placeholder="Share your thoughts, feelings, or
+                                    concerns here...") }}
+                                    {% if form.content.errors %}
+                                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{
+                                        form.content.errors[0] }}
+                                    </div>
+                                    {% endif %}
+                                    <!-- Cat hint message -->
+                                    <div class="cat-hint" id="cat-hint">💡 Click Echo the cat for ideas and suggestions!
+                                    </div>
 
-                            <!-- Cat mascot button for suggestions -->
-                            <img src="{{ url_for('static', filename='img/Untitled design.png') }}"
-                                alt="Click Echo the cat for writing suggestions" class="cat-suggestion-btn"
-                                id="cat-suggest-btn" role="button" tabindex="0"
-                                aria-label="Click Echo the cat for writing suggestions">
+                                    <!-- Cat mascot button for suggestions -->
+                                    <img src="{{ url_for('static', filename='img/Untitled design.png') }}"
+                                        alt="Click Echo the cat for writing suggestions" class="cat-suggestion-btn"
+                                        id="cat-suggest-btn" role="button" tabindex="0"
+                                        aria-label="Click Echo the cat for writing suggestions">
 
-                            <div class="guide-rail" aria-hidden="true" id="guideRail">
-                                <div class="suggestion-inline hidden" id="inlineSuggest">
-                                    <button type="button" id="suggestionClose" class="suggestion-close"
-                                        aria-label="Hide">✕</button>
-                                    <ul id="inlineTips">
-                                        <li>It's okay to be brief — start with one thought.</li>
-                                        <li>Share feelings, not just events.</li>
-                                        <li>Choose Inbox or Anonymous Email for replies.</li>
-                                    </ul>
-                                    <div id="inlineQuestion" style="margin-top: 8px; font-style: italic; opacity: 0.8;">
+                                    <div class="guide-rail" aria-hidden="true" id="guideRail">
+                                        <div class="suggestion-inline hidden" id="inlineSuggest">
+                                            <button type="button" id="suggestionClose" class="suggestion-close"
+                                                aria-label="Hide">✕</button>
+                                            <ul id="inlineTips">
+                                                <li>It's okay to be brief — start with one thought.</li>
+                                                <li>Share feelings, not just events.</li>
+                                                <li>Choose Inbox or Anonymous Email for replies.</li>
+                                            </ul>
+                                            <div id="inlineQuestion"
+                                                style="margin-top: 8px; font-style: italic; opacity: 0.8;">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            {{ form.reply_method.label(class="form-label") }}
-                            {{ form.reply_method(class="form-control", id="reply-method") }}
-                            {% if form.reply_method.errors %}
-                            <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{ form.reply_method.errors[0]
-                                }}</div>
-                            {% endif %}
-                        </div>
+                                <div class="form-group">
+                                    {{ form.reply_method.label(class="form-label") }}
+                                    {{ form.reply_method(class="form-control", id="reply-method") }}
+                                    {% if form.reply_method.errors %}
+                                    <div style="color:#c0392b; font-weight:600; margin-top:6px;">{{
+                                        form.reply_method.errors[0]
+                                        }}</div>
+                                    {% endif %}
+                                </div>
 
-                        <div class="form-group" id="email-container" style="display: none;">
-                            {{ form.anonymous_email.label(class="form-label") }}
-                            {{ form.anonymous_email(class="form-control", placeholder="Your email address (we don't
-                            collect any personal information)") }}
-                        </div>
+                                <div class="form-group" id="email-container" style="display: none;">
+                                    {{ form.anonymous_email.label(class="form-label") }}
+                                    {{ form.anonymous_email(class="form-control", placeholder="Your email address (we
+                                    don't
+                                    collect any personal information)") }}
+                                </div>
 
-                        <div class="form-group" style="margin-top: 10px;">
-                            {% if recaptcha_site_key %}
-                            <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
-                            {% endif %}
-                        </div>
+                                <div class="form-group" style="margin-top: 10px;">
+                                    {% if recaptcha_site_key %}
+                                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                                    {% endif %}
+                                </div>
 
-                        {{ form.submit(class="submit-btn", id="submitBtn") }}
-                    </form>
+                                {{ form.submit(class="submit-btn", id="submitBtn") }}
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="form-section" id="offline-locations">
+                        <h3>Find Physical Mailboxes</h3>
+                        <div class="note" style="margin-top:0">
+                            Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one?
+                            Email <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-section" id="offline-locations">
-                <h3>Find Physical Mailboxes</h3>
-                <div class="note" style="margin-top:0">
-                    Coming soon — we’re securing locations for in-person mailboxes. Interested in hosting one? Email <a
-                        href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a>.
-                </div>
+                <!-- AI companion prompt removed to simplify the page per new guidance -->
+
+                <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read
+                    our <a href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
             </div>
         </div>
-
-        <!-- AI companion prompt removed to simplify the page per new guidance -->
-
-        <p class="privacy-note">We respect your privacy. We never track your name, location, or IP address. Read our <a
-                href="{{ url_for('privacy') }}">Privacy Policy</a> to learn more.</p>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
 
     {% block scripts %}
     {% if recaptcha_site_key %}

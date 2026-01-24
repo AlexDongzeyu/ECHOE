@@ -1564,11 +1564,21 @@
                 border-radius: 50% !important;
                 width: 48px !important;
                 height: 48px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
 
+            /* Show the pen icon (not "W") on very small screens */
             .fab-write::before {
-                content: "W";
-                font-size: 1.2rem;
+                content: none !important;
+                display: none !important;
+            }
+
+            .fab-write i {
+                font-size: 1.2rem !important;
+                margin: 0 !important;
+                line-height: 1 !important;
             }
         }
 

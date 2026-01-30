@@ -2721,11 +2721,16 @@
                     <li><a href="mailto:echoe.hosa@gmail.com"><i class="fas fa-envelope"></i> echoe.hosa@gmail.com</a>
                     </li>
                     <li><a href="{{ url_for('privacy') }}"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="{{ url_for('terms') }}"><i class="fas fa-file-contract"></i> Terms of Use</a></li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
             <p>&copy; {{ now.year }} E.C.H.O.E. Made in Canada. All rights reserved.</p>
+            <p style="margin-top:6px; font-size:0.85rem; opacity:.9;">
+                Website text/layout/framework © {{ now.year }} Zeyu Dong. No license granted. See <a
+                    href="{{ url_for('terms') }}" style="color:inherit; text-decoration:underline;">Terms of Use</a>.
+            </p>
             <p style="margin-top:6px; font-size:0.85rem; opacity:.9;">
                 <a href="{{ url_for('login') }}" style="color:inherit; text-decoration:none;">
                     Version: 2026-01-16 / dd93c85

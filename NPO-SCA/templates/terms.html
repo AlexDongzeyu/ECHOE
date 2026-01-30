@@ -6,12 +6,13 @@
 <style>
     .terms-container {
         max-width: 800px;
-        margin: 3rem auto;
+        margin: 0 auto;
         padding: 2.5rem;
-        background-color: white;
+        background: rgba(255, 255, 255, 0.88);
         border-radius: 20px;
-        box-shadow: 0 8px 30px rgba(42, 61, 102, 0.1);
-        border-left: 4px solid var(--gentle-lavender);
+        box-shadow: 0 10px 30px rgba(42, 61, 102, 0.10);
+        border: 1px solid rgba(42, 61, 102, 0.10);
+        border-left: 4px solid rgba(159, 197, 203, 0.60);
     }
 
     .terms-container h1 {
@@ -90,7 +91,7 @@
     /* Responsive design */
     @media (max-width: 768px) {
         .terms-container {
-            margin: 2rem 1rem;
+            margin: 0 auto;
             padding: 2rem;
         }
 
@@ -102,63 +103,92 @@
             font-size: 1.5rem;
         }
     }
+
+    .legal-note {
+        margin-top: 10px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(253, 244, 197, 0.45);
+        border: 1px solid rgba(42, 61, 102, 0.10);
+        font-size: 0.98rem;
+        line-height: 1.65;
+    }
+
+    .legal-note strong {
+        font-weight: 800;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="terms-container">
-    <h1>Terms of Service</h1>
+<div class="container">
+    <div class="page-container">
+        <div class="terms-container">
+            <h1>Terms of Use & Copyright Notice</h1>
 
-    <p><strong>Last updated:</strong> December 2023</p>
+            <p><strong>Last updated:</strong> {{ now.strftime('%B %d, %Y') if now is defined else 'January 30, 2026' }}</p>
 
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing and using the Light in Silence platform, you agree to comply with and be bound by these Terms of
-        Service. If you do not agree to these terms, please do not use our service.</p>
+            <div class="legal-note">
+                <strong>Important:</strong> The restrictions below are intended to apply to the fullest extent permitted
+                by law. Nothing here limits rights that cannot legally be limited (for example, certain uses permitted
+                under applicable law).
+            </div>
 
-    <h2>2. Description of Service</h2>
-    <p>E.C.H.O.E is a mental health support initiative that provides:</p>
-    <ul>
-        <li>Anonymous letter submission and response services</li>
-        <li>AI-powered emotional support chat</li>
-        <li>Physical mailbox locations for offline submissions</li>
-        <li>Mental health resources and information</li>
-    </ul>
+            <h2>1. Ownership & Copyright</h2>
+            <p><strong>© {{ now.year if now is defined else '2026' }} Zeyu Dong. All rights reserved.</strong></p>
+            <p>All materials on <strong>echoehosa.com</strong>—including, without limitation, all text, page copy,
+                microcopy, website layout, design/arrangement, information architecture, structure and sequencing of
+                sections, text descriptions, and the written framework/organization of ideas (collectively, the
+                “Content”)—are the exclusive intellectual property of <strong>Zeyu Dong</strong> and are protected by
+                copyright and other applicable intellectual property laws.</p>
 
-    <h2>3. User Responsibilities</h2>
-    <p>Users agree to:</p>
-    <ul>
-        <li>Use the service for its intended purpose of seeking emotional support</li>
-        <li>Not submit content that is illegal, threatening, or harmful to others</li>
-        <li>Not attempt to identify other users or volunteers</li>
-        <li>Respect the privacy and anonymity of the platform</li>
-    </ul>
+            <h2>2. No License Granted; View-Only Access</h2>
+            <p>Your access to this website is <strong>revocable</strong> and strictly limited to viewing the Content for
+                its intended informational purpose. <strong>No license</strong> is granted—whether express, implied, or
+                otherwise—to reproduce, distribute, publish, display, transmit, modify, adapt, translate, create
+                derivative works from, or otherwise use the Content, except to the extent such restriction is prohibited
+                by law.</p>
 
-    <h2>4. Content Guidelines</h2>
-    <p>We reserve the right to review and moderate content. We may remove content that:</p>
-    <ul>
-        <li>Contains threats of violence or self-harm</li>
-        <li>Includes personal identifying information</li>
-        <li>Is spam or promotional in nature</li>
-        <li>Violates these terms of service</li>
-    </ul>
+            <h2>3. Strict No-Use / No-Extraction Rule (including partial use)</h2>
+            <p>Except as expressly permitted by applicable law, you may not copy, reproduce, distribute, republish,
+                upload, post, publicly display, transmit, scrape, harvest, store, summarize, paraphrase, translate,
+                re-format, or otherwise use <strong>any portion</strong> of the Content, whether in whole or in part,
+                including any single sentence, phrase, paragraph, heading, distinctive wording, structure, arrangement,
+                or framework. This includes creating “new” content that is substantially derived from or traceable to
+                the Content.</p>
+            <p>This restriction applies to all third parties, including (without limitation) former project teammates,
+                collaborators, and any school, student, or affiliated organizations.</p>
 
-    <h2>5. Privacy and Anonymity</h2>
-    <p>We are committed to maintaining your privacy. Please review our <a href="{{ url_for('privacy') }}">Privacy
-            Policy</a> for detailed information about how we handle your data.</p>
+            <h2>4. Academic Integrity & Competition Submissions</h2>
+            <p>Unauthorized use of the Content (including partial copying, paraphrasing, structural/framework reuse, or
+                reuse of distinctive wording) in academic work, school submissions, portfolios, grants, or any
+                competition/contest submissions constitutes <strong>plagiarism and academic misconduct</strong>. Any
+                competition or academic submission that uses the Content, or any substantially similar derivative, is
+                expressly prohibited without the Owner’s prior written consent.</p>
 
-    <h2>6. Disclaimer</h2>
-    <p>E.C.H.O.E is not a replacement for professional mental health care. If you are experiencing a mental health
-        crisis, please contact emergency services or a crisis hotline immediately.</p>
+            <h2>5. Enforcement</h2>
+            <p>Unauthorized use may result in takedown demands and pursuit of all available remedies, including
+                injunctive relief and damages where available. The Owner may preserve evidence of unauthorized use and
+                may refer or report suspected academic or competition misuse to the relevant institution or organizer.</p>
 
-    <h2>7. Limitation of Liability</h2>
-    <p>E.C.H.O.E and its volunteers provide support on a voluntary basis. We cannot guarantee specific outcomes or be
-        held liable for any decisions made based on interactions with our service.</p>
+            <h2>6. Privacy Policy</h2>
+            <p>Please review our <a href="{{ url_for('privacy') }}">Privacy Policy</a> for information about how we
+                handle data on this website.</p>
 
-    <h2>8. Changes to Terms</h2>
-    <p>We may update these terms from time to time. Users will be notified of significant changes through the platform.
-    </p>
+            <h2>7. Service Disclaimer</h2>
+            <p>E.C.H.O.E is not a replacement for professional mental health care. If you are experiencing a mental
+                health crisis, please contact emergency services or a crisis hotline immediately.</p>
 
-    <h2>9. Contact Information</h2>
-    <p>If you have questions about these terms, please <a href="{{ url_for('contact') }}">contact us</a>.</p>
+            <h2>8. Permissions (Written Only)</h2>
+            <p>Permission is granted only if you receive written authorization from <strong>Zeyu Dong</strong> that
+                explicitly identifies the specific material and scope of use. Attribution or implied permission does not
+                grant rights.</p>
+            <p><strong>Permission requests:</strong> <a href="mailto:echoe.hosa@gmail.com">echoe.hosa@gmail.com</a></p>
+
+            <h2>9. Changes to These Terms</h2>
+            <p>These Terms may be updated from time to time. Continued use of the website after updates constitutes
+                acceptance of the updated Terms.</p>
+        </div>
+    </div>
 </div>
 {% endblock %}

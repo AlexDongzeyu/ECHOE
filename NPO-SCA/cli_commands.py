@@ -11,17 +11,19 @@ author credits is a violation of the GPL license.
 import click
 from flask.cli import with_appcontext
 from models import db, User, UserRole
+import os # Added import for os
 
 @click.command('seed-admin')
 @with_appcontext
 def seed_admin():
-    """Create the initial Ultimate Administrator from dongzeyu123@outlook.com"""
+    """Create the initial Ultimate Administrator from ADMIN_EMAIL environment variable"""
     try:
+        admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
         # Find user by email
-        user = User.query.filter_by(email='dongzeyu123@outlook.com').first()
+        user = User.query.filter_by(email=admin_email).first()
         
         if not user:
-            click.echo('❌ Error: User with email dongzeyu123@outlook.com not found.')
+            click.echo(f'❌ Error: User with email {admin_email} not found.')
             click.echo('   Please ensure this user is registered first.')
             return
         

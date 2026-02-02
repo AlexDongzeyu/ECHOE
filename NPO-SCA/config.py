@@ -43,7 +43,7 @@ class Config:
     GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
 
     # Anti-abuse / CAPTCHA (optional)
-    # Google reCAPTCHA v2 checkbox keys – prefer environment variables; these can be
-    # overridden in production without changing code.
-    RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY') or "6LepaRosAAAAACZ8xG4DPq0iz-YiWvOEiYOv_ZsZ"
-    RECAPTCHA_SECRET = os.environ.get('RECAPTCHA_SECRET') or "6LepaRosAAAAAE4yLJFalKc-r5lvfVCNawQNp-Fk"
+    # Google reCAPTCHA v2 checkbox keys - MUST be set via environment variables.
+    # Get your keys at: https://www.google.com/recaptcha/admin
+    RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY')
+    RECAPTCHA_SECRET = os.environ.get('RECAPTCHA_SECRET')

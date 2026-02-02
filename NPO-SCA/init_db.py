@@ -22,7 +22,8 @@ def init_db(app):
         create_initial_data()
         
         # Always ensure admin user exists (delete and recreate if needed)
-        admin_user = User.query.filter_by(email='dongzeyu123@outlook.com').first()
+        admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
+        admin_user = User.query.filter_by(email=admin_email).first()
         if admin_user:
             # Delete existing admin user to ensure fresh state
             db.session.delete(admin_user)
@@ -30,28 +31,33 @@ def init_db(app):
 
         # Create admin user
         admin_user = User(
-            username='dongzeyu',
-            email='dongzeyu123@outlook.com',
+            username=os.environ.get('ADMIN_USERNAME', 'admin'),
+            email=os.environ.get('ADMIN_EMAIL', 'admin@example.com'),
             is_volunteer=True,
             is_admin=True,
             role=UserRole.ULTIMATE_ADMIN
         )
-        admin_user.set_password('Dongzeyu1!')
+        admin_password = os.environ.get('ADMIN_PASSWORD')
+        if not admin_password:
+            raise ValueError("ADMIN_PASSWORD environment variable must be set for initial setup")
+        admin_user.set_password(admin_password)
         db.session.add(admin_user)
         db.session.commit()
         
         # Create test user if no users exist
         test_user = User.query.filter_by(username='test_user').first()
         if not test_user:
-            # Create test user
-            test_user = User(
-                username='test_user',
-                email='test@example.com',
-                is_volunteer=True
-            )
-            test_user.set_password('Test123!')
-            db.session.add(test_user)
-            db.session.commit()
+            # Create test user (only if TEST_PASSWORD is set)
+            test_password = os.environ.get('TEST_PASSWORD')
+            if test_password:
+                test_user = User(
+                    username='test_user',
+                    email='test@example.com',
+                    is_volunteer=True
+                )
+                test_user.set_password(test_password)
+                db.session.add(test_user)
+                db.session.commit()
 
         # Create a sample blog post
         if Post.query.count() == 0:

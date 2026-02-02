@@ -20,10 +20,11 @@ def test_user_model():
     with app.app_context():
         try:
             # Query the user
-            user = User.query.filter_by(email='dongzeyu123@outlook.com').first()
+            admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
+            user = User.query.filter_by(email=admin_email).first()
             
             if not user:
-                print("❌ User dongzeyu123@outlook.com not found in database")
+                print(f"❌ User {admin_email} not found in database")
                 return False
             
             print(f"✓ Found user: {user.username} ({user.email})")

@@ -87,11 +87,16 @@ ECHOE/
     ```
 
 4.  Configure environment variables:
-    Create a `.env` file in the root directory with the following keys:
+    Copy the example environment file and fill in your values:
+    ```bash
+    cp .env.example .env
     ```
-    FLASK_SECRET_KEY=your-secret-key
-    GEMINI_API_KEY=your-google-gemini-api-key
-    ```
+    
+    Required variables:
+    *   `SECRET_KEY`: Flask secret key for session management
+    *   `ADMIN_PASSWORD`: Password for the initial admin user
+    *   `GEMINI_API_KEY`: Your Google Gemini API key
+    *   `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET`: Google reCAPTCHA v2 keys
 
 5.  Run the development server:
     ```bash

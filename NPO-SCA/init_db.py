@@ -8,6 +8,7 @@ This file is part of the ECHOE project. Unauthorized removal of
 author credits is a violation of the GPL license.
 """
 
+import os
 from models import db, User, Letter, Response, UserReply, PhysicalMailbox, Post, Event, UserRole
 from werkzeug.security import generate_password_hash
 from datetime import datetime

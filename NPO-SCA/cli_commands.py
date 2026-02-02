@@ -102,11 +102,7 @@ def migrate_roles():
         click.echo(f'❌ Error migrating roles: {str(e)}')
         db.session.rollback()
 
-def register_commands(app):
-    """Register all CLI commands with the Flask app"""
-    app.cli.add_command(seed_admin)
-    app.cli.add_command(list_admins)
-    app.cli.add_command(migrate_roles) 
+
 
 # -------------------- User utilities --------------------
 @click.command('create-user')

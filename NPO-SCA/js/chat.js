@@ -1,5 +1,15 @@
+/**
+ * PROJECT: ECHOE Mental Health Digital Platform
+ * AUTHOR: Alex Dong (Founder and Lead IT Developer)
+ * LICENSE: GNU General Public License v3.0
+ *
+ * Copyright (c) 2026 Alex Dong. All Rights Reserved.
+ * This file is part of the ECHOE project. Unauthorized removal of
+ * author credits is a violation of the GPL license.
+ */
+
 // Gemini AI Chat Integration with Content Moderation
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     // 检查Flask服务器状态
     const isFlaskRunning = await checkFlaskServer();
     if (!isFlaskRunning) {
@@ -16,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Create chat widget elements
     createChatWidget();
-    
+
     // Set up event listeners
     setupChatEvents();
 
@@ -34,13 +44,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         recognition.interimResults = true;
         recognition.lang = 'en-US';
 
-        recognition.onstart = function() {
+        recognition.onstart = function () {
             isListening = true;
             voiceToggle.classList.add('active');
             showVoiceIndicator();
         };
 
-        recognition.onend = function() {
+        recognition.onend = function () {
             if (isListening) {  // 只有在主动停止时才重新开始
                 recognition.start();
             } else {
@@ -49,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         };
 
-        recognition.onresult = function(event) {
+        recognition.onresult = function (event) {
             const transcript = Array.from(event.results)
                 .map(result => result[0])
                 .map(result => result.transcript)
@@ -65,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // 语音切换按钮事件
-    voiceToggle.addEventListener('click', async function() {
+    voiceToggle.addEventListener('click', async function () {
         if (!recognition) {
             alert('语音识别在您的浏览器中不可用');
             return;
@@ -99,16 +109,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         const cleanText = text.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
             .replace(/:[a-zA-Z_]+:/g, '') // 移除 :emoji: 格式的文本
             .trim();
-        
+
         // 将文本分成句子
         const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [cleanText];
-        
+
         let currentSentence = 0;
-        
+
         const speakNextSentence = () => {
             if (currentSentence < sentences.length) {
                 const utterance = new SpeechSynthesisUtterance(sentences[currentSentence]);
-                utterance.voice = synthesis.getVoices().find(voice => 
+                utterance.voice = synthesis.getVoices().find(voice =>
                     voice.name === voiceSelect.value) || synthesis.getVoices()[0];
                 utterance.pitch = 1;
                 utterance.rate = 1;
@@ -144,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // 加载可用的语音
-    synthesis.onvoiceschanged = function() {
+    synthesis.onvoiceschanged = function () {
         const voices = synthesis.getVoices();
         voiceSelect.innerHTML = voices
             .filter(voice => voice.lang.includes('en'))
@@ -160,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const response = await fetchGeminiResponse(userInput);
             removeTypingIndicator();
             addMessageToChat('ai', response);
-            
+
             // 保存聊天记录到数据库
             await fetch('http://localhost:5000/save-chat', {
                 method: 'POST',
@@ -173,7 +183,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     response: response
                 })
             });
-            
+
             if (isListening) {
                 speakAIResponse(response);
             }
@@ -223,7 +233,7 @@ function createChatWidget() {
             </div>
         </div>
     `;
-    
+
     // Append to body
     document.body.appendChild(chatWidget);
 }
@@ -233,74 +243,74 @@ function setupChatEvents() {
     const chatButton = document.querySelector('.chat-button');
     const chatContainer = document.querySelector('.chat-container');
     const chatClose = document.querySelector('.chat-close');
-    
-    chatButton.addEventListener('click', function() {
+
+    chatButton.addEventListener('click', function () {
         chatContainer.classList.toggle('active');
         chatButton.classList.toggle('active');
     });
-    
-    chatClose.addEventListener('click', function() {
+
+    chatClose.addEventListener('click', function () {
         chatContainer.classList.remove('active');
         chatButton.classList.remove('active');
     });
-    
+
     // Response type selection
     const responseTypeLinks = document.querySelectorAll('.dropdown-content a');
     const responseIndicator = document.querySelector('.response-indicator');
-    
+
     responseTypeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const type = this.getAttribute('data-type');
             responseIndicator.textContent = this.textContent;
             responseIndicator.setAttribute('data-current-type', type);
         });
     });
-    
+
     // Send message
     const sendButton = document.getElementById('send-message');
     const userMessageInput = document.getElementById('user-message');
     const chatMessages = document.querySelector('.chat-messages');
     const moderationNotice = document.querySelector('.moderation-notice');
-    
-    sendButton.addEventListener('click', function() {
+
+    sendButton.addEventListener('click', function () {
         sendMessage();
     });
-    
-    userMessageInput.addEventListener('keypress', function(e) {
+
+    userMessageInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
         }
     });
-    
+
     function sendMessage() {
         const message = userMessageInput.value.trim();
         if (!message) return;
-        
+
         // Add user message to chat
         addMessageToChat('user', message);
-        
+
         // Clear input
         userMessageInput.value = '';
-        
+
         // Show typing indicator
         addTypingIndicator();
-        
+
         // First run content moderation
         moderateContent(message);
     }
-    
+
     function addMessageToChat(sender, content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
         messageDiv.innerHTML = `<p>${content}</p>`;
         chatMessages.appendChild(messageDiv);
-        
+
         // Scroll to bottom
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
+
     function addTypingIndicator() {
         const typingDiv = document.createElement('div');
         typingDiv.className = 'message ai-message typing';
@@ -308,24 +318,24 @@ function setupChatEvents() {
         chatMessages.appendChild(typingDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
+
     function removeTypingIndicator() {
         const typingIndicator = document.querySelector('.typing');
         if (typingIndicator) {
             typingIndicator.remove();
         }
     }
-    
+
     async function moderateContent(message) {
         // Show moderation notice briefly
         moderationNotice.style.display = 'flex';
-        
+
         // This is where you'd call a real content moderation API
         // For demonstration, we'll simulate content moderation
         try {
             // Simple keyword-based moderation
             const flaggedKeywords = ['suicide', 'kill myself', 'end my life', 'hurt myself', 'self-harm'];
-            
+
             let isFlagged = false;
             for (const keyword of flaggedKeywords) {
                 if (message.toLowerCase().includes(keyword)) {
@@ -333,18 +343,18 @@ function setupChatEvents() {
                     break;
                 }
             }
-            
+
             // Wait briefly to simulate API call
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             // Hide moderation notice
             moderationNotice.style.display = 'none';
-            
+
             if (isFlagged) {
                 // Handle flagged content with crisis response
                 removeTypingIndicator();
                 addMessageToChat('ai', "I notice you've mentioned something concerning. If you're in crisis, please call your local crisis line immediately. In Canada, you can call 1-833-456-4566, or text 45645. Would you like me to provide more support resources?");
-                
+
                 // Show follow-up system message
                 setTimeout(() => {
                     addSystemMessage("A human supporter has been notified and will review this conversation soon. In the meantime, please know that help is available.");
@@ -361,7 +371,7 @@ function setupChatEvents() {
             addMessageToChat('ai', "I'm sorry, I couldn't process your message. Please try again.");
         }
     }
-    
+
     function addSystemMessage(content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message system-message';
@@ -374,10 +384,10 @@ function setupChatEvents() {
 async function fetchGeminiResponse(prompt, responseType = 'supportive') {
     const apiKey = "AIzaSyCwHDbqWCE4Fi6y18GnNZ-Wem_7p_z2TvM"; // Replace with your actual API key
     const chatMessages = document.querySelector('.chat-messages');
-    
+
     // Customize prompt based on response type
     let systemPrompt;
-    switch(responseType) {
+    switch (responseType) {
         case 'practical':
             systemPrompt = `You are a practical AI companion for the Light in Silence mental health platform. 
                           Offer concrete, actionable advice while being supportive and compassionate.
@@ -400,30 +410,30 @@ async function fetchGeminiResponse(prompt, responseType = 'supportive') {
                           Keep responses supportive, thoughtful and relatively brief.
                           User message: ${prompt}`;
     }
-    
+
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                contents: [{ 
-                    parts: [{ 
-                        text: systemPrompt 
-                    }] 
+                contents: [{
+                    parts: [{
+                        text: systemPrompt
+                    }]
                 }]
             })
         });
 
         const data = await response.json();
-        
+
         // Remove typing indicator
         removeTypingIndicator();
-        
+
         if (data && data.candidates && data.candidates.length > 0) {
             // Add AI response to chat
             const aiResponse = data.candidates[0].content.parts.map(part => part.text).join(" ");
             addMessageToChat('ai', aiResponse);
-            
+
             // Randomly add system message sometimes to demonstrate default responses
             if (Math.random() < 0.3) {
                 setTimeout(() => {
@@ -449,7 +459,7 @@ function getRandomDefaultResponse() {
         "Your wellbeing matters. Don't hesitate to reach out whenever you need support.",
         "Connection is important. Have you considered joining one of our community events?"
     ];
-    
+
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
 }
 
@@ -459,7 +469,7 @@ function addMessageToChat(sender, content) {
     messageDiv.className = `message ${sender}-message`;
     messageDiv.innerHTML = `<p>${content}</p>`;
     chatMessages.appendChild(messageDiv);
-    
+
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -489,14 +499,14 @@ async function checkFlaskServer() {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         if (!response.ok) {
             throw new Error('Flask server is not responding');
         }
-        
+
         // 获取语音设置
         const voiceSettings = await fetch('http://localhost:5000/voice-settings').then(res => res.json());
-        
+
         // 更新语音选择下拉框
         const voiceSelect = document.getElementById('voiceSelect');
         if (voiceSelect) {
@@ -505,7 +515,7 @@ async function checkFlaskServer() {
                 .join('');
             voiceSelect.value = voiceSettings.default_voice;
         }
-        
+
         return true;
     } catch (error) {
         console.error('Flask server check failed:', error);

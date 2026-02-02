@@ -1,3 +1,13 @@
+/**
+ * PROJECT: ECHOE Mental Health Digital Platform
+ * AUTHOR: Alex Dong (Founder and Lead IT Developer)
+ * LICENSE: GNU General Public License v3.0
+ *
+ * Copyright (c) 2026 Alex Dong. All Rights Reserved.
+ * This file is part of the ECHOE project. Unauthorized removal of
+ * author credits is a violation of the GPL license.
+ */
+
 /* 添加全局容器样式 */
 .container {
   width: 100%;
@@ -342,14 +352,16 @@ footer {
   margin-bottom: 12px;
 }
 
-.footer-links a, .social-links a {
+.footer-links a,
+.social-links a {
   color: var(--text-light);
   opacity: 0.8;
   transition: opacity 0.3s ease, color 0.3s ease;
   text-decoration: none;
 }
 
-.footer-links a:hover, .social-links a:hover {
+.footer-links a:hover,
+.social-links a:hover {
   opacity: 1;
   color: var(--color-accent);
   text-decoration: none;
@@ -380,9 +392,17 @@ footer {
 
 /* 动画 */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* 响应式设计 */
@@ -391,22 +411,22 @@ footer {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-content {
     max-width: 700px;
     margin-bottom: 40px;
   }
-  
+
   .hero-image {
     width: 70%;
     max-width: 400px;
   }
-  
+
   .hero .quote {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .steps {
     justify-content: center;
   }
@@ -416,26 +436,29 @@ footer {
   .container {
     padding: 0 15px;
   }
-  
+
   .hero-content h1 {
     font-size: 2.5rem;
   }
-  
-  .hero .quote, .hero .mission {
+
+  .hero .quote,
+  .hero .mission {
     font-size: 1.1rem;
   }
-  
-  .step-card, .card, .testimonial {
+
+  .step-card,
+  .card,
+  .testimonial {
     width: 100%;
     max-width: 400px;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: 30px;
   }
-  
+
   .footer-section {
     max-width: 100%;
   }
-} 
+}

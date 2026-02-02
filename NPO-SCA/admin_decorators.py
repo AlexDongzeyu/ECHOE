@@ -1,3 +1,13 @@
+"""
+PROJECT: ECHOE Mental Health Digital Platform
+AUTHOR: Alex Dong (Founder and Lead IT Developer)
+LICENSE: GNU General Public License v3.0
+
+Copyright (c) 2026 Alex Dong. All Rights Reserved.
+This file is part of the ECHOE project. Unauthorized removal of
+author credits is a violation of the GPL license.
+"""
+
 from functools import wraps
 from flask import abort, flash, redirect, url_for
 from flask_login import current_user

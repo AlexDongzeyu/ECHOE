@@ -1,11 +1,25 @@
+/**
+ * PROJECT: ECHOE Mental Health Digital Platform
+ * AUTHOR: Alex Dong (Founder and Lead IT Developer)
+ * LICENSE: GNU General Public License v3.0
+ *
+ * Copyright (c) 2026 Alex Dong. All Rights Reserved.
+ * This file is part of the ECHOE project. Unauthorized removal of
+ * author credits is a violation of the GPL license.
+ */
+
 :root {
   /* Brand palette (from logo) */
-  --brand-orange: #F8D29C; /* 橘色 */
-  --brand-blue:   #9FC5CB; /* 蓝色 */
-  --brand-green:  #ADCBA4; /* 绿色 */
+  --brand-orange: #F8D29C;
+  /* 橘色 */
+  --brand-blue: #9FC5CB;
+  /* 蓝色 */
+  --brand-green: #ADCBA4;
+  /* 绿色 */
 
   /* System tokens mapped to brand */
-  --color-primary: #2A3D66; /* deep indigo as strong contrast base */
+  --color-primary: #2A3D66;
+  /* deep indigo as strong contrast base */
   --color-secondary: var(--brand-blue);
   --color-accent: var(--brand-orange);
   --color-background: #FAFAFA;
@@ -16,8 +30,10 @@
 
   /* Interactive states */
   --hover-primary: #3A4D76;
-  --hover-accent: #FBE6BF; /* lighter orange */
-  --hover-secondary: #BFE0E4; /* lighter blue */
+  --hover-accent: #FBE6BF;
+  /* lighter orange */
+  --hover-secondary: #BFE0E4;
+  /* lighter blue */
 }
 
 /* 全局样式 */
@@ -28,7 +44,9 @@ body {
 }
 
 /* 导航和页眉 */
-header, nav, footer {
+header,
+nav,
+footer {
   background-color: var(--color-primary);
   color: var(--text-light);
 }
@@ -123,17 +141,22 @@ ul li::before {
   content: "•";
   color: var(--color-secondary);
   font-weight: bold;
-  display: inline-block; 
+  display: inline-block;
   width: 1em;
   margin-left: -1em;
-} 
+}
 
 /* Brand typography overrides */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Namdhinggo', Georgia, 'Times New Roman', serif;
   font-weight: 800;
 }
 
-.tagline, .section-subtitle, .quote, .page-header p {
+.tagline,
+.section-subtitle,
+.quote,
+.page-header p {
   font-family: 'Sriracha', 'Brush Script MT', cursive;
 }

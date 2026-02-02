@@ -1,3 +1,13 @@
+/**
+ * PROJECT: ECHOE Mental Health Digital Platform
+ * AUTHOR: Alex Dong (Founder and Lead IT Developer)
+ * LICENSE: GNU General Public License v3.0
+ *
+ * Copyright (c) 2026 Alex Dong. All Rights Reserved.
+ * This file is part of the ECHOE project. Unauthorized removal of
+ * author credits is a violation of the GPL license.
+ */
+
 // Main chat functionality
 let recognition;
 let isListening = false;
@@ -12,7 +22,7 @@ let chatButton, welcomeScreen, chatMessages, chatInput;
 let isMinimized = false;
 
 // Initialize the chat widget when DOM loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeChatWidget();
     setupChatEvents();
     loadVoices();
@@ -35,7 +45,7 @@ function loadVoices() {
 function populateVoiceSelect() {
     const voiceSelect = document.getElementById('voiceSelect');
     if (!voiceSelect) return;
-    
+
     voiceSelect.innerHTML = '';
     voices.forEach((voice, index) => {
         if (voice.lang.includes('en')) {
@@ -45,7 +55,7 @@ function populateVoiceSelect() {
             voiceSelect.appendChild(option);
         }
     });
-    
+
     if (voiceSelect.options.length > 0) {
         currentVoice = voices[voiceSelect.value];
         voiceSelect.addEventListener('change', (e) => {
@@ -57,33 +67,33 @@ function populateVoiceSelect() {
 // Speech synthesis function
 function speakAIResponse(text) {
     if (!currentVoice) return;
-    
+
     // Cancel any ongoing speech
     speechSynthesis.cancel();
-    
+
     // Split text into sentences for better speech flow
     const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
     let currentSentence = 0;
-    
+
     const speakNextSentence = () => {
         if (currentSentence >= sentences.length) return;
-        
+
         const utterance = new SpeechSynthesisUtterance(sentences[currentSentence].trim());
         utterance.voice = currentVoice;
         utterance.rate = 0.9;
         utterance.pitch = 1;
         utterance.volume = 0.8;
-        
+
         utterance.onend = () => {
             currentSentence++;
             if (currentSentence < sentences.length) {
                 setTimeout(speakNextSentence, 300); // Brief pause between sentences
             }
         };
-        
+
         speechSynthesis.speak(utterance);
     };
-    
+
     speakNextSentence();
 }
 
@@ -142,11 +152,11 @@ function startVoiceRecognition() {
 // AI Response processing
 async function processAIResponse(userInput) {
     const responseType = document.getElementById('responseType')?.value || 'supportive';
-    
+
     try {
         const response = await fetchGeminiResponse(userInput, responseType);
         addMessageToChat('ai', response);
-        
+
         // Speak the response if voice is enabled
         const voiceToggle = document.querySelector('.voice-toggle');
         if (voiceToggle && voiceToggle.classList.contains('active') && currentVoice) {
@@ -156,7 +166,7 @@ async function processAIResponse(userInput) {
         console.error('Error processing AI response:', error);
         const fallbackResponse = getRandomDefaultResponse();
         addMessageToChat('ai', fallbackResponse);
-        
+
         if (voiceToggle && voiceToggle.classList.contains('active') && currentVoice) {
             setTimeout(() => speakAIResponse(fallbackResponse), 500);
         }
@@ -221,7 +231,7 @@ function createChatWidget() {
             </div>
         </div>
     `;
-    
+
     document.body.insertAdjacentHTML('beforeend', chatHTML);
     chatContainer = document.getElementById('chatContainer');
 }
@@ -254,7 +264,7 @@ function setupChatEvents() {
             sendMessage();
         });
     }
-    
+
     messageInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -274,13 +284,13 @@ function setupChatEvents() {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const type = e.target.dataset.type;
-            document.querySelector('.response-indicator').textContent = 
+            document.querySelector('.response-indicator').textContent =
                 type.charAt(0).toUpperCase() + type.slice(1) + ' Response';
             // Store the selected type for later use
             document.getElementById('responseType').value = type;
         });
     });
-    
+
     // Add hidden input for response type
     const hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden';
@@ -292,15 +302,15 @@ function setupChatEvents() {
 function sendMessage() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value.trim();
-    
+
     if (!message) return;
-    
+
     addMessageToChat('user', message);
     messageInput.value = '';
-    
+
     // Add typing indicator
     addTypingIndicator();
-    
+
     // Process the message
     setTimeout(() => {
         removeTypingIndicator();
@@ -312,11 +322,11 @@ function addMessageToChat(sender, content) {
     const chatMessages = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message`;
-    
+
     const messageContent = document.createElement('p');
     messageContent.textContent = content;
     messageDiv.appendChild(messageContent);
-    
+
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -346,10 +356,10 @@ async function moderateContent(message) {
         setTimeout(() => {
             // Simple keyword filter
             const flaggedWords = ['violence', 'harm', 'suicide'];
-            const containsFlaggedWords = flaggedWords.some(word => 
+            const containsFlaggedWords = flaggedWords.some(word =>
                 message.toLowerCase().includes(word)
             );
-            
+
             if (containsFlaggedWords) {
                 // Show moderation notice
                 const moderationNotice = document.getElementById('moderationNotice');
@@ -357,7 +367,7 @@ async function moderateContent(message) {
                 setTimeout(() => {
                     moderationNotice.style.display = 'none';
                 }, 5000);
-                
+
                 resolve({
                     flagged: true,
                     reason: 'Content requires review'
@@ -393,11 +403,11 @@ async function fetchGeminiResponse(prompt, responseType = 'supportive') {
                 type: responseType
             })
         });
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         return (data.message || data.response) || getRandomDefaultResponse();
     } catch (error) {
@@ -462,86 +472,86 @@ function initializeChatWidget() {
     welcomeScreen = document.getElementById('welcomeScreen');
     chatMessages = document.getElementById('chatMessages');
     chatInput = document.getElementById('chatInput');
-    
+
     if (!chatContainer || !chatButton) {
         console.error('Chat widget elements not found');
         return;
     }
-    
+
     // Set up event listeners
     setupEventListeners();
-    
+
     // Initialize chat state
     resetChatWidget();
 }
 
 function setupEventListeners() {
     // Chat button - open widget
-    chatButton.addEventListener('click', function() {
+    chatButton.addEventListener('click', function () {
         openChatWidget();
     });
-    
+
     // Close button
     const closeBtn = document.getElementById('chatClose');
     if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
+        closeBtn.addEventListener('click', function () {
             closeChatWidget();
         });
     }
-    
+
     // Back button
     const backBtn = document.getElementById('backBtn');
     if (backBtn) {
-        backBtn.addEventListener('click', function() {
+        backBtn.addEventListener('click', function () {
             goBackToModeSelection();
         });
     }
-    
+
     // Minimize button
     const minimizeBtn = document.getElementById('minimizeBtn');
     if (minimizeBtn) {
-        minimizeBtn.addEventListener('click', function() {
+        minimizeBtn.addEventListener('click', function () {
             toggleMinimize();
         });
     }
-    
+
     // Mode selection buttons
     const customerServiceBtn = document.getElementById('customerServiceMode');
     const companionBtn = document.getElementById('companionMode');
-    
+
     if (customerServiceBtn) {
-        customerServiceBtn.addEventListener('click', function() {
+        customerServiceBtn.addEventListener('click', function () {
             selectChatMode('customer-service');
         });
     }
-    
+
     if (companionBtn) {
-        companionBtn.addEventListener('click', function() {
+        companionBtn.addEventListener('click', function () {
             selectChatMode('companion');
         });
     }
-    
+
     // Send message
     const sendBtn = document.getElementById('sendMessage');
     if (sendBtn) {
-        sendBtn.addEventListener('click', function() {
+        sendBtn.addEventListener('click', function () {
             sendMessage();
         });
     }
-    
+
     // Message input events
     const messageInput = document.getElementById('messageInput');
     if (messageInput) {
         // Enter key to send message
-        messageInput.addEventListener('keypress', function(e) {
+        messageInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
             }
         });
-        
+
         // Auto-resize textarea
-        messageInput.addEventListener('input', function() {
+        messageInput.addEventListener('input', function () {
             autoResizeTextarea(this);
         });
     }
@@ -550,7 +560,7 @@ function setupEventListeners() {
 function openChatWidget() {
     chatContainer.classList.add('active');
     chatButton.classList.add('active');
-    
+
     // If no mode selected, show welcome screen
     if (!chatMode) {
         showWelcomeScreen();
@@ -562,7 +572,7 @@ function closeChatWidget() {
     chatButton.classList.remove('active');
     isMinimized = false;
     chatContainer.classList.remove('minimized');
-    
+
     // Reset chat state so user can choose mode again next time
     resetChatWidget();
 }
@@ -570,7 +580,7 @@ function closeChatWidget() {
 function toggleMinimize() {
     isMinimized = !isMinimized;
     chatContainer.classList.toggle('minimized');
-    
+
     // Update minimize button icon
     const minimizeBtn = document.getElementById('minimizeBtn');
     if (minimizeBtn) {
@@ -588,19 +598,19 @@ function toggleMinimize() {
 function showWelcomeScreen() {
     if (welcomeScreen) welcomeScreen.style.display = 'flex';
     if (chatInput) chatInput.style.display = 'none';
-    
+
     // Hide back button on welcome screen
     const backBtn = document.getElementById('backBtn');
     if (backBtn) {
         backBtn.style.display = 'none';
     }
-    
+
     // Reset chat title
     const chatTitle = document.getElementById('chatTitle');
     if (chatTitle) {
         chatTitle.textContent = 'Chat Support';
     }
-    
+
     // Clear any existing chat messages
     if (chatMessages) {
         const existingMessages = chatMessages.querySelectorAll('.message');
@@ -612,13 +622,13 @@ function selectChatMode(mode) {
     chatMode = mode;
     if (welcomeScreen) welcomeScreen.style.display = 'none';
     if (chatInput) chatInput.style.display = 'flex';
-    
+
     // Show back button when a mode is selected
     const backBtn = document.getElementById('backBtn');
     if (backBtn) {
         backBtn.style.display = 'block';
     }
-    
+
     // Update chat title and appearance
     const chatTitle = document.getElementById('chatTitle');
     if (chatTitle) {
@@ -630,7 +640,7 @@ function selectChatMode(mode) {
             addSystemMessage("Hey there! I'm Echo, your friendly peer support companion. I'm here to listen without judgment. How are you feeling today? 💜");
         }
     }
-    
+
     // Focus on input
     const messageInput = document.getElementById('messageInput');
     if (messageInput) {
@@ -642,7 +652,7 @@ function goBackToModeSelection() {
     // Reset chat mode and show welcome screen
     chatMode = null;
     showWelcomeScreen();
-    
+
     // Clear chat messages except system messages
     if (chatMessages) {
         const existingMessages = chatMessages.querySelectorAll('.message');
@@ -655,13 +665,13 @@ function resetChatWidget() {
     isMinimized = false;
     if (chatContainer) chatContainer.classList.remove('minimized');
     showWelcomeScreen();
-    
+
     // Clear chat messages
     if (chatMessages) {
         const existingMessages = chatMessages.querySelectorAll('.message');
         existingMessages.forEach(msg => msg.remove());
     }
-    
+
     // Reset minimize button
     const minimizeBtn = document.getElementById('minimizeBtn');
     if (minimizeBtn) {
@@ -675,18 +685,18 @@ function resetChatWidget() {
 function sendMessage() {
     const messageInput = document.getElementById('messageInput');
     if (!messageInput) return;
-    
+
     const message = messageInput.value.trim();
     if (!message) return;
-    
+
     // Add user message to chat
     addMessage('user', message);
     messageInput.value = '';
     autoResizeTextarea(messageInput);
-    
+
     // Show typing indicator
     addTypingIndicator();
-    
+
     // Process AI response based on mode
     setTimeout(() => {
         processAIResponse(message);
@@ -695,14 +705,14 @@ function sendMessage() {
 
 function addMessage(sender, content, extraClass = '') {
     if (!chatMessages) return;
-    
+
     const messageElement = document.createElement('div');
     messageElement.className = `message ${sender}-message ${extraClass}`;
-    
+
     const messageContent = document.createElement('p');
     messageContent.textContent = content;
     messageElement.appendChild(messageContent);
-    
+
     // Insert before typing indicator if it exists
     const typingIndicator = chatMessages.querySelector('.typing-indicator');
     if (typingIndicator) {
@@ -710,28 +720,28 @@ function addMessage(sender, content, extraClass = '') {
     } else {
         chatMessages.appendChild(messageElement);
     }
-    
+
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 function addSystemMessage(content) {
     if (!chatMessages) return;
-    
+
     const messageElement = document.createElement('div');
     messageElement.className = 'message system-message';
-    
+
     const messageContent = document.createElement('p');
     messageContent.textContent = content;
     messageElement.appendChild(messageContent);
-    
+
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 function addTypingIndicator() {
     if (!chatMessages) return;
-    
+
     const typingElement = document.createElement('div');
     typingElement.className = 'message ai-message typing-indicator';
     typingElement.innerHTML = `
@@ -741,14 +751,14 @@ function addTypingIndicator() {
             <span class="dot">●</span>
         </div>
     `;
-    
+
     chatMessages.appendChild(typingElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 function removeTypingIndicator() {
     if (!chatMessages) return;
-    
+
     const typingIndicator = chatMessages.querySelector('.typing-indicator');
     if (typingIndicator) {
         typingIndicator.remove();
@@ -758,22 +768,22 @@ function removeTypingIndicator() {
 async function processAIResponse(userMessage) {
     try {
         let responseData;
-        
+
         if (chatMode === 'customer-service') {
             responseData = await getCustomerServiceResponse(userMessage);
         } else if (chatMode === 'companion') {
             responseData = await getCompanionResponse(userMessage);
         }
-        
+
         removeTypingIndicator();
-        
+
         if (responseData && responseData.message) {
             const extraClass = chatMode === 'customer-service' ? 'customer-service-message' : 'companion-message';
             addMessage('ai', responseData.message, extraClass);
         } else {
             addMessage('ai', "I'm sorry, I'm having trouble responding right now. Please try again in a moment.");
         }
-        
+
     } catch (error) {
         console.error('Error processing AI response:', error);
         removeTypingIndicator();
@@ -801,14 +811,14 @@ async function fetchAIResponse(prompt, type) {
                 type: type
             })
         });
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         return data;
-        
+
     } catch (error) {
         console.error('Error fetching AI response:', error);
         return {

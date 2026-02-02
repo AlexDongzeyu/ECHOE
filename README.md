@@ -1,157 +1,124 @@
-# 🌟 E.C.H.O.E. - Every Connection Helps One Emerge
+# ECHOE: Mental Health Digital Platform
 
-[![Live Site](https://img.shields.io/badge/site-echoehosa.com-brightgreen)](https://echoehosa.com)
-[![Platform](https://img.shields.io/badge/platform-Render-blue)](https://render.com)
-[![Flask](https://img.shields.io/badge/framework-Flask-black)](https://flask.palletsprojects.com/)
+![Live Site](https://img.shields.io/badge/site-echoehosa.com-brightgreen)
+![Platform](https://img.shields.io/badge/platform-Render-blue)
+![License](https://img.shields.io/badge/license-GPL--3.0-blue)
 
-> "We are all broken. That's how the light gets in." — Ernest Hemingway
+> "We are all broken. That's how the light gets in." -- Ernest Hemingway
 
-A Canadian student-led nonprofit mental health platform providing anonymous support and combating social isolation among youth.
+ECHOE (Every Connection Helps One Emerge) is a Canadian student-led nonprofit mental health platform providing anonymous support and combating social isolation among youth.
 
-## 🌐 **Live Website**
+## Live Website
 
-**Website**: [echoehosa.com](https://echoehosa.com) ✅ **LIVE**
+**Website**: [echoehosa.com](https://echoehosa.com)
 
-## 📋 **About E.C.H.O.E.**
+## About the Project
 
-E.C.H.O.E. (Every Connection Helps One Emerge) is a youth-led mental health organization focused on fighting social isolation among students through:
+ECHOE focuses on fighting social isolation among students through a comprehensive digital platform featuring:
 
-- **Anonymous Letter System** - Share your story, receive support
-- **AI-Powered Responses** - Get immediate, compassionate responses
-- **Volunteer Network** - Trained peers who understand
-- **Educational Campaigns** - Monthly mental health topics
-- **Community Events** - Safe spaces for connection
+*   **Anonymous Letter System**: Share personal stories and struggles securely.
+*   **AI-Powered Support**: Immediate, compassionate responses via Google Gemini integration.
+*   **Volunteer Network**: Peer support from trained student volunteers.
+*   **Educational Campaigns**: Curated monthly mental health topics.
+*   **Community Events**: Spaces for connection and detailed event management.
 
-## 📁 **Project Structure**
+## Project Structure
+
+The repository is organized as follows:
 
 ```
 ECHOE/
-├── NPO-SCA/                    # Main Flask Application
-│   ├── app.py                  # Main application entry point
-│   ├── templates/              # Jinja2 HTML templates
-│   │   ├── base.html           # Base template with navigation
-│   │   ├── index.html          # Homepage
-│   │   ├── campaigns/          # Campaign pages
-│   │   │   ├── wellness.html
-│   │   │   ├── education_hub.html
-│   │   │   ├── student_voices.html
-│   │   │   ├── inspiration_media.html
-│   │   │   └── weekly_connections.html
-│   │   └── ...                 # Other templates
-│   ├── static/                 # Static assets
-│   │   ├── css/                # Stylesheets
-│   │   ├── js/                 # JavaScript
-│   │   └── img/                # Images and media
-│   └── migrations/             # Database migrations
-├── render.yaml                 # Render deployment config
-├── requirements.txt            # Python dependencies
-└── README.md                   # This file
+├── LICENSE                 # GNU GPL v3.0 License
+├── README.md               # Project documentation
+├── render.yaml             # Render deployment configuration
+├── requirements.txt        # Python dependencies
+├── docs/                   # Detailed documentation
+│   ├── ARCHITECTURE.md     # Technical architecture & stack
+│   └── BRAND_GUIDE.md      # Design system & guidelines
+└── NPO-SCA/                # Main Flask Application
+    ├── app.py              # Application entry point
+    ├── config.py           # Configuration classes
+    ├── models.py           # Database models (SQLAlchemy)
+    ├── forms.py            # Form definitions (WTForms)
+    ├── templates/          # HTML Templates (Jinja2)
+    └── static/             # Static assets (CSS, JS, Images)
 ```
 
-## 🎯 **Key Features**
+## Key Features
 
-### ✉️ Anonymous Letter System
-- Submit anonymous letters about mental health struggles
-- Unique letter IDs for checking responses
-- Reply-to-reply conversations with volunteers
+### content & Support
+*   **Anonymous Letters**: Users receive unique IDs to check for responses anonymously.
+*   **AI Integration**: Utilizes Google Gemini 2.0 Flash for crisis detection and drafting supportive responses (supportive, practical, reflective styles).
+*   **Volunteer Dashboard**: Tools for volunteers to manage and respond to letters efficiently.
 
-### 🤖 AI Integration
-- Google Gemini 2.0 Flash for immediate responses
-- Crisis detection and resource integration
-- Multiple response styles (supportive, practical, reflective)
+### Interactive Components
+*   **Topic Explorer**: Monthly mental health educational modules.
+*   **7-Day Battery Challenge**: Interactive wellness activities.
+*   **Ally Checklist**: Autism awareness self-assessment.
+*   **Daily Echo Message**: AI-generated positive affirmations.
 
-### 👥 Volunteer System
-- Trained peer volunteers respond to letters
-- Dashboard for managing unprocessed letters
-- Conversation threading
+### Administration
+*   **Role-Based Access**: Granular control for Volunteers, Administrators, and Ultimate Admins.
+*   **Moderation**: Automated flagging of crisis keywords.
 
-### 🛡️ Admin Features
-- User management (promote, demote users)
-- Content moderation
-- Platform analytics
-
-### 📚 Interactive Campaign Pages
-- **Topic Explorer** - Monthly mental health education with detailed content
-- **7-Day Battery Challenge** - Wellness activities interactive
-- **Your Voice Matters Quiz** - Personalized suggestions based on answers
-- **Are You an Ally?** - Autism awareness checklist
-- **Daily Echo Message** - AI-powered daily mental health messages
-- **Holiday Wellness Tips** - Seasonal support generator
-- **Myth Buster** - Mental health trivia
-
-## 🔧 **Development Setup**
+## Development Setup
 
 ### Prerequisites
-- Python 3.9+
-- pip
+*   Python 3.9+
+*   pip
 
-### Local Development
-```bash
-# Clone repository
-git clone https://github.com/AlexDongzeyu/ECHOE.git
-cd ECHOE/NPO-SCA
+### Local Installation
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/AlexDongzeyu/ECHOE.git
+    cd ECHOE/NPO-SCA
+    ```
 
-# Install dependencies
-pip install -r requirements.txt
+2.  Create a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
 
-# Run development server
-flask run
-# Visit http://localhost:5000
-```
+3.  Install dependencies:
+    ```bash
+    pip install -r ../requirements.txt
+    ```
 
-### Environment Variables
-Create a `.env` file with:
-```
-FLASK_SECRET_KEY=your-secret-key
-GEMINI_API_KEY=your-google-gemini-api-key
-```
+4.  Configure environment variables:
+    Create a `.env` file in the root directory with the following keys:
+    ```
+    FLASK_SECRET_KEY=your-secret-key
+    GEMINI_API_KEY=your-google-gemini-api-key
+    ```
 
-## 🚀 **Deployment**
+5.  Run the development server:
+    ```bash
+    flask run
+    ```
+    Access the application at `http://localhost:5000`.
 
-The project is deployed on **Render** with:
-- Automatic deployments from GitHub
-- Persistent disk storage for database
-- Health checks and monitoring
+## Deployment
 
-### Deployment Configuration (`render.yaml`)
-- Web service with Python runtime
-- Persistent disk at `/var/data/echoe`
-- Alembic migrations run on pre-deploy
+The project is configured for deployment on **Render**:
+*   Uses `render.yaml` for infrastructure-as-code configuration.
+*   Supports persistent disk storage for SQLite database (or Postgres configuration).
+*   Automatic deployment triggers from GitHub pushes.
 
-## 🎨 **Design System**
+## Crisis Resources
 
-### Brand Colors
-- **Deep Indigo** `#2A3D66` - Primary text
-- **Gentle Lavender** `#B39CD0` - Accents
-- **Soft Teal** `#9FC5CB` - Interactive elements
-- **Golden Butter** `#F8D29C` - Highlights
-- **Warm White** `#FDF8E8` - Backgrounds
+If you or someone you know is in immediate danger, please contact emergency services.
 
-### Typography
-- **Nunito** - Primary font (body and headings)
+*   **Canada Suicide Prevention**: 1-833-456-4566
+*   **Kids Help Phone**: 1-800-668-6868
+*   **Crisis Text Line**: Text HOME to 686868
+*   **Emergency Services**: 911
 
-## 🆘 **Crisis Resources**
+## Authors & License
 
-The platform integrates crisis resources:
-- **Canada Suicide Prevention**: 1-833-456-4566
-- **Kids Help Phone**: 1-800-668-6868
-- **Crisis Text Line**: Text HOME to 686868
-- **Emergency Services**: 911
+**Lead Developer**: Alex Dong (Founder)
 
-## 📞 **Contact**
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 
-- 🌐 **Website**: [echoehosa.com](https://echoehosa.com)
-- 📧 **Email**: echoehosa@gmail.com
-- 📱 **Instagram**: [@echoehosa](https://instagram.com/echoehosa)
-
-## 📄 **License**
-
-This project is for the E.C.H.O.E. Mental Health Organization.
-
----
-
-*E.C.H.O.E. - Every Connection Helps One Emerge* 💜
+Copyright (c) 2026 Alex Dong. All Rights Reserved.

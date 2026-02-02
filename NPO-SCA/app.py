@@ -1,3 +1,13 @@
+"""
+PROJECT: ECHOE Mental Health Digital Platform
+AUTHOR: Alex Dong (Founder and Lead IT Developer)
+LICENSE: GNU General Public License v3.0
+
+Copyright (c) 2026 Alex Dong. All Rights Reserved.
+This file is part of the ECHOE project. Unauthorized removal of
+author credits is a violation of the GPL license.
+"""
+
 import eventlet
 eventlet.monkey_patch()
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response

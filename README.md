@@ -1,4 +1,4 @@
-# ECHOE: Mental Health Digital Platform
+# ECHOE: Empathy, Connection, Hope, Outreach, Empowerment
 
 ![Live Site](https://img.shields.io/badge/site-echoehosa.com-brightgreen)
 ![Platform](https://img.shields.io/badge/platform-Render-blue)
@@ -6,7 +6,7 @@
 
 > "We are all broken. That's how the light gets in." -- Ernest Hemingway
 
-ECHOE (Every Connection Helps One Emerge) is a Canadian student-led nonprofit mental health platform providing anonymous support and combating social isolation among youth.
+ECHOE (Empathy, Connection, Hope, Outreach, Empowerment) is a Canadian student-led nonprofit mental health platform providing anonymous support and combating social isolation among youth.
 
 ## Live Website
 
@@ -117,7 +117,7 @@ If you or someone you know is in immediate danger, please contact emergency serv
 
 ## Authors & License
 
-**Lead Developer**: Alex Dong (Founder)
+**Lead IT Developer**: Alex Dong (Co-Founder)
 
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 

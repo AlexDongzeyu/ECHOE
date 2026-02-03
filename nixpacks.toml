@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["python312"]
+
+[phases.install]
+cmds = ["pip install --upgrade pip && pip install -r NPO-SCA/requirements.txt"]
+
+[start]
+cmd = "gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT wsgi:app"

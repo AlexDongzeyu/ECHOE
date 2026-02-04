@@ -22,16 +22,23 @@ def init_db(app):
         # Create initial data
         create_initial_data()
         
-        # Check if admin user exists - only create if it doesn't
+        # Ensure admin user exists - update if exists, create if not
         admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
         admin_user = User.query.filter_by(email=admin_email).first()
         
-        if not admin_user:
-            # Only create admin user if one doesn't exist
-            admin_password = os.environ.get('ADMIN_PASSWORD')
-            if not admin_password:
-                raise ValueError("ADMIN_PASSWORD environment variable must be set for initial setup")
-            
+        admin_password = os.environ.get('ADMIN_PASSWORD')
+        if not admin_password:
+            raise ValueError("ADMIN_PASSWORD environment variable must be set for initial setup")
+        
+        if admin_user:
+            # Update existing admin user
+            admin_user.username = os.environ.get('ADMIN_USERNAME', 'admin')
+            admin_user.is_volunteer = True
+            admin_user.is_admin = True
+            admin_user.role = UserRole.ULTIMATE_ADMIN
+            admin_user.set_password(admin_password)
+        else:
+            # Create new admin user
             admin_user = User(
                 username=os.environ.get('ADMIN_USERNAME', 'admin'),
                 email=admin_email,
@@ -41,7 +48,8 @@ def init_db(app):
             )
             admin_user.set_password(admin_password)
             db.session.add(admin_user)
-            db.session.commit()
+        
+        db.session.commit()
         
         # Create test user if no users exist
         test_user = User.query.filter_by(username='test_user').first()

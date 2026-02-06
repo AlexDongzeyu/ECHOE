@@ -181,8 +181,6 @@
         <!-- Echo of the Month -->
         <section class="campaign-section">
             <div class="campaign-images">
-                <img src="{{ url_for('static', filename='img/echo of the month.png') }}"
-                    alt="Echo of the Month - monthly mental health topic">
                 <img src="{{ url_for('static', filename='img/ins/echo of the month sample.jpg') }}"
                     alt="Echo of the Month sample post">
                 <video controls muted>
@@ -254,6 +252,13 @@
                     <div id="topic-detail"
                         style="display: none; margin-top: 18px; background: rgba(255,255,255,0.7); border-radius: 14px; padding: 20px; animation: fadeIn 0.4s ease;">
                         <div id="topic-content"></div>
+                    </div>
+
+                    <!-- January Echo of the Month Image -->
+                    <div style="margin-top: 16px;">
+                        <img src="{{ url_for('static', filename='img/echo of the month.png') }}"
+                            alt="January Echo of the Month - Goals & Growth"
+                            style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);">
                     </div>
                 </div>
 

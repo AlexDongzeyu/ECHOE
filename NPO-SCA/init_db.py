@@ -22,28 +22,26 @@ def init_db(app):
         # Create initial data
         create_initial_data()
         
-        # Always ensure admin user exists (delete and recreate if needed)
+        # Check if admin user exists - only create if it doesn't
         admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
         admin_user = User.query.filter_by(email=admin_email).first()
-        if admin_user:
-            # Delete existing admin user to ensure fresh state
-            db.session.delete(admin_user)
+        
+        if not admin_user:
+            # Only create admin user if one doesn't exist
+            admin_password = os.environ.get('ADMIN_PASSWORD')
+            if not admin_password:
+                raise ValueError("ADMIN_PASSWORD environment variable must be set for initial setup")
+            
+            admin_user = User(
+                username=os.environ.get('ADMIN_USERNAME', 'admin'),
+                email=admin_email,
+                is_volunteer=True,
+                is_admin=True,
+                role=UserRole.ULTIMATE_ADMIN
+            )
+            admin_user.set_password(admin_password)
+            db.session.add(admin_user)
             db.session.commit()
-
-        # Create admin user
-        admin_user = User(
-            username=os.environ.get('ADMIN_USERNAME', 'admin'),
-            email=os.environ.get('ADMIN_EMAIL', 'admin@example.com'),
-            is_volunteer=True,
-            is_admin=True,
-            role=UserRole.ULTIMATE_ADMIN
-        )
-        admin_password = os.environ.get('ADMIN_PASSWORD')
-        if not admin_password:
-            raise ValueError("ADMIN_PASSWORD environment variable must be set for initial setup")
-        admin_user.set_password(admin_password)
-        db.session.add(admin_user)
-        db.session.commit()
         
         # Create test user if no users exist
         test_user = User.query.filter_by(username='test_user').first()

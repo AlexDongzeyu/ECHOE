@@ -181,8 +181,10 @@
         <!-- Echo of the Month -->
         <section class="campaign-section">
             <div class="campaign-images">
-                <img src="{{ url_for('static', filename='img/ins/echo of the month sample.jpg') }}"
+                <img src="{{ url_for('static', filename='img/echo of the month.png') }}"
                     alt="Echo of the Month - monthly mental health topic">
+                <img src="{{ url_for('static', filename='img/ins/echo of the month sample.jpg') }}"
+                    alt="Echo of the Month sample post">
                 <video controls muted>
                     <source src="{{ url_for('static', filename='img/ins/echo of the month sample.mp4') }}"
                         type="video/mp4">
@@ -240,6 +242,13 @@
                             <div style="font-weight: 800; font-size: 0.9rem; color: var(--deep-indigo);">Feb</div>
                             <div style="font-size: 0.7rem; color: var(--deep-indigo); opacity: 0.7;">BHM</div>
                         </button>
+                    </div>
+
+                    <!-- Black History Month Image -->
+                    <div style="margin-top: 16px;">
+                        <img src="{{ url_for('static', filename='img/blackhistory.png') }}"
+                            alt="Black History Month Mental Health"
+                            style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(42, 61, 102, 0.1);">
                     </div>
 
                     <div id="topic-detail"
@@ -534,9 +543,10 @@
         <!-- Monthly Trivia & Echo Bites -->
         <section class="campaign-section">
             <div class="campaign-images">
+                <img src="{{ url_for('static', filename='img/echoebite.jpg') }}" alt="Echo Bites quick facts">
                 <img src="{{ url_for('static', filename='img/ins/trivia sample.jpg') }}" alt="Monthly Trivia sample">
                 <img src="{{ url_for('static', filename='img/ins/echo bites sample.jpg') }}"
-                    alt="Echo Bites quick facts">
+                    alt="Echo Bites sample post">
             </div>
             <div class="campaign-text">
                 <h2>Monthly Trivia and Echo Bites</h2>

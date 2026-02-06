@@ -68,6 +68,11 @@ try:
     # Apply middleware
     app.wsgi_app = LanguageMiddleware(app.wsgi_app)
     logger.info("Middleware applied")
+    
+    # WhiteNoise for reliable static file serving (fixes eventlet+gunicorn issue)
+    from whitenoise import WhiteNoise
+    app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(os.path.dirname(__file__), 'static'), prefix='static/')
+    logger.info("WhiteNoise static file middleware applied")
 
     socketio = SocketIO(app, async_mode='eventlet')
 

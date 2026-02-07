@@ -18,10 +18,16 @@ class Config:
     # Database configuration
     basedir = os.path.abspath(os.path.dirname(__file__))
     _env_db_url = os.environ.get('DATABASE_URL')
+    _is_vercel = bool(os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'))
     # Normalize legacy postgres scheme if present
     if _env_db_url and _env_db_url.startswith('postgres://'):
         _env_db_url = _env_db_url.replace('postgres://', 'postgresql+psycopg2://', 1)
-    SQLALCHEMY_DATABASE_URI = _env_db_url or 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
+    # On Vercel (serverless), the deploy filesystem may be read-only. Prefer /tmp for
+    # SQLite when no external DB is configured.
+    if _is_vercel and not _env_db_url:
+        SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/database.db'
+    else:
+        SQLALCHEMY_DATABASE_URI = _env_db_url or 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # Use a safe engine configuration for SQLite under async/eventlet workers
     if SQLALCHEMY_DATABASE_URI.startswith('sqlite'):

@@ -8,13 +8,27 @@ This file is part of the ECHOE project. Unauthorized removal of
 author credits is a violation of the GPL license.
 """
 
-import eventlet
-eventlet.monkey_patch()
+import os
+
+# Detect serverless runtimes (Vercel/AWS Lambda). In these environments we avoid
+# eventlet monkey-patching (can interfere with platform runtime) and keep cold
+# start work minimal.
+_IS_SERVERLESS = bool(os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'))
+
+_EVENTLET_AVAILABLE = False
+if not _IS_SERVERLESS:
+    # eventlet is optional in local/server environments. On newer Python versions
+    # it may not import cleanly depending on dependency shims; don't crash the app.
+    try:
+        import eventlet  # type: ignore
+        eventlet.monkey_patch()
+        _EVENTLET_AVAILABLE = True
+    except Exception:
+        _EVENTLET_AVAILABLE = False
 from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, abort, send_from_directory, session, make_response
 from sqlalchemy import inspect, text, func
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
-import os
 from datetime import datetime, timedelta
 import json
 import uuid
@@ -74,7 +88,10 @@ try:
     app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(os.path.dirname(__file__), 'static'), prefix='static/')
     logger.info("WhiteNoise static file middleware applied")
 
-    socketio = SocketIO(app, async_mode='eventlet')
+    # SocketIO: eventlet for long-running servers when available; threading for
+    # serverless and local environments where eventlet isn't usable.
+    _socketio_mode = 'eventlet' if (not _IS_SERVERLESS and _EVENTLET_AVAILABLE) else 'threading'
+    socketio = SocketIO(app, async_mode=_socketio_mode)
 
     @app.after_request
     def add_no_cache_headers(response):
@@ -175,25 +192,36 @@ try:
         except Exception as mig_e:
             logger.warning(f"Anonymous inbox schema check/apply failed or already applied: {mig_e}")
 
-    with app.app_context():
-        try:
-            logger.info("Creating instance folder...")
-            db_uri = app.config['SQLALCHEMY_DATABASE_URI']
-            if db_uri.startswith('sqlite:///'):
-                os.makedirs(os.path.dirname(db_uri.replace('sqlite:///', '')), exist_ok=True)
-            logger.info("Creating database tables...")
-            db.create_all()
-            logger.info("Database tables created successfully!")
-            
-            # Initialize initial data
-            init_db(app)
-            logger.info("Initial data created successfully!")
-            # Ensure anon inbox schema
-            _ensure_anon_inbox_schema()
-        except Exception as e:
-            logger.error(f"Error during database initialization: {str(e)}")
-            logger.error(traceback.format_exc())
-            raise
+    def _bootstrap_database():
+        """Bootstrap SQLite/schema on classic servers.
+
+        On serverless (Vercel), cold-start time is critical and deploy FS may be
+        read-only; we skip this by default unless explicitly enabled.
+        """
+        with app.app_context():
+            try:
+                logger.info("Creating instance folder...")
+                db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+                if db_uri.startswith('sqlite:///'):
+                    os.makedirs(os.path.dirname(db_uri.replace('sqlite:///', '')), exist_ok=True)
+                logger.info("Creating database tables...")
+                db.create_all()
+                logger.info("Database tables created successfully!")
+
+                # Initialize initial data
+                init_db(app)
+                logger.info("Initial data created successfully!")
+                # Ensure anon inbox schema
+                _ensure_anon_inbox_schema()
+            except Exception as e:
+                logger.error(f"Error during database initialization: {str(e)}")
+                logger.error(traceback.format_exc())
+                raise
+
+    # Preserve the old behavior on non-serverless platforms (Render/Gunicorn).
+    # On serverless, only run if explicitly requested.
+    if (not _IS_SERVERLESS) or (os.environ.get('ECHOE_BOOTSTRAP_DB') == '1'):
+        _bootstrap_database()
 
     # Flask 3.x removed before_first_request; schema ensured at startup above.
 

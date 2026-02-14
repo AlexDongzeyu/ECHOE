@@ -10,7 +10,7 @@ ECHOE (Empathy, Connection, Hope, Outreach, Empowerment) is a Canadian student-l
 
 ## Live Website
 
-**Website**: [echoehosa.com](https://project-undecided.vercel.app/)
+**Website**: [https://project-undecided.vercel.app/](https://project-undecided.vercel.app/)
 
 ## About the Project
 
